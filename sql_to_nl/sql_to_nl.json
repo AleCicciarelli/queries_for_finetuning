@@ -1,0 +1,726 @@
+[
+    {
+        "sql": "select  \n  o_orderkey as c0, \n  o_shippriority as c1, \n  o_orderkey as c2, \n  10 as c3, \n  o_shippriority as c4\nfrom \n  orders  tablesample system (9.8) \nwhere o_shippriority is NULL;",
+        "nl": "What are the order keys and ship priorities of orders with no ship priority?"
+    },
+    {
+        "sql": "select  \n  r_comment as c0\nfrom \n  region \nwhere r_name is NULL\nlimit 178;",
+        "nl": "What are the comments for regions with no name?"
+    },
+    {
+        "sql": "select  \n  88 as c0\nfrom \n  nation \nwhere n_nationkey is NULL\nlimit 121;",
+        "nl": "What are the values of 'c0' for nations with no nation key?"
+    },
+    {
+        "sql": "select  \n  l_shipmode as c0\nfrom \n  lineitem \n    left join supplier  tablesample system (9.5) \n    on (l_linenumber = s_suppkey )\nwhere l_tax is NULL\nlimit 189;",
+        "nl": "What are the shipping modes used by suppliers, and how many of them use each mode?"
+    },
+    {
+        "sql": "select  \n  c_comment as c0, \n  c_address as c1, \n  c_acctbal as c2\nfrom \n  customer  tablesample bernoulli (0.3) \nwhere false\nlimit 137;",
+        "nl": "What are the comment, address, and account balance for each of the first 137 customers?"
+    },
+    {
+        "sql": "select  \n  c_name as c0\nfrom \n  customer  tablesample system (3.1) \nwhere (c_address is NULL) \n  or (c_phone ~<=~ c_phone);",
+        "nl": "What are the names of customers who either have no address or have a phone number that matches their existing phone number?"
+    },
+    {
+        "sql": "select  \n  s_nationkey as c0, \n  s_acctbal as c1, \n  s_suppkey as c2, \n  s_address as c3, \n  s_suppkey as c4\nfrom \n  supplier \nwhere s_name is NULL\nlimit 36;",
+        "nl": "What are the details of suppliers with no name, including their account balance, key, address, and other information?"
+    },
+    {
+        "sql": "select  \n  o_orderdate as c0, \n  o_comment as c1\nfrom \n  orders  tablesample bernoulli (4) \nwhere true\nlimit 70;",
+        "nl": "What are the order dates and comments for the first 70 orders?"
+    },
+    {
+        "sql": "select  \n  ps_suppkey as c0, \n  ps_availqty as c1, \n  ps_comment as c2, \n  ps_partkey as c3\nfrom \n  partsupp \nwhere ps_partkey is not NULL\nlimit 31;",
+        "nl": "What are the part key, available quantity, comment, and supplier key for each part that has a supplier, along with their corresponding values?"
+    },
+    {
+        "sql": "select  \n  o_comment as c0, \n  o_orderdate as c1\nfrom \n  orders  tablesample system (4.8) \nwhere true;",
+        "nl": "What are the comments and order dates for all orders?"
+    },
+    {
+        "sql": "select  \n  l_shipinstruct as c0, \n  79 as c1, \n  l_quantity as c2, \n  l_quantity as c3\nfrom \n  lineitem  tablesample system (7.5) \nwhere l_shipinstruct is NULL\nlimit 74;",
+        "nl": "What are the instructions for shipping, quantity, and quantity again for orders with no shipping instruction?"
+    },
+    {
+        "sql": "select  \n  n_regionkey as c0\nfrom \n  nation  tablesample system (5.1) \nwhere false;",
+        "nl": "What are the region keys of all nations?"
+    },
+    {
+        "sql": "select  \n  99 as c0, \n  l_shipinstruct as c1, \n  l_shipdate as c2, \n  l_discount as c3\nfrom \n  lineitem \nwhere true\nlimit 113;",
+        "nl": "What are the shipping instructions, dates, and discounts for the first 113 line items?"
+    },
+    {
+        "sql": "select  \n  p_retailprice as c0from \n  part \nwhere p_container is not NULL\nlimit 145;",
+        "nl": "What are the retail prices of parts that have a container, excluding any with missing container information?"
+    },
+    {
+        "sql": "select  \n  p_brand as c0, \n  p_type as c1\nfrom \n  part  tablesample bernoulli (7) \nwhere p_brand is not NULL;",
+        "nl": "What are the brands and types of parts?"
+    },
+    {
+        "sql": "select  \n  r_regionkey as c0, \n  r_name as c1\nfrom \n  region  tablesample system (7.2) \nwhere false\nlimit 54;",
+        "nl": "What are the names of all regions?"
+    },
+    {
+        "sql": "select  \n  ps_partkey as c0\nfrom \n  partsupp \nwhere true\nlimit 67;",
+        "nl": "What are the part keys of the first 67 parts?"
+    },
+    {
+        "sql": "select  \n  ps_comment as c0\nfrom \n  partsupp \nwhere true\nlimit 132;",
+        "nl": "What are the first 132 comments about parts and supplies?"
+    },
+    {
+        "sql": "select  \n  l_quantity as c0\nfrom \n  lineitem  tablesample bernoulli (3.2) \nwhere l_quantity < l_discount;",
+        "nl": "What is the quantity of items that are sold at a price lower than their original discount?"
+    },
+    {
+        "sql": "select  \n  s_acctbal as c0, \n  s_name as c1\nfrom \n  supplier \nwhere s_suppkey is not NULL\nlimit 18;",
+        "nl": "What are the names and outstanding balances of suppliers that have a non-null supplier key?"
+    },
+    {
+        "sql": "select  \n  p_container as c0\nfrom \n  part \nwhere true;",
+        "nl": "What are all containers?"
+    },
+    {
+        "sql": "select  \n  o_clerk as c0\nfrom \n  orders  tablesample system (8.1) \nwhere o_orderdate is not NULL\nlimit 64;",
+        "nl": "What are the details of the first 64 non-null orders, including the clerk responsible for each order?"
+    },
+    {
+        "sql": "select  \n  l_suppkey as c0\nfrom \n  lineitem  tablesample system (5.7) \nwhere l_shipmode is not NULL;",
+        "nl": "What are the supplier keys for all non-null shipping modes?"
+    },
+    {
+        "sql": "select  \n  case when ps_supplycost is not NULL then ps_availqty else ps_partkey end\n     as c0, \n  ps_supplycost as c1\nfrom \n  partsupp \nwhere true\nlimit 104;",
+        "nl": "What are the combinations of part availability and supply cost?"
+    },
+    {
+        "sql": "select  \n  ps_availqty as c0\nfrom \n  partsupp \nwhere ps_comment is NULL;",
+        "nl": "What are the quantities available for all products with no comments?"
+    },
+    {
+        "sql": "select  \n  s_comment as c0, \n  31 as c1\nfrom \n  supplier  tablesample system (1.9) \n    inner join region \n    on (false)\nwhere (r_comment is NULL) \n  or (r_comment is not NULL)\nlimit 123;",
+        "nl": "What are the comments and a constant value for each supplier, along with some additional information?"
+    },
+    {
+        "sql": "select  \n  c_phone as c0, \n  c_comment as c1, \n  c_comment as c2, \n  86 as c3, \n  c_mktsegment as c4\nfrom \n  customer \nwhere true\nlimit 23;",
+        "nl": "What are the phone numbers, comments, and market segments of the first 23 customers?"
+    },
+    {
+        "sql": "select  \n  33 as c0, \n  22 as c1, \n  s_phone as c2\nfrom \n  supplier  tablesample system (6.7) \nwhere s_acctbal is not NULL;",
+        "nl": "What are the values of c0, c1, and phone number for suppliers with a non-zero account balance?"
+    },
+    {
+        "sql": "select  \n  ps_suppkey as c0\nfrom \n  partsupp \nwhere ps_suppkey is NULL\nlimit 183;",
+        "nl": "What are the part-supplier keys that have no value?"
+    },
+    {
+        "sql": "select  \n  c_name as c0\nfrom \n  customer \nwhere c_phone ~<~ c_phone\nlimit 135;",
+        "nl": "What are the names of customers with phone numbers that match a certain pattern, and give me up to 135 results?"
+    },
+    {
+        "sql": "select  \n  87 as c0\nfrom \n  part  tablesample bernoulli (7.4) \nwhere p_comment is NULL\nlimit 94;",
+        "nl": "What are the values of c0 for 7.4% of randomly selected rows where there is no comment?"
+    },
+    {
+        "sql": "select  \n  n_regionkey as c0\nfrom \n  nation  tablesample bernoulli (5.6) \nwhere true;",
+        "nl": "What are the region keys of all nations?"
+    },
+    {
+        "sql": "select  \n  s_comment as c0\nfrom \n  supplier  tablesample system (1.3) \nwhere true\nlimit 95;",
+        "nl": "What are the first 95 comments from all suppliers?"
+    },
+    {
+        "sql": "select  \n  l_shipmode as c0, \n  l_receiptdate as c1, \n  65 as c2, \n  l_discount as c3\nfrom \n  lineitem \nwhere false;",
+        "nl": "What are the ship mode, receipt date, a constant value of 65, and discount for each line item?"
+    },
+    {
+        "sql": "select  \n  s_name as c0, \n  s_address as c1\nfrom \n  supplier  tablesample system (5.8) \nwhere s_suppkey is NULL;",
+        "nl": "What are the names and addresses of suppliers with no supplier key?"
+    },
+    {
+        "sql": "select  \n  o_orderstatus as c0\nfrom \n  orders \nwhere false\nlimit 89;",
+        "nl": "What is the order status for the first 88 records in the orders table?"
+    },
+    {
+        "sql": "select  \n  24 as c0, \n  34 as c1\nfrom \n  supplier  tablesample system (6.7) \nwhere s_comment is not NULL\nlimit 106;",
+        "nl": "What are the values of c0 and c1 for suppliers with a comment?"
+    },
+    {
+        "sql": "select  \n  case when s_nationkey is not NULL then s_comment else s_address end\n     as c0\nfrom \n  supplier  tablesample system (9.1) \nwhere s_phone is NULL\nlimit 129;",
+        "nl": "What are the comments or addresses of suppliers with no phone number?"
+    },
+    {
+        "sql": "select  \n  s_phone as c0, \n  s_name as c1, \n  s_nationkey as c2\nfrom \n  supplier \nwhere s_phone is NULL;",
+        "nl": "What suppliers have no phone number?"
+    },
+    {
+        "sql": "select  \n  n_name as c0, \n  n_name as c1\nfrom \n  nation \nwhere n_name is not NULL\nlimit 44;",
+        "nl": "What are the names of the first 44 nations that exist?"
+    },
+    {
+        "sql": "select  \n  ps_suppkey as c0, \n  ps_suppkey as c1\nfrom \n  partsupp \nwhere ps_availqty is NULL\nlimit 120;",
+        "nl": "What are the part numbers with no available quantity?"
+    },
+    {
+        "sql": "select  \n  s_nationkey as c0\nfrom \n  supplier  tablesample bernoulli (4.6) \nwhere true\nlimit 113;",
+        "nl": "What are the nation keys of suppliers, listed in a random sample of 4.6%?"
+    },
+    {
+        "sql": "select  \n  r_comment as c0, \n  r_comment as c1\nfrom \n  region \nwhere r_name is not NULL;",
+        "nl": "What are the comments for regions that have a name?"
+    },
+    {
+        "sql": "select  \n  l_quantity as c0, \n  l_commitdate as c1\nfrom \n  lineitem \nwhere l_suppkey is not NULL;",
+        "nl": "What are the quantities and commit dates for all orders that have a supplier?"
+    },
+    {
+        "sql": "select  \n  s_acctbal as c0\nfrom \n  supplier  tablesample bernoulli (8.1) \nwhere true\nlimit 115;",
+        "nl": "What is the current account balance for each supplier?"
+    },
+    {
+        "sql": "select  \n  l_extendedprice as c0\nfrom \n  lineitem \nwhere l_linestatus is not NULL\nlimit 161;",
+        "nl": "What is the extended price for all non-null line status records?"
+    },
+    {
+        "sql": "select  \n  c_phone as c0\nfrom \n  customer  tablesample system (3.3) \nwhere true\nlimit 156;",
+        "nl": "What are the phone numbers of customers?"
+    },
+    {
+        "sql": "select  \n  s_acctbal as c0, \n  s_phone as c1\nfrom \n  supplier  tablesample system (2.1) \nwhere true\nlimit 21;",
+        "nl": "What are the account balances and phone numbers of the first 21 suppliers?"
+    },
+    {
+        "sql": "select  \n  s_address as c0, \n  s_address as c1\nfrom \n  supplier  tablesample system (5.7) \nwhere s_acctbal >= s_acctbal\nlimit 186;",
+        "nl": "What are the addresses of suppliers with a balance that is equal to or greater than their current balance?"
+    },
+    {
+        "sql": "select  \n  p_mfgr as c0\nfrom \n  part  tablesample system (4.2) \nwhere p_brand is NULL\nlimit 126;",
+        "nl": "What are the manufacturers that do not have a specific brand, and how many of them are there?"
+    },
+    {
+        "sql": "select  \n  o_totalprice as c0\nfrom \n  orders  tablesample system (5.5) \nwhere false\nlimit 123;",
+        "nl": "What is the total price of all orders?"
+    },
+    {
+        "sql": "select  \n  c_nationkey as c0\nfrom \n  customer  tablesample bernoulli (9.9) \nwhere c_comment is not NULL;",
+        "nl": "What are the nation keys of customers who have provided comments?"
+    },
+    {
+        "sql": "select  \n  l_shipdate as c0, \n  l_orderkey as c1, \n  l_extendedprice as c2, \n  l_linenumber as c3, \n  l_shipdate as c4, \n  l_shipdate as c5, \n  69 as c6, \n  l_extendedprice as c7, \n  l_discount as c8, \n  l_tax as c9\nfrom \n  lineitem  tablesample bernoulli (2) \nwhere l_suppkey is NULL\nlimit 182;",
+        "nl": "What are the order key, extended price, and tax for each line item with no supplier key, along with other details?"
+    },
+    {
+        "sql": "select  \n  p_type as c0, \n  p_brand as c1\nfrom \n  part \nwhere p_container is NULL\nlimit 175;",
+        "nl": "What types and brands of parts are not contained within anything?"
+    },
+    {
+        "sql": "select  \n  c_comment as c0, \n  c_custkey as c1, \n  c_phone as c2\nfrom \n  customer \nwhere c_comment is NULL;",
+        "nl": "What customers have no comment and how many are there?"
+    },
+    {
+        "sql": "select  \n  p_type as c0, \n  p_type as c1, \n  p_size as c2\nfrom \n  part \nwhere p_container is not NULL\nlimit 120;",
+        "nl": "What types of parts and their sizes are in containers that have data?"
+    },
+    {
+        "sql": "select  \n  n_comment as c0, \n  n_regionkey as c1, \n  n_nationkey as c2, \n  n_comment as c3, \n  n_nationkey as c4, \n  n_nationkey as c5, \n  n_regionkey as c6, \n  n_name as c7, \n  case when n_nationkey is not NULL then n_comment else n_comment end\n     as c8\nfrom \n  nation \nwhere true;",
+        "nl": "What are the nation name, region key, and comment for each nation?"
+    },
+    {
+        "sql": "select  \n  53 as c0, \n  83 as c1\nfrom \n  nation  tablesample system (5.7) \nwhere n_comment is not NULL;",
+        "nl": "What are the values of c0 and c1 for nations with comments?"
+    },
+    {
+        "sql": "select  \n  o_orderkey as c0\nfrom \n  orders \nwhere true\nlimit 155;",
+        "nl": "What are the order keys of the first 155 orders?"
+    },
+    {
+        "sql": "select  \n  n_comment as c0\nfrom \n  nation  tablesample system (2.3) \nwhere n_regionkey is not NULL\nlimit 130;",
+        "nl": "What are the comments from nations in each region, excluding those with no region?"
+    },
+    {
+        "sql": "select  \n  p_comment as c0\nfrom \n  part  tablesample system (5.6) \nwhere p_retailprice >= p_retailprice\nlimit 136;",
+        "nl": "What are the comments for products with a retail price of at least their own retail price?"
+    },
+    {
+        "sql": "select  \n  s_phone as c0, \n  s_suppkey as c1\nfrom \n  supplier \nwhere s_phone is NULL\nlimit 114;",
+        "nl": "What suppliers have no phone number and how many are there?"
+    },
+    {
+        "sql": "select  \n  s_nationkey as c0\nfrom \n  supplier \nwhere true;",
+        "nl": "What is the nation key for each supplier?"
+    },
+    {
+        "sql": "select  \n  n_nationkey as c0, \n  n_comment as c1\nfrom \n  nation \nwhere false;",
+        "nl": "What are the nation key and comment for each nation?"
+    },
+    {
+        "sql": "select  \n  c_nationkey as c0, \n  c_nationkey as c1, \n  c_name as c2, \n  c_mktsegment as c3\nfrom \n  customer  tablesample system (4.2) \nwhere false\nlimit 102;",
+        "nl": "What are the nation key, nation key, name, and market segment for each customer?"
+    },
+    {
+        "sql": "select  \n  p_container as c0\nfrom \n  part \nwhere true;",
+        "nl": "What are all containers?"
+    },
+    {
+        "sql": "select  \n  c_phone as c0, \n  c_address as c1\nfrom \n  customer \nwhere c_phone is not NULL\nlimit 20;",
+        "nl": "What are the phone numbers and addresses of customers that have a valid phone number?"
+    },
+    {
+        "sql": "select  \n  p_brand as c0\nfrom \n  part  tablesample system (3.3) \nwhere false\nlimit 59;",
+        "nl": "What are the brands of parts?"
+    },
+    {
+        "sql": "select  \n  o_orderstatus as c0, \n  o_shippriority as c1, \n  o_orderdate as c2, \n  o_orderdate as c3\nfrom \n  orders  tablesample system (3.4) \nwhere o_orderstatus is NULL\nlimit 61;",
+        "nl": "What are the order status, shipping priority, and dates for all orders with no status, limited to the first 61?"
+    },
+    {
+        "sql": "select  \n  l_partkey as c0, \n  l_receiptdate as c1\nfrom \n  lineitem  tablesample bernoulli (2.2) \nwhere l_discount is NULL\nlimit 144;",
+        "nl": "What are the part keys and receipt dates for all line items with no discount?"
+    },
+    {
+        "sql": "select  \n  ps_supplycost as c0\nfrom \n  partsupp \nwhere ps_suppkey >= ps_suppkey\nlimit 109;",
+        "nl": "What is the supply cost for each part supplier that has a key greater than or equal to itself?"
+    },
+    {
+        "sql": "select  \n  c_custkey as c0\nfrom \n  customer \nwhere true;",
+        "nl": "What are all the customer IDs?"
+    },
+    {
+        "sql": "select  \n  p_brand as c0\nfrom \n  part  tablesample system (1.4) \nwhere true\nlimit 57;",
+        "nl": "What are the brands of parts?"
+    },
+    {
+        "sql": "select  \n  l_quantity as c0, \n  69 as c1, \n  p_container as c2, \n  l_orderkey as c3\nfrom \n  part  tablesample system (0.5) \n    inner join lineitem \n    on (p_container ~>=~ p_mfgr)\nwhere false\nlimit 113;",
+        "nl": "What are the quantities of items in containers, along with the container types and order keys?"
+    },
+    {
+        "sql": "select  \n  c_custkey as c0\nfrom \n  customer \nwhere c_nationkey is NULL\nlimit 152;",
+        "nl": "What customers have no nation key and how many are there?"
+    },
+    {
+        "sql": "select  \n  l_discount as c0\nfrom \n  lineitem \nwhere l_quantity is NULL\nlimit 101;",
+        "nl": "What are the discount values for all line items with no quantity?"
+    },
+    {
+        "sql": "select  \n  c_acctbal as c0, \n  c_acctbal as c1, \n  c_name as c2, \n  c_comment as c3\nfrom \n  customer \nwhere c_phone is NULL\nlimit 21;",
+        "nl": "What are the names and account balances of customers who have no phone number, along with any comments they may have?"
+    },
+    {
+        "sql": "select  \n  o_comment as c0\nfrom \n  orders \nwhere o_orderpriority is not NULL\nlimit 144;",
+        "nl": "What are the comments for all orders with a priority that is not null, and give me only the first 144?"
+    },
+    {
+        "sql": "select  \n  ps_supplycost as c0, \n  ps_suppkey as c1, \n  ps_partkey as c2, \n  ps_availqty as c3, \n  ps_supplycost as c4, \n  ps_availqty as c5\nfrom \n  partsupp  tablesample bernoulli (9) \nwhere true;",
+        "nl": "What are the supply costs and availability quantities for each part supplier?"
+    },
+    {
+        "sql": "select  \n  n_regionkey as c0, \n  n_regionkey as c1\nfrom \n  nation  tablesample system (1.4) \nwhere true\nlimit 106;",
+        "nl": "What are the region keys for all nations?"
+    },
+    {
+        "sql": "select  \n  l_comment as c0, \n  l_partkey as c1, \n  l_extendedprice as c2, \n  l_comment as c3\nfrom \n  lineitem  tablesample system (2.1) \nwhere l_quantity is not NULL;",
+        "nl": "What are the comment, part key, extended price, and additional comments for each non-null quantity in the line item data?"
+    },
+    {
+        "sql": "select  \n  s_acctbal as c0, \n  s_name as c1, \n  s_nationkey as c2\nfrom \n  supplier \nwhere false\nlimit 139;",
+        "nl": "What are the account balances, names, and nation keys of the first 139 suppliers?"
+    },
+    {
+        "sql": "select  \n  82 as c0, \n  n_nationkey as c1, \n  n_name as c2, \n  n_name as c3, \n  n_comment as c4\nfrom \n  nation \nwhere true;",
+        "nl": "What are the nation key, name, and comment for each nation?"
+    },
+    {
+        "sql": "select  \n  p_container as c0, \n  p_size as c1\nfrom \n  part \nwhere false;",
+        "nl": "What are the container and size for each part?"
+    },
+    {
+        "sql": "select  \n  s_comment as c0, \n  s_suppkey as c1\nfrom \n  supplier  tablesample system (3) \nwhere true\nlimit 74;",
+        "nl": "What are the comments and supplier keys for the first 73 suppliers?"
+    },
+    {
+        "sql": "select  \n  s_address as c0\nfrom \n  supplier \nwhere s_comment is NULL;",
+        "nl": "What are the addresses of suppliers with no comments?"
+    },
+    {
+        "sql": "select  \n  l_comment as c0\nfrom \n  lineitem  tablesample system (0.9) \nwhere false;",
+        "nl": "What are the values in the \"c0\" column?"
+    },
+    {
+        "sql": "select  \n  l_shipinstruct as c0\nfrom \n  lineitem \nwhere (l_shipmode is NULL) \n  or ((l_returnflag ~>=~ l_shipinstruct) \n    and (l_suppkey is NULL))\nlimit 28;",
+        "nl": "What are the shipping instructions for orders that either have no shipping mode specified or match the return flag, excluding those with a supplier key?"
+    },
+    {
+        "sql": "select  \n  s_comment as c0\nfrom \n  supplier  tablesample bernoulli (9.2) \nwhere false;",
+        "nl": "What is the value of each comment from suppliers?"
+    },
+    {
+        "sql": "select  \n  c_nationkey as c0, \n  c_acctbal as c1, \n  c_custkey as c2, \n  c_phone as c3\nfrom \n  customer \nwhere c_nationkey is not NULL;",
+        "nl": "What are the nation keys, account balances, customer keys, and phone numbers for customers with non-null nation keys?"
+    },
+    {
+        "sql": "select  \n  l_commitdate as c0, \n  l_partkey as c1\nfrom \n  lineitem \nwhere l_shipmode is not NULL;",
+        "nl": "What are the commit dates and part keys for all non-null shipping modes?"
+    },
+    {
+        "sql": "select  \n  s_suppkey as c0\nfrom \n  supplier \nwhere true\nlimit 43;",
+        "nl": "What are the first 43 unique identifiers of suppliers?"
+    },
+    {
+        "sql": "select  \n  c_name as c0\nfrom \n  customer  tablesample bernoulli (0.3) \nwhere c_nationkey is NULL\nlimit 147;",
+        "nl": "What are the names of customers with no nation key, and how many of them are there?"
+    },
+    {
+        "sql": "select  \n  n_nationkey as c0\nfrom \n  nation  tablesample system (0.4) \n    left join nation  tablesample system (3) \n    on (n_regionkey = n_nationkey )\nwhere true\nlimit 77;",
+        "nl": "What are the unique nation keys of nations, along with their corresponding information?"
+    },
+    {
+        "sql": "select  \n  s_comment as c0, \n  s_acctbal as c1, \n  s_address as c2\nfrom \n  supplier  tablesample bernoulli (4.7) \nwhere true\nlimit 116;",
+        "nl": "What are the comment, account balance, and address for each of the first 116 suppliers?"
+    },
+    {
+        "sql": "select  \n  n_regionkey as c0, \n  n_comment as c1, \n  n_comment as c2\nfrom \n  nation  tablesample system (7.8) \nwhere false\nlimit 74;",
+        "nl": "What are the region key and two comments for each of the first 74 nations?"
+    },
+    {
+        "sql": "select  \n  1 as c0, \n  p_comment as c1, \n  p_size as c2\nfrom \n  part \nwhere p_brand is NULL\nlimit 88;",
+        "nl": "What are the comments, sizes, and corresponding information for up to 88 parts that have no brand?"
+    },
+    {
+        "sql": "select  \n  c_acctbal as c0\nfrom \n  customer  tablesample system (9.9) \nwhere false\nlimit 65;",
+        "nl": "What is the total outstanding balance for each customer?"
+    },
+    {
+        "sql": "select  \n  c_nationkey as c0\nfrom \n  customer \nwhere true\nlimit 137;",
+        "nl": "What are the details of the first 137 customers?"
+    },
+    {
+        "sql": "select  \n  o_shippriority as c0, \n  o_orderkey as c1\nfrom \n  orders \nwhere o_custkey is not NULL\nlimit 156;",
+        "nl": "What are the order priorities and keys for customers with non-null information?"
+    },
+    {
+        "sql": "select  \n  s_phone as c0\nfrom \n  supplier \nwhere s_phone is not NULL;",
+        "nl": "What are the phone numbers of suppliers that exist?"
+    },
+    {
+        "sql": "select  \n  p_name as c0, \n  p_retailprice as c1\nfrom \n  part  tablesample bernoulli (1.3) \nwhere p_mfgr is not NULL\nlimit 132;",
+        "nl": "What are the names and retail prices of parts from manufacturers that have a non-null value, with a sample size of approximately 13%?"
+    },
+    {
+        "sql": "select  \n  n_name as c0, \n  n_comment as c1\nfrom \n  nation  tablesample system (7.6) \nwhere case when n_nationkey is not NULL then n_comment else n_comment end\n     is not NULL;",
+        "nl": "What are the names and comments of all nations that have a comment?"
+    },
+    {
+        "sql": "select  \n  c_mktsegment as c0\nfrom \n  customer \nwhere c_name is not NULL\nlimit 128;",
+        "nl": "What are the market segments of customers with a name?"
+    },
+    {
+        "sql": "select  \n  s_nationkey as c0, \n  s_name as c1\nfrom \n  supplier  tablesample system (8.1) \nwhere s_phone is not NULL\nlimit 135;",
+        "nl": "What are the names of suppliers with phone numbers, along with their nation keys?"
+    },
+    {
+        "sql": "select  \n  c_custkey as c0\nfrom \n  customer \nwhere true\nlimit 113;",
+        "nl": "What are the details of the first 113 customers?"
+    },
+    {
+        "sql": "select  \n  c_acctbal as c0\nfrom \n  customer \nwhere true;",
+        "nl": "What is the total outstanding balance for each customer?"
+    },
+    {
+        "sql": "select  \n  r_name as c0\nfrom \n  region \nwhere false\nlimit 183;",
+        "nl": "What are the names of the first 183 regions?"
+    },
+    {
+        "sql": "select  \n  r_name as c0\nfrom \n  region  tablesample system (6.7) \nwhere true\nlimit 190;",
+        "nl": "What are the names of the regions?"
+    },
+    {
+        "sql": "select  \n  p_mfgr as c0\nfrom \n  part \nwhere false\nlimit 95;",
+        "nl": "What is the manufacturer of each part, excluding any that don't meet certain criteria?"
+    },
+    {
+        "sql": "select  \n  r_regionkey as c0, \n  r_comment as c1, \n  r_comment as c2\nfrom \n  region  tablesample system (4.5) \nwhere r_comment is not NULL\nlimit 51;",
+        "nl": "What are the comments for each of the first 51 regions that have a comment?"
+    },
+    {
+        "sql": "select  \n  ps_comment as c0, \n  ps_availqty as c1, \n  ps_comment as c2, \n  ps_availqty as c3, \n  ps_availqty as c4, \n  ps_availqty as c5, \n  ps_supplycost as c6\nfrom \n  partsupp  tablesample system (8.4) \nwhere ps_suppkey is NULL\nlimit 90;",
+        "nl": "What are the comments and availability quantities for each part supply, along with their costs, where there is no supplier key?"
+    },
+    {
+        "sql": "select  \n  r_regionkey as c0, \n  r_name as c1\nfrom \n  region \nwhere r_regionkey is not NULL\nlimit 45;",
+        "nl": "What are the names of the first 45 regions that exist?"
+    },
+    {
+        "sql": "select  \n  ps_supplycost as c0, \n  ps_comment as c1, \n  ps_partkey as c2, \n  ps_partkey as c3\nfrom \n  partsupp \nwhere true\nlimit 99;",
+        "nl": "What are the supply costs, comments, and part keys for up to 99 records in the partsupply table?"
+    },
+    {
+        "sql": "select  \n  r_regionkey as c0\nfrom \n  region \nwhere false\nlimit 84;",
+        "nl": "What are the first 84 unique regions?"
+    },
+    {
+        "sql": "select  \n  ps_comment as c0\nfrom \n  partsupp \nwhere false\nlimit 134;",
+        "nl": "What are the first 134 comments about parts and supplies?"
+    },
+    {
+        "sql": "select  \n  p_mfgr as c0, \n  p_mfgr as c1, \n  p_brand as c2, \n  p_partkey as c3, \n  p_type as c4, \n  p_size as c5, \n  p_mfgr as c6, \n  p_comment as c7\nfrom \n  part  tablesample system (1.4) \nwhere true\nlimit 67;",
+        "nl": "What are the manufacturer, brand, type, size, and comments for each part, along with duplicates removed?"
+    },
+    {
+        "sql": "select  \n  l_linenumber as c0, \n  l_returnflag as c1\nfrom \n  lineitem \nwhere l_returnflag is not NULL;",
+        "nl": "What are the linenumber and return flag for each non-null return flag?"
+    },
+    {
+        "sql": "select  \n  c_nationkey as c0\nfrom \n  customer  tablesample system (1.3) \nwhere c_custkey is not NULL;",
+        "nl": "What are the nation keys of customers with non-null customer keys?"
+    },
+    {
+        "sql": "select  \n  s_nationkey as c0, \n  s_phone as c1\nfrom \n  supplier \nwhere false\nlimit 26;",
+        "nl": "What are the nation keys and phone numbers of the first 26 suppliers?"
+    },
+    {
+        "sql": "select  \n  r_regionkey as c0\nfrom \n  region  tablesample system (4) \nwhere true;",
+        "nl": "What are the unique regions?"
+    },
+    {
+        "sql": "select  \n  ps_suppkey as c0\nfrom \n  partsupp  tablesample system (5.7) \nwhere ps_comment is not NULL\nlimit 100;",
+        "nl": "What are the supplier keys for parts with comments, limited to the first 100?"
+    },
+    {
+        "sql": "select  \n  s_name as c0\nfrom \n  supplier  tablesample system (7) \nwhere s_acctbal > s_acctbal\nlimit 152;",
+        "nl": "What is the name of suppliers with an account balance greater than their own account balance?"
+    },
+    {
+        "sql": "select  \n  o_orderpriority as c0, \n  o_orderdate as c1\nfrom \n  orders \nwhere o_orderdate is not NULL\nlimit 112;",
+        "nl": "What are the order priorities and dates for non-null orders, limited to the first 112?"
+    },
+    {
+        "sql": "select  \n  o_shippriority as c0, \n  o_totalprice as c1, \n  o_shippriority as c2, \n  o_clerk as c3\nfrom \n  orders \nwhere o_clerk is NULL\nlimit 75;",
+        "nl": "What are the total prices and priorities of all orders with no assigned clerk, along with their corresponding clerks?"
+    },
+    {
+        "sql": "select  \n  o_custkey as c0\nfrom \n  orders  tablesample system (8.8) \nwhere o_orderpriority is NULL\nlimit 103;",
+        "nl": "What are the customer keys of all orders with no priority, limited to the first 103?"
+    },
+    {
+        "sql": "select distinct \n  38 as c0, \n  r_comment as c1, \n  r_name as c2\nfrom \n  region  tablesample bernoulli (8.9) \nwhere false\nlimit 121;",
+        "nl": "What are the unique combinations of a code, comment, and name from the region data?"
+    },
+    {
+        "sql": "select  \n  r_regionkey as c0\nfrom \n  region  tablesample system (4.4) \nwhere r_comment is NULL\nlimit 36;",
+        "nl": "What are the names of regions with no comment, and how many are there?"
+    },
+    {
+        "sql": "select  \n  ps_suppkey as c0\nfrom \n  partsupp \nwhere ps_partkey is not NULL;",
+        "nl": "What are the supplier keys for all suppliers that have at least one part?"
+    },
+    {
+        "sql": "select  \n  case when false then ps_availqty else ps_suppkey end\n     as c0\nfrom \n  partsupp \nwhere (ps_partkey is not NULL) \n  and ((true) \n    or (ps_partkey is not NULL))\nlimit 102;",
+        "nl": "What are the values of a specific column for all available parts?"
+    },
+    {
+        "sql": "select  \n  ps_suppkey as c0\nfrom \n  partsupp  tablesample bernoulli (1.7) \nwhere ps_supplycost < ps_supplycost\nlimit 96;",
+        "nl": "What are the values of 'c0' where supply cost is less than itself, and give me 96 results?"
+    },
+    {
+        "sql": "select  \n  c_address as c0\nfrom \n  customer  tablesample bernoulli (0.7) \nwhere c_acctbal is NULL\nlimit 108;",
+        "nl": "What are the addresses of customers with no outstanding balance, and how many such customers are there?"
+    },
+    {
+        "sql": "select  \n  s_comment as c0, \n  s_nationkey as c1\nfrom \n  supplier \nwhere true\nlimit 95;",
+        "nl": "What are the comments and nation keys for the first 95 suppliers?"
+    },
+    {
+        "sql": "select  \n  o_shippriority as c0, \n  o_orderdate as c1, \n  o_orderkey as c2\nfrom \n  orders  tablesample bernoulli (1.6) \nwhere true\nlimit 99;",
+        "nl": "What are the order priority, date, and key for each of the first 99 orders?"
+    },
+    {
+        "sql": "select distinct \n  p_container as c0, \n  p_brand as c1, \n  p_name as c2, \n  p_name as c3\nfrom \n  part  tablesample system (3.9) \nwhere false\nlimit 119;",
+        "nl": "What are the unique combinations of container, brand, and name for each product?"
+    },
+    {
+        "sql": "select  \n  r_comment as c0, \n  r_name as c1, \n  r_comment as c2\nfrom \n  region \nwhere r_comment is not NULL\nlimit 58;",
+        "nl": "What are the names and comments of the first 58 regions that have a comment?"
+    },
+    {
+        "sql": "select  \n  s_phone as c0, \n  s_name as c1, \n  s_address as c2, \n  s_nationkey as c3, \n  s_acctbal as c4, \n  s_nationkey as c5, \n  s_nationkey as c6\nfrom \n  supplier  tablesample system (2) \nwhere true;",
+        "nl": "What are the phone numbers, names, addresses, nation keys, and account balances for all suppliers?"
+    },
+    {
+        "sql": "select  \n  o_custkey as c0, \n  o_orderkey as c1, \n  o_orderdate as c2\nfrom \n  orders  tablesample system (0.4) \nwhere o_comment is not NULL\nlimit 164;",
+        "nl": "What are the customer keys, order keys, and order dates for all non-null comments in the first 164 orders?"
+    },
+    {
+        "sql": "select  \n  l_shipinstruct as c0, \n  l_returnflag as c1, \n  l_linestatus as c2\nfrom \n  lineitem  tablesample bernoulli (7.6) \nwhere l_shipinstruct is not NULL;",
+        "nl": "What are the combinations of ship instructions, return flags, and line statuses for non-null ship instructions?"
+    },
+    {
+        "sql": "select  \n  o_orderkey as c0, \n  o_totalprice as c1, \n  o_shippriority as c2\nfrom \n  orders \nwhere o_totalprice <> o_totalprice;",
+        "nl": "What are the order key, total price, and ship priority for all orders where the total price is not equal to itself?"
+    },
+    {
+        "sql": "select  \n  c_address as c0\nfrom \n  customer  tablesample system (1) \nwhere true\nlimit 137;",
+        "nl": "What is the address of each customer?"
+    },
+    {
+        "sql": "select  \n  p_name as c0, \n  p_name as c1, \n  p_partkey as c2, \n  p_container as c3\nfrom \n  part  tablesample system (0.6) \nwhere p_partkey is NULL\nlimit 153;",
+        "nl": "What are the names and details of parts that have no part key?"
+    },
+    {
+        "sql": "select  \n  l_quantity as c0\nfrom \n  lineitem \nwhere l_receiptdate is NULL;",
+        "nl": "What products were not received?"
+    },
+    {
+        "sql": "select  \n  c_address as c0, \n  c_acctbal as c1\nfrom \n  customer \nwhere c_phone ~<~ c_mktsegment\nlimit 188;",
+        "nl": "What are the addresses and account balances of customers who have a specific phone number pattern in their market segment?"
+    },
+    {
+        "sql": "select  \n  r_comment as c0, \n  r_name as c1, \n  r_regionkey as c2, \n  r_regionkey as c3, \n  r_comment as c4, \n  r_name as c5\nfrom \n  region \nwhere false\nlimit 80;",
+        "nl": "What are the names, regions, and comments for the first 80 records?"
+    },
+    {
+        "sql": "select  \n  s_nationkey as c0\nfrom \n  supplier  tablesample system (1.1) \nwhere (s_phone is NULL) \n  and (s_acctbal <> s_acctbal);",
+        "nl": "What countries have suppliers with no phone number and inconsistent account balances?"
+    },
+    {
+        "sql": "select  \n  n_comment as c0, \n  n_nationkey as c1\nfrom \n  nation \nwhere n_nationkey is not NULL\nlimit 125;",
+        "nl": "What are the nation keys and corresponding comments for the first 125 nations with non-null nation keys?"
+    },
+    {
+        "sql": "select  \n  p_type as c0, \n  p_comment as c1\nfrom \n  part  tablesample system (9.4) \nwhere p_type is NULL\nlimit 67;",
+        "nl": "What are the types and comments of parts that have no type, limited to 67?"
+    },
+    {
+        "sql": "select  \n  r_comment as c0\nfrom \n  region \nwhere r_comment is NULL\nlimit 178;",
+        "nl": "What are the comments that are blank in regions?"
+    },
+    {
+        "sql": "select  \n  n_name as c0, \n  n_nationkey as c1\nfrom \n  nation  tablesample bernoulli (1.6) \nwhere true\nlimit 169;",
+        "nl": "What are the names and corresponding nation keys of all nations?"
+    },
+    {
+        "sql": "select  \n  l_tax as c0, \n  l_shipinstruct as c1, \n  l_commitdate as c2, \n  l_orderkey as c3, \n  l_extendedprice as c4, \n  l_suppkey as c5, \n  l_linestatus as c6, \n  l_shipinstruct as c7, \n  l_returnflag as c8, \n  l_quantity as c9, \n  l_shipdate as c10, \n  l_orderkey as c11\nfrom \n  lineitem  tablesample bernoulli (5.2) \nwhere true\nlimit 127;",
+        "nl": "What are the values of tax, shipping instructions, commit date, order key, extended price, supplier key, status, shipping instructions, return flag, quantity, ship date, and order key for each line item?"
+    },
+    {
+        "sql": "select  \n  c_acctbal as c0\nfrom \n  customer \nwhere c_custkey is not NULL\nlimit 49;",
+        "nl": "What is the total outstanding balance for each customer that has a non-null customer key, and list only the first 48 customers?"
+    },
+    {
+        "sql": "select  \n  r_name as c0\nfrom \n  region \nwhere r_comment is NULL\nlimit 11;",
+        "nl": "What are the names of regions with no comment that I can see?"
+    },
+    {
+        "sql": "select  \n  c_name as c0\nfrom \n  customer \nwhere c_acctbal is NULL\nlimit 25;",
+        "nl": "What are the names of customers with no outstanding balance?"
+    },
+    {
+        "sql": "select  \n  r_regionkey as c0, \n  r_name as c1\nfrom \n  region  tablesample system (9.8) \nwhere r_name is NULL\nlimit 105;",
+        "nl": "What are the names of regions where there is no specific name?"
+    },
+    {
+        "sql": "select  \n  ps_supplycost as c0\nfrom \n  partsupp  tablesample system (6.7) \nwhere false;",
+        "nl": "What is the value of supply cost for each part supplier?"
+    },
+    {
+        "sql": "select  \n  p_brand as c0\nfrom \n  part  tablesample system (0.5) \nwhere true;",
+        "nl": "What are all the brands of parts?"
+    },
+    {
+        "sql": "select  \n  o_orderkey as c0, \n  o_custkey as c1\nfrom \n  orders \nwhere o_totalprice is NULL\nlimit 112;",
+        "nl": "What are the order keys and customer keys of all orders with no total price?"
+    },
+    {
+        "sql": "select  \n  c_custkey as c0\nfrom \n  customer \nwhere c_nationkey >= c_custkey\nlimit 96;",
+        "nl": "What are the customer keys for customers from a nation with a key greater than or equal to their own key, and give me 96 of them?"
+    },
+    {
+        "sql": "select  \n  c_address as c0, \n  c_nationkey as c1, \n  c_name as c2\nfrom \n  customer \nwhere c_acctbal is not NULL\nlimit 41;",
+        "nl": "What are the addresses, nation keys, and names of customers with non-zero account balances?"
+    },
+    {
+        "sql": "select  \n  c_nationkey as c0\nfrom \n  customer \nwhere (c_comment is NULL) \n  and (c_acctbal is not NULL)\nlimit 173;",
+        "nl": "What are the nation keys of customers with no comments but non-zero account balances, limited to the first 173?"
+    },
+    {
+        "sql": "select  \n  n_nationkey as c0\nfrom \n  nation  tablesample system (7.6) \nwhere true;",
+        "nl": "What are the unique nation keys?"
+    },
+    {
+        "sql": "select  \n  ps_partkey as c0\nfrom \n  partsupp \nwhere ps_comment is not NULL\nlimit 125;",
+        "nl": "What are the part keys of all parts with comments that are not null, limited to 125?"
+    },
+    {
+        "sql": "select  \n  n_nationkey as c0, \n  n_comment as c1, \n  n_regionkey as c2, \n  n_comment as c3, \n  n_regionkey as c4\nfrom \n  nation \nwhere n_regionkey is not NULL\nlimit 19;",
+        "nl": "What are the details of the first 19 nations that have a region key?"
+    },
+    {
+        "sql": "select  \n  c_comment as c0, \n  c_nationkey as c1\nfrom \n  customer  tablesample system (7.2) \nwhere c_phone is not NULL;",
+        "nl": "What are the nation keys and comments for customers with phone numbers?"
+    },
+    {
+        "sql": "select  \n  r_comment as c0, \n  r_comment as c1\nfrom \n  region  tablesample system (4.1) \nwhere r_comment is not NULL\nlimit 69;",
+        "nl": "What are the first 68 non-null comments from each region?"
+    },
+    {
+        "sql": "select  \n  c_address as c0\nfrom \n  customer  tablesample bernoulli (1.8) \nwhere true;",
+        "nl": "What is the address of each customer?"
+    },
+    {
+        "sql": "select  \n  s_address as c0\nfrom \n  supplier  tablesample bernoulli (7) \nwhere true\nlimit 123;",
+        "nl": "What is the address of each supplier?"
+    },
+    {
+        "sql": "select  \n  p_brand as c0, \n  p_retailprice as c1\nfrom \n  part  tablesample system (1.4) \nwhere true;",
+        "nl": "What are the brand and retail price of each product?"
+    },
+    {
+        "sql": "select  \n  l_shipinstruct as c0\nfrom \n  lineitem \nwhere true;",
+        "nl": "What is the shipping instruction for each item?"
+    },
+    {
+        "sql": "select  \n  p_type as c0, \n  p_partkey as c1, \n  p_container as c2\nfrom \n  part \nwhere p_retailprice is not NULL\nlimit 29;",
+        "nl": "What are the types, part keys, and containers of parts with a retail price, limited to the first 29?"
+    },
+    {
+        "sql": "select  \n  n_comment as c0, \n  n_name as c1, \n  n_regionkey as c2, \n  n_nationkey as c3, \n  n_comment as c4, \n  n_comment as c5, \n  n_nationkey as c6, \n  35 as c7, \n  n_comment as c8\nfrom \n  nation  tablesample system (1.1) \nwhere true;",
+        "nl": "What are the nation name, region key, and nation key for each nation along with its comment?"
+    },
+    {
+        "sql": "select  \n  n_regionkey as c0\nfrom \n  nation \nwhere true\nlimit 93;",
+        "nl": "What are the first 93 region keys in the Nation table?"
+    },
+    {
+        "sql": "select  \n  s_acctbal as c0\nfrom \n  supplier  tablesample bernoulli (3.4) \nwhere s_phone ~>=~ s_phone;",
+        "nl": "What is the total account balance for each supplier, considering only those with a phone number that matches or exceeds their own?"
+    },
+    {
+        "sql": "select  \n  c_name as c0\nfrom \n  customer  tablesample bernoulli (2.6) \nwhere c_acctbal is NULL\nlimit 133;",
+        "nl": "What are the names of customers with no outstanding balance, and how many such customers are there?"
+    },
+    {
+        "sql": "select  \n  r_comment as c0, \n  r_comment as c1\nfrom \n  region  tablesample system (2.8) \nwhere true\nlimit 54;",
+        "nl": "What are the comments for each of the first 54 regions?"
+    },
+    {
+        "sql": "select  \n  n_regionkey as c0, \n  n_comment as c1, \n  n_comment as c2, \n  n_nationkey as c3\nfrom \n  nation  tablesample system (8.8) \nwhere n_nationkey is NULL\nlimit 91;",
+        "nl": "What are the region keys and comments for nations with no nation key?"
+    },
+    {
+        "sql": "select  \n  p_mfgr as c0\nfrom \n  part  tablesample system (3.3) \nwhere true;",
+        "nl": "What is the manufacturer of each part?"
+    },
+    {
+        "sql": "select  \n  o_clerk as c0, \n  o_orderpriority as c1, \n  o_comment as c2\nfrom \n  orders \nwhere (o_clerk is not NULL) \n  and (o_clerk is not NULL);",
+        "nl": "What are the clerk names, order priorities, and comments for all non-null orders?"
+    },
+    {
+        "sql": "select  \n  r_regionkey as c0, \n  r_name as c1, \n  r_regionkey as c2, \n  r_name as c3, \n  r_name as c4, \n  r_regionkey as c5, \n  r_name as c6, \n  17 as c7, \n  r_regionkey as c8, \n  r_name as c9, \n  r_name as c10, \n  r_name as c11\nfrom \n  region  tablesample bernoulli (0.8) \nwhere r_name is not NULL;",
+        "nl": "What are the names and corresponding region keys of all regions that exist?"
+    },
+    {
+        "sql": "select  \n  s_phone as c0, \n  s_phone as c1, \n  s_acctbal as c2\nfrom \n  supplier  tablesample system (7.3) \nwhere s_nationkey is not NULL;",
+        "nl": "What are the phone numbers and account balances for suppliers with a nation key?"
+    }
+]
