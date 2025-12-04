@@ -5,7 +5,7 @@ import textwrap
 
 
 # ---------------------------------------------------------
-# Prompt ottimizzato
+# Prompt for SQL to NL conversion
 # ---------------------------------------------------------
 def build_prompt(sql: str) -> str:
     return textwrap.dedent(f"""
@@ -28,7 +28,7 @@ def build_prompt(sql: str) -> str:
 
 
 # ---------------------------------------------------------
-# Call for the LLM through the prompt, ussing OLLAMA
+# Call for the LLM through the prompt, using OLLAMA
 # ---------------------------------------------------------
 def translate_sql_to_nl(llm, sql: str) -> str:
     prompt = build_prompt(sql)
@@ -37,26 +37,26 @@ def translate_sql_to_nl(llm, sql: str) -> str:
 
 
 # ---------------------------------------------------------
-# Pipeline completa: SQL file → JSON file
+# Pipeline: SQL file → JSON file
 # ---------------------------------------------------------
 def process_sql_file(input_path: str, output_path: str, model_name="llama3:8b"):
-    # inizializza il modello
+    # llm initialization
     llm = ChatOllama(
         model=model_name,
         temperature=0,
         max_tokens=512
     )
 
-    # legge il file SQL
+    # read SQL file
     with open(input_path, "r") as f:
         content = f.read()
 
-    # split delle query
+    # split the content of the file into individual queries
     queries = [q.strip() + ";" for q in content.split(";") if q.strip()]
 
     results = []
 
-    print(f"Trovate {len(queries)} query.\n")
+    print(f" Found {len(queries)} queries.\n")
 
     for i, sql in enumerate(queries, start=1):
         print(f"➡️  Query {i}:")
@@ -71,19 +71,19 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3:8b"):
             "nl": nl
         })
 
-    # salva JSON finale
+    # save results to JSON file
     with open(output_path, "w") as out:
         json.dump(results, out, indent=4, ensure_ascii=False)
 
-    print(f"\n✅ Salvato in {output_path}")
+    print(f"\n✅ Saved in {output_path}")
 
 
 # ---------------------------------------------------------
-# Esempio di esecuzione
+# Main 
 # ---------------------------------------------------------
 if __name__ == "__main__":
     process_sql_file(
-        input_path="queries_tpch_.sql",
-        output_path="sql_to_nl.json",
+        input_path="../queries_tpch_def.sql",
+        output_path="sql_nl_tpch_llama8b.json",
         model_name="llama3:8b"
     )
