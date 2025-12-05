@@ -1,0 +1,183 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{url}
+\title{RelBench Documentation}
+\author{Alessandra Cicciarelli}
+\date{December 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Using RelBench to Download and Prepare Relational Datasets}
+\label{sec:relbench-download}
+
+RelBench provides a unified interface for working with
+realistic relational datasets. 
+Each dataset is implemented through a
+\texttt{Dataset} class that includes a \texttt{make\_db()} method
+responsible for downloading raw data (if needed), validating their
+integrity, and constructing a relational \texttt{Database} object
+consisting of multiple tables.
+
+This section documents how to correctly use RelBench to download
+datasets, describes issues that may arise during the download and
+processing steps, and provides practical solutions.
+
+\subsection{Basic Usage}
+RelBench datasets are accessed through the
+\texttt{get\_dataset()} utility:
+
+\begin{verbatim}
+from relbench.datasets import get_dataset
+
+dataset = get_dataset("rel-amazon")   # or rel-stack, ...
+db = dataset.make_db()
+\end{verbatim}
+
+The call to \texttt{make\_db()} performs three tasks:
+
+\begin{enumerate}
+    \item Downloads the raw data if not already present in the cache.
+    \item Verifies file integrity (via SHA256 hashes when available).
+    \item Constructs a \texttt{Database} with normalized relational tables.
+\end{enumerate}
+
+Once the database is built, its tables can be exported as CSV files:
+
+\begin{verbatim}
+for name, table in db.table_dict.items():
+    table.df.to_csv(f"{name}.csv", index=False)
+\end{verbatim}
+
+\subsection{Download Mechanism and Caching}
+RelBench relies on the \texttt{pooch} library to download and cache raw
+files. The default download location can be inspected with:
+
+\begin{verbatim}
+import pooch
+print(pooch.os_cache("pooch"))
+\end{verbatim}
+
+If a file is already cached but corrupted or mismatched, clearing the
+cache is often necessary:
+
+\begin{verbatim}
+rm -rf <path returned by os_cache>/pooch/*
+\end{verbatim}
+
+\subsection{Common Issues and Solutions}
+
+\subsubsection*{1. Missing Packages}
+Some datasets require external libraries such as \texttt{tqdm} for
+download progress bars or \texttt{pyarrow} for JSON parsing. A common
+failure is:
+
+\begin{verbatim}
+ValueError: Missing package 'tqdm' required for progress bars.
+\end{verbatim}
+
+\noindent
+\textbf{Solution:}
+
+\begin{verbatim}
+pip install tqdm pyarrow pooch
+\end{verbatim}
+
+\subsubsection*{2. Broken or Outdated Dataset URLs}
+Some RelBench datasets (notably \texttt{rel-amazon}) originally relied
+on URLs hosted at:
+
+\url{https://datarepo.eng.ucsd.edu/mcauley_group/data/amazon_v2/}
+
+This domain is no longer active, which results in errors such as:
+
+\begin{verbatim}
+HTTPError: 404 Client Error: Not Found for URL
+\end{verbatim}
+
+To fix this, the dataset wrapper must be updated to use the current
+location of the Amazon Review Data:
+
+
+\url{https://mcauleylab.ucsd.edu/public_datasets/data/amazon_v2/}
+
+
+\subsubsection*{3. Incorrect File Paths}
+Older versions of RelBench used directory names such as
+\texttt{reviewSets/}, which no longer exist in the updated dataset
+repository. The correct updated folders are:
+
+\begin{itemize}
+    \item \texttt{metaFiles2/} for metadata
+    \item \texttt{categoryFilesSmall/} for 5-core review data
+    \item \texttt{categoryFiles/} for full review data
+\end{itemize}
+
+Ensuring that the dataset loader points to these locations resolves
+404-Not-Found errors during retrieval.
+
+\subsubsection*{4. SHA256 Integrity Check Failures}
+RelBench optionally validates file integrity using known SHA256 hashes:
+
+\begin{verbatim}
+ValueError: SHA256 hash of downloaded file [...] 
+does not match the known hash
+\end{verbatim}
+
+This occurs when the upstream dataset updates its files, which is the
+case for several Amazon Review subsets. The downloaded file is deleted
+for safety.
+
+\textbf{Solution:}
+Manually compute the new hash:
+
+\begin{verbatim}
+sha256sum meta_Books.json.gz
+\end{verbatim}
+
+Replace the outdated hash in the RelBench loader, e.g.:
+
+\begin{verbatim}
+known_hashes = {
+    "meta_Books.json.gz": "<new sha256>",
+    "Books_5.json.gz": "<new sha256>"
+}
+\end{verbatim}
+
+Alternatively, set \texttt{known\_hashes = \{\}} to disable integrity
+checks (not recommended for long-term reproducibility).
+
+\subsubsection*{5. Cache Inconsistencies}
+If the local cache contains a partial or corrupted file, Pooch may
+attempt to reuse it, causing unexpected failures or parse errors.
+
+\textbf{Solution:}
+Clear the cache and retry:
+
+\begin{verbatim}
+rm -rf ~/.cache/pooch/*
+\end{verbatim}
+
+\subsection{Validated Working Configuration for rel-amazon}
+
+A working configuration for \texttt{rel-amazon} in 2025 requires the
+following modifications:
+
+\begin{enumerate}
+    \item Update the URL prefix to:
+
+    \url{https://mcauleylab.ucsd.edu/public\_datasets/data/amazon\_v2}
+
+    \item Replace deprecated paths:
+    \begin{itemize}
+        \item \texttt{reviewSets/} $\rightarrow$ 
+              \texttt{categoryFiles/}
+        \item \texttt{metaFiles/} $\rightarrow$ \texttt{metaFiles2/}
+    \end{itemize}
+    \item Update SHA256 hashes when upstream files change.
+\end{enumerate}
+
+These modifications restore full functionality to the RelBench wrapper.
+
+\end{document}
