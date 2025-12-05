@@ -39,7 +39,7 @@ def translate_sql_to_nl(llm, sql: str) -> str:
 # ---------------------------------------------------------
 # Pipeline: SQL file → JSON file
 # ---------------------------------------------------------
-def process_sql_file(input_path: str, output_path: str, model_name="llama3:8b"):
+def process_sql_file(input_path: str, output_path: str, model_name="llama3:70b"):
     # llm initialization
     llm = ChatOllama(
         model=model_name,
@@ -67,6 +67,7 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3:8b"):
         print(f"   👉 NL: {nl}\n")
 
         results.append({
+            "id": i,
             "sql": sql,
             "nl": nl
         })
@@ -83,7 +84,7 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3:8b"):
 # ---------------------------------------------------------
 if __name__ == "__main__":
     process_sql_file(
-        input_path="../queries_tpch_def.sql",
-        output_path="sql_nl_tpch_llama8b.json",
-        model_name="llama3:8b"
+        input_path="../queries_relamazon_def.sql",
+        output_path="sql_nl_relamazon_llama70b.json",
+        model_name="llama3:70b"
     )
