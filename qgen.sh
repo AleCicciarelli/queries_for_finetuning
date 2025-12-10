@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #execute this in sqlsmith directory 
 # config
-DB_TARGET="host=127.0.0.1 port=5432 dbname=relamazon user=cicciara password=cicciara"
+DB_TARGET="host=127.0.0.1 port=5432 dbname=relf1 user=cicciara password=cicciara"
 #DB_TARGET="host=127.0.0.1 port=5432 dbname=tpch user=sqlsmith_readonly"
 
 NUM_QUERIES=2000
-OUTPUT_FILE="../tpch_queries/queries_relamazon_def.sql"
+OUTPUT_FILE="../tpch_queries/queries_relf1_def.sql"
 
 echo "Generating queries with sqlsmith..."
 echo "Target DB: $DB_TARGET"

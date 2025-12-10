@@ -1,18 +1,18 @@
 #!/bin/sh
 
-DB="tpch"
+DB="relstack"
 USER="cicciara"
 HOST="127.0.0.1"
 PORT="5432"
-FILE="queries_tpch_def.sql"
-OUT="report.csv"
-
-# Intestazione CSV
+FILE="queries_relstack_def.sql"
+OUT="report_relstack.csv"
+# password has been set in .pgpass file for security
+# n  CSV
 echo "id,query,success,error" > "$OUT"
 
 buffer=""
 id=1
-set +e // Non uscire al primo errore
+
 # Leggi il file riga per riga
 while IFS= read -r line; do
     # Accumula nel buffer con newline (irrilevante per SQL ma migliora leggibilità)
@@ -28,7 +28,8 @@ $line"
 
     # Rimuovi spazi e newline iniziali/finali
     query=$(printf "%s" "$buffer" | sed 's/^[[:space:]\n]*//; s/[[:space:]\n]*$//')
-
+    # Stampa la query in esecuzione
+    echo "Eseguendo query id=$id: $query"
     # Esegui la query
     ERR=$(printf "%s" "$query" \
     | psql -v ON_ERROR_STOP=1 -h "$HOST" -U "$USER" -d "$DB" 2>&1 1>/dev/null)
