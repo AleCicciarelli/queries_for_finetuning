@@ -9,7 +9,7 @@ select
   posthistory_1.creationdate, 
   posthistory_1.comment, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate = posthistory_1.creationdate
 group by posthistory_1.posthistorytypeid, posthistory_1.posthistorytypeid, posthistory_1.postid, posthistory_1.posthistorytypeid, posthistory_1.revisionguid, posthistory_1.creationdate, posthistory_1.comment, posthistory_1.userdisplayname
@@ -27,7 +27,7 @@ select
     postlinks_1.id), 
   avg(
     postlinks_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -43,7 +43,7 @@ select
   users_1.aboutme, 
   users_1.creationdate, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -78,14 +78,14 @@ select
   users_1.id, 
   users_1.websiteurl, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.profileimageurl, users_1.creationdate, users_1.aboutme, users_1.id, users_1.creationdate, users_1.accountid, users_1.location, users_1.accountid, users_1.aboutme, users_1.accountid, users_1.aboutme, users_1.profileimageurl, users_1.websiteurl, users_1.id, users_1.displayname, users_1.id, users_1.location, users_1.id, users_1.websiteurl, users_1.id
 limit 27;
 select  
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 38;
@@ -100,7 +100,7 @@ select
     users_1.aboutme), 
   max(
     posts_1.ownerdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join posthistory as posthistory_1
       on (votes_1.id = posthistory_1.id )
@@ -125,7 +125,7 @@ select
   posts_1.parentid, 
   votes_1.creationdate, 
   votes_2.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
         inner join votes as votes_2
@@ -141,7 +141,7 @@ select
   posts_1.id, 
   max(
     posts_1.posttypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
     on (posthistory_1.id = posts_1.id )
@@ -165,7 +165,7 @@ select
   min(
     comments_1.creationdate), 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.userdisplayname, comments_1.contentlicense, comments_1.id, comments_1.contentlicense, comments_1.postid, comments_1.text, comments_1.userid, comments_1.userdisplayname, comments_1.contentlicense, comments_1.text
@@ -177,7 +177,7 @@ select
     comments_1.id), 
   max(
     comments_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 limit 16;
@@ -192,7 +192,7 @@ select
   postlinks_1.linktypeid, 
   min(
     postlinks_1.linktypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.id, postlinks_1.id, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.linktypeid
@@ -200,13 +200,13 @@ limit 32;
 select  
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid >= postlinks_1.linktypeid
 limit 20;
 select  
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
       inner join votes as votes_1
@@ -232,7 +232,7 @@ select
   posthistory_1.userid, 
   min(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 group by posthistory_1.postid, posthistory_1.revisionguid, posthistory_1.postid, posthistory_1.comment, posthistory_1.contentlicense, posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.postid, posthistory_1.postid, posthistory_1.creationdate, posthistory_1.userid
@@ -249,7 +249,7 @@ select
   users_1.creationdate, 
   max(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
           inner join votes as votes_1
           on (badges_1.id = votes_1.id )
@@ -274,7 +274,7 @@ select
   comments_1.userdisplayname, 
   sum(
     comments_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id < comments_1.postid
 group by comments_1.userdisplayname, comments_1.contentlicense, comments_1.userdisplayname
@@ -282,13 +282,13 @@ limit 15;
 select  
   votes_1.id, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate < votes_1.creationdate
 limit 36;
 select  
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 35;
@@ -298,14 +298,14 @@ select
   votes_1.postid, 
   votes_1.postid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 10;
 select  
   count(*), 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 group by users_1.displayname
@@ -326,7 +326,7 @@ select
   comments_1.contentlicense, 
   comments_1.userdisplayname, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate > comments_1.creationdate
 group by comments_1.userdisplayname, comments_1.postid, comments_1.userdisplayname, comments_1.userid, comments_1.userid, comments_1.contentlicense, comments_1.userdisplayname, comments_1.userid
@@ -344,7 +344,7 @@ select
   badges_1.date, 
   badges_2.name, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
         inner join posts as posts_1
         on (postlinks_1.id = posts_1.id )
@@ -360,7 +360,7 @@ limit 27;
 select  
   postlinks_1.creationdate, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
       inner join postlinks as postlinks_1
@@ -370,7 +370,7 @@ where badges_1.tagbased is not NULL
 limit 1;
 select  
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense is not NULL
 limit 22;
@@ -391,7 +391,7 @@ select
   avg(
     posts_1.posttypeid), 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -405,7 +405,7 @@ select
   badges_1.date, 
   min(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -415,7 +415,7 @@ limit 38;
 select  
   posts_1.owneruserid, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -429,7 +429,7 @@ select
   users_1.accountid, 
   users_1.displayname, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -437,13 +437,13 @@ where posthistory_1.creationdate <= users_1.creationdate
 limit 14;
 select  
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 41;
 select  
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 2;
@@ -461,7 +461,7 @@ select
     posthistory_1.id), 
   posthistory_1.postid, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 group by posthistory_1.id, posthistory_1.contentlicense, posthistory_1.revisionguid, posthistory_1.postid, posthistory_1.postid, posthistory_1.postid, posthistory_1.comment
@@ -472,13 +472,13 @@ select
   badges_1.date, 
   badges_1.id, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 27;
 select  
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 27;
@@ -486,7 +486,7 @@ select
   comments_1.contentlicense, 
   comments_1.creationdate, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join badges as badges_1
         inner join posthistory as posthistory_1
@@ -505,7 +505,7 @@ select
   posts_1.tags, 
   posts_1.posttypeid, 
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -514,7 +514,7 @@ group by posthistory_1.userdisplayname, posts_1.tags, posts_1.posttypeid, posthi
 limit 34;
 select  
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -529,7 +529,7 @@ select
   max(
     posthistory_1.creationdate), 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 group by posthistory_1.creationdate, posthistory_1.id, posthistory_1.postid, posthistory_1.comment
@@ -541,7 +541,7 @@ select
   count(
     posts_1.parentid), 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title <= posts_1.contentlicense
 group by posts_1.creationdate, posts_1.tags, posts_1.parentid, posts_1.body
@@ -549,7 +549,7 @@ limit 8;
 select  
   postlinks_1.id, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 22;
@@ -558,7 +558,7 @@ select
   badges_1.userid, 
   min(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.name, badges_1.userid
@@ -570,7 +570,7 @@ select
   users_1.accountid, 
   users_1.creationdate, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 limit 3;
@@ -595,13 +595,13 @@ select
   postlinks_1.id, 
   postlinks_1.id, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid = postlinks_1.postid
 limit 2;
 select  
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 7;
@@ -610,7 +610,7 @@ select
     postlinks_1.creationdate), 
   postlinks_1.relatedpostid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.postid
@@ -619,7 +619,7 @@ select
   min(
     comments_1.contentlicense), 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 group by comments_1.id
@@ -636,7 +636,7 @@ select
   votes_1.votetypeid, 
   votes_1.userid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.postid, votes_1.id, votes_1.userid, votes_1.creationdate, votes_1.postid, votes_1.votetypeid, votes_1.votetypeid, votes_1.userid, votes_1.id
@@ -647,7 +647,7 @@ select
     posts_1.title), 
   posts_1.tags, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 group by posts_1.owneruserid, posts_1.tags, posts_1.id
@@ -657,7 +657,7 @@ select
   postlinks_1.relatedpostid, 
   avg(
     postlinks_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.relatedpostid
@@ -669,7 +669,7 @@ select
   users_1.websiteurl, 
   users_1.id, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 1;
@@ -694,7 +694,7 @@ select
     comments_1.postid), 
   comments_1.text, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate > comments_1.creationdate
 group by comments_1.creationdate, comments_1.postid, comments_1.creationdate, comments_1.userdisplayname, comments_1.text, comments_1.postid, comments_1.userid, comments_1.contentlicense, comments_1.userid, comments_1.id, comments_1.id, comments_1.creationdate, comments_1.id, comments_1.contentlicense, comments_1.text, comments_1.id
@@ -708,7 +708,7 @@ select
   users_1.id, 
   votes_1.votetypeid, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join votes as votes_1
     on (users_1.id = votes_1.id )
@@ -724,7 +724,7 @@ select
     users_1.profileimageurl), 
   sum(
     users_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 group by users_1.accountid, users_1.displayname, users_1.id, users_1.websiteurl, users_1.profileimageurl
@@ -732,14 +732,14 @@ limit 30;
 select distinct 
   votes_1.postid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 1;
 select  
   avg(
     posts_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -750,20 +750,20 @@ select
   posthistory_1.postid, 
   posthistory_1.comment, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id > posthistory_1.posthistorytypeid
 limit 8;
 select  
   comments_1.creationdate, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 19;
 select  
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate = comments_1.creationdate
 limit 17;
@@ -773,7 +773,7 @@ select
   badges_1.name, 
   max(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.name
@@ -784,7 +784,7 @@ select
   badges_1.id, 
   badges_1.userid, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 33;
@@ -792,7 +792,7 @@ select
   min(
     comments_1.creationdate), 
   postlinks_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join posts as posts_1
         inner join postlinks as postlinks_1
@@ -814,14 +814,14 @@ select
   comments_1.text, 
   min(
     comments_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.postid, comments_1.contentlicense, comments_1.contentlicense, comments_1.text, comments_1.contentlicense, comments_1.text
 limit 12;
 select  
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
     on (badges_1.id = votes_1.id )
@@ -833,7 +833,7 @@ select
   comments_2.userdisplayname, 
   posts_2.posttypeid, 
   comments_3.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
         inner join posts as posts_1
         on (comments_1.id = posts_1.id )
@@ -853,7 +853,7 @@ select
   posthistory_2.creationdate, 
   posthistory_2.text, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join postlinks as postlinks_1
         inner join posthistory as posthistory_2
@@ -868,7 +868,7 @@ select
   posts_1.owneruserid, 
   posts_1.parentid, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 7;
@@ -895,7 +895,7 @@ select
   posts_1.contentlicense, 
   posts_1.owneruserid, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 group by posts_1.body, posts_1.body, posts_1.ownerdisplayname, posts_1.acceptedanswerid, posts_1.acceptedanswerid, posts_1.ownerdisplayname, posts_1.id, posts_1.acceptedanswerid, posts_1.owneruserid, posts_1.acceptedanswerid, posts_1.creationdate, posts_1.contentlicense, posts_1.creationdate, posts_1.contentlicense, posts_1.owneruserid, posts_1.body
@@ -911,7 +911,7 @@ select
   badges_1.tagbased, 
   badges_1.id, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.userid, badges_1.userid, badges_1.name, badges_1.class, badges_1.id, badges_1.tagbased, badges_1.id, badges_1.userid
@@ -921,7 +921,7 @@ select
   posthistory_1.text, 
   users_1.displayname, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -938,7 +938,7 @@ select
   votes_2.creationdate, 
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join votes as votes_1
         inner join posts as posts_1
@@ -966,7 +966,7 @@ select
   badges_1.tagbased, 
   badges_1.date, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.date, badges_1.id, badges_1.id, badges_1.date, badges_1.class, badges_1.tagbased, badges_1.date, badges_1.tagbased
@@ -986,7 +986,7 @@ select
   posts_2.contentlicense, 
   posts_1.parentid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
       inner join posts as posts_2
@@ -1002,7 +1002,7 @@ select
   posthistory_1.postid, 
   votes_1.votetypeid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
     on (votes_1.id = posthistory_1.id )
@@ -1013,7 +1013,7 @@ select
   posthistory_1.id, 
   posthistory_1.text, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -1039,14 +1039,14 @@ select
   posts_1.posttypeid, 
   max(
     posts_1.body)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title >= posts_1.contentlicense
 group by posts_1.contentlicense, posts_1.creationdate, posts_1.id, posts_1.tags, posts_1.ownerdisplayname, posts_1.title, posts_1.parentid, posts_1.creationdate, posts_1.tags, posts_1.contentlicense, posts_1.body, posts_1.id, posts_1.owneruserid, posts_1.posttypeid, posts_1.posttypeid
 limit 30;
 select  
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posthistory as posthistory_1
       on (users_1.id = posthistory_1.id )
@@ -1063,7 +1063,7 @@ select
   votes_1.creationdate, 
   votes_1.votetypeid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid <= votes_1.userid
 group by votes_1.id, votes_1.id, votes_1.id, votes_1.creationdate, votes_1.votetypeid, votes_1.votetypeid
@@ -1075,7 +1075,7 @@ select
   posts_1.tags, 
   posts_1.ownerdisplayname, 
   posts_3.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posts as posts_2
       on (posts_1.id = posts_2.id )
@@ -1093,14 +1093,14 @@ select
   users_1.creationdate, 
   count(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.id, users_1.creationdate
 limit 32;
 select  
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posthistory as posthistory_1
         inner join votes as votes_1
@@ -1128,14 +1128,14 @@ select
   users_1.accountid, 
   min(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 group by users_1.displayname, users_1.websiteurl, users_1.profileimageurl, users_1.accountid, users_1.id, users_1.accountid, users_1.displayname, users_1.profileimageurl, users_1.accountid
 limit 33;
 select  
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location > users_1.aboutme
 limit 18;
@@ -1146,7 +1146,7 @@ select
   max(
     posts_1.body), 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join comments as comments_1
         on (votes_1.id = comments_1.id )
@@ -1162,7 +1162,7 @@ select
   min(
     votes_1.creationdate), 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.postid, votes_1.id
@@ -1177,7 +1177,7 @@ select
   count(
     votes_1.userid), 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -1188,7 +1188,7 @@ select
   posthistory_1.userid, 
   min(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
         inner join posthistory as posthistory_1
         on (comments_1.id = posthistory_1.id )
@@ -1218,7 +1218,7 @@ select
   comments_1.id, 
   badges_1.id, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
       inner join comments as comments_1
@@ -1246,7 +1246,7 @@ select
   users_1.location, 
   users_1.displayname, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 group by users_1.aboutme, users_1.id, users_1.location, users_1.profileimageurl, users_1.profileimageurl, users_1.websiteurl, users_1.displayname, users_1.profileimageurl, users_1.location, users_1.displayname, users_1.profileimageurl
@@ -1255,7 +1255,7 @@ select
   min(
     users_1.accountid), 
   postlinks_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
           inner join badges as badges_1
           on (postlinks_1.id = badges_1.id )
@@ -1278,7 +1278,7 @@ select
   badges_1.class, 
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.tagbased, badges_1.id, badges_1.name, badges_1.id, badges_1.class
@@ -1290,21 +1290,21 @@ select
   comments_1.id, 
   max(
     comments_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.userdisplayname, comments_1.id, comments_1.postid, comments_1.id
 limit 6;
 select  
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 17;
 select  
   badges_1.date, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 28;
@@ -1312,7 +1312,7 @@ select
   comments_1.postid, 
   count(*), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
     on (comments_1.id = postlinks_1.id )
@@ -1323,7 +1323,7 @@ select
   posts_1.ownerdisplayname, 
   posts_1.posttypeid, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 20;
@@ -1332,7 +1332,7 @@ select
   count(
     votes_1.userid), 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.creationdate, votes_1.postid
@@ -1357,7 +1357,7 @@ select
   posthistory_1.creationdate, 
   posthistory_1.userdisplayname, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id >= posthistory_1.postid
 group by posthistory_1.id, posthistory_1.id, posthistory_1.revisionguid, posthistory_1.postid, posthistory_1.posthistorytypeid, posthistory_1.userdisplayname, posthistory_1.revisionguid, posthistory_1.contentlicense, posthistory_1.postid, posthistory_1.posthistorytypeid, posthistory_1.userdisplayname, posthistory_1.creationdate, posthistory_1.id, posthistory_1.userid, posthistory_1.creationdate, posthistory_1.userdisplayname, posthistory_1.comment
@@ -1376,7 +1376,7 @@ select
   postlinks_1.creationdate, 
   posts_1.parentid, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -1385,7 +1385,7 @@ group by posts_1.creationdate, posts_1.tags, posts_1.posttypeid, postlinks_1.cre
 limit 38;
 select  
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 22;
@@ -1397,7 +1397,7 @@ select
   badges_1.userid, 
   badges_1.class, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join posts as posts_1
       on (badges_1.id = posts_1.id )
@@ -1418,7 +1418,7 @@ select
   avg(
     users_2.accountid), 
   users_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join users as users_1
       on (comments_1.id = users_1.id )
@@ -1433,7 +1433,7 @@ select
   badges_1.userid, 
   max(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.userid
@@ -1461,7 +1461,7 @@ select
   comments_1.contentlicense, 
   posthistory_1.text, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join comments as comments_1
       on (posthistory_1.id = comments_1.id )
@@ -1477,7 +1477,7 @@ select
   comments_2.contentlicense, 
   votes_1.userid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join comments as comments_1
       on (votes_1.id = comments_1.id )
@@ -1495,7 +1495,7 @@ select distinct
   comments_1.postid, 
   badges_1.userid, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join comments as comments_1
       on (badges_1.id = comments_1.id )
@@ -1506,7 +1506,7 @@ group by badges_1.class, badges_1.id, comments_1.userid, badges_1.tagbased, post
 limit 2;
 select  
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join comments as comments_1
         inner join badges as badges_1
@@ -1536,7 +1536,7 @@ select
   posthistory_1.posthistorytypeid, 
   min(
     users_2.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posthistory as posthistory_1
       on (users_1.id = posthistory_1.id )
@@ -1547,7 +1547,7 @@ group by posthistory_1.contentlicense, posthistory_1.userdisplayname, users_2.ab
 limit 2;
 select  
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join users as users_1
       on (votes_1.id = users_1.id )
@@ -1566,13 +1566,13 @@ select
   votes_1.postid, 
   votes_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 15;
 select  
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join posts as posts_1
       on (posthistory_1.id = posts_1.id )
@@ -1584,7 +1584,7 @@ select
   badges_1.id, 
   badges_1.date, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id < badges_1.class
 limit 35;
@@ -1601,7 +1601,7 @@ select
     comments_1.userid), 
   max(
     comments_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 group by comments_1.userid, comments_1.id, comments_1.text, comments_1.contentlicense, comments_1.contentlicense, comments_1.creationdate, comments_1.id
@@ -1614,7 +1614,7 @@ select
   comments_1.id, 
   comments_1.id, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.userid, comments_1.userid, comments_1.id, comments_1.id, comments_1.contentlicense
@@ -1625,7 +1625,7 @@ select
   posts_1.parentid, 
   badges_1.id, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join posthistory as posthistory_1
         on (users_1.id = posthistory_1.id )
@@ -1637,7 +1637,7 @@ where users_1.profileimageurl <= users_1.accountid
 limit 2;
 select  
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join badges as badges_1
       inner join votes as votes_2
@@ -1651,7 +1651,7 @@ select
   posthistory_2.creationdate, 
   max(
     posthistory_2.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -1660,7 +1660,7 @@ group by posthistory_2.creationdate
 limit 30;
 select  
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags > posts_1.contentlicense
 limit 27;
@@ -1669,7 +1669,7 @@ select
   users_1.profileimageurl, 
   users_1.creationdate, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid <= users_1.profileimageurl
 limit 9;
@@ -1683,20 +1683,20 @@ select
   posts_1.acceptedanswerid, 
   posts_1.owneruserid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 limit 23;
 select  
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 37;
 select  
   max(
     posthistory_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense is not NULL
 limit 5;
@@ -1706,7 +1706,7 @@ select
   votes_1.postid, 
   votes_1.userid, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
     on (badges_1.id = votes_1.id )
@@ -1740,7 +1740,7 @@ select
   badges_1.name, 
   badges_1.name, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name > badges_1.name
 group by badges_1.tagbased, badges_1.id, badges_1.class, badges_1.class, badges_1.userid, badges_1.class, badges_1.tagbased, badges_1.name, badges_1.class, badges_1.class, badges_1.userid, badges_1.date, badges_1.tagbased, badges_1.class, badges_1.userid, badges_1.name, badges_1.tagbased, badges_1.date, badges_1.name, badges_1.id, badges_1.name, badges_1.name, badges_1.tagbased
@@ -1761,7 +1761,7 @@ select
   avg(
     badges_1.userid), 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 group by badges_1.id, badges_1.id, badges_1.userid, badges_1.class, badges_1.userid, badges_1.class, badges_1.class
@@ -1770,20 +1770,20 @@ select
   users_1.location, 
   users_1.profileimageurl, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate >= users_1.creationdate
 limit 14;
 select  
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 19;
 select  
   users_1.id, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
         inner join posthistory as posthistory_1
@@ -1797,7 +1797,7 @@ select
   badges_1.date, 
   max(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.date
@@ -1813,7 +1813,7 @@ select
   users_1.creationdate, 
   users_1.displayname, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
       inner join postlinks as postlinks_1
@@ -1825,13 +1825,13 @@ limit 42;
 select  
   badges_1.name, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 36;
 select  
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 limit 40;
@@ -1859,7 +1859,7 @@ select
     posts_1.creationdate), 
   posts_1.body, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 group by posts_1.posttypeid, posts_1.ownerdisplayname, posts_1.parentid, posts_1.acceptedanswerid, posts_1.acceptedanswerid, posts_1.body, posts_1.posttypeid, posts_1.tags, posts_1.body, posts_1.owneruserid, posts_1.creationdate, posts_1.acceptedanswerid, posts_1.ownerdisplayname, posts_1.owneruserid, posts_1.owneruserid, posts_1.id, posts_1.ownerdisplayname, posts_1.body, posts_1.creationdate
@@ -1878,7 +1878,7 @@ select
   users_1.displayname, 
   comments_1.creationdate, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posts as posts_1
       on (users_1.id = posts_1.id )
@@ -1889,7 +1889,7 @@ limit 6;
 select  
   votes_2.creationdate, 
   votes_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -1897,7 +1897,7 @@ where votes_2.postid is not NULL
 limit 12;
 select  
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 23;
@@ -1906,7 +1906,7 @@ select
   badges_1.class, 
   users_1.id, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -1915,7 +1915,7 @@ limit 27;
 select  
   badges_1.name, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased < badges_1.tagbased
 limit 35;
@@ -1927,7 +1927,7 @@ select
   votes_1.creationdate, 
   users_1.websiteurl, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join posthistory as posthistory_1
         on (votes_1.id = posthistory_1.id )
@@ -1947,14 +1947,14 @@ select
   votes_1.votetypeid, 
   votes_1.userid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.postid, votes_1.postid, votes_1.postid, votes_1.userid, votes_1.votetypeid, votes_1.userid, votes_1.creationdate
 limit 38;
 select  
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
       inner join comments as comments_1
@@ -1965,20 +1965,20 @@ limit 30;
 select  
   min(
     posthistory_1.userdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid <= posthistory_1.posthistorytypeid
 limit 28;
 select  
   badges_1.name, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 24;
 select  
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 4;
@@ -1990,7 +1990,7 @@ select
   users_1.location, 
   users_1.location, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 limit 39;
@@ -2004,7 +2004,7 @@ select
   comments_1.contentlicense, 
   comments_1.id, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.id, comments_1.creationdate, comments_1.userid, comments_1.text, comments_1.contentlicense, comments_1.id, comments_1.id
@@ -2014,7 +2014,7 @@ select
   postlinks_2.linktypeid, 
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
       inner join comments as comments_1
@@ -2026,7 +2026,7 @@ select
   min(
     postlinks_1.creationdate), 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.linktypeid
@@ -2039,7 +2039,7 @@ select
     users_1.profileimageurl), 
   users_1.displayname, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid <= users_1.profileimageurl
 group by users_1.websiteurl, users_1.accountid, users_1.displayname, users_1.displayname, users_1.displayname
@@ -2047,7 +2047,7 @@ limit 28;
 select  
   max(
     postlinks_1.relatedpostid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 7;
@@ -2059,7 +2059,7 @@ select
   postlinks_1.postid, 
   postlinks_1.linktypeid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid < postlinks_1.postid
 limit 18;
@@ -2083,7 +2083,7 @@ select
   postlinks_1.id, 
   postlinks_1.relatedpostid, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -2107,7 +2107,7 @@ select
   votes_1.creationdate, 
   votes_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.id, votes_1.votetypeid, votes_1.id, votes_1.userid, votes_1.userid, votes_1.userid, votes_1.id, votes_1.userid, votes_1.userid, votes_1.votetypeid, votes_1.creationdate, votes_1.creationdate, votes_1.creationdate, votes_1.id
@@ -2123,7 +2123,7 @@ select
   postlinks_1.id, 
   postlinks_1.creationdate, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.linktypeid
@@ -2138,7 +2138,7 @@ select
   votes_1.userid, 
   votes_1.postid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 11;
@@ -2148,7 +2148,7 @@ select
   votes_1.id, 
   votes_1.postid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 17;
@@ -2157,7 +2157,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid > votes_1.postid
 group by votes_1.userid, votes_1.creationdate
@@ -2169,7 +2169,7 @@ select
   comments_1.userdisplayname, 
   comments_1.text, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 limit 6;
@@ -2196,7 +2196,7 @@ select
   users_1.profileimageurl, 
   users_1.websiteurl, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -2208,7 +2208,7 @@ select
   comments_1.postid, 
   comments_1.id, 
   users_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join users as users_1
       on (votes_1.id = users_1.id )
@@ -2223,7 +2223,7 @@ limit 13;
 select  
   users_1.websiteurl, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 8;
@@ -2232,7 +2232,7 @@ select
   votes_1.userid, 
   max(
     votes_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.creationdate, votes_1.userid
@@ -2250,7 +2250,7 @@ select
   posthistory_1.creationdate, 
   min(
     posthistory_1.revisionguid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 group by posthistory_1.posthistorytypeid, posthistory_1.postid, posthistory_1.posthistorytypeid, posthistory_1.userid, posthistory_1.postid, posthistory_1.creationdate
@@ -2259,7 +2259,7 @@ select
   users_1.aboutme, 
   users_1.accountid, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 limit 13;
@@ -2276,7 +2276,7 @@ select
   badges_1.tagbased, 
   badges_1.date, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
     on (badges_1.id = comments_1.id )
@@ -2287,7 +2287,7 @@ select
   users_2.profileimageurl, 
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join postlinks as postlinks_1
       on (users_1.id = postlinks_1.id )
@@ -2298,7 +2298,7 @@ limit 22;
 select  
   postlinks_1.id, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 18;
@@ -2311,7 +2311,7 @@ select
   posts_1.acceptedanswerid, 
   min(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 group by posts_1.acceptedanswerid, posts_1.acceptedanswerid, posts_1.acceptedanswerid, posts_1.acceptedanswerid
@@ -2332,7 +2332,7 @@ select
   badges_1.tagbased, 
   badges_1.userid, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date >= badges_1.date
 group by badges_1.tagbased, badges_1.date, badges_1.class, badges_1.id, badges_1.userid, badges_1.id, badges_1.class, badges_1.userid, badges_1.tagbased, badges_1.date, badges_1.tagbased, badges_1.userid, badges_1.date
@@ -2349,7 +2349,7 @@ select
   votes_1.postid, 
   comments_1.userdisplayname, 
   users_2.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
       inner join votes as votes_1
@@ -2371,7 +2371,7 @@ select
   posts_1.acceptedanswerid, 
   posts_1.id, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 group by posts_1.ownerdisplayname, posts_1.tags, posts_1.acceptedanswerid, posts_1.id, posts_1.contentlicense
@@ -2381,7 +2381,7 @@ select
   avg(
     postlinks_1.linktypeid), 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.linktypeid, postlinks_1.relatedpostid
@@ -2392,7 +2392,7 @@ select
   votes_1.id, 
   count(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -2406,7 +2406,7 @@ select
   users_1.accountid, 
   min(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 group by users_1.id, users_1.accountid
@@ -2415,7 +2415,7 @@ select
   posts_1.body, 
   posts_1.parentid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 limit 21;
@@ -2431,7 +2431,7 @@ select
   postlinks_1.postid, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.id
@@ -2445,7 +2445,7 @@ select
   votes_2.userid, 
   votes_2.userid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join votes as votes_2
         inner join posts as posts_1
@@ -2460,7 +2460,7 @@ select
   avg(
     postlinks_1.id), 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
       inner join postlinks as postlinks_1
@@ -2473,7 +2473,7 @@ select
   posthistory_1.creationdate, 
   posthistory_1.postid, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid = posthistory_1.postid
 limit 35;
@@ -2484,7 +2484,7 @@ select
   posthistory_1.postid, 
   avg(
     posthistory_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate = posthistory_1.creationdate
 group by posthistory_1.id, posthistory_1.userid, posthistory_1.id, posthistory_1.postid
@@ -2508,7 +2508,7 @@ select
   postlinks_1.relatedpostid, 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
     on (postlinks_1.id = badges_1.id )
@@ -2520,7 +2520,7 @@ select
     users_1.creationdate), 
   users_1.aboutme, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 group by users_1.aboutme, users_1.profileimageurl
@@ -2528,14 +2528,14 @@ limit 18;
 select  
   users_1.id, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 limit 41;
 select  
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 26;
@@ -2561,7 +2561,7 @@ select
   votes_1.id, 
   postlinks_1.id, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
         inner join posts as posts_2
@@ -2574,7 +2574,7 @@ group by postlinks_1.linktypeid, posts_2.title, posts_1.creationdate, postlinks_
 limit 24;
 select  
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 limit 42;
@@ -2590,7 +2590,7 @@ select
   users_1.accountid, 
   max(
     users_1.aboutme)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -2605,7 +2605,7 @@ select
   comments_1.postid, 
   count(
     posts_1.ownerdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join badges as badges_1
         inner join comments as comments_1
@@ -2622,7 +2622,7 @@ select
   votes_1.votetypeid, 
   votes_1.creationdate, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate <= votes_1.creationdate
 limit 26;
@@ -2631,13 +2631,13 @@ select
   posthistory_1.text, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 limit 8;
 select  
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
       inner join posts as posts_1
@@ -2654,7 +2654,7 @@ select
   posthistory_1.posthistorytypeid, 
   badges_1.tagbased, 
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join posthistory as posthistory_1
         on (users_1.id = posthistory_1.id )
@@ -2677,7 +2677,7 @@ select
   min(
     badges_1.name), 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name < badges_1.name
 group by badges_1.name, badges_1.date, badges_1.id, badges_1.tagbased, badges_1.userid
@@ -2695,20 +2695,20 @@ select
     posts_1.creationdate), 
   posts_1.contentlicense, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 group by posts_1.acceptedanswerid, posts_1.contentlicense, posts_1.contentlicense, posts_1.body, posts_1.contentlicense, posts_1.owneruserid
 limit 20;
 select  
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date <= badges_1.date
 limit 26;
 select  
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 limit 2;
@@ -2730,14 +2730,14 @@ select
   max(
     postlinks_1.creationdate), 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.postid, postlinks_1.postid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.id, postlinks_1.id, postlinks_1.linktypeid, postlinks_1.creationdate
 limit 29;
 select  
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -2749,14 +2749,14 @@ select
   posts_1.owneruserid, 
   posts_1.parentid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 limit 15;
 select  
   badges_1.name, 
   badges_2.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
     on (badges_1.id = badges_2.id )
@@ -2766,7 +2766,7 @@ select
   comments_1.creationdate, 
   users_1.creationdate, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posts as posts_1
         inner join postlinks as postlinks_1
@@ -2780,7 +2780,7 @@ select
   posthistory_1.userid, 
   posthistory_1.id, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 limit 41;
@@ -2803,7 +2803,7 @@ select distinct
     postlinks_1.postid), 
   count(*), 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -2818,7 +2818,7 @@ select
   min(
     posts_1.creationdate), 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate <= posts_1.creationdate
 group by posts_1.creationdate, posts_1.parentid, posts_1.contentlicense, posts_1.body, posts_1.body
@@ -2827,7 +2827,7 @@ select
   postlinks_1.id, 
   postlinks_1.postid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
     on (postlinks_1.id = comments_1.id )
@@ -2837,7 +2837,7 @@ select
   posts_1.ownerdisplayname, 
   max(
     posts_1.ownerdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid <= posts_1.id
 group by posts_1.ownerdisplayname
@@ -2851,7 +2851,7 @@ select
     badges_1.tagbased), 
   badges_1.date, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.name, badges_1.date, badges_1.class, badges_1.class, badges_1.date, badges_1.name
@@ -2866,7 +2866,7 @@ select
   votes_1.postid, 
   votes_1.postid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 3;
@@ -2880,7 +2880,7 @@ select
   badges_1.id, 
   badges_1.tagbased, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 8;
@@ -2895,7 +2895,7 @@ select
   count(
     votes_1.userid), 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.votetypeid, votes_1.userid, votes_1.votetypeid, votes_1.postid, votes_1.id, votes_1.postid, votes_1.postid
@@ -2911,7 +2911,7 @@ select
   comments_1.userdisplayname, 
   comments_1.text, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join posthistory as posthistory_1
       on (comments_1.id = posthistory_1.id )
@@ -2924,7 +2924,7 @@ select
   users_1.profileimageurl, 
   users_1.aboutme, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id < users_1.id
 limit 5;
@@ -2932,7 +2932,7 @@ select
   users_1.id, 
   avg(
     users_1.accountid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 group by users_1.id
@@ -2956,7 +2956,7 @@ select
   comments_1.userid, 
   posts_1.title, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join badges as badges_1
       on (users_1.id = badges_1.id )
@@ -2969,7 +2969,7 @@ group by badges_1.id, badges_1.class, posts_1.id, badges_1.date, comments_1.id, 
 limit 10;
 select  
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 2;
@@ -2979,7 +2979,7 @@ select
   users_1.location, 
   users_1.profileimageurl, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid > users_1.profileimageurl
 limit 10;
@@ -3000,7 +3000,7 @@ select
   comments_1.postid, 
   comments_2.id, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
       inner join comments as comments_2
@@ -3024,7 +3024,7 @@ select
   min(
     votes_1.creationdate), 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate >= votes_1.creationdate
 group by votes_1.votetypeid, votes_1.userid, votes_1.creationdate, votes_1.postid, votes_1.votetypeid, votes_1.postid
@@ -3032,7 +3032,7 @@ limit 10;
 select  
   postlinks_1.creationdate, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join votes as votes_1
       inner join posts as posts_1
@@ -3044,7 +3044,7 @@ select
   votes_1.creationdate, 
   max(
     posts_1.tags)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join postlinks as postlinks_1
       on (posts_1.id = postlinks_1.id )
@@ -3055,7 +3055,7 @@ group by votes_1.creationdate
 limit 34;
 select  
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 22;
@@ -3064,7 +3064,7 @@ select
   posthistory_1.text, 
   sum(
     posthistory_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid <= posthistory_1.userid
 group by posthistory_1.comment, posthistory_1.text
@@ -3078,7 +3078,7 @@ select
   users_1.websiteurl, 
   posthistory_1.postid, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posthistory as posthistory_1
         inner join posts as posts_1
@@ -3100,7 +3100,7 @@ select
   avg(
     votes_1.postid), 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join votes as votes_1
     on (posthistory_1.id = votes_1.id )
@@ -3109,7 +3109,7 @@ group by posthistory_1.revisionguid, votes_1.postid, votes_1.userid, posthistory
 limit 18;
 select  
   postlinks_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
       inner join postlinks as postlinks_1
@@ -3132,7 +3132,7 @@ select
     postlinks_1.creationdate), 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.relatedpostid
@@ -3156,14 +3156,14 @@ select
   postlinks_1.id, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.creationdate, postlinks_1.id, postlinks_1.postid, postlinks_1.id, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.id, postlinks_1.creationdate, postlinks_1.id
 limit 26;
 select  
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
     on (users_1.id = comments_1.id )
@@ -3172,13 +3172,13 @@ limit 12;
 select  
   badges_1.date, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name <= badges_1.name
 limit 41;
 select  
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 14;
@@ -3186,14 +3186,14 @@ select
   comments_1.creationdate, 
   max(
     comments_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.creationdate
 limit 13;
 select  
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 14;
@@ -3214,7 +3214,7 @@ select
   votes_1.votetypeid, 
   votes_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.postid, votes_1.userid, votes_1.votetypeid, votes_1.creationdate, votes_1.userid, votes_1.postid, votes_1.userid, votes_1.votetypeid, votes_1.userid, votes_1.userid, votes_1.postid, votes_1.votetypeid, votes_1.creationdate, votes_1.id
@@ -3222,7 +3222,7 @@ limit 33;
 select  
   users_1.websiteurl, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -3234,14 +3234,14 @@ select
   badges_1.userid, 
   badges_1.userid, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id < badges_1.class
 limit 1;
 select  
   posthistory_1.contentlicense, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment is not NULL
 limit 15;
@@ -3258,14 +3258,14 @@ select
   votes_1.postid, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.postid, votes_1.userid, votes_1.postid, votes_1.creationdate, votes_1.id, votes_1.userid, votes_1.postid, votes_1.creationdate, votes_1.postid
 limit 7;
 select  
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 17;
@@ -3273,7 +3273,7 @@ select
   users_1.websiteurl, 
   posts_1.title, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
       on (posts_1.id = users_1.id )
@@ -3283,14 +3283,14 @@ where posts_1.creationdate = users_1.creationdate
 limit 18;
 select  
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 limit 37;
 select  
   max(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 5;
@@ -3299,7 +3299,7 @@ select
   comments_1.userdisplayname, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
       inner join posthistory as posthistory_1
@@ -3323,7 +3323,7 @@ select
   votes_1.votetypeid, 
   avg(
     votes_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.votetypeid, votes_1.id, votes_1.userid, votes_1.votetypeid, votes_1.id, votes_1.creationdate, votes_1.userid, votes_1.votetypeid
@@ -3333,14 +3333,14 @@ select
   votes_1.postid, 
   votes_1.userid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 limit 20;
 select  
   comments_1.creationdate, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join comments as comments_1
         inner join users as users_1
@@ -3360,7 +3360,7 @@ select
     votes_1.creationdate), 
   votes_1.userid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.postid, votes_1.creationdate, votes_1.creationdate, votes_1.votetypeid, votes_1.votetypeid, votes_1.userid, votes_1.id
@@ -3388,7 +3388,7 @@ select
   posts_1.posttypeid, 
   max(
     votes_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
     on (posts_1.id = votes_1.id )
@@ -3407,7 +3407,7 @@ select
   posthistory_1.postid, 
   users_1.profileimageurl, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join posts as posts_1
         inner join posthistory as posthistory_1
@@ -3433,7 +3433,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.id, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.linktypeid
@@ -3448,7 +3448,7 @@ select
   posthistory_1.comment, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posthistory as posthistory_1
     on (badges_1.id = posthistory_1.id )
@@ -3460,7 +3460,7 @@ select
   votes_1.votetypeid, 
   votes_1.id, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.postid, votes_1.userid, votes_1.votetypeid, votes_1.id
@@ -3471,7 +3471,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.postid, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -3483,7 +3483,7 @@ select
   votes_1.id, 
   votes_1.creationdate, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 8;
@@ -3495,7 +3495,7 @@ select
   count(*), 
   postlinks_1.id, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.relatedpostid
@@ -3505,7 +3505,7 @@ select
     users_2.profileimageurl), 
   users_1.accountid, 
   users_3.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join badges as badges_1
       on (comments_1.id = badges_1.id )
@@ -3526,7 +3526,7 @@ select
   max(
     posthistory_1.comment), 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 group by posthistory_1.id
@@ -3549,7 +3549,7 @@ select
   max(
     postlinks_1.creationdate), 
   postlinks_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -3558,7 +3558,7 @@ group by postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.creationdate, po
 limit 35;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname > users_1.aboutme
 limit 18;
@@ -3592,7 +3592,7 @@ select
   min(
     comments_1.userdisplayname), 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
       inner join votes as votes_1
@@ -3611,7 +3611,7 @@ select
   votes_1.postid, 
   votes_1.postid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.postid, votes_1.postid, votes_1.userid
@@ -3621,7 +3621,7 @@ select
   min(
     badges_1.date), 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.class, badges_1.userid
@@ -3654,7 +3654,7 @@ select
   comments_1.text, 
   comments_1.contentlicense, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
     on (postlinks_1.id = comments_1.id )
@@ -3671,7 +3671,7 @@ select
   badges_1.tagbased, 
   badges_1.date, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.tagbased, badges_1.name, badges_1.name, badges_1.class, badges_1.tagbased, badges_1.date, badges_1.name
@@ -3688,7 +3688,7 @@ select
   badges_1.class, 
   badges_1.id, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.class, badges_1.class, badges_1.date, badges_1.tagbased, badges_1.date, badges_1.date, badges_1.class, badges_1.id, badges_1.name
@@ -3697,7 +3697,7 @@ select
   badges_1.class, 
   badges_1.userid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased > badges_1.tagbased
 limit 24;
@@ -3707,7 +3707,7 @@ select
   badges_1.class, 
   badges_1.name, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id >= badges_1.class
 limit 39;
@@ -3722,7 +3722,7 @@ select
   comments_1.creationdate, 
   comments_1.userid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -3748,7 +3748,7 @@ select
   posts_1.id, 
   postlinks_1.postid, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -3763,7 +3763,7 @@ select
   posts_1.acceptedanswerid, 
   users_2.displayname, 
   users_2.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
           inner join badges as badges_1
           on (users_1.id = badges_1.id )
@@ -3781,7 +3781,7 @@ where users_2.displayname is not NULL
 limit 11;
 select  
   votes_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -3789,7 +3789,7 @@ where votes_2.votetypeid is not NULL
 limit 15;
 select  
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 limit 13;
@@ -3797,20 +3797,20 @@ select
   sum(
     postlinks_1.id), 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid >= postlinks_1.linktypeid
 group by postlinks_1.linktypeid
 limit 22;
 select  
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 limit 27;
 select  
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join postlinks as postlinks_1
         on (posthistory_1.id = postlinks_1.id )
@@ -3836,7 +3836,7 @@ select
   posthistory_1.posthistorytypeid, 
   comments_1.text, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -3846,7 +3846,7 @@ limit 41;
 select  
   min(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 limit 15;
@@ -3858,7 +3858,7 @@ select
   posthistory_1.text, 
   posthistory_1.comment, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 group by posthistory_1.userdisplayname, posthistory_1.comment, posthistory_1.text, posthistory_1.comment, posthistory_1.posthistorytypeid
@@ -3867,7 +3867,7 @@ select
   max(
     postlinks_1.postid), 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.creationdate
@@ -3875,13 +3875,13 @@ limit 15;
 select  
   posthistory_1.contentlicense, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 limit 30;
 select  
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 limit 32;
@@ -3890,7 +3890,7 @@ select
     badges_1.name), 
   postlinks_2.relatedpostid, 
   postlinks_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join postlinks as postlinks_1
       on (badges_1.id = postlinks_1.id )
@@ -3903,7 +3903,7 @@ select
   votes_1.postid, 
   votes_2.postid, 
   votes_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join votes as votes_2
       on (votes_1.id = votes_2.id )
@@ -3919,7 +3919,7 @@ select
   postlinks_1.id, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 36;
@@ -3932,7 +3932,7 @@ select
     postlinks_1.relatedpostid), 
   postlinks_1.creationdate, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.linktypeid
@@ -3940,7 +3940,7 @@ limit 38;
 select  
   posthistory_1.id, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -3951,7 +3951,7 @@ select
   badges_1.date, 
   comments_2.id, 
   comments_2.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join comments as comments_2
       on (comments_1.id = comments_2.id )
@@ -3972,7 +3972,7 @@ select distinct
   users_1.profileimageurl, 
   comments_1.text, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join users as users_1
     on (comments_1.id = users_1.id )
@@ -3980,14 +3980,14 @@ where users_1.aboutme is not NULL
 limit 6;
 select  
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name >= badges_1.name
 limit 30;
 select  
   votes_1.postid, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
           inner join posthistory as posthistory_1
             inner join posthistory as posthistory_2
@@ -4009,7 +4009,7 @@ select
     posts_1.acceptedanswerid), 
   comments_1.creationdate, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -4020,7 +4020,7 @@ select
   comments_1.text, 
   comments_1.userdisplayname, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 29;
@@ -4045,7 +4045,7 @@ select
     comments_1.userdisplayname), 
   comments_1.text, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
     on (badges_1.id = comments_1.id )
@@ -4060,7 +4060,7 @@ select
   postlinks_1.linktypeid, 
   max(
     comments_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
     on (postlinks_1.id = comments_1.id )
@@ -4073,7 +4073,7 @@ select
   badges_1.class, 
   badges_1.userid, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 6;
@@ -4081,7 +4081,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join users as users_1
         inner join postlinks as postlinks_1
@@ -4100,7 +4100,7 @@ select
   users_1.id, 
   users_2.profileimageurl, 
   users_2.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
           inner join users as users_1
           on (comments_1.id = users_1.id )
@@ -4114,7 +4114,7 @@ where comments_1.postid is not NULL
 limit 5;
 select  
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
     on (postlinks_1.id = comments_1.id )
@@ -4127,7 +4127,7 @@ select
   posthistory_1.id, 
   posthistory_1.posthistorytypeid, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -4135,7 +4135,7 @@ where users_1.accountid is not NULL
 limit 13;
 select  
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posts as posts_1
         inner join votes as votes_1
@@ -4148,7 +4148,7 @@ limit 33;
 select  
   votes_1.userid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join votes as votes_2
       on (votes_1.id = votes_2.id )
@@ -4162,7 +4162,7 @@ select
   postlinks_1.id, 
   postlinks_2.postid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -4176,7 +4176,7 @@ select
   users_1.location, 
   max(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id > users_1.id
 group by users_1.id, users_1.location
@@ -4195,7 +4195,7 @@ select
   users_1.id, 
   users_1.displayname, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate < users_1.creationdate
 group by users_1.id, users_1.accountid, users_1.aboutme, users_1.location, users_1.aboutme, users_1.displayname, users_1.id, users_1.displayname, users_1.id
@@ -4234,7 +4234,7 @@ select
   badges_1.name, 
   badges_1.id, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.class, badges_1.class, badges_1.tagbased, badges_1.userid, badges_1.name, badges_1.id, badges_1.userid, badges_1.userid, badges_1.userid, badges_1.id, badges_1.userid, badges_1.name, badges_1.id, badges_1.date, badges_1.tagbased, badges_1.name, badges_1.name, badges_1.id, badges_1.userid, badges_1.tagbased, badges_1.name, badges_1.id, badges_1.id
@@ -4243,7 +4243,7 @@ select
   badges_1.class, 
   badges_1.date, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
     on (badges_1.id = posts_1.id )
@@ -4253,7 +4253,7 @@ select
   posthistory_1.id, 
   max(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
     on (comments_1.id = posthistory_1.id )
@@ -4263,7 +4263,7 @@ limit 22;
 select  
   votes_1.creationdate, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
     on (posts_1.id = votes_1.id )
@@ -4281,7 +4281,7 @@ select
   min(
     badges_1.name), 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.id, badges_1.name, badges_1.userid, badges_1.tagbased, badges_1.date
@@ -4294,7 +4294,7 @@ select
     posthistory_1.creationdate), 
   posthistory_1.userid, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid is not NULL
 group by posthistory_1.text, posthistory_1.userdisplayname, posthistory_1.comment, posthistory_1.userid, posthistory_1.userdisplayname
@@ -4302,7 +4302,7 @@ limit 4;
 select  
   posts_2.id, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posthistory as posthistory_1
       on (posts_1.id = posthistory_1.id )
@@ -4319,7 +4319,7 @@ select
   min(
     posthistory_1.creationdate), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
     on (votes_1.id = posthistory_1.id )
@@ -4335,14 +4335,14 @@ select
   posthistory_1.text, 
   posthistory_1.text, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 group by posthistory_1.userdisplayname, posthistory_1.contentlicense, posthistory_1.id, posthistory_1.text, posthistory_1.text, posthistory_1.contentlicense
 limit 8;
 select  
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
       inner join posts as posts_1
@@ -4369,7 +4369,7 @@ select
   posthistory_1.contentlicense, 
   posthistory_1.userid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 group by posthistory_1.id, posthistory_1.creationdate, posthistory_1.userdisplayname, posthistory_1.id, posthistory_1.postid, posthistory_1.id, posthistory_1.contentlicense, posthistory_1.posthistorytypeid, posthistory_1.userid, posthistory_1.text, posthistory_1.creationdate, posthistory_1.comment, posthistory_1.posthistorytypeid, posthistory_1.contentlicense, posthistory_1.userid, posthistory_1.contentlicense
@@ -4393,7 +4393,7 @@ select
   posthistory_1.comment, 
   users_2.id, 
   users_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join users as users_1
       on (posthistory_1.id = users_1.id )
@@ -4418,7 +4418,7 @@ select
     users_1.location), 
   users_1.profileimageurl, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 group by users_1.profileimageurl, users_1.id, users_1.aboutme, users_1.creationdate, users_1.creationdate, users_1.aboutme, users_1.displayname, users_1.profileimageurl, users_1.websiteurl
@@ -4433,7 +4433,7 @@ select
   comments_1.contentlicense, 
   count(*), 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.creationdate, comments_1.userid, comments_1.userdisplayname, comments_1.contentlicense, comments_1.creationdate, comments_1.contentlicense, comments_1.contentlicense, comments_1.creationdate
@@ -4445,7 +4445,7 @@ select
     postlinks_1.creationdate), 
   postlinks_1.postid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.postid, postlinks_1.postid
@@ -4487,7 +4487,7 @@ select
   users_2.profileimageurl, 
   badges_2.tagbased, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join users as users_1
           inner join posts as posts_1
@@ -4502,13 +4502,13 @@ group by users_2.id, badges_1.userid, badges_2.name, posts_1.acceptedanswerid, p
 limit 27;
 select  
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 limit 13;
 select  
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date > badges_1.date
 limit 13;
@@ -4522,7 +4522,7 @@ select
   count(
     posts_1.tags), 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate <= posts_1.creationdate
 group by posts_1.contentlicense, posts_1.ownerdisplayname, posts_1.title, posts_1.body, posts_1.tags, posts_1.parentid, posts_1.id
@@ -4538,14 +4538,14 @@ select
   comments_1.userdisplayname, 
   max(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 group by comments_1.creationdate, comments_1.creationdate, comments_1.creationdate, comments_1.id, comments_1.id, comments_1.creationdate, comments_1.userdisplayname, comments_1.userdisplayname
 limit 19;
 select  
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate = users_1.creationdate
 limit 28;
@@ -4556,7 +4556,7 @@ select
   max(
     posts_1.creationdate), 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join postlinks as postlinks_1
       on (posts_1.id = postlinks_1.id )
@@ -4570,7 +4570,7 @@ select
   posthistory_1.text, 
   posthistory_1.userdisplayname, 
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname > posthistory_1.text
 limit 4;
@@ -4590,7 +4590,7 @@ select
   postlinks_1.id, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.id, postlinks_1.id, postlinks_1.creationdate, postlinks_1.id
@@ -4620,7 +4620,7 @@ select
   votes_1.id, 
   votes_1.votetypeid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.postid, votes_1.id, votes_1.userid, votes_1.id, votes_1.postid, votes_1.id, votes_1.votetypeid, votes_1.userid, votes_1.id, votes_1.postid, votes_1.creationdate, votes_1.userid, votes_1.id, votes_1.creationdate, votes_1.creationdate, votes_1.userid, votes_1.creationdate, votes_1.id, votes_1.votetypeid, votes_1.id
@@ -4636,7 +4636,7 @@ select
   posts_1.ownerdisplayname, 
   posts_1.posttypeid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 limit 12;
@@ -4649,7 +4649,7 @@ select
   postlinks_1.id, 
   posts_1.creationdate, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -4658,7 +4658,7 @@ limit 41;
 select  
   comments_1.id, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join comments as comments_1
       on (users_1.id = comments_1.id )
@@ -4673,7 +4673,7 @@ select
   comments_1.postid, 
   comments_1.userid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.postid, comments_1.userid, comments_1.contentlicense
@@ -4692,7 +4692,7 @@ select
   votes_1.id, 
   users_1.accountid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
         inner join comments as comments_1
@@ -4711,7 +4711,7 @@ select
     posts_1.ownerdisplayname), 
   posts_1.tags, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 group by posts_1.tags, posts_1.tags, posts_1.body
@@ -4723,7 +4723,7 @@ select
   posts_1.acceptedanswerid, 
   sum(
     posts_1.parentid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
     on (votes_1.id = posts_1.id )
@@ -4733,7 +4733,7 @@ limit 18;
 select  
   min(
     posts_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 limit 15;
@@ -4741,7 +4741,7 @@ select
   votes_1.votetypeid, 
   votes_1.postid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join comments as comments_1
     on (votes_1.id = comments_1.id )
@@ -4749,7 +4749,7 @@ where votes_1.votetypeid is not NULL
 limit 34;
 select  
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
       inner join posts as posts_1
@@ -4763,7 +4763,7 @@ select
   badges_1.date, 
   badges_1.userid, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 10;
@@ -4774,7 +4774,7 @@ select
   users_1.creationdate, 
   users_1.id, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join votes as votes_1
       on (users_1.id = votes_1.id )
@@ -4785,7 +4785,7 @@ limit 1;
 select  
   comments_1.userid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
       inner join postlinks as postlinks_1
@@ -4816,7 +4816,7 @@ select
   posthistory_2.postid, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posthistory as posthistory_1
       on (posts_1.id = posthistory_1.id )
@@ -4844,7 +4844,7 @@ select
   comments_1.id, 
   comments_1.creationdate, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.text, comments_1.contentlicense, comments_1.contentlicense, comments_1.contentlicense, comments_1.userid, comments_1.text, comments_1.creationdate, comments_1.userid, comments_1.id, comments_1.id, comments_1.creationdate, comments_1.text
@@ -4855,7 +4855,7 @@ select
   comments_1.userdisplayname, 
   count(
     comments_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 group by comments_1.id, comments_1.userdisplayname, comments_1.userdisplayname
@@ -4864,7 +4864,7 @@ select
   posthistory_1.contentlicense, 
   avg(
     postlinks_2.relatedpostid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
         inner join posthistory as posthistory_1
@@ -4903,14 +4903,14 @@ select
   max(
     postlinks_1.creationdate), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.id
 limit 36;
 select  
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 17;
@@ -4919,7 +4919,7 @@ select
   users_1.profileimageurl, 
   avg(
     users_1.accountid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -4928,7 +4928,7 @@ group by postlinks_1.creationdate, users_1.profileimageurl
 limit 42;
 select  
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 14;
@@ -4946,7 +4946,7 @@ select
   users_1.aboutme, 
   users_1.id, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
           inner join badges as badges_2
           on (badges_1.id = badges_2.id )
@@ -4963,7 +4963,7 @@ select
   votes_1.userid, 
   votes_1.votetypeid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 16;
@@ -4971,7 +4971,7 @@ select
   comments_1.creationdate, 
   comments_1.contentlicense, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -4981,7 +4981,7 @@ select
   posts_1.ownerdisplayname, 
   posts_1.posttypeid, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense > posts_1.title
 limit 5;
@@ -4993,7 +4993,7 @@ select
   users_1.websiteurl, 
   count(*), 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 group by users_1.profileimageurl, users_1.creationdate, users_1.websiteurl, users_1.profileimageurl
@@ -5001,7 +5001,7 @@ limit 4;
 select  
   posts_2.owneruserid, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -5012,14 +5012,14 @@ select
   badges_1.id, 
   badges_1.tagbased, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 2;
 select  
   min(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -5045,7 +5045,7 @@ select
     posts_1.tags), 
   sum(
     posts_1.posttypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate > posts_1.creationdate
 group by posts_1.owneruserid, posts_1.tags, posts_1.owneruserid, posts_1.owneruserid, posts_1.creationdate, posts_1.tags, posts_1.title, posts_1.acceptedanswerid, posts_1.tags, posts_1.title, posts_1.ownerdisplayname
@@ -5059,7 +5059,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.postid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid = postlinks_1.linktypeid
 group by postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid
@@ -5072,7 +5072,7 @@ select
   badges_1.date, 
   badges_1.date, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.userid, badges_1.class, badges_1.date, badges_1.date, badges_1.tagbased
@@ -5095,7 +5095,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -5111,7 +5111,7 @@ select
   votes_1.votetypeid, 
   votes_1.postid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.votetypeid, votes_1.postid, votes_1.votetypeid, votes_1.userid, votes_1.votetypeid, votes_1.postid, votes_1.userid
@@ -5119,7 +5119,7 @@ limit 36;
 select  
   badges_2.userid, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
     on (badges_1.id = badges_2.id )
@@ -5128,7 +5128,7 @@ limit 24;
 select  
   posts_1.id, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 5;
@@ -5142,7 +5142,7 @@ select
   posts_1.tags, 
   posts_1.tags, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.tags, posts_1.id, posts_1.parentid, posts_1.acceptedanswerid, posts_1.tags, posts_1.tags, posts_1.owneruserid
@@ -5155,7 +5155,7 @@ select
   postlinks_1.postid, 
   comments_1.userid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
       inner join votes as votes_1
@@ -5176,7 +5176,7 @@ select
     posts_1.contentlicense), 
   posts_1.posttypeid, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 group by posts_1.ownerdisplayname, posts_1.parentid, posts_1.posttypeid, posts_1.posttypeid
@@ -5192,20 +5192,20 @@ select
     votes_1.creationdate), 
   votes_1.id, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.id, votes_1.postid, votes_1.postid, votes_1.votetypeid, votes_1.id, votes_1.postid
 limit 15;
 select  
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 29;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 6;
@@ -5222,7 +5222,7 @@ select
   votes_1.userid, 
   sum(
     votes_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.userid, votes_1.id, votes_1.postid, votes_1.votetypeid, votes_1.userid, votes_1.votetypeid, votes_1.id, votes_1.userid
@@ -5233,19 +5233,19 @@ select
   posthistory_1.contentlicense, 
   posthistory_1.userdisplayname, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense is not NULL
 limit 25;
 select  
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid = users_1.profileimageurl
 limit 7;
 select  
   posthistory_3.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
       inner join votes as votes_1
@@ -5284,7 +5284,7 @@ select
     comments_1.userid), 
   comments_1.id, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 group by comments_1.postid, comments_1.postid, comments_1.creationdate, comments_1.postid, comments_1.id, comments_1.userdisplayname, comments_1.creationdate, comments_1.userid, comments_1.userid, comments_1.contentlicense, comments_1.postid, comments_1.postid, comments_1.text, comments_1.creationdate, comments_1.id, comments_1.userid
@@ -5294,14 +5294,14 @@ select
     votes_1.id), 
   votes_1.id, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.id, votes_1.id
 limit 34;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join votes as votes_1
         inner join users as users_1
@@ -5329,7 +5329,7 @@ select
   votes_1.userid, 
   comments_1.creationdate, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join comments as comments_1
           inner join votes as votes_1
@@ -5349,7 +5349,7 @@ select
   users_1.location, 
   badges_1.id, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
       inner join votes as votes_1
@@ -5372,7 +5372,7 @@ select
   posts_1.creationdate, 
   comments_1.id, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -5386,7 +5386,7 @@ select
   users_1.websiteurl, 
   min(
     votes_2.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join votes as votes_1
       on (users_1.id = votes_1.id )
@@ -5412,7 +5412,7 @@ select
   min(
     users_1.id), 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join users as users_1
     on (comments_1.id = users_1.id )
@@ -5441,7 +5441,7 @@ select
   posthistory_2.revisionguid, 
   postlinks_1.id, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
         inner join posts as posts_1
@@ -5455,7 +5455,7 @@ limit 8;
 select  
   max(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 limit 21;
@@ -5475,7 +5475,7 @@ select
   badges_2.userid, 
   badges_1.userid, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join users as users_1
       on (badges_1.id = users_1.id )
@@ -5491,7 +5491,7 @@ select
   votes_1.id, 
   votes_1.id, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.votetypeid, votes_1.id, votes_1.id
@@ -5505,7 +5505,7 @@ select
     badges_1.name), 
   badges_1.id, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.tagbased, badges_1.tagbased, badges_1.userid, badges_1.class, badges_1.id, badges_1.date
@@ -5520,7 +5520,7 @@ select
   postlinks_1.postid, 
   count(*), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.id, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.id
@@ -5538,7 +5538,7 @@ select
   badges_1.class, 
   badges_1.date, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name <= badges_1.name
 limit 40;
@@ -5548,7 +5548,7 @@ select
   comments_1.userdisplayname, 
   users_1.creationdate, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
       inner join comments as comments_2
@@ -5564,7 +5564,7 @@ select
   posthistory_2.posthistorytypeid, 
   badges_1.class, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
       inner join posthistory as posthistory_2
@@ -5589,7 +5589,7 @@ select
   min(
     votes_1.creationdate), 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join votes as votes_1
     on (postlinks_1.id = votes_1.id )
@@ -5599,7 +5599,7 @@ limit 5;
 select  
   posthistory_1.postid, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid < posthistory_1.contentlicense
 limit 40;
@@ -5607,7 +5607,7 @@ select
   posthistory_1.comment, 
   posthistory_1.userdisplayname, 
   posthistory_2.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join posthistory as posthistory_1
       on (postlinks_1.id = posthistory_1.id )
@@ -5620,7 +5620,7 @@ select
   min(
     postlinks_1.id), 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join comments as comments_1
         on (users_1.id = comments_1.id )
@@ -5650,7 +5650,7 @@ select
   badges_2.name, 
   badges_2.name, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join votes as votes_1
       inner join badges as badges_1
@@ -5673,7 +5673,7 @@ select
   postlinks_1.creationdate, 
   min(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
     on (postlinks_1.id = badges_1.id )
@@ -5682,7 +5682,7 @@ group by postlinks_1.id, badges_1.date, badges_1.name, badges_1.userid, postlink
 limit 17;
 select  
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join postlinks as postlinks_1
         inner join votes as votes_1
@@ -5706,7 +5706,7 @@ select
   badges_1.tagbased, 
   min(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 group by badges_1.userid, badges_1.date, badges_1.name, badges_1.name, badges_1.tagbased, badges_1.date, badges_1.class, badges_1.name, badges_1.tagbased
@@ -5719,14 +5719,14 @@ select
   badges_1.id, 
   badges_1.id, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id <= badges_1.class
 group by badges_1.tagbased, badges_1.date, badges_1.id, badges_1.id, badges_1.userid
 limit 24;
 select  
   badges_2.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
       inner join badges as badges_2
@@ -5738,13 +5738,13 @@ select
   badges_1.date, 
   badges_1.class, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name <= badges_1.name
 limit 19;
 select  
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 limit 26;
@@ -5755,7 +5755,7 @@ select
   comments_2.id, 
   badges_1.class, 
   postlinks_2.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
           inner join posthistory as posthistory_1
           on (badges_1.id = posthistory_1.id )
@@ -5771,7 +5771,7 @@ where badges_1.tagbased >= badges_1.tagbased
 limit 1;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 5;
@@ -5787,7 +5787,7 @@ select
     posthistory_1.revisionguid), 
   max(
     posthistory_2.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -5796,7 +5796,7 @@ group by posthistory_2.revisionguid, posthistory_1.posthistorytypeid, posthistor
 limit 38;
 select  
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -5805,14 +5805,14 @@ limit 9;
 select  
   posts_1.tags, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 limit 17;
 select  
   min(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased > badges_1.tagbased
 limit 28;
@@ -5820,7 +5820,7 @@ select
   users_2.aboutme, 
   users_1.displayname, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
       inner join users as users_2
@@ -5837,7 +5837,7 @@ select
   votes_1.creationdate, 
   votes_1.creationdate, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate <= votes_1.creationdate
 limit 10;
@@ -5858,7 +5858,7 @@ select
   votes_1.userid, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.votetypeid, votes_1.id, votes_1.id, votes_1.postid, votes_1.votetypeid, votes_1.id, votes_1.postid, votes_1.userid, votes_1.creationdate, votes_1.postid
@@ -5867,7 +5867,7 @@ select
   postlinks_1.linktypeid, 
   users_1.location, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join postlinks as postlinks_1
         inner join posts as posts_1
@@ -5883,7 +5883,7 @@ select
   posts_1.tags, 
   comments_1.postid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
     on (comments_1.id = posts_1.id )
@@ -5895,7 +5895,7 @@ select
   comments_1.postid, 
   comments_1.creationdate, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -5907,7 +5907,7 @@ select
   users_1.displayname, 
   users_1.websiteurl, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posts as posts_1
     on (users_1.id = posts_1.id )
@@ -5934,7 +5934,7 @@ select
   posthistory_1.id, 
   posthistory_1.creationdate, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 group by posthistory_1.contentlicense, posthistory_1.userdisplayname, posthistory_1.postid, posthistory_1.contentlicense, posthistory_1.posthistorytypeid, posthistory_1.text, posthistory_1.id, posthistory_1.postid, posthistory_1.text, posthistory_1.userdisplayname, posthistory_1.postid, posthistory_1.creationdate, posthistory_1.posthistorytypeid, posthistory_1.userdisplayname, posthistory_1.postid, posthistory_1.id, posthistory_1.creationdate, posthistory_1.creationdate
@@ -5956,7 +5956,7 @@ select
   users_1.websiteurl, 
   users_1.location, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id = users_1.id
 limit 28;
@@ -5979,7 +5979,7 @@ select
   users_1.location, 
   users_1.accountid, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 group by users_1.displayname, users_1.websiteurl, users_1.websiteurl, users_1.websiteurl, users_1.creationdate, users_1.profileimageurl, users_1.location, users_1.location, users_1.accountid, users_1.accountid
@@ -5987,7 +5987,7 @@ limit 7;
 select  
   posts_2.id, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -6001,7 +6001,7 @@ select
   posts_1.owneruserid, 
   users_1.profileimageurl, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join posts as posts_1
       on (posthistory_1.id = posts_1.id )
@@ -6011,7 +6011,7 @@ where posthistory_1.creationdate = users_1.creationdate
 limit 25;
 select  
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl > users_1.aboutme
 limit 37;
@@ -6019,7 +6019,7 @@ select
   comments_1.contentlicense, 
   comments_1.postid, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 limit 35;
@@ -6028,7 +6028,7 @@ select
     posts_1.owneruserid), 
   posts_1.ownerdisplayname, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 group by posts_1.ownerdisplayname, posts_1.acceptedanswerid
@@ -6037,7 +6037,7 @@ select
   users_1.aboutme, 
   users_1.location, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 limit 34;
@@ -6057,7 +6057,7 @@ select
   postlinks_1.creationdate, 
   postlinks_2.linktypeid, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join postlinks as postlinks_1
           inner join badges as badges_1
@@ -6081,7 +6081,7 @@ select
   comments_1.creationdate, 
   comments_1.postid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid = comments_1.id
 group by comments_1.contentlicense, comments_1.id, comments_1.userid, comments_1.creationdate, comments_1.postid, comments_1.creationdate
@@ -6090,7 +6090,7 @@ select
   votes_1.creationdate, 
   posts_1.id, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
     on (posts_1.id = votes_1.id )
@@ -6098,13 +6098,13 @@ where posts_1.creationdate is not NULL
 limit 15;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 38;
 select  
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -6120,7 +6120,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.userid, votes_1.userid, votes_1.creationdate, votes_1.userid, votes_1.creationdate
@@ -6128,14 +6128,14 @@ limit 16;
 select  
   posts_1.tags, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid >= posts_1.parentid
 limit 18;
 select  
   max(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 12;
@@ -6143,7 +6143,7 @@ select
   posts_1.id, 
   min(
     posts_1.tags)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 group by posts_1.id
@@ -6153,7 +6153,7 @@ select
     posts_1.creationdate), 
   posts_1.id, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 group by posts_1.id, posts_1.title
@@ -6179,7 +6179,7 @@ select
   users_2.location, 
   users_2.location, 
   users_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
         inner join users as users_1
         on (badges_1.id = users_1.id )
@@ -6196,7 +6196,7 @@ select
   posts_1.owneruserid, 
   count(
     posts_1.body)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid <= posts_1.acceptedanswerid
 group by posts_1.owneruserid
@@ -6206,7 +6206,7 @@ select
     users_1.aboutme), 
   votes_1.votetypeid, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join votes as votes_1
       on (users_1.id = votes_1.id )
@@ -6230,7 +6230,7 @@ select
   min(
     users_2.aboutme), 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join postlinks as postlinks_1
         inner join users as users_1
@@ -6247,7 +6247,7 @@ select
   avg(
     votes_1.userid), 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join votes as votes_1
         inner join posthistory as posthistory_1
@@ -6262,13 +6262,13 @@ select
   badges_1.name, 
   badges_1.id, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 limit 40;
 select  
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate < posts_1.creationdate
 limit 5;
@@ -6281,7 +6281,7 @@ select
   count(*), 
   min(
     users_2.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
     on (users_1.id = users_2.id )
@@ -6299,7 +6299,7 @@ select
   sum(
     posthistory_1.userid), 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate <= posthistory_1.creationdate
 group by posthistory_1.creationdate, posthistory_1.contentlicense, posthistory_1.userid, posthistory_1.text, posthistory_1.comment, posthistory_1.contentlicense
@@ -6308,7 +6308,7 @@ select
   comments_1.contentlicense, 
   comments_2.userid, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
     on (comments_1.id = comments_2.id )
@@ -6319,7 +6319,7 @@ select
   comments_1.userdisplayname, 
   comments_1.postid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
     on (badges_1.id = comments_1.id )
@@ -6333,7 +6333,7 @@ select
   postlinks_1.creationdate, 
   badges_1.date, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
     on (postlinks_1.id = badges_1.id )
@@ -6352,7 +6352,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.postid, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.id
@@ -6363,7 +6363,7 @@ select
     badges_1.date), 
   badges_1.name, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id = badges_1.class
 group by badges_1.date, badges_1.name, badges_1.id
@@ -6374,7 +6374,7 @@ select
   comments_1.userdisplayname, 
   comments_1.id, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate >= comments_1.creationdate
 group by comments_1.userdisplayname, comments_1.id, comments_1.id
@@ -6389,7 +6389,7 @@ select
   badges_1.date, 
   badges_1.date, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.class, badges_1.date, badges_1.tagbased, badges_1.id, badges_1.date, badges_1.date, badges_1.date
@@ -6400,7 +6400,7 @@ select
     comments_1.postid), 
   comments_1.userdisplayname, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense <= comments_1.text
 group by comments_1.postid, comments_1.userdisplayname
@@ -6410,7 +6410,7 @@ select
     users_1.creationdate), 
   users_1.creationdate, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 group by users_1.creationdate, users_1.creationdate
@@ -6428,7 +6428,7 @@ select
   badges_1.date, 
   badges_1.class, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date >= badges_1.date
 limit 23;
@@ -6442,7 +6442,7 @@ select
   votes_1.userid, 
   votes_3.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join badges as badges_1
       inner join votes as votes_2
@@ -6458,7 +6458,7 @@ select
     badges_1.date), 
   badges_1.tagbased, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name >= badges_1.name
 group by badges_1.tagbased, badges_1.class
@@ -6467,7 +6467,7 @@ select
   users_1.id, 
   comments_1.userdisplayname, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
         inner join users as users_1
@@ -6488,7 +6488,7 @@ select
   posts_1.ownerdisplayname, 
   min(
     posts_1.posttypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
     on (posts_1.id = badges_1.id )
@@ -6503,7 +6503,7 @@ select
   badges_1.date, 
   max(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 group by badges_1.tagbased, badges_1.date, badges_1.userid, badges_1.name, badges_1.date
@@ -6515,7 +6515,7 @@ select
   posts_1.posttypeid, 
   posts_1.creationdate, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 limit 18;
@@ -6567,7 +6567,7 @@ select
   posthistory_1.posthistorytypeid, 
   posthistory_1.text, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 group by posthistory_1.text, posthistory_1.text, posthistory_1.creationdate, posthistory_1.creationdate, posthistory_1.userid, posthistory_1.revisionguid, posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.postid, posthistory_1.posthistorytypeid, posthistory_1.userid, posthistory_1.text, posthistory_1.userdisplayname, posthistory_1.contentlicense, posthistory_1.userdisplayname, posthistory_1.userid, posthistory_1.posthistorytypeid, posthistory_1.userid, posthistory_1.comment, posthistory_1.postid, posthistory_1.text, posthistory_1.creationdate, posthistory_1.id, posthistory_1.revisionguid, posthistory_1.creationdate, posthistory_1.revisionguid, posthistory_1.posthistorytypeid, posthistory_1.posthistorytypeid, posthistory_1.posthistorytypeid, posthistory_1.text, posthistory_1.userid
@@ -6576,7 +6576,7 @@ select
   max(
     posts_1.tags), 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname > posts_1.body
 group by posts_1.parentid
@@ -6594,14 +6594,14 @@ select
   badges_1.id, 
   badges_1.name, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.class, badges_1.class, badges_1.name, badges_1.date, badges_1.class, badges_1.class, badges_1.name, badges_1.id, badges_1.name, badges_1.userid
 limit 6;
 select  
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join comments as comments_1
         on (votes_1.id = comments_1.id )
@@ -6617,7 +6617,7 @@ select
   posts_1.contentlicense, 
   posts_1.acceptedanswerid, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 limit 32;
@@ -6639,7 +6639,7 @@ select
     posthistory_1.userdisplayname), 
   badges_1.tagbased, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
         inner join badges as badges_1
         on (postlinks_1.id = badges_1.id )
@@ -6666,7 +6666,7 @@ select
   users_2.websiteurl, 
   postlinks_1.linktypeid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
       inner join postlinks as postlinks_1
@@ -6695,7 +6695,7 @@ select
   badges_1.class, 
   badges_1.name, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.tagbased, badges_1.id, badges_1.date, badges_1.id, badges_1.date, badges_1.tagbased, badges_1.class, badges_1.tagbased, badges_1.name, badges_1.tagbased, badges_1.userid, badges_1.class, badges_1.name, badges_1.userid
@@ -6706,7 +6706,7 @@ select
   comments_1.userid, 
   comments_1.userid, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -6716,14 +6716,14 @@ select
   users_1.websiteurl, 
   users_1.id, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid >= users_1.profileimageurl
 limit 11;
 select  
   max(
     posts_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 limit 9;
@@ -6732,7 +6732,7 @@ select
   users_1.location, 
   users_1.aboutme, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 limit 11;
@@ -6743,7 +6743,7 @@ select
   posts_1.owneruserid, 
   min(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -6756,7 +6756,7 @@ select
   posts_1.id, 
   posts_1.acceptedanswerid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 41;
@@ -6765,14 +6765,14 @@ select
   comments_1.text, 
   min(
     comments_1.userdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid > comments_1.postid
 group by comments_1.postid, comments_1.text
 limit 28;
 select  
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -6787,7 +6787,7 @@ select
   posts_1.tags, 
   min(
     posts_1.ownerdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.owneruserid, posts_1.owneruserid, posts_1.tags
@@ -6807,7 +6807,7 @@ select
   min(
     votes_1.creationdate), 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id < votes_1.userid
 group by votes_1.creationdate, votes_1.userid, votes_1.votetypeid, votes_1.creationdate, votes_1.id, votes_1.creationdate, votes_1.creationdate, votes_1.postid
@@ -6826,7 +6826,7 @@ select
   votes_1.postid, 
   max(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
       inner join votes as votes_1
@@ -6837,7 +6837,7 @@ group by badges_1.class, badges_1.date, votes_1.postid
 limit 17;
 select  
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 limit 35;
@@ -6849,7 +6849,7 @@ select
   users_1.id, 
   avg(
     users_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id < users_1.id
 group by users_1.creationdate, users_1.websiteurl, users_1.id
@@ -6859,7 +6859,7 @@ select
   sum(
     postlinks_1.postid), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.id, postlinks_1.id
@@ -6874,7 +6874,7 @@ select
   votes_1.userid, 
   votes_1.postid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.creationdate, votes_1.creationdate, votes_1.id, votes_1.id, votes_1.userid, votes_1.postid, votes_1.votetypeid
@@ -6883,7 +6883,7 @@ select
   min(
     users_1.creationdate), 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 group by users_1.displayname
@@ -6894,7 +6894,7 @@ select
   posthistory_1.userdisplayname, 
   count(
     posthistory_1.revisionguid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate >= posthistory_1.creationdate
 group by posthistory_1.creationdate, posthistory_1.userdisplayname, posthistory_1.userdisplayname
@@ -6905,7 +6905,7 @@ select
   comments_1.userdisplayname, 
   comments_1.userdisplayname, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 37;
@@ -6922,7 +6922,7 @@ select
   postlinks_1.id, 
   postlinks_1.id, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.postid, postlinks_1.id, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.id, postlinks_1.id, postlinks_1.relatedpostid
@@ -6933,14 +6933,14 @@ select
     posts_1.body), 
   posts_1.body, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 group by posts_1.creationdate, posts_1.body, posts_1.title
 limit 26;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location <= users_1.displayname
 limit 11;
@@ -6957,7 +6957,7 @@ select
   badges_1.tagbased, 
   badges_1.id, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.class, badges_1.name, badges_1.name, badges_1.tagbased, badges_1.id, badges_1.id
@@ -6965,7 +6965,7 @@ limit 5;
 select  
   postlinks_1.id, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join comments as comments_1
       on (badges_1.id = comments_1.id )
@@ -6975,7 +6975,7 @@ where badges_1.userid is not NULL
 limit 24;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 21;
@@ -6997,7 +6997,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.id, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate >= postlinks_1.creationdate
 group by postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.postid
@@ -7017,7 +7017,7 @@ select
   votes_1.userid, 
   votes_1.id, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join votes as votes_1
         inner join users as users_1
@@ -7033,14 +7033,14 @@ select
   users_1.id, 
   users_1.displayname, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 42;
 select  
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 29;
@@ -7053,7 +7053,7 @@ select
   posthistory_1.revisionguid, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id > posthistory_1.postid
 group by posthistory_1.comment, posthistory_1.id, posthistory_1.comment, posthistory_1.comment, posthistory_1.revisionguid, posthistory_1.posthistorytypeid, posthistory_1.creationdate
@@ -7064,7 +7064,7 @@ select
   users_1.websiteurl, 
   users_1.websiteurl, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 2;
@@ -7082,7 +7082,7 @@ select
   badges_1.userid, 
   sum(
     badges_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.userid, badges_1.id, badges_1.name, badges_1.id, badges_1.name, badges_1.name, badges_1.date, badges_1.class, badges_1.userid
@@ -7090,13 +7090,13 @@ limit 8;
 select  
   badges_1.class, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 37;
 select  
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid > badges_1.class
 limit 8;
@@ -7125,7 +7125,7 @@ select
   avg(
     postlinks_1.linktypeid), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.creationdate, postlinks_1.id, postlinks_1.id, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.id
@@ -7133,7 +7133,7 @@ limit 35;
 select  
   max(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 limit 19;
@@ -7166,7 +7166,7 @@ select
   postlinks_1.postid, 
   sum(
     postlinks_1.linktypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id = postlinks_1.postid
 group by postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.id, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.postid
@@ -7176,7 +7176,7 @@ select
   posts_2.body, 
   users_1.location, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join posts as posts_1
         on (users_1.id = posts_1.id )
@@ -7191,13 +7191,13 @@ limit 24;
 select  
   posthistory_1.creationdate, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 38;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 34;
@@ -7213,13 +7213,13 @@ select
   posts_1.body, 
   posts_1.creationdate, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 limit 32;
 select  
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags is not NULL
 limit 31;
@@ -7233,7 +7233,7 @@ select
   posts_1.creationdate, 
   posts_1.id, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid < posts_1.posttypeid
 group by posts_1.title, posts_1.tags, posts_1.creationdate, posts_1.id, posts_1.body
@@ -7241,7 +7241,7 @@ limit 14;
 select  
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 19;
@@ -7249,7 +7249,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 28;
@@ -7258,7 +7258,7 @@ select
     posts_1.contentlicense), 
   posts_1.posttypeid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.posttypeid, posts_1.id
@@ -7270,7 +7270,7 @@ select
   posthistory_1.contentlicense, 
   posthistory_1.userid, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate = posthistory_1.creationdate
 limit 6;
@@ -7278,7 +7278,7 @@ select
   badges_1.id, 
   badges_1.id, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 37;
@@ -7292,7 +7292,7 @@ select
   votes_1.creationdate, 
   votes_1.creationdate, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.userid, votes_1.creationdate, votes_1.creationdate, votes_1.creationdate, votes_1.userid
@@ -7301,7 +7301,7 @@ select
   posts_1.id, 
   min(
     posthistory_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join votes as votes_1
       on (posthistory_1.id = votes_1.id )
@@ -7341,7 +7341,7 @@ select
   postlinks_1.postid, 
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.postid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.linktypeid
@@ -7350,7 +7350,7 @@ select
   comments_1.userdisplayname, 
   posts_1.acceptedanswerid, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
       inner join comments as comments_2
@@ -7362,7 +7362,7 @@ select
   badges_1.class, 
   badges_1.date, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
     on (badges_1.id = comments_1.id )
@@ -7377,7 +7377,7 @@ select
   posthistory_1.posthistorytypeid, 
   posthistory_1.comment, 
   posthistory_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -7387,7 +7387,7 @@ limit 22;
 select  
   min(
     postlinks_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate > postlinks_1.creationdate
 limit 2;
@@ -7399,7 +7399,7 @@ select
   max(
     posts_1.creationdate), 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title >= posts_1.contentlicense
 group by posts_1.contentlicense
@@ -7407,7 +7407,7 @@ limit 22;
 select  
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 6;
@@ -7430,7 +7430,7 @@ select
   comments_1.id, 
   comments_1.id, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.text, comments_1.userid, comments_1.contentlicense, comments_1.contentlicense, comments_1.userid, comments_1.text, comments_1.postid, comments_1.id, comments_1.creationdate, comments_1.userid, comments_1.id, comments_1.contentlicense, comments_1.id, comments_1.id, comments_1.userdisplayname
@@ -7444,7 +7444,7 @@ select
     posts_1.posttypeid), 
   postlinks_1.relatedpostid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -7453,7 +7453,7 @@ group by posts_1.body, posts_1.owneruserid, posts_1.acceptedanswerid, postlinks_
 limit 16;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
         inner join postlinks as postlinks_1
         on (comments_1.id = postlinks_1.id )
@@ -7469,7 +7469,7 @@ select
   postlinks_1.postid, 
   votes_1.postid, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -7484,7 +7484,7 @@ select
   badges_1.userid, 
   badges_1.date, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.name, badges_1.id, badges_1.userid, badges_1.date, badges_1.name
@@ -7496,14 +7496,14 @@ select
   users_1.creationdate, 
   users_1.websiteurl, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 limit 14;
 select  
   comments_1.userid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join comments as comments_1
       inner join posts as posts_1
@@ -7518,7 +7518,7 @@ select
   comments_2.contentlicense, 
   comments_2.postid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
       inner join comments as comments_2
@@ -7529,7 +7529,7 @@ limit 5;
 select  
   sum(
     comments_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -7539,7 +7539,7 @@ select
   users_1.accountid, 
   min(
     users_2.displayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
     on (users_1.id = users_2.id )
@@ -7549,7 +7549,7 @@ limit 3;
 select  
   comments_1.userid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
     on (comments_1.id = posthistory_1.id )
@@ -7557,7 +7557,7 @@ where comments_1.contentlicense is not NULL
 limit 27;
 select  
   comments_2.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join comments as comments_2
       on (comments_1.id = comments_2.id )
@@ -7570,7 +7570,7 @@ select
   posts_1.owneruserid, 
   posts_1.contentlicense, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 limit 42;
@@ -7578,13 +7578,13 @@ select
   badges_1.date, 
   badges_1.id, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 7;
 select  
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 limit 6;
@@ -7601,14 +7601,14 @@ select
     users_1.id), 
   users_1.location, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl > users_1.accountid
 group by users_1.displayname, users_1.id, users_1.id, users_1.websiteurl, users_1.creationdate, users_1.accountid, users_1.aboutme, users_1.location, users_1.location, users_1.displayname
 limit 17;
 select  
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -7616,7 +7616,7 @@ where posthistory_1.contentlicense is not NULL
 limit 5;
 select  
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join posthistory as posthistory_1
       on (badges_1.id = posthistory_1.id )
@@ -7632,14 +7632,14 @@ select
   badges_1.userid, 
   badges_1.name, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 17;
 select  
   posthistory_1.contentlicense, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense is not NULL
 limit 17;
@@ -7652,7 +7652,7 @@ select distinct
   comments_1.userid, 
   posts_1.posttypeid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -7660,7 +7660,7 @@ where posts_1.tags is not NULL
 limit 35;
 select  
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
         inner join votes as votes_1
         on (comments_1.id = votes_1.id )
@@ -7704,7 +7704,7 @@ select
   posthistory_1.userid, 
   posts_2.id, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
           inner join votes as votes_1
           on (badges_1.id = votes_1.id )
@@ -7724,7 +7724,7 @@ limit 28;
 select  
   posts_1.id, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 group by posts_1.id
@@ -7739,7 +7739,7 @@ select
   users_2.displayname, 
   users_1.location, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join users as users_1
       on (badges_1.id = users_1.id )
@@ -7758,7 +7758,7 @@ select
   count(
     posthistory_1.comment), 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 group by posthistory_1.text, posthistory_1.contentlicense, posthistory_1.comment, posthistory_1.userdisplayname, posthistory_1.userdisplayname
@@ -7788,7 +7788,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join posts as posts_1
       on (postlinks_1.id = posts_1.id )
@@ -7802,7 +7802,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.linktypeid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 21;
@@ -7812,7 +7812,7 @@ select
   users_2.accountid, 
   min(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posts as posts_1
       on (users_1.id = posts_1.id )
@@ -7827,7 +7827,7 @@ group by users_2.accountid
 limit 1;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 40;
@@ -7836,7 +7836,7 @@ select
   min(
     posthistory_1.userid), 
   comments_3.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
         inner join posthistory as posthistory_1
         on (comments_1.id = posthistory_1.id )
@@ -7853,7 +7853,7 @@ select
   votes_1.userid, 
   votes_1.votetypeid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 34;
@@ -7868,7 +7868,7 @@ select
     votes_1.creationdate), 
   votes_1.userid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.creationdate, votes_1.creationdate, votes_1.userid, votes_1.id, votes_1.userid, votes_1.creationdate
@@ -7876,7 +7876,7 @@ limit 10;
 select  
   posts_1.tags, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname >= posts_1.contentlicense
 limit 30;
@@ -7908,7 +7908,7 @@ select
   min(
     posts_1.tags), 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 group by posts_1.creationdate, posts_1.contentlicense, posts_1.acceptedanswerid, posts_1.parentid, posts_1.owneruserid, posts_1.ownerdisplayname, posts_1.tags, posts_1.creationdate, posts_1.ownerdisplayname, posts_1.ownerdisplayname, posts_1.contentlicense, posts_1.id, posts_1.id, posts_1.contentlicense, posts_1.title, posts_1.acceptedanswerid, posts_1.ownerdisplayname, posts_1.posttypeid, posts_1.acceptedanswerid, posts_1.posttypeid, posts_1.ownerdisplayname, posts_1.creationdate, posts_1.owneruserid
@@ -7922,7 +7922,7 @@ select
   comments_1.id, 
   votes_1.id, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join comments as comments_1
     on (votes_1.id = comments_1.id )
@@ -7933,7 +7933,7 @@ select
   votes_1.creationdate, 
   votes_1.postid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join postlinks as postlinks_1
       on (users_1.id = postlinks_1.id )
@@ -7949,7 +7949,7 @@ select
   min(
     users_1.location), 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id > users_1.id
 group by users_1.aboutme
@@ -7969,7 +7969,7 @@ select
   max(
     posthistory_1.contentlicense), 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense is not NULL
 group by posthistory_1.comment, posthistory_1.contentlicense, posthistory_1.posthistorytypeid, posthistory_1.text, posthistory_1.revisionguid, posthistory_1.creationdate, posthistory_1.postid, posthistory_1.userdisplayname, posthistory_1.comment, posthistory_1.creationdate, posthistory_1.creationdate, posthistory_1.userdisplayname
@@ -7986,7 +7986,7 @@ select
   postlinks_1.id, 
   min(
     comments_1.userdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
     on (comments_1.id = postlinks_1.id )
@@ -7998,7 +7998,7 @@ select
   users_1.id, 
   users_1.aboutme, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 13;
@@ -8007,7 +8007,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate <= postlinks_1.creationdate
 limit 11;
@@ -8018,7 +8018,7 @@ select
   users_1.location, 
   count(
     users_2.displayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
       inner join postlinks as postlinks_1
@@ -8047,7 +8047,7 @@ select
   comments_1.userdisplayname, 
   comments_1.postid, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.postid, comments_1.postid, comments_1.creationdate, comments_1.contentlicense, comments_1.userdisplayname, comments_1.userdisplayname, comments_1.contentlicense, comments_1.contentlicense, comments_1.userdisplayname, comments_1.text, comments_1.userdisplayname, comments_1.postid, comments_1.postid
@@ -8055,13 +8055,13 @@ limit 22;
 select  
   posthistory_1.id, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 11;
 select  
   posts_2.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
           inner join posts as posts_1
@@ -8090,7 +8090,7 @@ select
   posts_1.ownerdisplayname, 
   posts_1.tags, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.id, posts_1.posttypeid, posts_1.ownerdisplayname, posts_1.contentlicense, posts_1.posttypeid, posts_1.id, posts_1.title, posts_1.ownerdisplayname, posts_1.tags, posts_1.posttypeid
@@ -8098,7 +8098,7 @@ limit 32;
 select  
   max(
     comments_1.userdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
     on (comments_1.id = posts_1.id )
@@ -8111,7 +8111,7 @@ select
   badges_1.class, 
   badges_2.userid, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
     on (badges_1.id = badges_2.id )
@@ -8139,7 +8139,7 @@ select
   posts_1.acceptedanswerid, 
   posts_1.contentlicense, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags is not NULL
 group by posts_1.creationdate, posts_1.ownerdisplayname, posts_1.title, posts_1.contentlicense, posts_1.acceptedanswerid, posts_1.tags, posts_1.body, posts_1.acceptedanswerid, posts_1.parentid, posts_1.acceptedanswerid, posts_1.ownerdisplayname, posts_1.body, posts_1.contentlicense, posts_1.acceptedanswerid, posts_1.contentlicense, posts_1.title
@@ -8156,7 +8156,7 @@ select
     badges_1.date), 
   badges_1.date, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.class, badges_1.userid, badges_1.tagbased, badges_1.date, badges_1.tagbased, badges_1.date, badges_1.date
@@ -8167,7 +8167,7 @@ select
     postlinks_1.id), 
   postlinks_1.postid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid
@@ -8181,34 +8181,34 @@ select
   min(
     badges_1.date), 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.tagbased, badges_1.class, badges_1.name, badges_1.name
 limit 4;
 select  
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 8;
 select  
   min(
     posthistory_1.posthistorytypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 41;
 select  
   max(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl > users_1.location
 limit 23;
 select  
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join postlinks as postlinks_1
       on (comments_1.id = postlinks_1.id )
@@ -8230,7 +8230,7 @@ select
     comments_1.contentlicense), 
   comments_1.userdisplayname, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.postid, comments_1.text, comments_1.userdisplayname, comments_1.userdisplayname, comments_1.creationdate
@@ -8238,7 +8238,7 @@ limit 27;
 select  
   min(
     posts_1.ownerdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
         inner join postlinks as postlinks_2
         on (postlinks_1.id = postlinks_2.id )
@@ -8254,7 +8254,7 @@ select
   comments_1.userdisplayname, 
   min(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate >= comments_1.creationdate
 group by comments_1.userdisplayname
@@ -8263,7 +8263,7 @@ select
   comments_1.creationdate, 
   comments_1.userdisplayname, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join comments as comments_1
       on (users_1.id = comments_1.id )
@@ -8275,7 +8275,7 @@ select
   comments_1.creationdate, 
   comments_1.userdisplayname, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 34;
@@ -8284,7 +8284,7 @@ select
   min(
     postlinks_1.creationdate), 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
       inner join votes as votes_1
@@ -8320,7 +8320,7 @@ select
   avg(
     posts_1.acceptedanswerid), 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 group by posts_1.contentlicense, posts_1.ownerdisplayname, posts_1.ownerdisplayname, posts_1.acceptedanswerid, posts_1.body, posts_1.body, posts_1.tags, posts_1.ownerdisplayname, posts_1.body, posts_1.id, posts_1.id, posts_1.body, posts_1.body, posts_1.posttypeid
@@ -8329,7 +8329,7 @@ select
   comments_1.userdisplayname, 
   min(
     posthistory_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
       inner join posthistory as posthistory_2
@@ -8347,7 +8347,7 @@ select
     votes_1.id), 
   votes_1.userid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid >= votes_1.userid
 group by votes_1.id, votes_1.postid, votes_1.votetypeid, votes_1.votetypeid, votes_1.userid, votes_1.userid
@@ -8356,7 +8356,7 @@ select
   users_1.creationdate, 
   posthistory_1.id, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join badges as badges_1
       on (users_1.id = badges_1.id )
@@ -8375,7 +8375,7 @@ select
     users_1.profileimageurl), 
   max(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join posthistory as posthistory_1
       on (postlinks_1.id = posthistory_1.id )
@@ -8389,7 +8389,7 @@ limit 12;
 select  
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -8399,7 +8399,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.creationdate, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.linktypeid, postlinks_1.creationdate
@@ -8413,7 +8413,7 @@ select
   users_1.accountid, 
   users_1.displayname, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
       inner join posts as posts_2
@@ -8428,7 +8428,7 @@ select
   badges_1.name, 
   badges_1.userid, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join badges as badges_1
     on (posthistory_1.id = badges_1.id )
@@ -8439,20 +8439,20 @@ select
   votes_1.creationdate, 
   min(
     votes_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.id, votes_1.creationdate
 limit 3;
 select  
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 7;
 select  
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 14;
@@ -8460,7 +8460,7 @@ select
   votes_1.votetypeid, 
   postlinks_1.creationdate, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
       inner join votes as votes_1
@@ -8472,7 +8472,7 @@ where comments_1.contentlicense is not NULL
 limit 24;
 select  
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate > posts_1.creationdate
 limit 7;
@@ -8484,7 +8484,7 @@ select
   posthistory_1.userdisplayname, 
   posthistory_1.creationdate, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id <= posthistory_1.posthistorytypeid
 limit 3;
@@ -8497,7 +8497,7 @@ select
   badges_1.id, 
   badges_1.id, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.date, badges_1.userid, badges_1.tagbased, badges_1.id, badges_1.id, badges_1.tagbased
@@ -8505,7 +8505,7 @@ limit 18;
 select  
   posts_1.acceptedanswerid, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 10;
@@ -8527,7 +8527,7 @@ select
   comments_1.userid, 
   postlinks_1.postid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
     on (comments_1.id = postlinks_1.id )
@@ -8540,7 +8540,7 @@ select
   postlinks_1.id, 
   min(
     posts_1.body)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
       inner join postlinks as postlinks_1
@@ -8558,7 +8558,7 @@ select
   max(
     posts_1.contentlicense), 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
     on (votes_1.id = posts_1.id )
@@ -8572,7 +8572,7 @@ select
   comments_1.postid, 
   comments_1.text, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 limit 1;
@@ -8580,7 +8580,7 @@ select
   posthistory_1.posthistorytypeid, 
   max(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 group by posthistory_1.posthistorytypeid
@@ -8590,7 +8590,7 @@ select
     badges_1.id), 
   badges_1.id, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -8613,7 +8613,7 @@ select
   badges_1.class, 
   sum(
     posts_1.owneruserid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
           inner join posts as posts_1
           on (comments_1.id = posts_1.id )
@@ -8633,7 +8633,7 @@ select
   min(
     badges_2.date), 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
     on (badges_1.id = badges_2.id )
@@ -8643,7 +8643,7 @@ limit 39;
 select  
   min(
     users_1.displayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
     on (votes_1.id = users_1.id )
@@ -8653,19 +8653,19 @@ select
   comments_1.userdisplayname, 
   comments_1.postid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 limit 31;
 select  
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text = comments_1.userdisplayname
 limit 38;
 select  
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 15;
@@ -8674,7 +8674,7 @@ select
   badges_1.tagbased, 
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name > badges_1.name
 group by badges_1.id, badges_1.tagbased
@@ -8685,7 +8685,7 @@ select
   postlinks_1.postid, 
   postlinks_1.creationdate, 
   postlinks_2.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -8708,7 +8708,7 @@ select
   posts_1.id, 
   posts_1.title, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 group by posts_1.id, posts_1.ownerdisplayname, posts_1.body, posts_1.acceptedanswerid, posts_1.owneruserid, posts_1.contentlicense, posts_1.acceptedanswerid, posts_1.body, posts_1.ownerdisplayname, posts_1.id, posts_1.title, posts_1.body
@@ -8728,7 +8728,7 @@ select
   users_1.profileimageurl, 
   min(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 group by users_1.accountid, users_1.id, users_1.displayname, users_1.websiteurl, users_1.creationdate, users_1.aboutme, users_1.location, users_1.websiteurl, users_1.id, users_1.profileimageurl
@@ -8746,7 +8746,7 @@ select
     votes_1.userid), 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate = votes_1.creationdate
 group by votes_1.votetypeid, votes_1.creationdate, votes_1.userid, votes_1.postid, votes_1.creationdate, votes_1.postid
@@ -8758,7 +8758,7 @@ select
   votes_1.postid, 
   votes_1.id, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 27;
@@ -8768,7 +8768,7 @@ select
   comments_1.contentlicense, 
   comments_1.contentlicense, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 29;
@@ -8777,7 +8777,7 @@ select
   posts_1.title, 
   posts_1.creationdate, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 group by posts_1.acceptedanswerid, posts_1.title, posts_1.creationdate
@@ -8819,21 +8819,21 @@ select
     posts_1.tags), 
   posts_1.title, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 group by posts_1.body, posts_1.title, posts_1.body, posts_1.parentid, posts_1.acceptedanswerid, posts_1.tags, posts_1.owneruserid, posts_1.contentlicense, posts_1.body, posts_1.id, posts_1.body, posts_1.parentid, posts_1.parentid, posts_1.id, posts_1.contentlicense, posts_1.ownerdisplayname, posts_1.id, posts_1.body, posts_1.owneruserid, posts_1.posttypeid, posts_1.id, posts_1.posttypeid, posts_1.title, posts_1.posttypeid
 limit 35;
 select  
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 7;
 select  
   comments_1.text, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
       inner join comments as comments_1
@@ -8856,7 +8856,7 @@ select
   badges_1.date, 
   badges_1.class, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.userid, badges_1.userid, badges_1.userid, badges_1.class, badges_1.date, badges_1.id, badges_1.name, badges_1.id, badges_1.name, badges_1.date, badges_1.class, badges_1.class
@@ -8866,7 +8866,7 @@ select
   votes_1.id, 
   badges_1.tagbased, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join votes as votes_1
       on (comments_1.id = votes_1.id )
@@ -8877,21 +8877,21 @@ limit 24;
 select distinct 
   posts_1.ownerdisplayname, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 limit 8;
 select  
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 19;
 select  
   posts_1.posttypeid, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
     on (posts_1.id = badges_1.id )
@@ -8899,7 +8899,7 @@ where badges_1.class is not NULL
 limit 13;
 select  
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 limit 7;
@@ -8910,7 +8910,7 @@ select
   users_1.websiteurl, 
   badges_1.date, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -8923,7 +8923,7 @@ select
   posthistory_1.creationdate, 
   posthistory_1.revisionguid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense >= posthistory_1.userdisplayname
 group by posthistory_1.postid, posthistory_1.creationdate, posthistory_1.revisionguid, posthistory_1.contentlicense
@@ -8943,7 +8943,7 @@ select
     postlinks_2.id), 
   postlinks_1.id, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
       inner join comments as comments_1
@@ -8954,7 +8954,7 @@ group by postlinks_2.creationdate, comments_1.text, postlinks_2.postid, comments
 limit 12;
 select  
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 limit 34;
@@ -8964,7 +8964,7 @@ select
   badges_1.date, 
   badges_1.class, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join users as users_1
       on (badges_1.id = users_1.id )
@@ -8975,7 +8975,7 @@ limit 17;
 select  
   max(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -8989,7 +8989,7 @@ select
   posts_1.title, 
   min(
     posts_1.tags)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 group by posts_1.id, posts_1.body, posts_1.title
@@ -8997,7 +8997,7 @@ limit 5;
 select  
   posthistory_1.userid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
       inner join votes as votes_1
@@ -9015,7 +9015,7 @@ select
   users_1.aboutme, 
   users_1.websiteurl, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.displayname, users_1.id, users_1.aboutme, users_1.accountid, users_1.aboutme, users_1.websiteurl, users_1.profileimageurl
@@ -9026,7 +9026,7 @@ select
     posts_1.posttypeid), 
   posts_1.acceptedanswerid, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.body, posts_1.acceptedanswerid, posts_1.parentid
@@ -9055,7 +9055,7 @@ select
   users_1.aboutme, 
   users_1.aboutme, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id >= users_1.id
 group by users_1.id, users_1.profileimageurl, users_1.accountid, users_1.accountid, users_1.websiteurl, users_1.aboutme, users_1.accountid, users_1.displayname, users_1.location, users_1.profileimageurl, users_1.creationdate, users_1.location, users_1.aboutme, users_1.creationdate, users_1.aboutme, users_1.aboutme, users_1.displayname
@@ -9063,7 +9063,7 @@ limit 39;
 select  
   comments_1.postid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 limit 40;
@@ -9071,7 +9071,7 @@ select
   badges_1.tagbased, 
   badges_1.id, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date <= badges_1.date
 limit 39;
@@ -9079,7 +9079,7 @@ select
   users_1.websiteurl, 
   users_1.displayname, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 limit 13;
@@ -9096,7 +9096,7 @@ select
   users_1.location, 
   users_1.displayname, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -9105,7 +9105,7 @@ group by posthistory_1.creationdate, users_1.aboutme, posthistory_1.comment, use
 limit 13;
 select  
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
       inner join comments as comments_1
@@ -9138,7 +9138,7 @@ select
   comments_2.contentlicense, 
   posts_1.id, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join comments as comments_2
           inner join comments as comments_3
@@ -9162,7 +9162,7 @@ select
   votes_1.votetypeid, 
   votes_1.postid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
         inner join comments as comments_1
         on (posts_1.id = comments_1.id )
@@ -9193,7 +9193,7 @@ select
     comments_1.text), 
   min(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.creationdate, comments_1.creationdate, comments_1.creationdate, comments_1.userdisplayname, comments_1.contentlicense, comments_1.id, comments_1.creationdate, comments_1.contentlicense, comments_1.text, comments_1.userdisplayname, comments_1.id
@@ -9201,14 +9201,14 @@ limit 30;
 select  
   users_1.profileimageurl, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl < users_1.displayname
 limit 10;
 select  
   badges_1.tagbased, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posthistory as posthistory_1
     on (badges_1.id = posthistory_1.id )
@@ -9222,7 +9222,7 @@ select
   max(
     users_1.aboutme), 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join votes as votes_1
       inner join posts as posts_1
@@ -9245,7 +9245,7 @@ select
   max(
     badges_1.name), 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -9259,7 +9259,7 @@ select
   users_2.accountid, 
   users_2.websiteurl, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join users as users_1
         inner join votes as votes_1
@@ -9283,7 +9283,7 @@ select
   badges_1.name, 
   comments_1.creationdate, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -9292,7 +9292,7 @@ group by comments_1.postid, badges_1.tagbased, badges_1.name, comments_1.creatio
 limit 21;
 select  
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 limit 6;
@@ -9315,7 +9315,7 @@ select
     comments_1.creationdate), 
   comments_1.text, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.userid, comments_1.id, comments_1.userid, comments_1.userdisplayname, comments_1.text, comments_1.contentlicense, comments_1.contentlicense, comments_1.contentlicense, comments_1.contentlicense, comments_1.userdisplayname, comments_1.text, comments_1.userdisplayname
@@ -9324,7 +9324,7 @@ select
   posts_1.body, 
   comments_2.userid, 
   comments_2.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
         inner join comments as comments_1
@@ -9343,7 +9343,7 @@ limit 27;
 select  
   users_1.accountid, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join users as users_1
     on (comments_1.id = users_1.id )
@@ -9352,7 +9352,7 @@ limit 20;
 select  
   badges_1.name, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
     on (posts_1.id = badges_1.id )
@@ -9367,7 +9367,7 @@ select
   badges_1.id, 
   badges_1.tagbased, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 35;
@@ -9379,7 +9379,7 @@ select
     posthistory_1.comment), 
   posthistory_1.text, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 group by posthistory_1.userid, posthistory_1.text, posthistory_1.creationdate
@@ -9390,7 +9390,7 @@ select
     comments_1.creationdate), 
   comments_1.userid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.text, comments_1.userid, comments_1.id
@@ -9402,7 +9402,7 @@ select
   min(
     badges_1.date), 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.tagbased, badges_1.id, badges_1.id
@@ -9411,13 +9411,13 @@ select
   users_1.aboutme, 
   users_1.aboutme, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id < users_1.id
 limit 26;
 select  
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
     on (comments_1.id = posts_1.id )
@@ -9427,7 +9427,7 @@ select
   min(
     votes_1.postid), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.creationdate
@@ -9437,7 +9437,7 @@ select
   max(
     badges_1.name), 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.id, badges_1.name
@@ -9446,7 +9446,7 @@ select
   comments_1.postid, 
   comments_1.postid, 
   comments_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join comments as comments_1
         inner join users as users_1
@@ -9474,7 +9474,7 @@ select
   min(
     posts_1.title), 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
       on (posts_1.id = users_1.id )
@@ -9494,7 +9494,7 @@ select
   sum(
     posts_1.acceptedanswerid), 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
       inner join posts as posts_1
@@ -9511,7 +9511,7 @@ select
     postlinks_1.creationdate), 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.postid
@@ -9524,7 +9524,7 @@ select
   badges_1.userid, 
   badges_1.tagbased, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name >= badges_1.name
 group by badges_1.tagbased, badges_1.date, badges_1.userid, badges_1.tagbased, badges_1.class
@@ -9532,7 +9532,7 @@ limit 42;
 select  
   comments_2.creationdate, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
       inner join comments as comments_2
@@ -9544,7 +9544,7 @@ where comments_1.creationdate is not NULL
 limit 3;
 select  
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 limit 13;
@@ -9561,14 +9561,14 @@ select
   min(
     votes_1.userid), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.votetypeid, votes_1.id, votes_1.userid, votes_1.votetypeid
 limit 11;
 select  
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join comments as comments_1
       on (posts_1.id = comments_1.id )
@@ -9582,7 +9582,7 @@ select
   badges_3.userid, 
   min(
     badges_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
       inner join badges as badges_3
@@ -9609,7 +9609,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.userid, votes_1.postid, votes_1.creationdate, votes_1.votetypeid, votes_1.creationdate, votes_1.votetypeid, votes_1.id, votes_1.postid, votes_1.votetypeid, votes_1.creationdate
@@ -9619,7 +9619,7 @@ select
   postlinks_1.postid, 
   postlinks_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 20;
@@ -9629,7 +9629,7 @@ select
   avg(
     votes_1.id), 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
         inner join votes as votes_1
         on (badges_1.id = votes_1.id )
@@ -9646,7 +9646,7 @@ select
   posts_1.creationdate, 
   comments_1.creationdate, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join posts as posts_1
       on (comments_1.id = posts_1.id )
@@ -9658,7 +9658,7 @@ select
   posts_1.id, 
   posts_1.ownerdisplayname, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 limit 21;
@@ -9671,7 +9671,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.id, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 19;
@@ -9681,7 +9681,7 @@ select
   posthistory_1.text, 
   users_1.profileimageurl, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -9693,7 +9693,7 @@ select
     votes_1.votetypeid), 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -9704,7 +9704,7 @@ select distinct
   count(
     comments_1.creationdate), 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 group by comments_1.text
@@ -9712,7 +9712,7 @@ limit 18;
 select  
   max(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -9721,21 +9721,21 @@ limit 26;
 select  
   comments_1.userid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 16;
 select  
   users_1.location, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 limit 30;
 select  
   badges_1.tagbased, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 limit 32;
@@ -9748,7 +9748,7 @@ select
   max(
     users_1.id), 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 group by users_1.websiteurl, users_1.accountid, users_1.location, users_1.creationdate, users_1.websiteurl, users_1.aboutme
@@ -9757,13 +9757,13 @@ select
   comments_1.contentlicense, 
   comments_1.text, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 limit 4;
 select  
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment is not NULL
 limit 23;
@@ -9772,14 +9772,14 @@ select
   min(
     users_1.profileimageurl), 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate > users_1.creationdate
 group by users_1.aboutme, users_1.profileimageurl
 limit 20;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id > users_1.id
 limit 40;
@@ -9795,7 +9795,7 @@ select
   posts_1.title, 
   badges_1.class, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
       inner join badges as badges_2
@@ -9830,7 +9830,7 @@ select
   comments_1.text, 
   comments_1.postid, 
   votes_2.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
       inner join comments as comments_2
@@ -9865,7 +9865,7 @@ select
   users_1.creationdate, 
   votes_1.votetypeid, 
   votes_2.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join users as users_1
         inner join votes as votes_1
@@ -9881,7 +9881,7 @@ select
   posthistory_1.revisionguid, 
   min(
     posthistory_1.revisionguid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense is not NULL
 group by posthistory_1.creationdate, posthistory_1.revisionguid
@@ -9895,7 +9895,7 @@ select
   comments_1.userid, 
   comments_1.userid, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname >= comments_1.contentlicense
 limit 34;
@@ -9905,7 +9905,7 @@ select
   badges_1.userid, 
   posts_1.title, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
     on (badges_1.id = posts_1.id )
@@ -9916,7 +9916,7 @@ select
   votes_1.id, 
   votes_1.id, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 41;
@@ -9927,7 +9927,7 @@ select
     votes_1.creationdate), 
   votes_1.creationdate, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.creationdate, votes_1.votetypeid
@@ -9949,7 +9949,7 @@ select
   posts_1.ownerdisplayname, 
   posts_1.parentid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body = posts_1.tags
 group by posts_1.body, posts_1.parentid, posts_1.ownerdisplayname, posts_1.parentid, posts_1.creationdate, posts_1.title, posts_1.tags, posts_1.ownerdisplayname, posts_1.acceptedanswerid, posts_1.tags, posts_1.posttypeid, posts_1.ownerdisplayname, posts_1.parentid, posts_1.id
@@ -9964,7 +9964,7 @@ select
   posts_1.creationdate, 
   postlinks_1.relatedpostid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
       inner join posthistory as posthistory_1
@@ -9978,14 +9978,14 @@ select
   posts_1.parentid, 
   min(
     posts_1.title)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 group by posts_1.contentlicense, posts_1.parentid
 limit 37;
 select  
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join comments as comments_1
       inner join posthistory as posthistory_1
@@ -9997,7 +9997,7 @@ select
   sum(
     votes_1.postid), 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate < votes_1.creationdate
 group by votes_1.id
@@ -10011,7 +10011,7 @@ select
   postlinks_1.id, 
   postlinks_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 3;
@@ -10021,7 +10021,7 @@ select
   badges_1.tagbased, 
   badges_1.class, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 34;
@@ -10029,7 +10029,7 @@ select
   posts_1.posttypeid, 
   posts_1.parentid, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid > posts_1.posttypeid
 limit 29;
@@ -10038,7 +10038,7 @@ select
     votes_2.creationdate), 
   min(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join comments as comments_1
         on (votes_1.id = comments_1.id )
@@ -10059,7 +10059,7 @@ select
   votes_1.votetypeid, 
   max(
     posts_1.title)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
     on (votes_1.id = posts_1.id )
@@ -10069,20 +10069,20 @@ limit 28;
 select  
   users_1.profileimageurl, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 limit 14;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 13;
 select  
   postlinks_1.postid, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -10090,7 +10090,7 @@ where badges_1.userid is not NULL
 limit 1;
 select  
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 limit 37;
@@ -10099,7 +10099,7 @@ select
   comments_1.text, 
   comments_1.text, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
       inner join votes as votes_1
@@ -10117,7 +10117,7 @@ select
     posthistory_1.postid), 
   comments_1.contentlicense, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -10130,7 +10130,7 @@ select
   posts_1.contentlicense, 
   max(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags <= posts_1.ownerdisplayname
 group by posts_1.body, posts_1.creationdate, posts_1.contentlicense
@@ -10138,7 +10138,7 @@ limit 41;
 select  
   users_1.websiteurl, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -10148,7 +10148,7 @@ select
   comments_2.creationdate, 
   comments_1.text, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join postlinks as postlinks_1
       on (comments_1.id = postlinks_1.id )
@@ -10164,7 +10164,7 @@ select
     postlinks_1.creationdate), 
   postlinks_1.relatedpostid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id
@@ -10176,7 +10176,7 @@ select
   users_1.aboutme, 
   users_1.accountid, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id < users_1.id
 limit 3;
@@ -10189,7 +10189,7 @@ select
   badges_1.name, 
   badges_1.class, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date >= badges_1.date
 group by badges_1.id, badges_1.id, badges_1.id, badges_1.name, badges_1.class, badges_1.name
@@ -10197,7 +10197,7 @@ limit 6;
 select  
   posthistory_1.comment, 
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid is not NULL
 limit 19;
@@ -10208,7 +10208,7 @@ select
   posthistory_1.userid, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 6;
@@ -10225,7 +10225,7 @@ select
   users_1.accountid, 
   votes_1.creationdate, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
       inner join users as users_2
@@ -10239,7 +10239,7 @@ limit 11;
 select  
   users_2.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
       inner join users as users_2
@@ -10259,7 +10259,7 @@ select
     posts_1.body), 
   posts_1.owneruserid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 group by posts_1.contentlicense, posts_1.creationdate, posts_1.id, posts_1.ownerdisplayname, posts_1.owneruserid, posts_1.owneruserid, posts_1.id
@@ -10281,7 +10281,7 @@ select
   users_1.aboutme, 
   users_1.location, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid >= users_1.profileimageurl
 group by users_1.id, users_1.creationdate, users_1.creationdate, users_1.accountid, users_1.aboutme, users_1.accountid, users_1.location, users_1.aboutme, users_1.location, users_1.websiteurl
@@ -10301,7 +10301,7 @@ select
   posthistory_1.text, 
   posts_1.acceptedanswerid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
     on (posthistory_1.id = posts_1.id )
@@ -10320,7 +10320,7 @@ select
   posthistory_1.id, 
   posthistory_1.revisionguid, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
     on (comments_1.id = posthistory_1.id )
@@ -10346,7 +10346,7 @@ select
   users_1.aboutme, 
   users_1.profileimageurl, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 group by users_1.profileimageurl, users_1.id, users_1.displayname, users_1.location, users_1.displayname, users_1.displayname, users_1.id, users_1.aboutme, users_1.profileimageurl, users_1.accountid
@@ -10354,7 +10354,7 @@ limit 29;
 select  
   comments_1.creationdate, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -10383,7 +10383,7 @@ select
     votes_1.votetypeid), 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.votetypeid, votes_1.userid, votes_1.postid, votes_1.userid, votes_1.postid, votes_1.id, votes_1.creationdate, votes_1.userid, votes_1.userid, votes_1.creationdate, votes_1.creationdate, votes_1.userid
@@ -10402,7 +10402,7 @@ select
   posts_1.posttypeid, 
   count(
     posts_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
       on (posts_1.id = users_1.id )
@@ -10415,7 +10415,7 @@ select
   votes_1.id, 
   votes_1.id, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 13;
@@ -10424,7 +10424,7 @@ select
   count(*), 
   posthistory_1.posthistorytypeid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 group by posthistory_1.comment, posthistory_1.posthistorytypeid, posthistory_1.contentlicense
@@ -10436,7 +10436,7 @@ select
   users_1.displayname, 
   users_1.aboutme, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 limit 29;
@@ -10445,7 +10445,7 @@ select
     badges_1.date), 
   badges_1.date, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
       inner join posts as posts_2
@@ -10457,14 +10457,14 @@ limit 38;
 select  
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 18;
 select  
   badges_1.tagbased, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 11;
@@ -10473,7 +10473,7 @@ select
   postlinks_2.id, 
   badges_1.userid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
         inner join votes as votes_1
@@ -10490,7 +10490,7 @@ select
   votes_1.creationdate, 
   max(
     votes_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.id, votes_1.creationdate
@@ -10499,7 +10499,7 @@ select
   votes_1.votetypeid, 
   postlinks_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join votes as votes_1
       on (posts_1.id = votes_1.id )
@@ -10511,7 +10511,7 @@ select
   votes_1.creationdate, 
   votes_1.id, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 31;
@@ -10529,14 +10529,14 @@ select
   postlinks_1.creationdate, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 37;
 select  
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -10550,14 +10550,14 @@ select
   votes_1.id, 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.creationdate, votes_1.postid, votes_1.creationdate, votes_1.userid, votes_1.id
 limit 24;
 select  
   posthistory_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
       inner join posts as posts_1
@@ -10568,7 +10568,7 @@ limit 13;
 select  
   comments_1.creationdate, 
   comments_2.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
     on (comments_1.id = comments_2.id )
@@ -10597,7 +10597,7 @@ select
   min(
     posts_1.creationdate), 
   posts_2.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -10610,7 +10610,7 @@ select
   max(
     posthistory_1.id), 
   posthistory_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
         inner join badges as badges_1
@@ -10624,7 +10624,7 @@ limit 37;
 select  
   sum(
     posthistory_1.posthistorytypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -10636,7 +10636,7 @@ select
     comments_1.creationdate), 
   votes_1.userid, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join votes as votes_1
       on (comments_1.id = votes_1.id )
@@ -10653,7 +10653,7 @@ select
   votes_1.creationdate, 
   min(
     users_2.displayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
       inner join users as users_2
@@ -10669,7 +10669,7 @@ select
   posthistory_1.comment, 
   posthistory_1.comment, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 limit 36;
@@ -10685,7 +10685,7 @@ select
   max(
     comments_1.creationdate), 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 group by comments_1.userdisplayname, comments_1.creationdate, comments_1.userid, comments_1.postid, comments_1.userdisplayname, comments_1.creationdate, comments_1.userid
@@ -10696,7 +10696,7 @@ select
   comments_1.id, 
   users_1.aboutme, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join postlinks as postlinks_1
         inner join posts as posts_1
@@ -10717,7 +10717,7 @@ select
   posts_2.contentlicense, 
   max(
     posts_2.acceptedanswerid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join badges as badges_1
             inner join posts as posts_2
@@ -10748,7 +10748,7 @@ select
   comments_1.text, 
   postlinks_1.linktypeid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join postlinks as postlinks_1
       on (users_1.id = postlinks_1.id )
@@ -10765,7 +10765,7 @@ select
   min(
     users_1.creationdate), 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.location, users_1.accountid, users_1.displayname
@@ -10788,7 +10788,7 @@ select
   votes_1.postid, 
   votes_1.id, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.userid, votes_1.votetypeid, votes_1.userid, votes_1.creationdate, votes_1.id, votes_1.postid, votes_1.postid, votes_1.id, votes_1.votetypeid, votes_1.creationdate, votes_1.postid, votes_1.id, votes_1.id
@@ -10801,7 +10801,7 @@ select
   max(
     badges_1.userid), 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name = badges_1.name
 group by badges_1.date, badges_1.tagbased, badges_1.name, badges_1.date, badges_1.id
@@ -10826,7 +10826,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.creationdate, votes_1.userid, votes_1.id, votes_1.votetypeid, votes_1.creationdate, votes_1.postid, votes_1.votetypeid, votes_1.id, votes_1.userid, votes_1.userid, votes_1.id
@@ -10834,7 +10834,7 @@ limit 14;
 select  
   badges_1.class, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
     on (badges_1.id = comments_1.id )
@@ -10842,7 +10842,7 @@ where comments_1.userdisplayname is not NULL
 limit 20;
 select  
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 36;
@@ -10867,7 +10867,7 @@ select
     users_1.id), 
   users_1.id, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl <= users_1.accountid
 group by users_1.websiteurl, users_1.aboutme, users_1.location, users_1.location, users_1.profileimageurl, users_1.websiteurl, users_1.displayname, users_1.accountid, users_1.aboutme, users_1.displayname, users_1.creationdate, users_1.aboutme, users_1.id, users_1.location
@@ -10875,7 +10875,7 @@ limit 3;
 select  
   comments_2.contentlicense, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
         inner join posts as posts_1
@@ -10896,7 +10896,7 @@ limit 2;
 select  
   posts_1.contentlicense, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 group by posts_1.contentlicense
@@ -10909,7 +10909,7 @@ select
   posthistory_1.comment, 
   posthistory_1.revisionguid, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname <= posthistory_1.revisionguid
 group by posthistory_1.userid, posthistory_1.comment, posthistory_1.comment, posthistory_1.revisionguid, posthistory_1.id
@@ -10924,7 +10924,7 @@ select
   badges_1.date, 
   badges_4.date, 
   badges_2.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
         inner join badges as badges_2
         on (badges_1.id = badges_2.id )
@@ -10936,7 +10936,7 @@ where badges_4.id is not NULL
 limit 7;
 select  
   posts_2.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join posts as posts_1
       on (votes_1.id = posts_1.id )
@@ -10962,7 +10962,7 @@ select
     users_1.accountid), 
   users_1.location, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 group by users_1.websiteurl, users_1.displayname, users_1.profileimageurl, users_1.aboutme, users_1.creationdate, users_1.displayname, users_1.location, users_1.displayname, users_1.location, users_1.location, users_1.creationdate
@@ -10971,7 +10971,7 @@ select
   users_1.location, 
   users_1.profileimageurl, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 limit 40;
@@ -10985,7 +10985,7 @@ select
   users_1.aboutme, 
   users_1.displayname, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 group by users_1.aboutme, users_1.aboutme, users_1.accountid, users_1.aboutme, users_1.aboutme, users_1.displayname, users_1.accountid
@@ -10996,7 +10996,7 @@ select
   votes_1.votetypeid, 
   votes_1.creationdate, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 30;
@@ -11009,14 +11009,14 @@ select
   votes_1.votetypeid, 
   count(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.creationdate, votes_1.id, votes_1.votetypeid, votes_1.id, votes_1.votetypeid
 limit 31;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join users as users_1
       on (postlinks_1.id = users_1.id )
@@ -11032,7 +11032,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.creationdate
@@ -11051,7 +11051,7 @@ select
     votes_1.creationdate), 
   votes_1.votetypeid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.postid, votes_1.userid, votes_1.postid, votes_1.postid, votes_1.postid, votes_1.userid, votes_1.votetypeid, votes_1.votetypeid
@@ -11059,13 +11059,13 @@ limit 33;
 select  
   posts_1.creationdate, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags > posts_1.body
 limit 18;
 select  
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posthistory as posthistory_1
         inner join badges as badges_1
@@ -11083,7 +11083,7 @@ select
   posts_1.contentlicense, 
   posts_1.contentlicense, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 group by posts_1.contentlicense, posts_1.contentlicense, posts_1.tags
@@ -11092,7 +11092,7 @@ select
   users_1.id, 
   count(*), 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id < users_1.id
 group by users_1.id, users_1.creationdate
@@ -11103,7 +11103,7 @@ select
   comments_1.userdisplayname, 
   min(
     comments_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 group by comments_1.userdisplayname
@@ -11118,7 +11118,7 @@ select
     postlinks_1.postid), 
   postlinks_1.id, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.linktypeid
@@ -11132,7 +11132,7 @@ select
   comments_1.postid, 
   posts_1.body, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
     on (comments_1.id = posts_1.id )
@@ -11142,7 +11142,7 @@ select
   users_1.websiteurl, 
   users_1.location, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
       inner join posts as posts_1
@@ -11159,14 +11159,14 @@ select
   posthistory_1.creationdate, 
   posthistory_1.text, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 15;
 select  
   posts_1.parentid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join users as users_1
       on (comments_1.id = users_1.id )
@@ -11181,7 +11181,7 @@ select
   postlinks_1.linktypeid, 
   max(
     postlinks_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -11196,14 +11196,14 @@ select
   votes_1.creationdate, 
   votes_1.id, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.creationdate, votes_1.id, votes_1.userid
 limit 29;
 select  
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -11213,7 +11213,7 @@ select
   comments_1.userdisplayname, 
   comments_1.id, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate <= comments_1.creationdate
 limit 3;
@@ -11221,7 +11221,7 @@ select
   badges_1.date, 
   badges_1.tagbased, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 25;
@@ -11270,7 +11270,7 @@ select distinct
   max(
     badges_1.date), 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.tagbased, badges_1.name, badges_1.name, badges_1.class, badges_1.id, badges_1.id, badges_1.tagbased, badges_1.class, badges_1.userid, badges_1.id, badges_1.tagbased, badges_1.id, badges_1.date, badges_1.userid, badges_1.date, badges_1.class, badges_1.date, badges_1.name, badges_1.id, badges_1.userid, badges_1.class, badges_1.class, badges_1.id, badges_1.name, badges_1.userid, badges_1.name, badges_1.id, badges_1.name, badges_1.date, badges_1.date
@@ -11279,13 +11279,13 @@ select
   posts_1.body, 
   posts_1.title, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags <= posts_1.title
 limit 14;
 select  
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 limit 22;
@@ -11295,14 +11295,14 @@ select
   postlinks_1.postid, 
   max(
     postlinks_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate >= postlinks_1.creationdate
 group by postlinks_1.id, postlinks_1.postid
 limit 25;
 select  
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join votes as votes_1
       on (users_1.id = votes_1.id )
@@ -11321,7 +11321,7 @@ select
   posts_1.tags, 
   count(
     posts_1.tags)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate = posts_1.creationdate
 group by posts_1.id, posts_1.title, posts_1.posttypeid, posts_1.tags
@@ -11332,7 +11332,7 @@ select
   users_1.aboutme, 
   users_1.displayname, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid >= users_1.profileimageurl
 limit 19;
@@ -11340,7 +11340,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.linktypeid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 8;
@@ -11349,7 +11349,7 @@ select
   users_1.creationdate, 
   users_1.location, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 limit 35;
@@ -11358,7 +11358,7 @@ select
     badges_1.name), 
   badges_1.userid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join badges as badges_1
     on (votes_1.id = badges_1.id )
@@ -11376,7 +11376,7 @@ select
   min(
     votes_1.postid), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join posts as posts_1
       on (votes_1.id = posts_1.id )
@@ -11388,7 +11388,7 @@ limit 8;
 select  
   posts_1.creationdate, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -11405,14 +11405,14 @@ select
   postlinks_1.creationdate, 
   postlinks_1.id, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 37;
 select  
   badges_3.class, 
   badges_3.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join badges as badges_2
       on (badges_1.id = badges_2.id )
@@ -11427,13 +11427,13 @@ limit 20;
 select  
   postlinks_1.id, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 21;
 select  
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid <= posthistory_1.userid
 limit 9;
@@ -11442,7 +11442,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.postid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
       inner join posthistory as posthistory_1
@@ -11455,7 +11455,7 @@ select
   votes_2.postid, 
   posts_1.ownerdisplayname, 
   postlinks_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
           inner join postlinks as postlinks_2
@@ -11477,7 +11477,7 @@ select
   comments_1.contentlicense, 
   comments_1.creationdate, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
     on (users_1.id = comments_1.id )
@@ -11485,14 +11485,14 @@ where comments_1.text > comments_1.contentlicense
 limit 25;
 select  
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 limit 24;
 select  
   min(
     posthistory_2.revisionguid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -11510,7 +11510,7 @@ select
   posthistory_1.userid, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
     on (votes_1.id = posthistory_1.id )
@@ -11523,14 +11523,14 @@ select
   min(
     comments_1.creationdate), 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 group by comments_1.userdisplayname, comments_1.userdisplayname, comments_1.userid
 limit 4;
 select  
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate < users_1.creationdate
 limit 24;
@@ -11538,7 +11538,7 @@ select
   posts_1.body, 
   posts_1.acceptedanswerid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
     on (comments_1.id = posts_1.id )
@@ -11551,7 +11551,7 @@ select
   posthistory_1.comment, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate < posthistory_1.creationdate
 group by posthistory_1.posthistorytypeid, posthistory_1.comment, posthistory_1.posthistorytypeid, posthistory_1.text
@@ -11561,7 +11561,7 @@ select
   users_1.displayname, 
   min(
     posthistory_1.comment)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join users as users_2
             inner join postlinks as postlinks_1
@@ -11589,7 +11589,7 @@ select
   votes_1.id, 
   votes_1.id, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 11;
@@ -11599,7 +11599,7 @@ select
     posthistory_2.text), 
   posthistory_1.userid, 
   posthistory_2.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join votes as votes_1
         inner join comments as comments_1
@@ -11614,7 +11614,7 @@ group by posthistory_2.id, posthistory_1.userid, posthistory_2.userid
 limit 1;
 select  
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 9;
@@ -11631,7 +11631,7 @@ select
   posthistory_1.comment, 
   max(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 group by posthistory_1.revisionguid, posthistory_1.creationdate, posthistory_1.posthistorytypeid, posthistory_1.revisionguid, posthistory_1.userdisplayname, posthistory_1.comment
@@ -11665,7 +11665,7 @@ select
   posthistory_1.creationdate, 
   count(
     posts_1.owneruserid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
       on (posts_1.id = users_1.id )
@@ -11685,7 +11685,7 @@ select
   votes_1.votetypeid, 
   votes_1.id, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate = votes_1.creationdate
 group by votes_1.userid, votes_1.postid, votes_1.id, votes_1.id, votes_1.votetypeid, votes_1.votetypeid, votes_1.id, votes_1.postid
@@ -11701,7 +11701,7 @@ select
   min(
     users_1.creationdate), 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 group by users_1.profileimageurl, users_1.creationdate, users_1.creationdate, users_1.aboutme, users_1.displayname, users_1.websiteurl, users_1.aboutme, users_1.accountid
@@ -11710,13 +11710,13 @@ select
   users_1.creationdate, 
   users_1.location, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 limit 25;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 limit 21;
@@ -11725,7 +11725,7 @@ select
   comments_2.text, 
   comments_1.creationdate, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
     on (comments_1.id = comments_2.id )
@@ -11733,7 +11733,7 @@ where comments_1.contentlicense is not NULL
 limit 8;
 select  
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 10;
@@ -11750,7 +11750,7 @@ select
   min(
     comments_1.creationdate), 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.userid, comments_1.postid, comments_1.id, comments_1.userid, comments_1.userid, comments_1.userdisplayname, comments_1.contentlicense, comments_1.postid
@@ -11765,7 +11765,7 @@ select
   posthistory_1.comment, 
   posthistory_1.comment, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 14;
@@ -11780,7 +11780,7 @@ select distinct
   sum(
     comments_1.postid), 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join votes as votes_1
       on (comments_1.id = votes_1.id )
@@ -11793,7 +11793,7 @@ select
   comments_1.creationdate, 
   badges_1.userid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -11801,7 +11801,7 @@ where comments_1.text is not NULL
 limit 12;
 select  
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class = badges_1.userid
 limit 33;
@@ -11809,20 +11809,20 @@ select
   max(
     postlinks_1.id), 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.relatedpostid
 limit 4;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 limit 36;
 select  
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 limit 8;
@@ -11836,7 +11836,7 @@ select
   min(
     users_1.websiteurl), 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -11854,7 +11854,7 @@ select
   votes_1.userid, 
   postlinks_1.creationdate, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join votes as votes_1
     on (postlinks_1.id = votes_1.id )
@@ -11873,7 +11873,7 @@ select
   votes_1.userid, 
   votes_1.postid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.votetypeid, votes_1.postid, votes_1.votetypeid, votes_1.id, votes_1.creationdate, votes_1.postid, votes_1.userid, votes_1.postid, votes_1.votetypeid
@@ -11887,7 +11887,7 @@ select
   max(
     comments_1.creationdate), 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate <= comments_1.creationdate
 group by comments_1.postid, comments_1.creationdate, comments_1.contentlicense, comments_1.contentlicense, comments_1.userdisplayname, comments_1.id
@@ -11910,7 +11910,7 @@ select
   votes_1.id, 
   users_1.displayname, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join votes as votes_1
         on (posthistory_1.id = votes_1.id )
@@ -11937,7 +11937,7 @@ select
   users_2.profileimageurl, 
   max(
     comments_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join users as users_2
       on (users_1.id = users_2.id )
@@ -11958,14 +11958,14 @@ select
   comments_1.userdisplayname, 
   comments_1.userid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.postid, comments_1.creationdate, comments_1.text, comments_1.userid, comments_1.contentlicense, comments_1.userdisplayname, comments_1.userdisplayname, comments_1.userid, comments_1.id
 limit 38;
 select  
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join posts as posts_1
       on (votes_1.id = posts_1.id )
@@ -11985,7 +11985,7 @@ select
   max(
     posthistory_1.posthistorytypeid), 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -12000,7 +12000,7 @@ select
   users_1.creationdate, 
   comments_1.userid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
     on (users_1.id = comments_1.id )
@@ -12021,7 +12021,7 @@ select
   votes_1.userid, 
   votes_1.votetypeid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.id, votes_1.votetypeid, votes_1.id, votes_1.id, votes_1.creationdate, votes_1.votetypeid, votes_1.userid, votes_1.votetypeid, votes_1.id
@@ -12029,7 +12029,7 @@ limit 41;
 select  
   votes_1.votetypeid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join votes as votes_1
       on (badges_1.id = votes_1.id )
@@ -12042,7 +12042,7 @@ select
   votes_1.userid, 
   min(
     posthistory_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join votes as votes_1
       on (posthistory_1.id = votes_1.id )
@@ -12068,7 +12068,7 @@ select
   votes_1.id, 
   votes_1.id, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.userid, votes_1.id, votes_1.creationdate, votes_1.userid, votes_1.id, votes_1.creationdate, votes_1.id, votes_1.id, votes_1.id, votes_1.id, votes_1.id, votes_1.postid
@@ -12077,7 +12077,7 @@ select
   votes_1.creationdate, 
   votes_1.votetypeid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 limit 33;
@@ -12091,14 +12091,14 @@ select
   users_1.accountid, 
   users_1.displayname, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate = users_1.creationdate
 group by users_1.accountid, users_1.websiteurl, users_1.accountid, users_1.displayname, users_1.websiteurl
 limit 1;
 select  
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 20;
@@ -12126,7 +12126,7 @@ select
   badges_1.date, 
   badges_1.name, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
           inner join votes as votes_1
           on (badges_1.id = votes_1.id )
@@ -12144,7 +12144,7 @@ select
     comments_1.userdisplayname), 
   comments_1.text, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.text, comments_1.userid
@@ -12160,21 +12160,21 @@ select
     badges_1.date), 
   badges_1.class, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.userid, badges_1.tagbased, badges_1.userid, badges_1.name, badges_1.class, badges_1.date
 limit 11;
 select  
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 limit 40;
 select  
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
         inner join badges as badges_1
         on (postlinks_1.id = badges_1.id )
@@ -12195,7 +12195,7 @@ select
   posts_1.posttypeid, 
   avg(
     posts_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 group by posts_1.body, posts_1.owneruserid, posts_1.creationdate, posts_1.contentlicense, posts_1.acceptedanswerid, posts_1.posttypeid
@@ -12210,7 +12210,7 @@ select
   users_1.aboutme, 
   postlinks_1.id, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
         inner join posts as posts_1
@@ -12233,7 +12233,7 @@ select
   postlinks_1.id, 
   count(*), 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posthistory as posthistory_1
       inner join posts as posts_1
@@ -12262,7 +12262,7 @@ select
   postlinks_1.id, 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id
@@ -12276,7 +12276,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.postid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.id
@@ -12290,7 +12290,7 @@ select
   badges_1.tagbased, 
   badges_1.id, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.id, badges_1.id, badges_1.date, badges_1.tagbased, badges_1.id, badges_1.name
@@ -12304,7 +12304,7 @@ select
   users_1.creationdate, 
   users_1.profileimageurl, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
         inner join users as users_1
         on (posts_1.id = users_1.id )
@@ -12323,7 +12323,7 @@ select
   posts_1.title, 
   posts_1.owneruserid, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 limit 8;
@@ -12338,7 +12338,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.linktypeid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid <= postlinks_1.relatedpostid
 limit 27;
@@ -12349,13 +12349,13 @@ select
   badges_1.userid, 
   badges_1.class, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 37;
 select  
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 13;
@@ -12365,7 +12365,7 @@ select
   badges_1.id, 
   posts_1.acceptedanswerid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join users as users_2
           inner join badges as badges_1
@@ -12394,7 +12394,7 @@ select
     votes_1.id), 
   votes_1.postid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.userid, votes_1.id, votes_1.votetypeid, votes_1.postid, votes_1.postid, votes_1.postid, votes_1.creationdate, votes_1.postid, votes_1.userid
@@ -12412,7 +12412,7 @@ select
   min(
     users_2.creationdate), 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
       inner join users as users_2
@@ -12423,7 +12423,7 @@ group by users_1.websiteurl, postlinks_1.linktypeid, users_1.websiteurl, users_1
 limit 26;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 5;
@@ -12432,7 +12432,7 @@ select
   votes_1.id, 
   posts_1.ownerdisplayname, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
     on (posts_1.id = votes_1.id )
@@ -12441,7 +12441,7 @@ limit 27;
 select  
   comments_1.id, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text > comments_1.userdisplayname
 limit 14;
@@ -12453,7 +12453,7 @@ select
   posthistory_1.userid, 
   posthistory_1.revisionguid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid <= posthistory_1.posthistorytypeid
 group by posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.userid, posthistory_1.revisionguid, posthistory_1.posthistorytypeid
@@ -12462,7 +12462,7 @@ select
   posts_1.id, 
   posts_1.title, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 22;
@@ -12488,7 +12488,7 @@ select
   votes_1.userid, 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
     on (comments_1.id = votes_1.id )
@@ -12503,7 +12503,7 @@ select
     posts_1.creationdate), 
   posts_1.posttypeid, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posts as posts_1
     on (users_1.id = posts_1.id )
@@ -12513,13 +12513,13 @@ limit 13;
 select  
   min(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 20;
 select  
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -12555,7 +12555,7 @@ select
   posthistory_2.creationdate, 
   posthistory_1.posthistorytypeid, 
   comments_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join votes as votes_1
           inner join comments as comments_2
@@ -12574,7 +12574,7 @@ select
   badges_1.date, 
   badges_1.class, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 11;
@@ -12586,7 +12586,7 @@ select
     users_1.websiteurl), 
   users_1.id, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate >= users_1.creationdate
 group by users_1.creationdate, users_1.websiteurl, users_1.profileimageurl, users_1.id, users_1.accountid
@@ -12594,7 +12594,7 @@ limit 12;
 select  
   posts_1.contentlicense, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
     on (posts_1.id = votes_1.id )
@@ -12607,7 +12607,7 @@ select
   users_1.creationdate, 
   users_1.aboutme, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 limit 27;
@@ -12617,7 +12617,7 @@ select
   posthistory_1.postid, 
   avg(
     posthistory_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 group by posthistory_1.contentlicense, posthistory_1.userdisplayname, posthistory_1.postid
@@ -12656,7 +12656,7 @@ select
     posts_1.creationdate), 
   posthistory_1.userid, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -12669,7 +12669,7 @@ select
     postlinks_1.creationdate), 
   postlinks_1.linktypeid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
     on (postlinks_1.id = comments_1.id )
@@ -12683,7 +12683,7 @@ select
   users_1.aboutme, 
   users_2.displayname, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
           inner join comments as comments_1
@@ -12705,7 +12705,7 @@ select
   min(
     users_1.websiteurl), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
     on (votes_1.id = users_1.id )
@@ -12724,7 +12724,7 @@ select
   users_1.aboutme, 
   users_1.creationdate, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 limit 1;
@@ -12740,7 +12740,7 @@ select
   users_1.creationdate, 
   users_1.displayname, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate > users_1.creationdate
 group by users_1.displayname, users_1.profileimageurl, users_1.creationdate, users_1.creationdate, users_1.creationdate, users_1.displayname, users_1.displayname
@@ -12750,7 +12750,7 @@ select
   users_1.location, 
   users_1.creationdate, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 limit 8;
@@ -12772,7 +12772,7 @@ select distinct
     comments_1.contentlicense), 
   max(
     comments_1.userdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text < comments_1.userdisplayname
 group by comments_1.id, comments_1.creationdate, comments_1.creationdate, comments_1.text, comments_1.id, comments_1.contentlicense, comments_1.id, comments_1.userid, comments_1.userdisplayname, comments_1.text, comments_1.text
@@ -12788,7 +12788,7 @@ select
   votes_1.postid, 
   votes_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate <= votes_1.creationdate
 group by votes_1.id, votes_1.userid, votes_1.votetypeid, votes_1.userid, votes_1.votetypeid, votes_1.postid, votes_1.creationdate, votes_1.id
@@ -12811,7 +12811,7 @@ select
   comments_1.creationdate, 
   comments_1.userid, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.userdisplayname, comments_1.text, comments_1.postid, comments_1.userdisplayname, comments_1.contentlicense, comments_1.creationdate, comments_1.id, comments_1.contentlicense, comments_1.text, comments_1.userdisplayname, comments_1.creationdate, comments_1.text, comments_1.creationdate, comments_1.userid, comments_1.text
@@ -12827,7 +12827,7 @@ select
     users_1.profileimageurl), 
   badges_1.class, 
   posts_2.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join badges as badges_1
         inner join posts as posts_1
@@ -12855,7 +12855,7 @@ select
   posthistory_1.contentlicense, 
   posthistory_1.contentlicense, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate <= posthistory_1.creationdate
 group by posthistory_1.text, posthistory_1.userdisplayname, posthistory_1.posthistorytypeid, posthistory_1.posthistorytypeid, posthistory_1.id, posthistory_1.revisionguid, posthistory_1.postid, posthistory_1.posthistorytypeid, posthistory_1.userdisplayname, posthistory_1.contentlicense, posthistory_1.contentlicense, posthistory_1.userid
@@ -12868,7 +12868,7 @@ select
   users_1.aboutme, 
   postlinks_1.linktypeid, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -12878,7 +12878,7 @@ limit 4;
 select  
   posthistory_1.postid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
       inner join posthistory as posthistory_1
@@ -12888,7 +12888,7 @@ where users_2.location is not NULL
 limit 42;
 select  
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -12897,7 +12897,7 @@ limit 27;
 select  
   users_2.websiteurl, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
       inner join votes as votes_1
@@ -12910,7 +12910,7 @@ limit 32;
 select  
   comments_1.creationdate, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join comments as comments_1
         on (votes_1.id = comments_1.id )
@@ -12964,7 +12964,7 @@ select
   posts_2.id, 
   max(
     posts_1.body)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posts as posts_2
       on (posts_1.id = posts_2.id )
@@ -12981,7 +12981,7 @@ select
   votes_1.userid, 
   votes_1.votetypeid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join votes as votes_1
       inner join posts as posts_1
@@ -12995,7 +12995,7 @@ select
   posthistory_1.contentlicense, 
   posthistory_1.creationdate, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 13;
@@ -13013,7 +13013,7 @@ select
   min(
     users_1.id), 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 group by users_1.displayname, users_1.aboutme, users_1.aboutme, users_1.websiteurl, users_1.aboutme, users_1.websiteurl, users_1.aboutme
@@ -13024,7 +13024,7 @@ select
   max(
     comments_1.userid), 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.contentlicense, comments_1.creationdate, comments_1.id
@@ -13041,7 +13041,7 @@ select
   postlinks_1.relatedpostid, 
   badges_1.userid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join postlinks as postlinks_1
           inner join posts as posts_1
@@ -13058,7 +13058,7 @@ select
   comments_1.postid, 
   votes_1.postid, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join comments as comments_1
       inner join users as users_1
@@ -13083,7 +13083,7 @@ select
   min(
     comments_1.userdisplayname), 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
     on (comments_1.id = postlinks_1.id )
@@ -13099,14 +13099,14 @@ select
   posthistory_1.revisionguid, 
   posthistory_1.contentlicense, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 group by posthistory_1.contentlicense, posthistory_1.userid, posthistory_1.userid, posthistory_1.revisionguid, posthistory_1.contentlicense, posthistory_1.text
 limit 34;
 select  
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -13118,7 +13118,7 @@ select
     users_1.profileimageurl), 
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
       inner join badges as badges_1
@@ -13130,7 +13130,7 @@ limit 28;
 select  
   votes_1.votetypeid, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
     on (badges_1.id = votes_1.id )
@@ -13147,7 +13147,7 @@ select
   votes_1.creationdate, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid < votes_1.votetypeid
 limit 10;
@@ -13162,7 +13162,7 @@ select
   votes_1.votetypeid, 
   posts_1.ownerdisplayname, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join votes as votes_1
       on (posthistory_1.id = votes_1.id )
@@ -13176,7 +13176,7 @@ limit 23;
 select  
   max(
     postlinks_1.relatedpostid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
       inner join badges as badges_1
@@ -13194,7 +13194,7 @@ select
     posts_1.id), 
   posts_1.ownerdisplayname, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 group by posts_1.owneruserid, posts_1.tags, posts_1.title, posts_1.ownerdisplayname, posts_1.tags
@@ -13204,7 +13204,7 @@ select
   users_1.creationdate, 
   users_1.accountid, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 limit 35;
@@ -13218,7 +13218,7 @@ select
   posts_1.posttypeid, 
   posts_1.owneruserid, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate <= posts_1.creationdate
 group by posts_1.parentid, posts_1.ownerdisplayname, posts_1.id, posts_1.creationdate, posts_1.posttypeid, posts_1.owneruserid, posts_1.posttypeid
@@ -13226,7 +13226,7 @@ limit 8;
 select  
   comments_2.userid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
       inner join posthistory as posthistory_1
@@ -13238,7 +13238,7 @@ select
   posts_1.creationdate, 
   votes_1.postid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join comments as comments_1
       on (posthistory_1.id = comments_1.id )
@@ -13261,7 +13261,7 @@ select
   comments_1.text, 
   min(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 group by comments_1.postid, comments_1.postid, comments_1.postid, comments_1.text
@@ -13272,7 +13272,7 @@ select
   postlinks_1.postid, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -13281,7 +13281,7 @@ limit 15;
 select  
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 14;
@@ -13297,7 +13297,7 @@ select
   posts_1.body, 
   postlinks_1.creationdate, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join postlinks as postlinks_1
         inner join posts as posts_1
@@ -13313,7 +13313,7 @@ where posthistory_1.contentlicense is not NULL
 limit 9;
 select  
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
       inner join votes as votes_1
@@ -13326,7 +13326,7 @@ select
   comments_1.postid, 
   comments_1.creationdate, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 limit 32;
@@ -13337,7 +13337,7 @@ select
   posthistory_2.text, 
   posthistory_2.id, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -13347,7 +13347,7 @@ select
   posts_1.body, 
   posts_1.parentid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -13355,7 +13355,7 @@ where posts_1.title is not NULL
 limit 12;
 select  
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate <= postlinks_1.creationdate
 limit 33;
@@ -13363,7 +13363,7 @@ select
   badges_1.userid, 
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.userid
@@ -13376,7 +13376,7 @@ select
   comments_1.postid, 
   votes_1.userid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join comments as comments_1
         inner join posthistory as posthistory_1
@@ -13395,7 +13395,7 @@ select
   posts_1.tags, 
   posthistory_1.comment, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
       inner join comments as comments_1
@@ -13408,7 +13408,7 @@ group by posthistory_1.postid, posthistory_1.id, posts_1.tags, posthistory_1.com
 limit 26;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 22;
@@ -13429,7 +13429,7 @@ select
   posthistory_1.comment, 
   posthistory_1.userdisplayname, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 limit 16;
@@ -13446,7 +13446,7 @@ select
   users_1.id, 
   votes_1.id, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join votes as votes_1
     on (users_1.id = votes_1.id )
@@ -13458,14 +13458,14 @@ select
   comments_1.text, 
   comments_1.text, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 31;
 select  
   posthistory_1.userid, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid is not NULL
 limit 4;
@@ -13479,7 +13479,7 @@ select
   comments_1.id, 
   comments_1.id, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -13495,7 +13495,7 @@ select
     posthistory_1.creationdate), 
   posthistory_1.revisionguid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 group by posthistory_1.userid, posthistory_1.posthistorytypeid, posthistory_1.userdisplayname, posthistory_1.revisionguid, posthistory_1.revisionguid, posthistory_1.contentlicense
@@ -13509,13 +13509,13 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 8;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join votes as votes_1
       inner join postlinks as postlinks_2
@@ -13543,7 +13543,7 @@ select
   posts_1.creationdate, 
   posts_1.id, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense > posts_1.title
 group by posts_1.contentlicense, posts_1.tags, posts_1.creationdate, posts_1.tags, posts_1.parentid, posts_1.title, posts_1.acceptedanswerid, posts_1.creationdate, posts_1.ownerdisplayname, posts_1.tags, posts_1.creationdate, posts_1.owneruserid, posts_1.creationdate, posts_1.id, posts_1.acceptedanswerid
@@ -13551,7 +13551,7 @@ limit 13;
 select  
   votes_2.votetypeid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
       inner join votes as votes_2
@@ -13593,7 +13593,7 @@ select
   votes_1.creationdate, 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.postid, votes_1.creationdate, votes_1.votetypeid, votes_1.votetypeid, votes_1.userid, votes_1.votetypeid, votes_1.userid, votes_1.id, votes_1.id, votes_1.userid, votes_1.postid, votes_1.userid, votes_1.creationdate, votes_1.votetypeid, votes_1.creationdate, votes_1.postid, votes_1.postid, votes_1.creationdate
@@ -13602,13 +13602,13 @@ select
   votes_1.votetypeid, 
   votes_1.postid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 25;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id >= users_1.id
 limit 17;
@@ -13638,7 +13638,7 @@ select
   votes_1.votetypeid, 
   votes_1.userid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid <= votes_1.id
 group by votes_1.votetypeid, votes_1.votetypeid, votes_1.creationdate, votes_1.id, votes_1.votetypeid, votes_1.votetypeid, votes_1.creationdate, votes_1.userid, votes_1.userid, votes_1.id, votes_1.id, votes_1.userid, votes_1.votetypeid, votes_1.userid, votes_1.creationdate
@@ -13646,20 +13646,20 @@ limit 3;
 select  
   posts_1.acceptedanswerid, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 limit 36;
 select  
   posts_1.creationdate, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 7;
 select  
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 42;
@@ -13675,7 +13675,7 @@ select
   votes_1.votetypeid, 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.id, votes_1.creationdate, votes_1.id, votes_1.creationdate, votes_1.postid, votes_1.votetypeid, votes_1.votetypeid
@@ -13683,7 +13683,7 @@ limit 10;
 select  
   users_1.id, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 29;
@@ -13693,7 +13693,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 25;
@@ -13701,7 +13701,7 @@ select
   votes_1.userid, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 7;
@@ -13710,7 +13710,7 @@ select
     postlinks_1.creationdate), 
   postlinks_1.id, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.id, postlinks_1.id
@@ -13733,7 +13733,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.postid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -13757,14 +13757,14 @@ select
   comments_1.userid, 
   comments_1.contentlicense, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense <= comments_1.userdisplayname
 group by comments_1.id, comments_1.id, comments_1.userdisplayname, comments_1.postid, comments_1.contentlicense, comments_1.contentlicense, comments_1.creationdate, comments_1.userid, comments_1.contentlicense, comments_1.creationdate
 limit 6;
 select  
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid > votes_1.userid
 limit 29;
@@ -13780,7 +13780,7 @@ select
   min(
     posts_1.body), 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -13790,7 +13790,7 @@ limit 5;
 select  
   posthistory_1.revisionguid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 24;
@@ -13809,14 +13809,14 @@ select
   posts_1.title, 
   posts_1.posttypeid, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.title, posts_1.posttypeid, posts_1.ownerdisplayname, posts_1.id, posts_1.tags, posts_1.title, posts_1.posttypeid, posts_1.title, posts_1.posttypeid, posts_1.ownerdisplayname
 limit 37;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 31;
@@ -13828,7 +13828,7 @@ select
   posts_1.creationdate, 
   posts_1.body, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 limit 22;
@@ -13844,7 +13844,7 @@ select
   postlinks_1.postid, 
   max(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join badges as badges_1
         inner join postlinks as postlinks_1
@@ -13909,7 +13909,7 @@ select
   badges_1.tagbased, 
   posthistory_1.id, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posthistory as posthistory_1
     on (badges_1.id = posthistory_1.id )
@@ -13920,7 +13920,7 @@ select
   posthistory_1.creationdate, 
   count(*), 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid is not NULL
 group by posthistory_1.creationdate, posthistory_1.comment
@@ -13931,14 +13931,14 @@ select
   min(
     votes_1.creationdate), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.userid, votes_1.votetypeid, votes_1.votetypeid
 limit 35;
 select  
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
     on (posts_1.id = users_1.id )
@@ -13956,7 +13956,7 @@ select
   posthistory_1.contentlicense, 
   posthistory_1.creationdate, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
     on (comments_1.id = posthistory_1.id )
@@ -13967,7 +13967,7 @@ select
   postlinks_2.relatedpostid, 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -13990,7 +13990,7 @@ select
   votes_1.votetypeid, 
   comments_1.postid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
     on (comments_1.id = votes_1.id )
@@ -13999,7 +13999,7 @@ group by votes_1.postid, votes_1.postid, votes_1.votetypeid, votes_1.userid, vot
 limit 21;
 select  
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title >= posts_1.tags
 limit 25;
@@ -14007,7 +14007,7 @@ select
   count(*), 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join posts as posts_1
       on (postlinks_1.id = posts_1.id )
@@ -14028,7 +14028,7 @@ select
   posthistory_1.creationdate, 
   posthistory_2.revisionguid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join comments as comments_1
       on (posthistory_1.id = comments_1.id )
@@ -14042,7 +14042,7 @@ select
   max(
     comments_1.creationdate), 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 group by comments_1.postid, comments_1.contentlicense
@@ -14053,7 +14053,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 9;
@@ -14068,7 +14068,7 @@ select
   sum(
     votes_1.postid), 
   posts_2.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
       inner join posts as posts_2
@@ -14081,7 +14081,7 @@ select
   badges_1.id, 
   users_1.websiteurl, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -14090,7 +14090,7 @@ limit 2;
 select  
   votes_1.userid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join posts as posts_1
         on (posthistory_1.id = posts_1.id )
@@ -14109,7 +14109,7 @@ select
   min(
     posts_1.creationdate), 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
     on (votes_1.id = posts_1.id )
@@ -14119,7 +14119,7 @@ limit 36;
 select  
   min(
     votes_1.votetypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 8;
@@ -14133,7 +14133,7 @@ select
   posthistory_1.comment, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
     on (votes_1.id = posthistory_1.id )
@@ -14142,7 +14142,7 @@ group by votes_1.creationdate, votes_1.id, votes_1.id, posthistory_1.revisiongui
 limit 1;
 select  
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join badges as badges_1
     on (votes_1.id = badges_1.id )
@@ -14156,7 +14156,7 @@ select
     postlinks_1.creationdate), 
   posts_1.posttypeid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posts as posts_1
     on (postlinks_1.id = posts_1.id )
@@ -14167,7 +14167,7 @@ select
   comments_1.id, 
   comments_1.id, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense < comments_1.text
 limit 19;
@@ -14186,7 +14186,7 @@ select
   comments_1.text, 
   comments_1.userdisplayname, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.creationdate, comments_1.creationdate, comments_1.contentlicense, comments_1.contentlicense, comments_1.id, comments_1.text, comments_1.userid, comments_1.userdisplayname, comments_1.id, comments_1.text, comments_1.userdisplayname
@@ -14199,7 +14199,7 @@ select
   votes_1.creationdate, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 limit 29;
@@ -14223,7 +14223,7 @@ select
   users_1.location, 
   users_1.location, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.accountid, users_1.profileimageurl, users_1.location, users_1.creationdate, users_1.aboutme, users_1.websiteurl, users_1.displayname, users_1.websiteurl, users_1.aboutme, users_1.displayname, users_1.location, users_1.location, users_1.id
@@ -14232,7 +14232,7 @@ select
   users_1.location, 
   users_1.accountid, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 limit 10;
@@ -14241,7 +14241,7 @@ select
     users_1.accountid), 
   max(
     users_1.displayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join postlinks as postlinks_1
       on (votes_1.id = postlinks_1.id )
@@ -14255,7 +14255,7 @@ select
   comments_2.postid, 
   comments_1.userid, 
   comments_2.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join comments as comments_1
       on (posthistory_1.id = comments_1.id )
@@ -14269,7 +14269,7 @@ select
   postlinks_1.postid, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 40;
@@ -14297,7 +14297,7 @@ select
   posts_1.tags, 
   posts_1.owneruserid, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags is not NULL
 group by posts_1.creationdate, posts_1.tags, posts_1.tags, posts_1.tags, posts_1.creationdate, posts_1.id, posts_1.acceptedanswerid, posts_1.tags, posts_1.title, posts_1.contentlicense, posts_1.owneruserid, posts_1.tags, posts_1.owneruserid, posts_1.body, posts_1.title, posts_1.tags, posts_1.ownerdisplayname, posts_1.posttypeid, posts_1.tags, posts_1.owneruserid, posts_1.title
@@ -14312,7 +14312,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.userid, votes_1.id, votes_1.postid, votes_1.userid, votes_1.votetypeid
@@ -14322,7 +14322,7 @@ select
   votes_1.creationdate, 
   votes_1.userid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
       inner join votes as votes_1
@@ -14338,7 +14338,7 @@ select
   votes_1.userid, 
   votes_1.id, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate < votes_1.creationdate
 limit 37;
@@ -14352,7 +14352,7 @@ select
   posts_1.owneruserid, 
   max(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.ownerdisplayname, posts_1.body, posts_1.acceptedanswerid, posts_1.posttypeid, posts_1.owneruserid
@@ -14367,7 +14367,7 @@ select
   badges_1.date, 
   badges_1.userid, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.tagbased, badges_1.userid, badges_1.userid, badges_1.date, badges_1.userid, badges_1.userid
@@ -14387,7 +14387,7 @@ select
   badges_1.id, 
   badges_1.class, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.tagbased, badges_1.date, badges_1.class, badges_1.id, badges_1.class, badges_1.name, badges_1.id, badges_1.class, badges_1.class
@@ -14400,7 +14400,7 @@ select
   postlinks_1.id, 
   postlinks_1.creationdate, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 13;
@@ -14422,7 +14422,7 @@ select
   users_3.aboutme, 
   posts_2.contentlicense, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join posts as posts_1
         on (users_1.id = posts_1.id )
@@ -14446,7 +14446,7 @@ select
   postlinks_1.postid, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id < postlinks_1.linktypeid
 limit 42;
@@ -14454,13 +14454,13 @@ select
   posts_1.body, 
   posts_1.tags, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 limit 28;
 select  
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate < comments_1.creationdate
 limit 15;
@@ -14469,14 +14469,14 @@ select
   postlinks_1.id, 
   postlinks_1.postid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 32;
 select  
   max(
     users_1.displayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate = users_1.creationdate
 limit 23;
@@ -14484,7 +14484,7 @@ select
   comments_1.userdisplayname, 
   comments_1.userdisplayname, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 34;
@@ -14496,7 +14496,7 @@ select
   postlinks_1.id, 
   users_1.aboutme, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
         inner join users as users_1
@@ -14522,14 +14522,14 @@ select
   users_1.aboutme, 
   users_1.displayname, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.profileimageurl, users_1.aboutme, users_1.location, users_1.displayname, users_1.websiteurl, users_1.location, users_1.profileimageurl, users_1.location, users_1.aboutme, users_1.displayname, users_1.websiteurl
 limit 32;
 select  
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid > postlinks_1.relatedpostid
 limit 16;
@@ -14542,7 +14542,7 @@ select
   sum(
     comments_1.userid), 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join comments as comments_1
       on (posthistory_1.id = comments_1.id )
@@ -14555,7 +14555,7 @@ group by comments_1.userdisplayname, badges_1.class
 limit 17;
 select  
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
     on (comments_1.id = votes_1.id )
@@ -14563,13 +14563,13 @@ where votes_1.creationdate >= comments_1.creationdate
 limit 11;
 select  
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags is not NULL
 limit 21;
 select  
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 29;
@@ -14581,7 +14581,7 @@ select
     posts_1.parentid), 
   posts_1.owneruserid, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 group by posts_1.tags, posts_1.contentlicense, posts_1.acceptedanswerid, posts_1.owneruserid, posts_1.posttypeid
@@ -14589,7 +14589,7 @@ limit 3;
 select  
   postlinks_1.postid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 29;
@@ -14602,7 +14602,7 @@ select
   posts_1.tags, 
   posts_1.acceptedanswerid, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posts as posts_1
     on (postlinks_1.id = posts_1.id )
@@ -14613,7 +14613,7 @@ select
   min(
     badges_1.date), 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 group by badges_1.id
@@ -14622,7 +14622,7 @@ select
   posthistory_2.contentlicense, 
   posthistory_2.creationdate, 
   posthistory_2.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -14633,7 +14633,7 @@ select
   badges_2.tagbased, 
   badges_1.date, 
   badges_2.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
     on (badges_1.id = badges_2.id )
@@ -14648,7 +14648,7 @@ select
   users_1.creationdate, 
   users_1.id, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate >= users_1.creationdate
 group by users_1.id, users_1.websiteurl, users_1.profileimageurl, users_1.creationdate, users_1.id, users_1.id
@@ -14670,7 +14670,7 @@ select
   posts_1.title, 
   posts_1.contentlicense, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -14684,14 +14684,14 @@ select
   comments_1.contentlicense, 
   comments_1.contentlicense, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid >= comments_1.id
 limit 11;
 select  
   max(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -14699,7 +14699,7 @@ where badges_1.name = users_1.location
 limit 11;
 select  
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate > postlinks_1.creationdate
 limit 5;
@@ -14714,7 +14714,7 @@ select
   max(
     badges_2.date), 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join votes as votes_1
         inner join posts as posts_1
@@ -14748,7 +14748,7 @@ select
   max(
     posts_1.title), 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.posttypeid, posts_1.contentlicense, posts_1.acceptedanswerid, posts_1.creationdate, posts_1.tags, posts_1.posttypeid, posts_1.body, posts_1.creationdate, posts_1.owneruserid, posts_1.acceptedanswerid
@@ -14760,7 +14760,7 @@ select
   min(
     badges_1.name), 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name < badges_1.name
 group by badges_1.id, badges_1.tagbased
@@ -14769,7 +14769,7 @@ select
   votes_1.userid, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate < votes_1.creationdate
 group by votes_1.userid
@@ -14779,7 +14779,7 @@ select
   votes_1.creationdate, 
   comments_3.postid, 
   comments_2.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join comments as comments_1
       on (votes_1.id = comments_1.id )
@@ -14794,7 +14794,7 @@ select
   badges_1.date, 
   badges_1.class, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 14;
@@ -14809,7 +14809,7 @@ select
     badges_1.name), 
   badges_1.class, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name > badges_1.name
 group by badges_1.class, badges_1.name, badges_1.class, badges_1.userid, badges_1.class, badges_1.userid, badges_1.class, badges_1.id
@@ -14817,7 +14817,7 @@ limit 36;
 select  
   avg(
     users_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 limit 6;
@@ -14825,7 +14825,7 @@ select
   posthistory_1.userdisplayname, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 41;
@@ -14833,7 +14833,7 @@ select
   votes_1.votetypeid, 
   votes_1.postid, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 31;
@@ -14841,7 +14841,7 @@ select
   users_1.websiteurl, 
   avg(
     postlinks_1.linktypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -14854,7 +14854,7 @@ select
     votes_2.postid), 
   votes_1.postid, 
   votes_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -14868,7 +14868,7 @@ select
     postlinks_1.creationdate), 
   count(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.id, postlinks_1.creationdate
@@ -14878,13 +14878,13 @@ select
   posts_1.contentlicense, 
   posts_1.title, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense >= posts_1.ownerdisplayname
 limit 5;
 select  
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 15;
@@ -14892,7 +14892,7 @@ select
   max(
     posts_1.posttypeid), 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 group by posts_1.parentid
@@ -14904,14 +14904,14 @@ select
   max(
     badges_1.class), 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name > badges_1.name
 group by badges_1.class, badges_1.date, badges_1.name, badges_1.id
 limit 11;
 select  
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join posthistory as posthistory_1
         on (users_1.id = posthistory_1.id )
@@ -14924,7 +14924,7 @@ limit 25;
 select  
   count(*), 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.userid
@@ -14946,14 +14946,14 @@ select
     posts_1.creationdate), 
   posts_1.owneruserid, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 group by posts_1.contentlicense, posts_1.owneruserid, posts_1.owneruserid, posts_1.id, posts_1.acceptedanswerid, posts_1.acceptedanswerid, posts_1.id, posts_1.posttypeid, posts_1.body, posts_1.owneruserid, posts_1.owneruserid, posts_1.owneruserid
 limit 37;
 select  
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -14963,7 +14963,7 @@ select
   badges_1.tagbased, 
   users_1.displayname, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -14978,7 +14978,7 @@ select
   users_1.profileimageurl, 
   posts_1.creationdate, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posts as posts_1
     on (users_1.id = posts_1.id )
@@ -14989,7 +14989,7 @@ select
   comments_1.creationdate, 
   postlinks_1.postid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join comments as comments_1
         inner join postlinks as postlinks_1
@@ -15001,7 +15001,7 @@ where users_1.location is not NULL
 limit 17;
 select  
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join comments as comments_1
           inner join votes as votes_1
@@ -15030,7 +15030,7 @@ select
   postlinks_1.postid, 
   max(
     votes_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -15043,7 +15043,7 @@ select
   users_1.accountid, 
   count(*), 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -15053,7 +15053,7 @@ limit 26;
 select  
   postlinks_1.relatedpostid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 38;
@@ -15068,14 +15068,14 @@ select
   posts_1.creationdate, 
   posts_1.creationdate, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid = posts_1.acceptedanswerid
 group by posts_1.body, posts_1.contentlicense, posts_1.parentid, posts_1.owneruserid, posts_1.tags, posts_1.posttypeid, posts_1.creationdate, posts_1.creationdate, posts_1.id
 limit 29;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join postlinks as postlinks_1
       on (users_1.id = postlinks_1.id )
@@ -15091,7 +15091,7 @@ where users_2.location < users_1.displayname
 limit 9;
 select  
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join posts as posts_1
       on (badges_1.id = posts_1.id )
@@ -15101,7 +15101,7 @@ where badges_1.date <= posts_1.creationdate
 limit 26;
 select  
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -15110,7 +15110,7 @@ limit 35;
 select  
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 17;
@@ -15121,7 +15121,7 @@ select
   max(
     posthistory_1.contentlicense), 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid is not NULL
 group by posthistory_1.text, posthistory_1.contentlicense, posthistory_1.revisionguid, posthistory_1.text
@@ -15137,14 +15137,14 @@ select
   comments_1.userdisplayname, 
   count(
     comments_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text < comments_1.userdisplayname
 group by comments_1.postid, comments_1.creationdate, comments_1.postid, comments_1.id, comments_1.userdisplayname, comments_1.userdisplayname
 limit 18;
 select  
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join users as users_1
       on (badges_1.id = users_1.id )
@@ -15164,7 +15164,7 @@ select
   postlinks_1.id, 
   postlinks_1.creationdate, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.id, postlinks_1.id, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.postid
@@ -15172,21 +15172,21 @@ limit 25;
 select  
   min(
     comments_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 limit 41;
 select  
   votes_1.creationdate, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 6;
 select  
   posthistory_1.posthistorytypeid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join posts as posts_1
         on (posthistory_1.id = posts_1.id )
@@ -15200,7 +15200,7 @@ select
   badges_2.tagbased, 
   votes_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join badges as badges_2
       on (badges_1.id = badges_2.id )
@@ -15214,7 +15214,7 @@ select
     users_1.accountid), 
   avg(
     users_1.accountid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
     on (votes_1.id = users_1.id )
@@ -15229,7 +15229,7 @@ select
   posts_2.posttypeid, 
   comments_1.text, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join comments as comments_2
         inner join users as users_1
@@ -15243,14 +15243,14 @@ where users_1.accountid <= users_1.profileimageurl
 limit 26;
 select  
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text <= comments_1.userdisplayname
 limit 14;
 select  
   comments_2.postid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
       inner join comments as comments_2
@@ -15264,7 +15264,7 @@ select
   posthistory_1.comment, 
   comments_1.userdisplayname, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
     on (comments_1.id = posthistory_1.id )
@@ -15274,7 +15274,7 @@ select
   posthistory_1.creationdate, 
   posthistory_1.userdisplayname, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid = posthistory_1.id
 limit 31;
@@ -15288,7 +15288,7 @@ select
   posthistory_1.posthistorytypeid, 
   count(*), 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 group by posthistory_1.contentlicense, posthistory_1.userdisplayname, posthistory_1.posthistorytypeid, posthistory_1.posthistorytypeid, posthistory_1.posthistorytypeid, posthistory_1.text
@@ -15297,7 +15297,7 @@ select
   avg(
     users_1.profileimageurl), 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 group by users_1.displayname
@@ -15325,7 +15325,7 @@ select
   posthistory_2.id, 
   votes_1.userid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
       inner join posthistory as posthistory_2
@@ -15345,7 +15345,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.id, votes_1.creationdate, votes_1.userid, votes_1.postid, votes_1.votetypeid, votes_1.id, votes_1.votetypeid
@@ -15354,7 +15354,7 @@ select
   votes_1.id, 
   votes_1.creationdate, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 11;
@@ -15366,7 +15366,7 @@ select
   votes_1.userid, 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.userid
@@ -15409,7 +15409,7 @@ select
     badges_1.name), 
   badges_1.userid, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.userid, badges_1.userid, badges_1.date, badges_1.id, badges_1.id, badges_1.name, badges_1.userid, badges_1.tagbased, badges_1.date, badges_1.name, badges_1.date, badges_1.id, badges_1.name, badges_1.userid, badges_1.class, badges_1.userid, badges_1.class, badges_1.tagbased, badges_1.name, badges_1.id, badges_1.tagbased, badges_1.class, badges_1.class, badges_1.id, badges_1.tagbased, badges_1.tagbased, badges_1.id, badges_1.userid, badges_1.tagbased
@@ -15418,7 +15418,7 @@ select
   count(*), 
   posts_1.title, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate >= posts_1.creationdate
 group by posts_1.title, posts_1.ownerdisplayname
@@ -15431,7 +15431,7 @@ select
   comments_1.userid, 
   comments_1.contentlicense, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.postid, comments_1.id, comments_1.id, comments_1.userid, comments_1.contentlicense, comments_1.creationdate
@@ -15444,7 +15444,7 @@ select
   postlinks_1.id, 
   min(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.creationdate, postlinks_1.postid, postlinks_1.id, postlinks_1.postid, postlinks_1.id
@@ -15452,7 +15452,7 @@ limit 16;
 select  
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 33;
@@ -15467,7 +15467,7 @@ select
   votes_1.id, 
   votes_1.votetypeid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.votetypeid, votes_1.votetypeid, votes_1.votetypeid, votes_1.creationdate, votes_1.id, votes_1.id, votes_1.votetypeid, votes_1.creationdate
@@ -15478,7 +15478,7 @@ select
   posthistory_2.posthistorytypeid, 
   badges_1.tagbased, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join badges as badges_1
       inner join posthistory as posthistory_2
@@ -15488,7 +15488,7 @@ where posthistory_2.posthistorytypeid is not NULL
 limit 28;
 select  
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid > votes_1.votetypeid
 limit 23;
@@ -15497,7 +15497,7 @@ select distinct
   votes_1.id, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.creationdate, votes_1.id
@@ -15514,7 +15514,7 @@ select
   votes_1.votetypeid, 
   votes_1.userid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.creationdate, votes_1.creationdate, votes_1.userid, votes_1.postid, votes_1.userid, votes_1.votetypeid, votes_1.votetypeid, votes_1.userid, votes_1.id
@@ -15534,7 +15534,7 @@ select
     posthistory_1.comment), 
   posthistory_1.userid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 group by posthistory_1.comment, posthistory_1.revisionguid, posthistory_1.postid, posthistory_1.contentlicense, posthistory_1.userid, posthistory_1.posthistorytypeid
@@ -15543,7 +15543,7 @@ select
   posthistory_1.id, 
   min(
     posthistory_1.comment)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate < posthistory_1.creationdate
 group by posthistory_1.id
@@ -15551,7 +15551,7 @@ limit 11;
 select  
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 23;
@@ -15564,7 +15564,7 @@ select
   min(
     users_1.displayname), 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.aboutme, users_1.id, users_1.displayname, users_1.id
@@ -15583,7 +15583,7 @@ select
   votes_1.creationdate, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.postid, votes_1.votetypeid, votes_1.id, votes_1.votetypeid, votes_1.creationdate, votes_1.votetypeid, votes_1.creationdate
@@ -15598,14 +15598,14 @@ select
   votes_1.votetypeid, 
   votes_1.postid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 9;
 select  
   comments_1.postid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join posthistory as posthistory_2
           inner join posts as posts_1
@@ -15628,7 +15628,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.postid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid >= postlinks_1.linktypeid
 limit 14;
@@ -15636,7 +15636,7 @@ select
   users_1.profileimageurl, 
   min(
     badges_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -15646,7 +15646,7 @@ limit 26;
 select  
   min(
     users_2.location)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posts as posts_1
       on (users_1.id = posts_1.id )
@@ -15674,7 +15674,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
         inner join posts as posts_1
@@ -15709,7 +15709,7 @@ select
   badges_2.date, 
   count(*), 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
           inner join comments as comments_1
             inner join votes as votes_1
@@ -15735,7 +15735,7 @@ select
   comments_1.contentlicense, 
   badges_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
       inner join postlinks as postlinks_1
@@ -15754,7 +15754,7 @@ select
   comments_1.postid, 
   comments_1.creationdate, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid = comments_1.id
 group by comments_1.text, comments_1.userdisplayname, comments_1.userid, comments_1.userid, comments_1.creationdate, comments_1.postid, comments_1.creationdate, comments_1.postid
@@ -15764,7 +15764,7 @@ select
     posts_1.title), 
   sum(
     posts_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
     on (posts_1.id = badges_1.id )
@@ -15783,7 +15783,7 @@ select
   comments_1.id, 
   comments_1.userdisplayname, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 26;
@@ -15793,7 +15793,7 @@ select
   postlinks_1.id, 
   postlinks_1.creationdate, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
         inner join posts as posts_1
@@ -15811,7 +15811,7 @@ select
   votes_1.id, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.id
@@ -15820,7 +15820,7 @@ select
   posthistory_1.comment, 
   posthistory_1.text, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 limit 41;
@@ -15828,7 +15828,7 @@ select
   count(
     comments_1.userid), 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id < comments_1.userid
 group by comments_1.creationdate
@@ -15838,7 +15838,7 @@ select
   users_1.displayname, 
   users_1.websiteurl, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 limit 28;
@@ -15849,7 +15849,7 @@ select
   comments_1.id, 
   posts_1.id, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
       inner join votes as votes_1
@@ -15874,7 +15874,7 @@ select
     badges_1.userid), 
   badges_1.date, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -15885,7 +15885,7 @@ select
   posts_1.contentlicense, 
   sum(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join badges as badges_1
         on (users_1.id = badges_1.id )
@@ -15904,7 +15904,7 @@ select
   comments_1.id, 
   min(
     comments_1.userdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
     on (badges_1.id = comments_1.id )
@@ -15923,7 +15923,7 @@ select
   postlinks_1.postid, 
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.postid, postlinks_1.creationdate
@@ -15934,7 +15934,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.relatedpostid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 17;
@@ -15943,7 +15943,7 @@ select
   postlinks_1.id, 
   postlinks_1.linktypeid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 38;
@@ -15955,7 +15955,7 @@ select
   badges_1.class, 
   count(
     badges_1.tagbased)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.tagbased, badges_1.class, badges_1.class, badges_1.date, badges_1.class
@@ -15970,14 +15970,14 @@ select
     posts_1.creationdate), 
   max(
     posts_1.acceptedanswerid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags is not NULL
 group by posts_1.tags, posts_1.ownerdisplayname, posts_1.contentlicense
 limit 37;
 select  
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join postlinks as postlinks_1
       inner join posthistory as posthistory_1
@@ -15989,7 +15989,7 @@ select
   postlinks_1.creationdate, 
   min(
     postlinks_1.relatedpostid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.creationdate
@@ -16007,7 +16007,7 @@ select
   users_1.displayname, 
   users_2.displayname, 
   users_2.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
     on (users_1.id = users_2.id )
@@ -16016,7 +16016,7 @@ group by users_1.accountid, users_1.accountid, users_1.profileimageurl, users_1.
 limit 36;
 select  
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
       inner join posthistory as posthistory_1
@@ -16032,7 +16032,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.postid, 
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posthistory as posthistory_1
     on (postlinks_1.id = posthistory_1.id )
@@ -16045,7 +16045,7 @@ select
     comments_1.userdisplayname), 
   comments_1.text, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.userid, comments_1.text, comments_1.id
@@ -16060,7 +16060,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.postid, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -16083,7 +16083,7 @@ select
   posts_1.acceptedanswerid, 
   comments_1.contentlicense, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -16094,7 +16094,7 @@ select
   votes_1.userid, 
   votes_2.postid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join votes as votes_2
       on (votes_1.id = votes_2.id )
@@ -16104,7 +16104,7 @@ where badges_1.userid is not NULL
 limit 35;
 select  
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 28;
@@ -16116,7 +16116,7 @@ select
     votes_1.creationdate), 
   votes_1.userid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.votetypeid, votes_1.creationdate, votes_1.postid, votes_1.userid, votes_1.creationdate
@@ -16131,7 +16131,7 @@ select
   votes_1.creationdate, 
   votes_1.postid, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.userid, votes_1.votetypeid, votes_1.creationdate, votes_1.postid, votes_1.postid
@@ -16151,7 +16151,7 @@ select
   votes_1.postid, 
   max(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join votes as votes_1
       on (users_1.id = votes_1.id )
@@ -16168,7 +16168,7 @@ select
   postlinks_1.id, 
   max(
     postlinks_2.relatedpostid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -16179,7 +16179,7 @@ select
   badges_1.name, 
   posthistory_1.userid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posthistory as posthistory_1
     on (badges_1.id = posthistory_1.id )
@@ -16212,7 +16212,7 @@ select
   count(
     posthistory_1.comment), 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join posts as posts_1
         on (posthistory_1.id = posts_1.id )
@@ -16229,7 +16229,7 @@ select
   postlinks_1.id, 
   postlinks_1.linktypeid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 17;
@@ -16237,7 +16237,7 @@ select
   sum(
     posthistory_1.userid), 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join users as users_1
       on (postlinks_1.id = users_1.id )
@@ -16254,7 +16254,7 @@ select
     posthistory_1.creationdate), 
   posthistory_1.contentlicense, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid <= posthistory_1.postid
 group by posthistory_1.comment, posthistory_1.text, posthistory_1.id, posthistory_1.contentlicense, posthistory_1.comment
@@ -16264,7 +16264,7 @@ select
   posts_1.tags, 
   comments_2.contentlicense, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posts as posts_1
       inner join comments as comments_2
@@ -16279,7 +16279,7 @@ select
     votes_1.creationdate), 
   votes_1.userid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.votetypeid, votes_1.creationdate, votes_1.userid, votes_1.votetypeid
@@ -16287,7 +16287,7 @@ limit 14;
 select  
   postlinks_1.relatedpostid, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
       inner join postlinks as postlinks_1
@@ -16301,7 +16301,7 @@ limit 17;
 select  
   badges_1.userid, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 15;
@@ -16324,7 +16324,7 @@ select
   comments_1.id, 
   max(
     comments_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid < comments_1.userid
 group by comments_1.creationdate, comments_1.userdisplayname, comments_1.contentlicense, comments_1.id, comments_1.id, comments_1.postid, comments_1.userid, comments_1.id
@@ -16345,7 +16345,7 @@ select
   users_1.aboutme, 
   users_1.websiteurl, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -16356,7 +16356,7 @@ select
   posts_1.body, 
   posts_1.contentlicense, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posts as posts_1
     on (users_1.id = posts_1.id )
@@ -16376,7 +16376,7 @@ select
   comments_1.contentlicense, 
   comments_1.creationdate, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 group by comments_1.creationdate, comments_1.postid, comments_1.userdisplayname, comments_1.id, comments_1.userid, comments_1.contentlicense, comments_1.postid, comments_1.creationdate, comments_1.contentlicense, comments_1.creationdate, comments_1.contentlicense
@@ -16405,14 +16405,14 @@ select
   badges_1.userid, 
   max(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date < badges_1.date
 group by badges_1.class, badges_1.tagbased, badges_1.userid, badges_1.id, badges_1.date, badges_1.name, badges_1.id, badges_1.date, badges_1.userid, badges_1.id, badges_1.date, badges_1.userid, badges_1.id, badges_1.date, badges_1.userid
 limit 4;
 select  
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
     on (comments_1.id = votes_1.id )
@@ -16432,7 +16432,7 @@ select distinct
   badges_1.userid, 
   badges_1.name, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
     on (badges_1.id = votes_1.id )
@@ -16444,7 +16444,7 @@ select
   max(
     votes_1.creationdate), 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
       inner join votes as votes_2
@@ -16458,14 +16458,14 @@ select
     votes_1.creationdate), 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 24;
 select  
   posthistory_2.userdisplayname, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
           inner join posts as posts_1
@@ -16480,7 +16480,7 @@ limit 39;
 select  
   comments_1.contentlicense, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
     on (comments_1.id = votes_1.id )
@@ -16489,7 +16489,7 @@ limit 38;
 select  
   votes_1.id, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join badges as badges_1
         on (votes_1.id = badges_1.id )
@@ -16502,7 +16502,7 @@ limit 34;
 select  
   posthistory_1.id, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -16511,7 +16511,7 @@ limit 5;
 select  
   posts_1.tags, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
       inner join posts as posts_1
@@ -16528,7 +16528,7 @@ select
   postlinks_1.linktypeid, 
   max(
     postlinks_1.relatedpostid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.linktypeid
@@ -16537,7 +16537,7 @@ select
   votes_1.postid, 
   votes_1.votetypeid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid < votes_1.id
 limit 41;
@@ -16547,7 +16547,7 @@ select
   badges_1.id, 
   sum(
     badges_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
     on (badges_1.id = votes_1.id )
@@ -16557,7 +16557,7 @@ limit 25;
 select  
   posthistory_1.contentlicense, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate is not NULL
 limit 41;
@@ -16565,7 +16565,7 @@ select
   posts_1.id, 
   min(
     posts_1.title)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname > posts_1.contentlicense
 group by posts_1.id
@@ -16585,7 +16585,7 @@ select
   users_1.accountid, 
   min(
     users_1.displayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl > users_1.accountid
 group by users_1.aboutme, users_1.profileimageurl, users_1.creationdate, users_1.creationdate, users_1.profileimageurl, users_1.accountid
@@ -16597,7 +16597,7 @@ select
     votes_1.creationdate), 
   votes_1.postid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate > votes_1.creationdate
 group by votes_1.votetypeid, votes_1.userid, votes_1.postid, votes_1.creationdate
@@ -16611,14 +16611,14 @@ select
   votes_1.votetypeid, 
   votes_1.id, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.creationdate, votes_1.votetypeid, votes_1.votetypeid, votes_1.votetypeid, votes_1.id, votes_1.creationdate
 limit 10;
 select  
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
       inner join comments as comments_2
@@ -16632,7 +16632,7 @@ select
   max(
     posts_2.tags), 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
         inner join posts as posts_2
@@ -16647,7 +16647,7 @@ select
   min(
     postlinks_1.postid), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.id
@@ -16659,7 +16659,7 @@ select
   comments_1.id, 
   users_1.websiteurl, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join comments as comments_1
           inner join users as users_1
@@ -16691,7 +16691,7 @@ select
   badges_1.class, 
   badges_1.tagbased, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.class, badges_1.name, badges_1.tagbased, badges_1.class, badges_1.userid, badges_1.date, badges_1.date, badges_1.date, badges_1.class, badges_1.id, badges_1.class, badges_1.tagbased, badges_1.tagbased
@@ -16704,7 +16704,7 @@ select
   postlinks_1.relatedpostid, 
   count(
     votes_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -16716,7 +16716,7 @@ select
   posts_1.id, 
   posts_1.ownerdisplayname, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -16748,7 +16748,7 @@ select
   votes_1.userid, 
   votes_1.userid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.id, votes_1.postid, votes_1.userid, votes_1.creationdate, votes_1.postid, votes_1.id, votes_1.votetypeid, votes_1.userid, votes_1.postid, votes_1.userid, votes_1.id, votes_1.postid, votes_1.id, votes_1.userid, votes_1.userid, votes_1.userid, votes_1.userid
@@ -16767,7 +16767,7 @@ select
   users_1.id, 
   users_1.creationdate, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 limit 9;
@@ -16776,7 +16776,7 @@ select
     badges_1.id), 
   badges_1.name, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.name, badges_1.userid
@@ -16785,7 +16785,7 @@ select
   badges_1.class, 
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased > badges_1.tagbased
 group by badges_1.class
@@ -16797,7 +16797,7 @@ select
   badges_1.userid, 
   min(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.date, badges_1.class, badges_1.date, badges_1.userid
@@ -16808,7 +16808,7 @@ select
   posts_1.body, 
   posts_1.parentid, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
     on (posts_1.id = badges_1.id )
@@ -16836,7 +16836,7 @@ select
   min(
     postlinks_1.creationdate), 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
       inner join posthistory as posthistory_1
@@ -16847,7 +16847,7 @@ group by posthistory_1.comment, posthistory_1.creationdate, comments_1.text, com
 limit 39;
 select  
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 40;
@@ -16857,7 +16857,7 @@ select
     posthistory_1.creationdate), 
   badges_1.userid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posthistory as posthistory_1
     on (badges_1.id = posthistory_1.id )
@@ -16867,7 +16867,7 @@ limit 21;
 select  
   posthistory_1.posthistorytypeid, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment > posthistory_1.contentlicense
 limit 18;
@@ -16879,7 +16879,7 @@ select
   users_1.displayname, 
   users_1.websiteurl, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname < users_1.aboutme
 limit 26;
@@ -16887,7 +16887,7 @@ select
   comments_1.postid, 
   min(
     comments_1.userdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense = comments_1.userdisplayname
 group by comments_1.postid
@@ -16898,7 +16898,7 @@ select
   posthistory_1.revisionguid, 
   badges_1.userid, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join badges as badges_1
     on (posthistory_1.id = badges_1.id )
@@ -16907,7 +16907,7 @@ limit 24;
 select  
   max(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 limit 18;
@@ -16915,7 +16915,7 @@ select
   posthistory_1.postid, 
   max(
     posthistory_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid <= posthistory_1.userdisplayname
 group by posthistory_1.postid
@@ -16931,7 +16931,7 @@ select
     badges_1.name), 
   badges_1.name, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 group by badges_1.id, badges_1.date, badges_1.tagbased, badges_1.class, badges_1.class, badges_1.id, badges_1.name, badges_1.tagbased
@@ -16949,7 +16949,7 @@ select
     comments_1.id), 
   comments_1.postid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 group by comments_1.postid, comments_1.userdisplayname, comments_1.contentlicense, comments_1.id, comments_1.contentlicense, comments_1.postid, comments_1.postid, comments_1.id
@@ -16958,7 +16958,7 @@ select
   users_1.id, 
   count(*), 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate < users_1.creationdate
 group by users_1.id, users_1.profileimageurl
@@ -16973,7 +16973,7 @@ select
   badges_1.class, 
   sum(
     badges_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 group by badges_1.id, badges_1.name, badges_1.class
@@ -16997,7 +16997,7 @@ select
   users_1.profileimageurl, 
   users_2.creationdate, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join users as users_1
           inner join posts as posts_1
@@ -17020,7 +17020,7 @@ select
   users_1.displayname, 
   users_1.displayname, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location < users_1.displayname
 limit 14;
@@ -17036,7 +17036,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 17;
@@ -17053,7 +17053,7 @@ select
   sum(
     votes_1.votetypeid), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join votes as votes_1
     on (users_1.id = votes_1.id )
@@ -17067,7 +17067,7 @@ select
   badges_1.class, 
   badges_1.name, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 39;
@@ -17086,7 +17086,7 @@ select
   users_1.id, 
   max(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid <= users_1.profileimageurl
 group by users_1.id, users_1.displayname, users_1.creationdate, users_1.aboutme, users_1.displayname, users_1.displayname, users_1.profileimageurl, users_1.aboutme, users_1.accountid, users_1.id
@@ -17095,7 +17095,7 @@ select
   votes_1.creationdate, 
   votes_1.votetypeid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 36;
@@ -17108,7 +17108,7 @@ select
   postlinks_1.postid, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid > postlinks_1.id
 group by postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.creationdate
@@ -17118,7 +17118,7 @@ select
     votes_1.postid), 
   min(
     votes_1.votetypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 35;
@@ -17135,7 +17135,7 @@ select
   max(
     users_1.creationdate), 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id > users_1.id
 group by users_1.websiteurl, users_1.creationdate, users_1.aboutme, users_1.creationdate, users_1.id, users_1.aboutme, users_1.aboutme, users_1.websiteurl
@@ -17144,21 +17144,21 @@ select
   badges_1.userid, 
   badges_1.date, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name > badges_1.name
 limit 37;
 select  
   badges_1.id, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 16;
 select  
   posts_1.posttypeid, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
     on (posts_1.id = users_1.id )
@@ -17174,7 +17174,7 @@ select
     votes_3.creationdate), 
   votes_3.userid, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
             inner join votes as votes_2
             on (votes_1.id = votes_2.id )
@@ -17192,7 +17192,7 @@ limit 23;
 select  
   posthistory_1.postid, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid is not NULL
 limit 42;
@@ -17208,7 +17208,7 @@ select
   comments_1.contentlicense, 
   comments_1.postid, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 group by comments_1.postid, comments_1.id, comments_1.userdisplayname, comments_1.userdisplayname, comments_1.userdisplayname, comments_1.creationdate, comments_1.contentlicense, comments_1.postid, comments_1.userid
@@ -17217,7 +17217,7 @@ select
   users_1.accountid, 
   users_1.location, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
         inner join users as users_1
         on (posts_1.id = users_1.id )
@@ -17232,7 +17232,7 @@ limit 4;
 select  
   votes_2.userid, 
   postlinks_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
         inner join votes as votes_1
         on (postlinks_1.id = votes_1.id )
@@ -17252,14 +17252,14 @@ select
   votes_1.votetypeid, 
   votes_1.votetypeid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 limit 7;
 select  
   posthistory_1.text, 
   posthistory_2.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -17273,7 +17273,7 @@ select
   postlinks_1.id, 
   postlinks_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid = postlinks_1.id
 group by postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.id, postlinks_1.id, postlinks_1.creationdate
@@ -17289,7 +17289,7 @@ select
   users_1.displayname, 
   badges_1.date, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
       inner join posthistory as posthistory_1
@@ -17301,7 +17301,7 @@ limit 20;
 select  
   posts_1.acceptedanswerid, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 31;
@@ -17309,7 +17309,7 @@ select
   comments_1.userdisplayname, 
   min(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
     on (comments_1.id = posthistory_1.id )
@@ -17345,7 +17345,7 @@ select
   count(*), 
   max(
     posthistory_1.revisionguid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment is not NULL
 group by posthistory_1.userdisplayname, posthistory_1.revisionguid, posthistory_1.creationdate, posthistory_1.creationdate, posthistory_1.posthistorytypeid, posthistory_1.posthistorytypeid, posthistory_1.comment, posthistory_1.id, posthistory_1.contentlicense, posthistory_1.revisionguid, posthistory_1.revisionguid, posthistory_1.id, posthistory_1.contentlicense, posthistory_1.posthistorytypeid, posthistory_1.userdisplayname, posthistory_1.revisionguid, posthistory_1.postid, posthistory_1.id, posthistory_1.userdisplayname, posthistory_1.revisionguid, posthistory_1.creationdate
@@ -17372,7 +17372,7 @@ select
   postlinks_1.postid, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.id, postlinks_1.postid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.creationdate
@@ -17385,7 +17385,7 @@ select
   users_1.websiteurl, 
   users_1.displayname, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join comments as comments_1
       on (badges_1.id = comments_1.id )
@@ -17396,7 +17396,7 @@ group by comments_1.postid, badges_1.tagbased, users_1.websiteurl, users_1.displ
 limit 41;
 select  
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
         inner join posts as posts_2
@@ -17412,14 +17412,14 @@ select
   posthistory_1.postid, 
   posthistory_1.userid, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 5;
 select  
   min(
     badges_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date > badges_1.date
 limit 1;
@@ -17427,7 +17427,7 @@ select
   posthistory_1.userid, 
   max(
     posthistory_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 group by posthistory_1.userid
@@ -17452,7 +17452,7 @@ select
   votes_1.votetypeid, 
   votes_1.id, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.id, votes_1.votetypeid, votes_1.id, votes_1.creationdate, votes_1.userid, votes_1.id, votes_1.creationdate, votes_1.userid, votes_1.votetypeid, votes_1.votetypeid, votes_1.id, votes_1.userid, votes_1.userid, votes_1.id, votes_1.votetypeid, votes_1.id, votes_1.votetypeid
@@ -17465,7 +17465,7 @@ select
   posts_1.ownerdisplayname, 
   posts_1.owneruserid, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 limit 7;
@@ -17476,7 +17476,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id >= postlinks_1.linktypeid
 group by postlinks_1.id, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.creationdate
@@ -17484,7 +17484,7 @@ limit 4;
 select  
   comments_1.contentlicense, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
       inner join posthistory as posthistory_1
@@ -17497,7 +17497,7 @@ limit 11;
 select  
   comments_2.id, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
       inner join users as users_1
@@ -17509,7 +17509,7 @@ where posthistory_1.text is not NULL
 limit 9;
 select  
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
           inner join users as users_2
@@ -17533,7 +17533,7 @@ select
   min(
     votes_1.creationdate), 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate >= votes_1.creationdate
 group by votes_1.votetypeid, votes_1.postid, votes_1.postid
@@ -17545,14 +17545,14 @@ select
   max(
     postlinks_1.postid), 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.linktypeid
 limit 2;
 select  
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -17560,7 +17560,7 @@ where users_1.accountid < users_1.profileimageurl
 limit 35;
 select  
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 18;
@@ -17568,7 +17568,7 @@ select
   posts_1.parentid, 
   posts_1.parentid, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
     on (posthistory_1.id = posts_1.id )
@@ -17576,7 +17576,7 @@ where posthistory_1.posthistorytypeid is not NULL
 limit 25;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 21;
@@ -17584,7 +17584,7 @@ select
   postlinks_1.postid, 
   badges_1.tagbased, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -17595,7 +17595,7 @@ select
   posts_1.creationdate, 
   posts_2.body, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posts as posts_1
       inner join posts as posts_2
@@ -17618,7 +17618,7 @@ select
   votes_1.postid, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.postid, votes_1.creationdate, votes_1.postid, votes_1.votetypeid, votes_1.postid, votes_1.postid
@@ -17628,7 +17628,7 @@ select
   max(
     users_1.id), 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate <= users_1.creationdate
 group by users_1.creationdate, users_1.websiteurl
@@ -17637,7 +17637,7 @@ select
   posthistory_1.text, 
   votes_1.id, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join posthistory as posthistory_1
       on (votes_1.id = posthistory_1.id )
@@ -17648,7 +17648,7 @@ limit 10;
 select  
   posts_1.owneruserid, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 limit 1;
@@ -17657,7 +17657,7 @@ select
   max(
     posts_1.creationdate), 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
     on (votes_1.id = posts_1.id )
@@ -17667,7 +17667,7 @@ limit 30;
 select  
   posts_1.body, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join posts as posts_1
       on (badges_1.id = posts_1.id )
@@ -17689,7 +17689,7 @@ select
   posthistory_1.posthistorytypeid, 
   posthistory_1.creationdate, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate is not NULL
 group by posthistory_1.revisionguid, posthistory_1.creationdate, posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.userid, posthistory_1.revisionguid, posthistory_1.posthistorytypeid, posthistory_1.creationdate, posthistory_1.text
@@ -17701,7 +17701,7 @@ select
     posthistory_1.postid), 
   posthistory_1.userdisplayname, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 group by posthistory_1.userdisplayname, posthistory_1.id
@@ -17710,7 +17710,7 @@ select
   sum(
     posts_1.owneruserid), 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 group by posts_1.parentid
@@ -17723,7 +17723,7 @@ select
   comments_1.userid, 
   comments_1.creationdate, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 limit 24;
@@ -17734,7 +17734,7 @@ select
   min(
     badges_1.name), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
       inner join votes as votes_1
@@ -17745,7 +17745,7 @@ group by badges_1.userid, votes_1.creationdate
 limit 14;
 select  
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 29;
@@ -17754,7 +17754,7 @@ select
   posts_1.tags, 
   posts_1.posttypeid, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 8;
@@ -17765,7 +17765,7 @@ select
   users_1.id, 
   avg(
     users_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.accountid, users_1.websiteurl, users_1.profileimageurl, users_1.id
@@ -17778,7 +17778,7 @@ select
   posthistory_1.userdisplayname, 
   posthistory_1.userid, 
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join postlinks as postlinks_1
     on (posthistory_1.id = postlinks_1.id )
@@ -17813,14 +17813,14 @@ select
   badges_1.name, 
   badges_1.name, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.date, badges_1.class, badges_1.tagbased, badges_1.class, badges_1.userid, badges_1.tagbased, badges_1.tagbased, badges_1.name, badges_1.class, badges_1.tagbased, badges_1.tagbased, badges_1.date, badges_1.userid, badges_1.name, badges_1.name, badges_1.date
 limit 1;
 select  
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 limit 11;
@@ -17836,7 +17836,7 @@ select
   posts_1.title, 
   posts_1.body, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid > posts_1.posttypeid
 group by posts_1.id, posts_1.contentlicense, posts_1.parentid, posts_1.id, posts_1.id, posts_1.creationdate, posts_1.title, posts_1.body, posts_1.creationdate
@@ -17853,7 +17853,7 @@ select
   postlinks_1.linktypeid, 
   posts_1.posttypeid, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join votes as votes_1
       on (postlinks_1.id = votes_1.id )
@@ -17874,7 +17874,7 @@ select
     badges_1.date), 
   badges_1.userid, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 group by badges_1.class, badges_1.userid, badges_1.tagbased
@@ -17883,7 +17883,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.linktypeid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 29;
@@ -17895,7 +17895,7 @@ select
   comments_1.text, 
   min(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
     on (users_1.id = comments_1.id )
@@ -17912,7 +17912,7 @@ select
   sum(
     postlinks_1.id), 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.postid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.id, postlinks_1.id, postlinks_1.postid, postlinks_1.linktypeid
@@ -17928,7 +17928,7 @@ select
   badges_1.date, 
   badges_1.date, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
     on (posts_1.id = badges_1.id )
@@ -17940,7 +17940,7 @@ select
   posts_1.contentlicense, 
   posts_1.id, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 limit 9;
@@ -17950,7 +17950,7 @@ select
   badges_1.date, 
   badges_1.name, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid < badges_1.id
 limit 8;
@@ -17959,7 +17959,7 @@ select
   posthistory_2.comment, 
   posthistory_1.id, 
   posthistory_2.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -17976,7 +17976,7 @@ select
   max(
     comments_1.userdisplayname), 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
     on (badges_1.id = comments_1.id )
@@ -17988,7 +17988,7 @@ select
   max(
     posts_1.creationdate), 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
     on (posts_1.id = users_1.id )
@@ -17999,7 +17999,7 @@ select
   comments_1.userdisplayname, 
   comments_1.id, 
   votes_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join votes as votes_1
       on (comments_1.id = votes_1.id )
@@ -18031,7 +18031,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.creationdate, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.relatedpostid
@@ -18045,7 +18045,7 @@ select
   posthistory_1.postid, 
   posthistory_1.revisionguid, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 group by posthistory_1.text, posthistory_1.userdisplayname, posthistory_1.userid, posthistory_1.postid, posthistory_1.revisionguid, posthistory_1.creationdate
@@ -18062,7 +18062,7 @@ select
   users_1.aboutme, 
   comments_1.creationdate, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join users as users_1
           inner join postlinks as postlinks_1
@@ -18085,7 +18085,7 @@ select
   count(
     postlinks_1.creationdate), 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate <= postlinks_1.creationdate
 group by postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.id, postlinks_1.creationdate
@@ -18103,7 +18103,7 @@ select
     postlinks_1.linktypeid), 
   postlinks_1.linktypeid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.postid
@@ -18114,7 +18114,7 @@ select
   badges_1.userid, 
   postlinks_1.relatedpostid, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -18129,7 +18129,7 @@ select
   votes_1.userid, 
   votes_1.postid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
     on (comments_1.id = votes_1.id )
@@ -18138,7 +18138,7 @@ group by comments_1.userid, comments_1.postid, votes_1.votetypeid, votes_1.useri
 limit 5;
 select  
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 limit 10;
@@ -18151,7 +18151,7 @@ select
     comments_1.userdisplayname), 
   users_1.profileimageurl, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
       inner join users as users_1
@@ -18163,7 +18163,7 @@ limit 31;
 select  
   badges_1.userid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 27;
@@ -18173,7 +18173,7 @@ select
     posts_1.creationdate), 
   sum(
     posts_1.posttypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 group by posts_1.acceptedanswerid
@@ -18196,14 +18196,14 @@ select
   posthistory_1.id, 
   posthistory_1.userid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 group by posthistory_1.userdisplayname, posthistory_1.comment, posthistory_1.comment, posthistory_1.contentlicense, posthistory_1.comment, posthistory_1.text, posthistory_1.creationdate, posthistory_1.userid, posthistory_1.userdisplayname, posthistory_1.id, posthistory_1.userid, posthistory_1.posthistorytypeid
 limit 10;
 select  
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join votes as votes_1
         inner join posts as posts_1
@@ -18226,14 +18226,14 @@ select
   badges_1.userid, 
   badges_1.userid, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 limit 33;
 select  
   comments_2.creationdate, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join comments as comments_1
         on (posthistory_1.id = comments_1.id )
@@ -18249,7 +18249,7 @@ select
   avg(
     posts_1.acceptedanswerid), 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 group by posts_1.owneruserid, posts_1.id, posts_1.body
@@ -18257,13 +18257,13 @@ limit 30;
 select  
   users_1.websiteurl, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 limit 35;
 select  
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 limit 3;
@@ -18275,7 +18275,7 @@ select
   badges_1.name, 
   max(
     posts_1.title)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join badges as badges_1
       on (posts_1.id = badges_1.id )
@@ -18305,7 +18305,7 @@ select
   posthistory_2.comment, 
   posthistory_2.comment, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
         inner join posthistory as posthistory_1
@@ -18322,7 +18322,7 @@ select
   votes_1.votetypeid, 
   max(
     comments_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join comments as comments_1
     on (votes_1.id = comments_1.id )
@@ -18334,7 +18334,7 @@ select
   max(
     badges_1.id), 
   badges_2.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
       inner join users as users_1
@@ -18356,14 +18356,14 @@ select
   posthistory_1.revisionguid, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 group by posthistory_1.text, posthistory_1.revisionguid, posthistory_1.postid, posthistory_1.revisionguid, posthistory_1.revisionguid, posthistory_1.revisionguid, posthistory_1.posthistorytypeid, posthistory_1.creationdate
 limit 5;
 select  
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
     on (votes_1.id = users_1.id )
@@ -18372,7 +18372,7 @@ limit 5;
 select  
   badges_1.id, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date > badges_1.date
 limit 28;
@@ -18385,7 +18385,7 @@ select
   posthistory_1.text, 
   postlinks_1.creationdate, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posthistory as posthistory_1
     on (postlinks_1.id = posthistory_1.id )
@@ -18402,7 +18402,7 @@ select
     posthistory_1.posthistorytypeid), 
   posthistory_1.postid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text > posthistory_1.comment
 group by posthistory_1.revisionguid, posthistory_1.contentlicense, posthistory_1.revisionguid, posthistory_1.userid, posthistory_1.id, posthistory_1.postid, posthistory_1.contentlicense
@@ -18411,7 +18411,7 @@ select
   comments_1.id, 
   comments_1.creationdate, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 limit 7;
@@ -18430,7 +18430,7 @@ select
   users_1.creationdate, 
   users_1.id, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 group by users_1.displayname, users_1.profileimageurl, users_1.id, users_1.profileimageurl, users_1.location, users_1.profileimageurl, users_1.profileimageurl, users_1.creationdate, users_1.id, users_1.id
@@ -18447,7 +18447,7 @@ select
   badges_1.class, 
   badges_1.name, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased >= badges_1.tagbased
 group by badges_1.name, badges_1.tagbased, badges_1.name, badges_1.name, badges_1.name, badges_1.name, badges_1.class, badges_1.name, badges_1.date
@@ -18474,7 +18474,7 @@ select
   votes_1.postid, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid = votes_1.userid
 group by votes_1.id, votes_1.userid, votes_1.creationdate, votes_1.id, votes_1.votetypeid, votes_1.postid, votes_1.id, votes_1.postid, votes_1.postid, votes_1.id, votes_1.id, votes_1.votetypeid, votes_1.creationdate, votes_1.postid, votes_1.postid
@@ -18484,7 +18484,7 @@ select
     posts_1.creationdate), 
   posts_1.body, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate <= posts_1.creationdate
 group by posts_1.body, posts_1.acceptedanswerid
@@ -18497,7 +18497,7 @@ select
   min(
     badges_1.date), 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.class, badges_1.id, badges_1.tagbased, badges_1.tagbased, badges_1.tagbased
@@ -18514,7 +18514,7 @@ select
   min(
     badges_1.date), 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name >= badges_1.name
 group by badges_1.class, badges_1.date, badges_1.userid, badges_1.class, badges_1.userid, badges_1.class, badges_1.tagbased, badges_1.userid, badges_1.name
@@ -18526,7 +18526,7 @@ select
   votes_1.votetypeid, 
   votes_1.votetypeid, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join comments as comments_1
       on (badges_1.id = comments_1.id )
@@ -18539,7 +18539,7 @@ group by votes_1.creationdate, votes_1.votetypeid, votes_1.votetypeid, votes_1.p
 limit 38;
 select  
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
       inner join posts as posts_1
@@ -18552,7 +18552,7 @@ select
     postlinks_1.creationdate), 
   count(*), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.id
@@ -18561,7 +18561,7 @@ select
   users_1.creationdate, 
   users_1.profileimageurl, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 limit 8;
@@ -18570,7 +18570,7 @@ select
   posthistory_1.id, 
   posthistory_1.text, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate = posthistory_1.creationdate
 limit 16;
@@ -18616,7 +18616,7 @@ select
   min(
     votes_1.creationdate), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.id, votes_1.userid, votes_1.votetypeid, votes_1.userid, votes_1.creationdate, votes_1.votetypeid, votes_1.creationdate, votes_1.votetypeid, votes_1.postid, votes_1.userid, votes_1.creationdate, votes_1.userid, votes_1.id, votes_1.creationdate, votes_1.userid, votes_1.postid, votes_1.votetypeid, votes_1.votetypeid, votes_1.postid, votes_1.postid, votes_1.postid, votes_1.postid, votes_1.votetypeid, votes_1.votetypeid, votes_1.votetypeid
@@ -18625,14 +18625,14 @@ select
   users_1.aboutme, 
   users_1.profileimageurl, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl = users_1.accountid
 limit 8;
 select  
   postlinks_1.relatedpostid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 16;
@@ -18647,7 +18647,7 @@ select
   min(
     comments_1.text), 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.creationdate, comments_1.userdisplayname, comments_1.creationdate, comments_1.creationdate, comments_1.userdisplayname, comments_1.contentlicense, comments_1.contentlicense, comments_1.contentlicense
@@ -18670,14 +18670,14 @@ select
   posthistory_1.text, 
   posthistory_1.userdisplayname, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 group by posthistory_1.id, posthistory_1.postid, posthistory_1.id, posthistory_1.userid, posthistory_1.postid, posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.postid, posthistory_1.userid, posthistory_1.postid, posthistory_1.id, posthistory_1.comment, posthistory_1.text, posthistory_1.userdisplayname, posthistory_1.revisionguid
 limit 27;
 select  
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join badges as badges_1
         on (votes_1.id = badges_1.id )
@@ -18691,19 +18691,19 @@ where badges_1.name >= badges_1.name
 limit 34;
 select  
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date >= badges_1.date
 limit 4;
 select  
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 22;
 select  
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid > users_1.profileimageurl
 limit 7;
@@ -18711,14 +18711,14 @@ select
   comments_1.postid, 
   sum(
     comments_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.postid
 limit 28;
 select  
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid = votes_1.id
 limit 5;
@@ -18729,7 +18729,7 @@ select
   badges_1.class, 
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.userid, badges_1.class
@@ -18737,20 +18737,20 @@ limit 32;
 select  
   posthistory_1.comment, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 8;
 select  
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 limit 1;
 select  
   posts_1.creationdate, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
       inner join users as users_1
@@ -18761,7 +18761,7 @@ limit 12;
 select  
   count(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased <= badges_1.tagbased
 limit 15;
@@ -18771,19 +18771,19 @@ select
   votes_1.creationdate, 
   votes_1.id, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 13;
 select  
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 limit 41;
 select  
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 3;
@@ -18795,7 +18795,7 @@ select
     postlinks_1.linktypeid), 
   postlinks_1.postid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.postid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.postid, postlinks_1.linktypeid
@@ -18811,7 +18811,7 @@ select
   comments_1.text, 
   comments_1.text, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 limit 38;
@@ -18829,7 +18829,7 @@ select
     badges_1.date), 
   badges_1.userid, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
       inner join posts as posts_2
@@ -18840,7 +18840,7 @@ group by badges_1.name, posts_1.contentlicense, badges_1.userid, posts_2.id, bad
 limit 40;
 select  
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate <= posthistory_1.creationdate
 limit 20;
@@ -18851,7 +18851,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.userid, votes_1.votetypeid
@@ -18859,7 +18859,7 @@ limit 25;
 select  
   votes_1.votetypeid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 23;
@@ -18879,7 +18879,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid <= votes_1.id
 group by votes_1.id, votes_1.id, votes_1.creationdate
@@ -18909,14 +18909,14 @@ select
   posthistory_1.revisionguid, 
   posthistory_1.userid, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 group by posthistory_1.userdisplayname, posthistory_1.userdisplayname, posthistory_1.postid, posthistory_1.contentlicense, posthistory_1.posthistorytypeid, posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.contentlicense, posthistory_1.text, posthistory_1.userdisplayname, posthistory_1.contentlicense, posthistory_1.text, posthistory_1.contentlicense, posthistory_1.comment, posthistory_1.revisionguid, posthistory_1.text, posthistory_1.userid, posthistory_1.revisionguid, posthistory_1.userid, posthistory_1.userid
 limit 28;
 select  
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
     on (comments_1.id = postlinks_1.id )
@@ -18928,7 +18928,7 @@ select
     posthistory_1.creationdate), 
   max(
     posts_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join posts as posts_1
       on (posthistory_1.id = posts_1.id )
@@ -18939,7 +18939,7 @@ group by posthistory_1.userdisplayname
 limit 37;
 select  
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 23;
@@ -18947,7 +18947,7 @@ select
   posts_2.posttypeid, 
   posts_1.acceptedanswerid, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
       inner join posts as posts_2
@@ -18966,7 +18966,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 19;
@@ -18986,7 +18986,7 @@ select
   posthistory_1.creationdate, 
   posthistory_1.creationdate, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid = posthistory_1.postid
 group by posthistory_1.id, posthistory_1.comment, posthistory_1.creationdate, posthistory_1.postid, posthistory_1.creationdate, posthistory_1.postid, posthistory_1.text, posthistory_1.postid, posthistory_1.creationdate, posthistory_1.creationdate, posthistory_1.contentlicense
@@ -18998,14 +18998,14 @@ select
     users_1.websiteurl), 
   users_1.id, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 group by users_1.accountid, users_1.accountid, users_1.id, users_1.location
 limit 40;
 select  
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id < badges_1.class
 limit 5;
@@ -19017,14 +19017,14 @@ select
   comments_1.text, 
   comments_1.postid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname = comments_1.text
 limit 25;
 select  
   votes_2.id, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join votes as votes_1
         inner join votes as votes_2
@@ -19047,7 +19047,7 @@ select
   posts_1.contentlicense, 
   users_1.id, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
     on (posts_1.id = users_1.id )
@@ -19055,7 +19055,7 @@ where users_1.displayname is not NULL
 limit 32;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 limit 12;
@@ -19065,7 +19065,7 @@ select
   posthistory_1.creationdate, 
   posthistory_1.revisionguid, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 limit 40;
@@ -19077,7 +19077,7 @@ select
   posts_1.creationdate, 
   badges_1.date, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
     on (badges_1.id = posts_1.id )
@@ -19089,7 +19089,7 @@ select
   posts_1.id, 
   posts_1.posttypeid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid > posts_1.parentid
 limit 38;
@@ -19100,7 +19100,7 @@ select
   comments_1.id, 
   max(
     badges_1.class)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
         inner join postlinks as postlinks_1
@@ -19113,7 +19113,7 @@ group by postlinks_1.id, badges_1.date, badges_2.id, comments_1.id
 limit 14;
 select  
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join postlinks as postlinks_1
     on (users_1.id = postlinks_1.id )
@@ -19126,7 +19126,7 @@ select
   badges_1.date, 
   badges_1.class, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id = badges_1.class
 group by badges_1.tagbased, badges_1.date, badges_1.class, badges_1.name
@@ -19136,7 +19136,7 @@ select
   posts_1.id, 
   posts_1.title, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 40;
@@ -19151,7 +19151,7 @@ select
   users_1.id, 
   comments_1.contentlicense, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
     on (users_1.id = comments_1.id )
@@ -19162,7 +19162,7 @@ select
   posts_1.parentid, 
   max(
     posts_1.ownerdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 group by posts_1.parentid
@@ -19177,14 +19177,14 @@ select
   users_1.profileimageurl, 
   users_1.id, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate < users_1.creationdate
 limit 7;
 select  
   postlinks_1.creationdate, 
   votes_2.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join votes as votes_1
       inner join votes as votes_2
@@ -19202,14 +19202,14 @@ select
   max(
     votes_1.userid), 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.userid, votes_1.postid, votes_1.creationdate, votes_1.creationdate
 limit 5;
 select  
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -19223,7 +19223,7 @@ select
   posthistory_1.text, 
   min(
     users_1.accountid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join comments as comments_1
         inner join comments as comments_2
@@ -19242,13 +19242,13 @@ select
   votes_1.id, 
   votes_1.id, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 19;
 select  
   comments_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
     on (comments_1.id = comments_2.id )
@@ -19257,7 +19257,7 @@ limit 10;
 select  
   posthistory_2.postid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
           inner join posts as posts_2
@@ -19283,7 +19283,7 @@ select
   users_1.profileimageurl, 
   posts_1.title, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
       inner join posthistory as posthistory_1
@@ -19299,7 +19299,7 @@ select
   posts_1.creationdate, 
   posts_1.ownerdisplayname, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posts as posts_1
     on (users_1.id = posts_1.id )
@@ -19310,7 +19310,7 @@ select
   badges_1.tagbased, 
   count(*), 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
     on (badges_1.id = badges_2.id )
@@ -19321,14 +19321,14 @@ select
   posts_1.creationdate, 
   posts_1.id, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 limit 20;
 select  
   posthistory_1.text, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 limit 31;
@@ -19343,7 +19343,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.postid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.linktypeid
@@ -19365,7 +19365,7 @@ select
   posthistory_1.userdisplayname, 
   posthistory_1.contentlicense, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
     on (posthistory_1.id = posts_1.id )
@@ -19375,7 +19375,7 @@ limit 6;
 select  
   votes_1.postid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posthistory as posthistory_1
       inner join comments as comments_1
@@ -19391,7 +19391,7 @@ select
   max(
     users_1.creationdate), 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -19425,7 +19425,7 @@ select
   badges_1.date, 
   postlinks_1.relatedpostid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join badges as badges_2
       inner join postlinks as postlinks_1
@@ -19441,7 +19441,7 @@ select
   max(
     posts_1.parentid), 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 group by posts_1.posttypeid, posts_1.tags
@@ -19450,13 +19450,13 @@ select
   badges_1.name, 
   badges_1.class, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 21;
 select  
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate < comments_1.creationdate
 limit 6;
@@ -19466,7 +19466,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 31;
@@ -19474,7 +19474,7 @@ select
   posthistory_1.postid, 
   posthistory_1.userid, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posthistory as posthistory_1
       on (users_1.id = posthistory_1.id )
@@ -19489,14 +19489,14 @@ limit 32;
 select  
   min(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 limit 7;
 select  
   posthistory_1.comment, 
   posthistory_4.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join posthistory as posthistory_2
           inner join comments as comments_1
@@ -19528,7 +19528,7 @@ select
     votes_1.id), 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.id, votes_1.id, votes_1.creationdate, votes_1.votetypeid, votes_1.userid, votes_1.creationdate, votes_1.id, votes_1.votetypeid, votes_1.postid, votes_1.creationdate, votes_1.creationdate
@@ -19537,7 +19537,7 @@ select
   max(
     postlinks_1.creationdate), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid >= postlinks_1.id
 group by postlinks_1.id
@@ -19546,7 +19546,7 @@ select
   comments_1.userdisplayname, 
   count(*), 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 group by comments_1.userdisplayname, comments_1.text
@@ -19563,7 +19563,7 @@ select
   users_1.profileimageurl, 
   max(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
     on (users_1.id = users_2.id )
@@ -19573,7 +19573,7 @@ limit 3;
 select  
   posthistory_1.id, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 38;
@@ -19587,7 +19587,7 @@ select
   min(
     posthistory_1.creationdate), 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment is not NULL
 group by posthistory_1.posthistorytypeid, posthistory_1.id, posthistory_1.userid, posthistory_1.postid, posthistory_1.text, posthistory_1.postid, posthistory_1.userid
@@ -19596,7 +19596,7 @@ select
   posts_1.id, 
   posts_1.owneruserid, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
     on (posthistory_1.id = posts_1.id )
@@ -19617,7 +19617,7 @@ select
   max(
     users_1.aboutme), 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl >= users_1.accountid
 group by users_1.websiteurl, users_1.creationdate, users_1.location, users_1.aboutme, users_1.creationdate, users_1.aboutme, users_1.profileimageurl, users_1.profileimageurl, users_1.location, users_1.id
@@ -19632,7 +19632,7 @@ select
   comments_1.userid, 
   posthistory_1.creationdate, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
       inner join posthistory as posthistory_1
@@ -19658,7 +19658,7 @@ select
   sum(
     postlinks_1.postid), 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate < postlinks_1.creationdate
 group by postlinks_1.id, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.postid
@@ -19666,7 +19666,7 @@ limit 27;
 select  
   posts_1.contentlicense, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 41;
@@ -19677,7 +19677,7 @@ select
   votes_1.postid, 
   min(
     votes_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.votetypeid, votes_1.creationdate, votes_1.votetypeid, votes_1.postid
@@ -19697,7 +19697,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.relatedpostid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
       inner join users as users_1
@@ -19710,7 +19710,7 @@ group by postlinks_1.creationdate, votes_1.id, users_1.id, users_1.displayname, 
 limit 8;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 36;
@@ -19728,7 +19728,7 @@ select
   comments_1.id, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
     on (comments_1.id = postlinks_1.id )
@@ -19747,7 +19747,7 @@ select
   votes_1.id, 
   votes_1.votetypeid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.id, votes_1.userid, votes_1.creationdate, votes_1.id, votes_1.postid, votes_1.id, votes_1.postid, votes_1.votetypeid, votes_1.id, votes_1.votetypeid, votes_1.creationdate
@@ -19766,7 +19766,7 @@ select
     comments_1.userdisplayname), 
   comments_1.postid, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.userid, comments_1.id, comments_1.userdisplayname, comments_1.id, comments_1.contentlicense, comments_1.userid, comments_1.postid, comments_1.postid, comments_1.userdisplayname
@@ -19780,7 +19780,7 @@ select
     users_1.accountid), 
   min(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join posts as posts_1
         on (votes_1.id = posts_1.id )
@@ -19796,7 +19796,7 @@ select
     votes_1.postid), 
   max(
     users_1.displayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
       inner join users as users_1
@@ -19812,14 +19812,14 @@ select
   posthistory_1.text, 
   posthistory_1.text, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 18;
 select  
   comments_1.postid, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posts as posts_1
       inner join comments as comments_1
@@ -19839,7 +19839,7 @@ select
   posthistory_1.postid, 
   max(
     posthistory_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posthistory as posthistory_1
     on (postlinks_1.id = posthistory_1.id )
@@ -19866,7 +19866,7 @@ select
   badges_1.tagbased, 
   badges_1.class, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.id, badges_1.name, badges_1.date, badges_1.tagbased, badges_1.tagbased, badges_1.class, badges_1.id, badges_1.userid, badges_1.date, badges_1.userid, badges_1.date, badges_1.tagbased, badges_1.class, badges_1.userid
@@ -19875,7 +19875,7 @@ select
   comments_1.userdisplayname, 
   min(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.userdisplayname
@@ -19896,7 +19896,7 @@ select
     posthistory_1.creationdate), 
   posthistory_1.text, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 group by posthistory_1.userid, posthistory_1.postid, posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.posthistorytypeid, posthistory_1.creationdate, posthistory_1.contentlicense, posthistory_1.contentlicense, posthistory_1.userdisplayname, posthistory_1.text, posthistory_1.text
@@ -19907,7 +19907,7 @@ select
   max(
     comments_1.creationdate), 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
         inner join badges as badges_2
         on (badges_1.id = badges_2.id )
@@ -19923,7 +19923,7 @@ select
   votes_1.votetypeid, 
   count(
     votes_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.postid, votes_1.votetypeid
@@ -19938,7 +19938,7 @@ select
   badges_1.id, 
   badges_1.name, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 7;
@@ -19948,14 +19948,14 @@ select
   comments_1.postid, 
   comments_1.userid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 limit 21;
 select  
   posthistory_1.userid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment is not NULL
 limit 7;
@@ -19965,7 +19965,7 @@ select
   posthistory_1.postid, 
   min(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 group by posthistory_1.postid, posthistory_1.userdisplayname, posthistory_1.postid
@@ -19977,7 +19977,7 @@ select distinct
   posts_1.id, 
   posts_1.creationdate, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname > posts_1.body
 limit 20;
@@ -19995,7 +19995,7 @@ select
   comments_1.userdisplayname, 
   max(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.userid, comments_1.contentlicense, comments_1.userid, comments_1.userdisplayname, comments_1.id, comments_1.id, comments_1.creationdate, comments_1.userid, comments_1.userdisplayname
@@ -20004,14 +20004,14 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 20;
 select  
   users_1.profileimageurl, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
     on (votes_1.id = users_1.id )
@@ -20033,7 +20033,7 @@ select
   comments_1.postid, 
   max(
     comments_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.id, comments_1.userid, comments_1.contentlicense, comments_1.userdisplayname, comments_1.creationdate, comments_1.text, comments_1.postid
@@ -20052,7 +20052,7 @@ select
   posthistory_1.revisionguid, 
   users_1.location, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -20065,7 +20065,7 @@ select
   posts_1.tags, 
   posthistory_1.text, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join posts as posts_1
       on (posthistory_1.id = posts_1.id )
@@ -20077,7 +20077,7 @@ select
   posts_1.body, 
   posts_1.parentid, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate < posts_1.creationdate
 limit 34;
@@ -20085,7 +20085,7 @@ select
   votes_1.creationdate, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 26;
@@ -20093,7 +20093,7 @@ select
   posthistory_1.userdisplayname, 
   posts_1.contentlicense, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
     on (posthistory_1.id = posts_1.id )
@@ -20103,7 +20103,7 @@ select
   comments_1.id, 
   comments_1.contentlicense, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate = comments_1.creationdate
 limit 14;
@@ -20114,7 +20114,7 @@ select
   posthistory_1.text, 
   posthistory_1.userdisplayname, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join votes as votes_1
       on (postlinks_1.id = votes_1.id )
@@ -20134,7 +20134,7 @@ select
   max(
     badges_1.date), 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.name, badges_1.class, badges_1.id, badges_1.date, badges_1.class
@@ -20142,14 +20142,14 @@ limit 37;
 select distinct 
   users_1.creationdate, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 limit 37;
 select  
   badges_1.tagbased, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased = badges_1.tagbased
 limit 28;
@@ -20169,7 +20169,7 @@ select
   min(
     posts_1.creationdate), 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
     on (posts_1.id = votes_1.id )
@@ -20187,7 +20187,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.linktypeid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.id, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.linktypeid, postlinks_1.postid
@@ -20197,14 +20197,14 @@ select
     posts_1.title), 
   posts_1.id, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 group by posts_1.id, posts_1.acceptedanswerid
 limit 20;
 select  
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
     on (comments_1.id = postlinks_1.id )
@@ -20215,7 +20215,7 @@ select
   users_1.creationdate, 
   posthistory_1.postid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -20228,7 +20228,7 @@ select
   users_1.location, 
   max(
     users_1.accountid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 group by users_1.accountid, users_1.accountid, users_1.accountid, users_1.location
@@ -20239,7 +20239,7 @@ select
   comments_1.userid, 
   comments_1.userdisplayname, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -20250,7 +20250,7 @@ select
     comments_1.id), 
   comments_1.userid, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.userid, comments_1.postid
@@ -20258,7 +20258,7 @@ limit 42;
 select  
   users_1.websiteurl, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posthistory as posthistory_1
       on (users_1.id = posthistory_1.id )
@@ -20280,7 +20280,7 @@ select
   badges_1.id, 
   badges_1.class, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.name, badges_1.id, badges_1.class, badges_1.id, badges_1.id, badges_1.class, badges_1.name
@@ -20289,7 +20289,7 @@ select
   postlinks_1.creationdate, 
   postlinks_1.linktypeid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join votes as votes_1
     on (postlinks_1.id = votes_1.id )
@@ -20306,7 +20306,7 @@ select
   max(
     badges_1.name), 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.userid, badges_1.class, badges_1.userid, badges_1.date, badges_1.name, badges_1.class
@@ -20317,7 +20317,7 @@ select
   users_1.websiteurl, 
   votes_1.id, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join votes as votes_1
     on (users_1.id = votes_1.id )
@@ -20329,7 +20329,7 @@ select
   badges_1.userid, 
   max(
     badges_1.class)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased < badges_1.tagbased
 group by badges_1.class, badges_1.name, badges_1.userid
@@ -20338,7 +20338,7 @@ select
   postlinks_1.id, 
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 16;
@@ -20361,14 +20361,14 @@ select
   users_1.id, 
   users_1.profileimageurl, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate = users_1.creationdate
 group by users_1.displayname, users_1.displayname, users_1.websiteurl, users_1.displayname, users_1.location, users_1.location, users_1.websiteurl, users_1.aboutme, users_1.accountid, users_1.location, users_1.profileimageurl, users_1.aboutme, users_1.profileimageurl, users_1.id, users_1.profileimageurl, users_1.creationdate
 limit 36;
 select  
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 limit 5;
@@ -20379,7 +20379,7 @@ select
   max(
     badges_1.userid), 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased > badges_1.tagbased
 group by badges_1.tagbased, badges_1.date, badges_1.date, badges_1.name
@@ -20399,7 +20399,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join postlinks as postlinks_1
     on (users_1.id = postlinks_1.id )
@@ -20415,7 +20415,7 @@ select
   users_1.aboutme, 
   min(
     users_1.location)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join votes as votes_1
       inner join votes as votes_2
@@ -20439,7 +20439,7 @@ select
   votes_1.votetypeid, 
   votes_1.votetypeid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.votetypeid, votes_1.id, votes_1.userid, votes_1.id, votes_1.postid, votes_1.votetypeid, votes_1.id, votes_1.userid, votes_1.votetypeid, votes_1.votetypeid, votes_1.votetypeid, votes_1.userid
@@ -20450,7 +20450,7 @@ select
     users_1.creationdate), 
   users_1.location, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id < users_1.id
 group by users_1.profileimageurl, users_1.location, users_1.websiteurl
@@ -20461,7 +20461,7 @@ select
   users_1.aboutme, 
   users_1.aboutme, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 group by users_1.aboutme, users_1.aboutme, users_1.accountid
@@ -20469,14 +20469,14 @@ limit 17;
 select  
   posts_1.tags, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 limit 3;
 select  
   posts_1.tags, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.contentlicense is not NULL
 limit 14;
@@ -20494,14 +20494,14 @@ select
     users_1.location), 
   users_1.id, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 group by users_1.websiteurl, users_1.profileimageurl, users_1.location, users_1.aboutme, users_1.creationdate, users_1.location, users_1.location, users_1.id, users_1.profileimageurl
 limit 39;
 select  
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join badges as badges_1
       on (posts_1.id = badges_1.id )
@@ -20522,7 +20522,7 @@ select
   users_2.location, 
   users_1.websiteurl, 
   users_2.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
     on (users_1.id = users_2.id )
@@ -20530,7 +20530,7 @@ where users_1.id = users_2.id
 limit 19;
 select  
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense is not NULL
 limit 11;
@@ -20540,7 +20540,7 @@ select
     badges_1.date), 
   badges_1.date, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.id, badges_1.date, badges_1.class
@@ -20548,7 +20548,7 @@ limit 15;
 select  
   comments_1.postid, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 7;
@@ -20562,7 +20562,7 @@ select distinct
   votes_1.creationdate, 
   votes_1.id, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id = votes_1.postid
 group by votes_1.userid, votes_1.userid, votes_1.userid, votes_1.votetypeid, votes_1.votetypeid, votes_1.creationdate, votes_1.id, votes_1.userid
@@ -20580,14 +20580,14 @@ select
   comments_1.text, 
   comments_1.text, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 group by comments_1.contentlicense, comments_1.postid, comments_1.userid, comments_1.userid, comments_1.creationdate, comments_1.id, comments_1.contentlicense, comments_1.text, comments_1.text, comments_1.userdisplayname
 limit 32;
 select  
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl = users_1.accountid
 limit 21;
@@ -20595,7 +20595,7 @@ select
   comments_1.userdisplayname, 
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
         inner join postlinks as postlinks_1
@@ -20612,7 +20612,7 @@ select
   votes_2.votetypeid, 
   avg(
     votes_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
         inner join votes as votes_2
@@ -20631,7 +20631,7 @@ select
   posthistory_1.id, 
   posthistory_1.revisionguid, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment is not NULL
 group by posthistory_1.id, posthistory_1.revisionguid, posthistory_1.userid
@@ -20639,7 +20639,7 @@ limit 40;
 select  
   sum(
     users_1.accountid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid > users_1.profileimageurl
 limit 20;
@@ -20648,7 +20648,7 @@ select
     badges_1.name), 
   badges_1.id, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 group by badges_1.id, badges_1.tagbased
@@ -20656,7 +20656,7 @@ limit 1;
 select  
   posts_1.id, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 limit 6;
@@ -20670,7 +20670,7 @@ select
   max(
     votes_1.votetypeid), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.id, votes_1.votetypeid, votes_1.votetypeid, votes_1.userid, votes_1.creationdate
@@ -20686,7 +20686,7 @@ select
   users_1.accountid, 
   max(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 group by users_1.accountid, users_1.aboutme, users_1.id, users_1.accountid
@@ -20699,7 +20699,7 @@ select
   users_1.location, 
   users_1.creationdate, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -20708,7 +20708,7 @@ group by users_1.websiteurl, posthistory_1.userdisplayname, users_1.location, us
 limit 12;
 select  
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 30;
@@ -20724,7 +20724,7 @@ select
   users_1.id, 
   users_1.aboutme, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id < users_1.id
 group by users_1.creationdate, users_1.profileimageurl, users_1.aboutme, users_1.accountid, users_1.websiteurl, users_1.aboutme, users_1.id, users_1.aboutme, users_1.location
@@ -20746,7 +20746,7 @@ select
     postlinks_1.creationdate), 
   postlinks_1.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid < postlinks_1.relatedpostid
 group by postlinks_1.creationdate, postlinks_1.postid, postlinks_1.id, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.creationdate
@@ -20755,7 +20755,7 @@ select
   comments_1.postid, 
   comments_1.userid, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate >= comments_1.creationdate
 limit 1;
@@ -20765,7 +20765,7 @@ select
   posthistory_2.posthistorytypeid, 
   posthistory_1.id, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -20781,7 +20781,7 @@ select
   postlinks_1.relatedpostid, 
   posthistory_1.userid, 
   votes_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join postlinks as postlinks_1
       on (votes_1.id = postlinks_1.id )
@@ -20802,14 +20802,14 @@ select
   votes_1.postid, 
   votes_1.postid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 16;
 select  
   posts_3.creationdate, 
   posts_3.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
         inner join postlinks as postlinks_1
@@ -20827,7 +20827,7 @@ select
   posthistory_1.postid, 
   posts_1.parentid, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
       inner join posthistory as posthistory_1
@@ -20849,7 +20849,7 @@ select
   posthistory_1.userid, 
   posthistory_1.comment, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posthistory as posthistory_1
     on (badges_1.id = posthistory_1.id )
@@ -20858,7 +20858,7 @@ group by badges_1.userid, badges_1.userid, badges_1.id, posthistory_1.userid, po
 limit 27;
 select  
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 6;
@@ -20867,7 +20867,7 @@ select
     posts_1.contentlicense), 
   max(
     posts_2.body)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -20901,7 +20901,7 @@ select
   comments_1.userid, 
   comments_1.text, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname <= comments_1.text
 group by comments_1.contentlicense, comments_1.creationdate, comments_1.contentlicense, comments_1.text, comments_1.id, comments_1.postid, comments_1.text, comments_1.id, comments_1.userdisplayname, comments_1.postid, comments_1.userdisplayname, comments_1.postid, comments_1.postid, comments_1.userdisplayname, comments_1.userdisplayname, comments_1.id, comments_1.postid, comments_1.text, comments_1.userdisplayname, comments_1.creationdate, comments_1.id, comments_1.userid, comments_1.text, comments_1.creationdate
@@ -20910,7 +20910,7 @@ select
   votes_1.votetypeid, 
   votes_1.creationdate, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate < votes_1.creationdate
 limit 38;
@@ -20957,7 +20957,7 @@ select
   comments_1.userid, 
   votes_1.postid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join comments as comments_1
       on (posts_1.id = comments_1.id )
@@ -20970,7 +20970,7 @@ select
   avg(
     comments_2.userid), 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
       inner join comments as comments_2
@@ -20988,7 +20988,7 @@ select
   posthistory_1.userdisplayname, 
   min(
     posts_1.ownerdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -20998,7 +20998,7 @@ limit 32;
 select  
   users_1.creationdate, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join votes as votes_1
       on (postlinks_1.id = votes_1.id )
@@ -21011,7 +21011,7 @@ select
   users_1.websiteurl, 
   users_2.location, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
     on (users_1.id = users_2.id )
@@ -21020,7 +21020,7 @@ limit 27;
 select  
   min(
     posthistory_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join badges as badges_1
       on (posthistory_1.id = badges_1.id )
@@ -21035,7 +21035,7 @@ select
   badges_1.date, 
   badges_1.name, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 limit 2;
@@ -21043,7 +21043,7 @@ select
   posthistory_1.userid, 
   posthistory_1.userid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posthistory as posthistory_1
     on (postlinks_1.id = posthistory_1.id )
@@ -21053,7 +21053,7 @@ select
   posts_1.posttypeid, 
   min(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 group by posts_1.posttypeid
@@ -21071,7 +21071,7 @@ select
   comments_1.contentlicense, 
   comments_1.id, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid < comments_1.postid
 group by comments_1.text, comments_1.text, comments_1.userid, comments_1.userdisplayname, comments_1.userdisplayname, comments_1.id, comments_1.contentlicense, comments_1.contentlicense, comments_1.id, comments_1.postid
@@ -21089,7 +21089,7 @@ select
   max(
     badges_1.name), 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased >= badges_1.tagbased
 group by badges_1.userid, badges_1.class, badges_1.class, badges_1.name, badges_1.name, badges_1.id, badges_1.date, badges_1.date
@@ -21104,7 +21104,7 @@ select
   comments_1.text, 
   comments_1.id, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid is not NULL
 limit 37;
@@ -21113,7 +21113,7 @@ select
   users_1.aboutme, 
   users_1.websiteurl, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 limit 36;
@@ -21128,7 +21128,7 @@ select
   comments_1.id, 
   comments_1.userdisplayname, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate < comments_1.creationdate
 group by comments_1.userid, comments_1.id, comments_1.postid, comments_1.id, comments_1.postid, comments_1.id, comments_1.id, comments_1.userdisplayname, comments_1.creationdate
@@ -21141,7 +21141,7 @@ select
   posthistory_1.text, 
   users_1.aboutme, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
       inner join posthistory as posthistory_2
@@ -21176,7 +21176,7 @@ select
   posthistory_1.comment, 
   posthistory_1.userid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posthistory as posthistory_2
     on (posthistory_1.id = posthistory_2.id )
@@ -21187,7 +21187,7 @@ select
   posthistory_1.text, 
   avg(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -21203,7 +21203,7 @@ select
   votes_1.postid, 
   votes_1.postid, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.votetypeid, votes_1.votetypeid, votes_1.votetypeid, votes_1.creationdate, votes_1.postid, votes_1.postid, votes_1.postid
@@ -21212,7 +21212,7 @@ select
   max(
     badges_1.date), 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.class
@@ -21221,7 +21221,7 @@ select
   votes_1.creationdate, 
   badges_2.userid, 
   posthistory_2.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
           inner join votes as votes_1
           on (posthistory_1.id = votes_1.id )
@@ -21239,7 +21239,7 @@ where badges_2.tagbased < badges_1.tagbased
 limit 26;
 select  
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 limit 38;
@@ -21266,7 +21266,7 @@ select
   postlinks_1.postid, 
   max(
     postlinks_1.relatedpostid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posts as posts_1
     on (postlinks_1.id = posts_1.id )
@@ -21281,7 +21281,7 @@ select
   postlinks_1.postid, 
   users_1.id, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join users as users_1
       inner join postlinks as postlinks_1
@@ -21294,7 +21294,7 @@ select
   postlinks_1.postid, 
   badges_1.tagbased, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join users as users_1
       on (badges_1.id = users_1.id )
@@ -21304,7 +21304,7 @@ where postlinks_1.postid = postlinks_1.id
 limit 11;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 limit 34;
@@ -21319,7 +21319,7 @@ select
   users_1.location, 
   posts_1.tags, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join postlinks as postlinks_1
         on (users_1.id = postlinks_1.id )
@@ -21342,7 +21342,7 @@ select
     votes_1.id), 
   votes_1.votetypeid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.postid, votes_1.votetypeid, votes_1.creationdate, votes_1.creationdate, votes_1.votetypeid, votes_1.votetypeid, votes_1.creationdate
@@ -21365,7 +21365,7 @@ select
   posthistory_1.creationdate, 
   posthistory_1.text, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate >= posthistory_1.creationdate
 group by posthistory_1.userid, posthistory_1.text, posthistory_1.posthistorytypeid, posthistory_1.postid, posthistory_1.contentlicense, posthistory_1.userid, posthistory_1.revisionguid, posthistory_1.text, posthistory_1.creationdate, posthistory_1.text, posthistory_1.id
@@ -21374,7 +21374,7 @@ select
   posthistory_1.userdisplayname, 
   posthistory_1.id, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 22;
@@ -21393,7 +21393,7 @@ select
   users_1.aboutme, 
   posthistory_1.creationdate, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
     on (posthistory_1.id = users_1.id )
@@ -21402,7 +21402,7 @@ limit 20;
 select  
   avg(
     posts_1.acceptedanswerid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 limit 17;
@@ -21411,14 +21411,14 @@ select
   min(
     comments_1.id), 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 group by comments_1.userid, comments_1.userid
 limit 18;
 select  
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 19;
@@ -21426,7 +21426,7 @@ select
   min(
     comments_1.text), 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.creationdate
@@ -21434,7 +21434,7 @@ limit 26;
 select  
   postlinks_1.linktypeid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 35;
@@ -21442,7 +21442,7 @@ select
   max(
     posthistory_1.text), 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 group by posthistory_1.revisionguid
@@ -21450,7 +21450,7 @@ limit 38;
 select  
   votes_1.votetypeid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid <= votes_1.postid
 limit 14;
@@ -21467,14 +21467,14 @@ select
   posthistory_1.revisionguid, 
   max(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 group by posthistory_1.text, posthistory_1.posthistorytypeid, posthistory_1.contentlicense, posthistory_1.revisionguid
 limit 21;
 select  
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 limit 27;
@@ -21489,7 +21489,7 @@ select
   posthistory_1.userdisplayname, 
   posthistory_1.userid, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 group by posthistory_1.revisionguid, posthistory_1.userdisplayname, posthistory_1.userid, posthistory_1.comment
@@ -21497,13 +21497,13 @@ limit 37;
 select  
   posts_1.posttypeid, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id <= posts_1.parentid
 limit 1;
 select  
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid >= posts_1.id
 limit 42;
@@ -21517,7 +21517,7 @@ select
   max(
     postlinks_1.relatedpostid), 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.postid, postlinks_1.relatedpostid
@@ -21528,7 +21528,7 @@ select
   max(
     posts_1.contentlicense), 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 group by posts_1.parentid, posts_1.acceptedanswerid, posts_1.tags
@@ -21536,7 +21536,7 @@ limit 42;
 select  
   posthistory_1.creationdate, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.revisionguid is not NULL
 limit 30;
@@ -21552,7 +21552,7 @@ select
   votes_1.votetypeid, 
   votes_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid = votes_1.postid
 group by votes_1.votetypeid, votes_1.id, votes_1.creationdate, votes_1.id, votes_1.votetypeid, votes_1.creationdate, votes_1.id
@@ -21565,7 +21565,7 @@ select
   votes_1.votetypeid, 
   votes_1.votetypeid, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.votetypeid, votes_1.votetypeid, votes_1.postid
@@ -21579,7 +21579,7 @@ select
   votes_1.postid, 
   votes_1.userid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.id, votes_1.postid, votes_1.userid, votes_1.votetypeid
@@ -21602,7 +21602,7 @@ select
   comments_1.postid, 
   posts_1.owneruserid, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -21620,7 +21620,7 @@ select
   comments_1.userdisplayname, 
   comments_1.contentlicense, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -21629,7 +21629,7 @@ group by posts_1.posttypeid, posts_1.contentlicense, posts_1.id, posts_1.ownerdi
 limit 24;
 select  
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 limit 23;
@@ -21638,7 +21638,7 @@ select
     users_1.profileimageurl), 
   users_1.profileimageurl, 
   postlinks_2.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join postlinks as postlinks_1
         inner join users as users_1
@@ -21652,7 +21652,7 @@ limit 13;
 select  
   comments_2.id, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join comments as comments_2
         inner join badges as badges_1
@@ -21669,7 +21669,7 @@ select
     posts_1.acceptedanswerid), 
   posts_1.title, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join badges as badges_1
       on (postlinks_1.id = badges_1.id )
@@ -21682,7 +21682,7 @@ select
   count(*), 
   posts_1.acceptedanswerid, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.acceptedanswerid, posts_1.ownerdisplayname
@@ -21695,7 +21695,7 @@ select
   badges_1.name, 
   badges_1.id, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 12;
@@ -21704,7 +21704,7 @@ select
   votes_1.votetypeid, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join votes as votes_1
           inner join votes as votes_2
@@ -21724,7 +21724,7 @@ select
     votes_2.creationdate), 
   users_1.id, 
   votes_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join posthistory as posthistory_1
         on (users_1.id = posthistory_1.id )
@@ -21739,7 +21739,7 @@ select
   max(
     badges_1.id), 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join badges as badges_1
       inner join posthistory as posthistory_1
@@ -21753,7 +21753,7 @@ select
   postlinks_2.postid, 
   posthistory_1.userid, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
         inner join comments as comments_1
         on (postlinks_1.id = comments_1.id )
@@ -21769,7 +21769,7 @@ select
   badges_1.name, 
   users_1.id, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
       on (posts_1.id = users_1.id )
@@ -21786,7 +21786,7 @@ select
   comments_1.contentlicense, 
   postlinks_1.postid, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
     on (comments_1.id = postlinks_1.id )
@@ -21804,7 +21804,7 @@ select
   posts_1.ownerdisplayname, 
   badges_1.class, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
     on (badges_1.id = posts_1.id )
@@ -21815,7 +21815,7 @@ select
   postlinks_1.creationdate, 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.creationdate
@@ -21823,13 +21823,13 @@ limit 17;
 select  
   posts_1.acceptedanswerid, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 limit 30;
 select  
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid > badges_1.class
 limit 10;
@@ -21837,7 +21837,7 @@ select
   users_1.location, 
   users_1.accountid, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid > users_1.profileimageurl
 limit 15;
@@ -21850,7 +21850,7 @@ select
   min(
     posts_1.creationdate), 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 group by posts_1.parentid, posts_1.owneruserid, posts_1.id, posts_1.contentlicense
@@ -21863,14 +21863,14 @@ select
   badges_1.name, 
   badges_1.date, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.date, badges_1.name, badges_1.name, badges_1.date, badges_1.tagbased
 limit 23;
 select  
   posthistory_3.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
           inner join posthistory as posthistory_2
           on (posthistory_1.id = posthistory_2.id )
@@ -21896,7 +21896,7 @@ select
   users_1.id, 
   max(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 group by users_1.websiteurl, users_1.creationdate, users_1.location, users_1.aboutme, users_1.websiteurl, users_1.accountid, users_1.id, users_1.accountid, users_1.id
@@ -21904,7 +21904,7 @@ limit 21;
 select  
   min(
     comments_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text >= comments_1.contentlicense
 limit 31;
@@ -21923,7 +21923,7 @@ select
   count(*), 
   posts_1.parentid, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title is not NULL
 group by posts_1.title, posts_1.owneruserid, posts_1.ownerdisplayname, posts_1.posttypeid, posts_1.title, posts_1.parentid, posts_1.body, posts_1.parentid, posts_1.body
@@ -21935,7 +21935,7 @@ select
   posthistory_1.id, 
   comments_1.text, 
   badges_2.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join badges as badges_1
       on (comments_1.id = badges_1.id )
@@ -21948,7 +21948,7 @@ limit 8;
 select  
   users_1.displayname, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 limit 7;
@@ -21957,7 +21957,7 @@ select
   badges_1.class, 
   badges_1.id, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date < badges_1.date
 limit 1;
@@ -21965,7 +21965,7 @@ select
   posts_1.owneruserid, 
   sum(
     posts_1.acceptedanswerid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posthistory as posthistory_1
       on (posts_1.id = posthistory_1.id )
@@ -21986,7 +21986,7 @@ select
   badges_1.name, 
   badges_1.tagbased, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased > badges_1.tagbased
 group by badges_1.tagbased, badges_1.userid, badges_1.name, badges_1.userid, badges_1.name, badges_1.tagbased, badges_1.date
@@ -22003,7 +22003,7 @@ select
   badges_1.id, 
   postlinks_1.id, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -22017,7 +22017,7 @@ select
   comments_1.userdisplayname, 
   comments_1.text, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate <= comments_1.creationdate
 limit 41;
@@ -22028,7 +22028,7 @@ select
   votes_1.votetypeid, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.userid, votes_1.votetypeid
@@ -22057,7 +22057,7 @@ select
   min(
     posthistory_1.userdisplayname), 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment = posthistory_1.contentlicense
 group by posthistory_1.posthistorytypeid, posthistory_1.posthistorytypeid, posthistory_1.userid, posthistory_1.userdisplayname, posthistory_1.postid, posthistory_1.postid, posthistory_1.posthistorytypeid, posthistory_1.postid, posthistory_1.text, posthistory_1.text, posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.creationdate, posthistory_1.postid, posthistory_1.id, posthistory_1.creationdate, posthistory_1.revisionguid
@@ -22070,7 +22070,7 @@ select
     posts_1.title), 
   posts_1.posttypeid, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title > posts_1.contentlicense
 group by posts_1.creationdate, posts_1.posttypeid, posts_1.posttypeid
@@ -22078,7 +22078,7 @@ limit 42;
 select  
   posthistory_1.userdisplayname, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -22094,7 +22094,7 @@ select
   comments_1.userdisplayname, 
   comments_1.creationdate, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.postid, comments_1.id, comments_1.userdisplayname, comments_1.creationdate, comments_1.text
@@ -22104,7 +22104,7 @@ select
   min(
     postlinks_1.relatedpostid), 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.linktypeid
@@ -22124,7 +22124,7 @@ select
   badges_1.id, 
   sum(
     badges_1.class)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name = badges_1.name
 group by badges_1.name, badges_1.class, badges_1.date, badges_1.tagbased, badges_1.userid, badges_1.name, badges_1.name, badges_1.tagbased, badges_1.name, badges_1.id
@@ -22136,7 +22136,7 @@ select
   users_1.id, 
   posthistory_1.creationdate, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join badges as badges_1
           inner join posts as posts_1
@@ -22162,7 +22162,7 @@ select
     posts_1.acceptedanswerid), 
   posts_1.ownerdisplayname, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags is not NULL
 group by posts_1.owneruserid, posts_1.ownerdisplayname, posts_1.acceptedanswerid
@@ -22170,7 +22170,7 @@ limit 40;
 select  
   posts_1.acceptedanswerid, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 limit 20;
@@ -22178,7 +22178,7 @@ select
   sum(
     comments_1.postid), 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 group by comments_1.userid
@@ -22186,7 +22186,7 @@ limit 9;
 select  
   postlinks_1.creationdate, 
   postlinks_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -22194,7 +22194,7 @@ where postlinks_2.linktypeid is not NULL
 limit 40;
 select  
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 22;
@@ -22208,7 +22208,7 @@ select
   users_2.websiteurl, 
   votes_2.id, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
       inner join votes as votes_1
@@ -22227,14 +22227,14 @@ select
   max(
     postlinks_1.creationdate), 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate <= postlinks_1.creationdate
 group by postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.creationdate
 limit 3;
 select  
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 limit 22;
@@ -22247,14 +22247,14 @@ select
   max(
     posthistory_1.text), 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 group by posthistory_1.posthistorytypeid, posthistory_1.contentlicense
 limit 9;
 select  
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
         inner join users as users_1
@@ -22266,7 +22266,7 @@ where posthistory_1.userdisplayname is not NULL
 limit 39;
 select  
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 limit 40;
@@ -22275,7 +22275,7 @@ select
   posts_1.acceptedanswerid, 
   posts_1.posttypeid, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
     on (posts_1.id = badges_1.id )
@@ -22293,7 +22293,7 @@ select
     users_1.accountid), 
   min(
     comments_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
           inner join comments as comments_1
           on (badges_1.id = comments_1.id )
@@ -22330,7 +22330,7 @@ select
   comments_1.postid, 
   comments_1.text, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.contentlicense, comments_1.text, comments_1.userdisplayname, comments_1.text, comments_1.text, comments_1.userid, comments_1.postid, comments_1.userid, comments_1.postid, comments_1.text, comments_1.creationdate
@@ -22340,7 +22340,7 @@ select
   posts_1.ownerdisplayname, 
   max(
     posts_1.parentid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid >= posts_1.owneruserid
 group by posts_1.creationdate, posts_1.ownerdisplayname
@@ -22356,7 +22356,7 @@ select
   votes_1.creationdate, 
   votes_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.creationdate, votes_1.votetypeid, votes_1.userid, votes_1.votetypeid, votes_1.userid, votes_1.creationdate, votes_1.creationdate, votes_1.id
@@ -22372,7 +22372,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join postlinks as postlinks_1
       on (badges_1.id = postlinks_1.id )
@@ -22395,7 +22395,7 @@ select
   badges_1.class, 
   max(
     badges_2.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join postlinks as postlinks_1
         inner join badges as badges_1
@@ -22418,7 +22418,7 @@ select
   max(
     badges_1.name), 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased < badges_1.tagbased
 group by badges_1.tagbased, badges_1.id, badges_1.name, badges_1.class, badges_1.tagbased
@@ -22427,7 +22427,7 @@ select
   users_1.creationdate, 
   posthistory_1.postid, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join users as users_1
       on (votes_1.id = users_1.id )
@@ -22444,7 +22444,7 @@ select
   posts_1.owneruserid, 
   posts_1.acceptedanswerid, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
     on (posts_1.id = comments_1.id )
@@ -22453,7 +22453,7 @@ group by comments_1.creationdate, posts_1.owneruserid, posts_1.acceptedanswerid,
 limit 26;
 select  
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate <= postlinks_1.creationdate
 limit 38;
@@ -22462,7 +22462,7 @@ select
     badges_1.name), 
   posthistory_1.contentlicense, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join badges as badges_1
       on (votes_1.id = badges_1.id )
@@ -22479,7 +22479,7 @@ select
   badges_1.class, 
   users_1.location, 
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
         inner join posthistory as posthistory_1
@@ -22510,7 +22510,7 @@ select
   max(
     votes_1.postid), 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join comments as comments_1
     on (votes_1.id = comments_1.id )
@@ -22520,7 +22520,7 @@ limit 11;
 select  
   postlinks_1.linktypeid, 
   posts_2.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
         inner join users as users_2
@@ -22547,7 +22547,7 @@ select
   postlinks_1.postid, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.postid, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.id
@@ -22556,7 +22556,7 @@ select
   posthistory_1.text, 
   posthistory_1.revisionguid, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 limit 8;
@@ -22566,7 +22566,7 @@ select
   users_1.id, 
   users_1.id, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme < users_1.location
 limit 7;
@@ -22577,7 +22577,7 @@ select
   posthistory_1.userid, 
   posthistory_1.userid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join postlinks as postlinks_1
     on (posthistory_1.id = postlinks_1.id )
@@ -22587,7 +22587,7 @@ select
   posts_1.tags, 
   posts_1.id, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
         inner join users as users_2
@@ -22599,7 +22599,7 @@ where badges_1.date is not NULL
 limit 25;
 select  
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 limit 26;
@@ -22621,7 +22621,7 @@ select
   users_1.profileimageurl, 
   users_2.aboutme, 
   posts_2.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
         inner join posts as posts_2
@@ -22635,7 +22635,7 @@ limit 37;
 select  
   max(
     comments_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join users as users_1
     on (comments_1.id = users_1.id )
@@ -22660,7 +22660,7 @@ select
   comments_1.contentlicense, 
   postlinks_1.relatedpostid, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join votes as votes_1
         inner join votes as votes_2
@@ -22676,7 +22676,7 @@ where comments_1.id is not NULL
 limit 33;
 select  
   badges_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join postlinks as postlinks_1
       on (badges_1.id = postlinks_1.id )
@@ -22706,7 +22706,7 @@ select
     users_2.displayname), 
   postlinks_1.id, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join postlinks as postlinks_1
         on (users_1.id = postlinks_1.id )
@@ -22724,7 +22724,7 @@ limit 36;
 select  
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 27;
@@ -22743,7 +22743,7 @@ select
   badges_1.name, 
   badges_1.tagbased, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid <= badges_1.class
 group by badges_1.date, badges_1.class, badges_1.userid, badges_1.name, badges_1.date, badges_1.date, badges_1.tagbased, badges_1.userid, badges_1.tagbased, badges_1.name, badges_1.tagbased, badges_1.date
@@ -22755,7 +22755,7 @@ select
     postlinks_1.relatedpostid), 
   min(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 limit 13;
@@ -22772,7 +22772,7 @@ select
   max(
     posthistory_1.creationdate), 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid is not NULL
 group by posthistory_1.postid, posthistory_1.creationdate, posthistory_1.contentlicense, posthistory_1.revisionguid
@@ -22785,13 +22785,13 @@ select
   comments_1.userid, 
   comments_1.userdisplayname, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 limit 5;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
         inner join posts as posts_1
         on (badges_1.id = posts_1.id )
@@ -22813,7 +22813,7 @@ select
   users_1.aboutme, 
   max(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -22823,7 +22823,7 @@ limit 12;
 select  
   votes_1.votetypeid, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
     on (comments_1.id = votes_1.id )
@@ -22837,7 +22837,7 @@ select
   posthistory_1.userdisplayname, 
   posthistory_1.contentlicense, 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 21;
@@ -22845,14 +22845,14 @@ select
   min(
     badges_1.class), 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 group by badges_1.id
 limit 22;
 select  
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate is not NULL
 limit 41;
@@ -22863,13 +22863,13 @@ select
   users_1.accountid, 
   users_1.aboutme, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 limit 40;
 select  
   comments_2.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join postlinks as postlinks_1
       on (comments_1.id = postlinks_1.id )
@@ -22887,7 +22887,7 @@ select
   postlinks_1.creationdate, 
   postlinks_2.postid, 
   postlinks_2.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -22896,14 +22896,14 @@ limit 25;
 select  
   users_1.accountid, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl <= users_1.accountid
 limit 17;
 select  
   users_1.aboutme, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 limit 26;
@@ -22913,7 +22913,7 @@ select
   votes_1.postid, 
   postlinks_1.relatedpostid, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join postlinks as postlinks_1
       on (votes_1.id = postlinks_1.id )
@@ -22925,7 +22925,7 @@ select
   comments_1.postid, 
   postlinks_1.id, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
     on (postlinks_1.id = comments_1.id )
@@ -22949,7 +22949,7 @@ select
   users_1.creationdate, 
   badges_1.id, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -22962,7 +22962,7 @@ select
     postlinks_1.id), 
   postlinks_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.creationdate, postlinks_1.id, postlinks_1.creationdate
@@ -22973,7 +22973,7 @@ select
   posthistory_1.postid, 
   votes_1.postid, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join comments as comments_1
       on (votes_1.id = comments_1.id )
@@ -22996,14 +22996,14 @@ select
   votes_1.postid, 
   votes_1.id, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 21;
 select  
   votes_1.userid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -23018,7 +23018,7 @@ select
   sum(
     posthistory_1.id), 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 group by posthistory_1.userid, posthistory_1.revisionguid, posthistory_1.comment, posthistory_1.comment
@@ -23041,7 +23041,7 @@ select
   votes_1.votetypeid, 
   posts_1.title, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posts as posts_1
       inner join votes as votes_1
@@ -23054,7 +23054,7 @@ select
   votes_1.postid, 
   avg(
     badges_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
       inner join posts as posts_1
@@ -23079,14 +23079,14 @@ select
     votes_1.creationdate), 
   votes_1.id, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.userid, votes_1.id, votes_1.postid
 limit 36;
 select  
   comments_2.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
     on (comments_1.id = comments_2.id )
@@ -23095,7 +23095,7 @@ limit 26;
 select  
   postlinks_1.id, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join comments as comments_1
         inner join users as users_1
@@ -23107,7 +23107,7 @@ where postlinks_1.postid is not NULL
 limit 9;
 select  
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 8;
@@ -23131,7 +23131,7 @@ select
   max(
     comments_1.contentlicense), 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.userid, comments_1.contentlicense, comments_1.id, comments_1.userid, comments_1.text, comments_1.postid, comments_1.id, comments_1.postid, comments_1.id, comments_1.userdisplayname, comments_1.userid
@@ -23143,7 +23143,7 @@ select
   badges_2.userid, 
   posthistory_2.creationdate, 
   badges_2.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join posthistory as posthistory_2
         on (posthistory_1.id = posthistory_2.id )
@@ -23171,7 +23171,7 @@ select
   posts_1.creationdate, 
   posts_1.owneruserid, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags >= posts_1.contentlicense
 limit 1;
@@ -23183,21 +23183,21 @@ select
     users_1.aboutme), 
   users_1.accountid, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 group by users_1.profileimageurl, users_1.accountid, users_1.accountid
 limit 29;
 select  
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 limit 10;
 select  
   comments_1.postid, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 limit 23;
@@ -23206,7 +23206,7 @@ select
   users_1.profileimageurl, 
   posts_1.id, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posthistory as posthistory_1
       on (posts_1.id = posthistory_1.id )
@@ -23219,7 +23219,7 @@ limit 33;
 select  
   comments_1.text, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -23229,7 +23229,7 @@ select
   min(
     posts_1.creationdate), 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
     on (posts_1.id = users_1.id )
@@ -23252,7 +23252,7 @@ select
   postlinks_1.relatedpostid, 
   max(
     postlinks_1.linktypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid = postlinks_1.linktypeid
 group by postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.id, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.postid, postlinks_1.relatedpostid
@@ -23263,7 +23263,7 @@ select
     users_1.aboutme), 
   min(
     users_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 group by users_1.displayname
@@ -23280,7 +23280,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -23294,7 +23294,7 @@ select
     users_1.accountid), 
   users_1.aboutme, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate <= users_1.creationdate
 group by users_1.displayname, users_1.accountid, users_1.aboutme, users_1.displayname
@@ -23308,7 +23308,7 @@ select
   badges_1.name, 
   min(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posthistory as posthistory_1
     on (badges_1.id = posthistory_1.id )
@@ -23318,7 +23318,7 @@ limit 5;
 select  
   postlinks_1.relatedpostid, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join postlinks as postlinks_1
     on (users_1.id = postlinks_1.id )
@@ -23330,7 +23330,7 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.id, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 4;
@@ -23339,19 +23339,19 @@ select
   badges_1.date, 
   badges_1.userid, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 limit 12;
 select  
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 8;
 select  
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
     on (comments_1.id = votes_1.id )
@@ -23392,7 +23392,7 @@ select
   max(
     postlinks_1.creationdate), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.id is not NULL
 group by postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.id, postlinks_1.id, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.id
@@ -23433,7 +23433,7 @@ select
   votes_1.votetypeid, 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.postid, votes_1.id, votes_1.votetypeid, votes_1.id, votes_1.creationdate, votes_1.creationdate, votes_1.postid, votes_1.postid, votes_1.userid, votes_1.votetypeid, votes_1.creationdate, votes_1.id, votes_1.creationdate, votes_1.creationdate, votes_1.userid, votes_1.userid, votes_1.votetypeid, votes_1.votetypeid, votes_1.userid, votes_1.id, votes_1.votetypeid
@@ -23442,7 +23442,7 @@ select
   posts_2.creationdate, 
   posts_2.posttypeid, 
   posts_2.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -23453,7 +23453,7 @@ select
   min(
     users_1.id), 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl > users_1.location
 group by users_1.id, users_1.id
@@ -23461,19 +23461,19 @@ limit 31;
 select  
   users_1.creationdate, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl <= users_1.accountid
 limit 39;
 select  
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 38;
 select  
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 limit 13;
@@ -23484,7 +23484,7 @@ select
   count(
     users_1.displayname), 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join postlinks as postlinks_1
     on (users_1.id = postlinks_1.id )
@@ -23493,7 +23493,7 @@ group by users_1.displayname, postlinks_1.relatedpostid, users_1.websiteurl, use
 limit 14;
 select  
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 limit 41;
@@ -23501,7 +23501,7 @@ select distinct
   posts_1.tags, 
   posts_1.contentlicense, 
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid >= posts_1.posttypeid
 limit 2;
@@ -23510,7 +23510,7 @@ select
   postlinks_1.postid, 
   badges_1.id, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
       inner join postlinks as postlinks_2
@@ -23522,7 +23522,7 @@ where postlinks_2.linktypeid is not NULL
 limit 9;
 select  
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join badges as badges_1
       on (posts_1.id = badges_1.id )
@@ -23556,7 +23556,7 @@ select
   users_1.websiteurl, 
   comments_1.text, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join votes as votes_1
       on (users_1.id = votes_1.id )
@@ -23568,7 +23568,7 @@ where users_1.location is not NULL
 limit 23;
 select  
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join votes as votes_1
       on (posthistory_1.id = votes_1.id )
@@ -23588,7 +23588,7 @@ select
   posthistory_1.text, 
   posthistory_1.userdisplayname, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 group by posthistory_1.revisionguid, posthistory_1.userid, posthistory_1.posthistorytypeid, posthistory_1.creationdate, posthistory_1.text, posthistory_1.userdisplayname, posthistory_1.revisionguid
@@ -23601,7 +23601,7 @@ select
   max(
     votes_1.creationdate), 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join votes as votes_1
       on (posthistory_1.id = votes_1.id )
@@ -23614,7 +23614,7 @@ select
   votes_1.creationdate, 
   comments_1.userid, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join posts as posts_1
       on (comments_1.id = posts_1.id )
@@ -23626,14 +23626,14 @@ select
   max(
     postlinks_1.id), 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.id
 limit 37;
 select  
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 26;
@@ -23646,7 +23646,7 @@ select
   postlinks_2.relatedpostid, 
   min(
     comments_1.text)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
       inner join postlinks as postlinks_2
@@ -23665,20 +23665,20 @@ select
   posts_1.body, 
   posts_1.creationdate, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 25;
 select  
   max(
     users_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id < users_1.id
 limit 18;
 select  
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posthistory as posthistory_1
     on (posts_1.id = posthistory_1.id )
@@ -23694,7 +23694,7 @@ select
   users_1.location, 
   min(
     users_1.aboutme)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join postlinks as postlinks_1
       on (votes_1.id = postlinks_1.id )
@@ -23714,7 +23714,7 @@ select
   users_1.displayname, 
   users_1.creationdate, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posts as posts_1
     on (users_1.id = posts_1.id )
@@ -23729,7 +23729,7 @@ select
     users_1.creationdate), 
   users_1.aboutme, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 group by users_1.location, users_1.displayname, users_1.websiteurl, users_1.aboutme, users_1.profileimageurl
@@ -23739,7 +23739,7 @@ select
   posts_1.contentlicense, 
   posts_1.owneruserid, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 39;
@@ -23769,7 +23769,7 @@ select
   users_1.aboutme, 
   users_1.creationdate, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate >= users_1.creationdate
 group by users_1.displayname, users_1.profileimageurl, users_1.creationdate, users_1.creationdate, users_1.id, users_1.displayname, users_1.id, users_1.profileimageurl, users_1.displayname, users_1.location, users_1.location, users_1.accountid, users_1.aboutme, users_1.websiteurl, users_1.aboutme, users_1.creationdate, users_1.id
@@ -23796,14 +23796,14 @@ select
   postlinks_1.linktypeid, 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid <= postlinks_1.postid
 group by postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.linktypeid
 limit 18;
 select  
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.contentlicense is not NULL
 limit 26;
@@ -23811,7 +23811,7 @@ select
   count(*), 
   count(*), 
   votes_2.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -23825,7 +23825,7 @@ select
   posthistory_1.contentlicense, 
   posts_3.id, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join postlinks as postlinks_1
         on (votes_1.id = postlinks_1.id )
@@ -23848,13 +23848,13 @@ limit 21;
 select  
   postlinks_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 28;
 select  
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 5;
@@ -23869,14 +23869,14 @@ select
   count(*), 
   badges_1.date, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid = badges_1.class
 group by badges_1.date, badges_1.class, badges_1.name, badges_1.name, badges_1.id, badges_1.date, badges_1.class
 limit 41;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
         inner join postlinks as postlinks_1
           inner join votes as votes_1
@@ -23893,7 +23893,7 @@ select
   min(
     posthistory_1.posthistorytypeid), 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join posts as posts_1
       on (votes_1.id = posts_1.id )
@@ -23904,7 +23904,7 @@ group by posts_1.body, posts_1.id
 limit 26;
 select  
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posthistory as posthistory_1
     on (postlinks_1.id = posthistory_1.id )
@@ -23917,7 +23917,7 @@ select
   votes_1.postid, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.id, votes_1.postid, votes_1.creationdate, votes_1.postid
@@ -23925,20 +23925,20 @@ limit 11;
 select  
   min(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 limit 34;
 select  
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 33;
 select  
   comments_1.id, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.postid > comments_1.userid
 limit 26;
@@ -23949,7 +23949,7 @@ select
   min(
     postlinks_2.relatedpostid), 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join postlinks as postlinks_1
         inner join posts as posts_1
@@ -23963,7 +23963,7 @@ limit 26;
 select  
   postlinks_1.relatedpostid, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.relatedpostid
@@ -23973,7 +23973,7 @@ select
   badges_1.date, 
   min(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.id, badges_1.date
@@ -23982,7 +23982,7 @@ select
   posts_2.tags, 
   max(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
         inner join votes as votes_1
         on (posts_1.id = votes_1.id )
@@ -24009,7 +24009,7 @@ select
   badges_1.tagbased, 
   badges_1.class, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posthistory as posthistory_1
     on (badges_1.id = posthistory_1.id )
@@ -24051,7 +24051,7 @@ select
   badges_1.tagbased, 
   min(
     posts_2.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join posts as posts_1
       on (postlinks_1.id = posts_1.id )
@@ -24079,7 +24079,7 @@ select
   votes_1.userid, 
   votes_1.id, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.creationdate, votes_1.id, votes_1.postid, votes_1.id, votes_1.postid, votes_1.id, votes_1.userid, votes_1.creationdate, votes_1.creationdate, votes_1.userid, votes_1.id, votes_1.creationdate
@@ -24087,7 +24087,7 @@ limit 37;
 select  
   min(
     comments_2.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
       inner join badges as badges_1
@@ -24102,14 +24102,14 @@ select
   users_1.displayname, 
   users_1.websiteurl, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id = users_1.id
 limit 6;
 select  
   votes_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
       inner join votes as votes_1
@@ -24128,7 +24128,7 @@ select
   badges_1.name, 
   posthistory_1.postid, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join badges as badges_1
       on (posthistory_1.id = badges_1.id )
@@ -24169,7 +24169,7 @@ select
   votes_1.votetypeid, 
   votes_1.userid, 
   votes_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -24188,7 +24188,7 @@ select
   badges_1.id, 
   badges_1.tagbased, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 17;
@@ -24201,7 +24201,7 @@ select
   posts_1.body, 
   posts_1.posttypeid, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
     on (badges_1.id = posts_1.id )
@@ -24217,7 +24217,7 @@ select
   votes_1.id, 
   votes_1.votetypeid, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
       inner join badges as badges_1
@@ -24238,7 +24238,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.creationdate, postlinks_1.id, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.creationdate
@@ -24270,7 +24270,7 @@ select
   badges_1.userid, 
   min(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id >= badges_1.class
 group by badges_1.id, badges_1.tagbased, badges_1.name, badges_1.tagbased, badges_1.name, badges_1.id, badges_1.tagbased, badges_1.tagbased, badges_1.userid, badges_1.class, badges_1.class, badges_1.class, badges_1.tagbased, badges_1.name, badges_1.tagbased, badges_1.name, badges_1.class, badges_1.id, badges_1.class, badges_1.id, badges_1.date, badges_1.userid
@@ -24286,14 +24286,14 @@ select
   users_1.aboutme, 
   users_1.accountid, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 group by users_1.aboutme, users_1.id, users_1.profileimageurl, users_1.aboutme, users_1.accountid, users_1.websiteurl
 limit 24;
 select  
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
     on (votes_1.id = posts_1.id )
@@ -24312,7 +24312,7 @@ select
     users_1.creationdate), 
   users_1.id, 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl < users_1.displayname
 group by users_1.profileimageurl, users_1.location, users_1.profileimageurl, users_1.aboutme, users_1.accountid, users_1.profileimageurl, users_1.id, users_1.accountid
@@ -24321,7 +24321,7 @@ select
   posthistory_1.userdisplayname, 
   count(
     posthistory_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join votes as votes_1
       inner join comments as comments_1
@@ -24336,7 +24336,7 @@ group by posthistory_1.userdisplayname
 limit 1;
 select  
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -24348,7 +24348,7 @@ select
   comments_1.contentlicense, 
   min(
     comments_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id >= comments_1.postid
 group by comments_1.text, comments_1.id, comments_1.contentlicense
@@ -24361,20 +24361,20 @@ select
   postlinks_1.relatedpostid, 
   min(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate <= postlinks_1.creationdate
 group by postlinks_1.linktypeid, postlinks_1.id, postlinks_1.relatedpostid
 limit 2;
 select  
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate < comments_1.creationdate
 limit 5;
 select  
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join users as users_1
       on (comments_1.id = users_1.id )
@@ -24390,7 +24390,7 @@ select
   votes_1.id, 
   votes_2.id, 
   votes_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -24408,7 +24408,7 @@ select
   postlinks_1.linktypeid, 
   posts_1.parentid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -24434,7 +24434,7 @@ select
   posthistory_1.text, 
   comments_1.userid, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join comments as comments_1
         inner join posts as posts_1
@@ -24451,7 +24451,7 @@ select
   posts_1.tags, 
   posts_1.creationdate, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.tags is not NULL
 limit 19;
@@ -24461,7 +24461,7 @@ select
   max(
     posthistory_1.creationdate), 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 group by posthistory_1.creationdate, posthistory_1.creationdate, posthistory_1.revisionguid
@@ -24470,7 +24470,7 @@ select
   comments_1.creationdate, 
   comments_1.creationdate, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 limit 23;
@@ -24504,7 +24504,7 @@ select
     users_1.accountid), 
   votes_1.userid, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
         inner join votes as votes_1
         on (postlinks_1.id = votes_1.id )
@@ -24523,7 +24523,7 @@ group by postlinks_1.relatedpostid, votes_1.id, postlinks_2.postid, badges_1.tag
 limit 25;
 select  
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl > users_1.location
 limit 7;
@@ -24531,7 +24531,7 @@ select
   users_1.accountid, 
   users_1.id, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 21;
@@ -24562,7 +24562,7 @@ select
   users_1.displayname, 
   posthistory_1.id, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posthistory as posthistory_1
     on (users_1.id = posthistory_1.id )
@@ -24591,14 +24591,14 @@ select
   max(
     comments_1.creationdate), 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate is not NULL
 group by comments_1.id, comments_1.userid, comments_1.id, comments_1.id, comments_1.contentlicense, comments_1.creationdate, comments_1.postid, comments_1.contentlicense, comments_1.id, comments_1.userdisplayname, comments_1.contentlicense, comments_1.creationdate, comments_1.id
 limit 15;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
         inner join votes as votes_2
@@ -24620,7 +24620,7 @@ select
   postlinks_1.id, 
   postlinks_1.postid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join postlinks as postlinks_1
     on (badges_1.id = postlinks_1.id )
@@ -24653,7 +24653,7 @@ select
   posts_2.body, 
   posts_1.title, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
         inner join users as users_1
         on (postlinks_1.id = users_1.id )
@@ -24676,7 +24676,7 @@ select
   votes_1.id, 
   votes_1.postid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 limit 20;
@@ -24698,7 +24698,7 @@ select
   votes_1.id, 
   votes_1.creationdate, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 17;
@@ -24707,14 +24707,14 @@ select
   votes_1.postid, 
   votes_1.userid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 24;
 select  
   badges_1.tagbased, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join badges as badges_1
     on (votes_1.id = badges_1.id )
@@ -24722,7 +24722,7 @@ where votes_1.creationdate is not NULL
 limit 35;
 select  
   posts_1.ownerdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posts as posts_1
       inner join posthistory as posthistory_1
@@ -24739,7 +24739,7 @@ select
   votes_1.creationdate, 
   posthistory_1.text, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join votes as votes_1
     on (posthistory_1.id = votes_1.id )
@@ -24757,7 +24757,7 @@ select
   posts_1.acceptedanswerid, 
   posts_1.parentid, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 limit 23;
@@ -24771,7 +24771,7 @@ select
   votes_1.postid, 
   votes_1.id, 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join votes as votes_1
       on (posthistory_1.id = votes_1.id )
@@ -24790,7 +24790,7 @@ select
   votes_1.id, 
   votes_1.votetypeid, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.userid, votes_1.votetypeid, votes_1.votetypeid, votes_1.id, votes_1.votetypeid, votes_1.votetypeid
@@ -24810,7 +24810,7 @@ select
   users_1.id, 
   users_1.websiteurl, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id >= users_1.id
 group by users_1.aboutme, users_1.accountid, users_1.websiteurl, users_1.aboutme, users_1.id, users_1.id, users_1.websiteurl, users_1.id
@@ -24818,7 +24818,7 @@ limit 7;
 select  
   count(
     posthistory_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join postlinks as postlinks_1
       inner join posts as posts_1
@@ -24829,14 +24829,14 @@ limit 30;
 select  
   users_1.displayname, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 limit 31;
 select  
   posthistory_1.creationdate, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 37;
@@ -24845,7 +24845,7 @@ select
   posthistory_1.userid, 
   min(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid > posthistory_1.posthistorytypeid
 group by posthistory_1.contentlicense, posthistory_1.userid
@@ -24853,7 +24853,7 @@ limit 16;
 select  
   comments_1.creationdate, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join comments as comments_1
     on (badges_1.id = comments_1.id )
@@ -24863,7 +24863,7 @@ select
   votes_1.votetypeid, 
   votes_2.creationdate, 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -24876,7 +24876,7 @@ select
   comments_1.userdisplayname, 
   comments_1.userid, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname > comments_1.contentlicense
 limit 41;
@@ -24892,7 +24892,7 @@ select
   comments_1.userid, 
   badges_1.tagbased, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -24908,7 +24908,7 @@ select
   posthistory_3.postid, 
   posthistory_2.revisionguid, 
   posthistory_2.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join posthistory as posthistory_2
         on (posthistory_1.id = posthistory_2.id )
@@ -24923,14 +24923,14 @@ limit 23;
 select  
   max(
     badges_1.class)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 33;
 select  
   users_1.displayname, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl = users_1.location
 limit 21;
@@ -24940,7 +24940,7 @@ select
   comments_1.userid, 
   comments_1.userdisplayname, 
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 limit 32;
@@ -24951,7 +24951,7 @@ select
   min(
     posts_1.parentid), 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate = posts_1.creationdate
 group by posts_1.owneruserid, posts_1.ownerdisplayname, posts_1.creationdate, posts_1.id
@@ -24960,7 +24960,7 @@ select
   votes_1.creationdate, 
   max(
     votes_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.creationdate
@@ -24980,7 +24980,7 @@ select
   postlinks_1.linktypeid, 
   users_1.creationdate, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join postlinks as postlinks_1
     on (users_1.id = postlinks_1.id )
@@ -25000,7 +25000,7 @@ select
   votes_3.id, 
   votes_3.creationdate, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join votes as votes_1
           inner join users as users_1
@@ -25019,7 +25019,7 @@ select
   votes_1.creationdate, 
   min(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 group by votes_1.creationdate
@@ -25039,7 +25039,7 @@ select
   max(
     comments_1.text), 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 group by comments_1.creationdate, comments_1.text, comments_1.userdisplayname, comments_1.contentlicense, comments_1.id, comments_1.contentlicense, comments_1.postid, comments_1.userdisplayname, comments_1.text, comments_1.userdisplayname
@@ -25057,7 +25057,7 @@ select
   max(
     postlinks_1.creationdate), 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join badges as badges_1
       inner join postlinks as postlinks_1
@@ -25072,14 +25072,14 @@ select
   votes_1.id, 
   count(*), 
   votes_1.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.id, votes_1.votetypeid
 limit 37;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 33;
@@ -25093,7 +25093,7 @@ select
   users_1.aboutme, 
   count(
     postlinks_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join comments as comments_1
       on (users_1.id = comments_1.id )
@@ -25116,7 +25116,7 @@ select
     votes_1.creationdate), 
   postlinks_2.relatedpostid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
       inner join postlinks as postlinks_1
       on (votes_1.id = postlinks_1.id )
@@ -25135,7 +25135,7 @@ select
   badges_1.id, 
   comments_1.creationdate, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -25147,7 +25147,7 @@ select
   count(
     votes_1.votetypeid), 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.id, votes_1.postid, votes_1.userid
@@ -25157,7 +25157,7 @@ select
   count(*), 
   users_2.id, 
   users_3.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join users as users_1
       on (comments_1.id = users_1.id )
@@ -25177,13 +25177,13 @@ limit 38;
 select  
   badges_1.userid, 
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date = badges_1.date
 limit 16;
 select  
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
     on (comments_1.id = comments_2.id )
@@ -25198,7 +25198,7 @@ select
   votes_1.creationdate, 
   min(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
     on (badges_1.id = votes_1.id )
@@ -25216,7 +25216,7 @@ select
   postlinks_1.postid, 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 group by postlinks_1.id, postlinks_1.linktypeid, postlinks_1.id, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.postid
@@ -25234,7 +25234,7 @@ select
   posts_1.contentlicense, 
   posts_1.posttypeid, 
   posts_1.title
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.title <= posts_1.tags
 group by posts_1.tags, posts_1.id, posts_1.posttypeid, posts_1.body, posts_1.acceptedanswerid, posts_1.contentlicense, posts_1.posttypeid, posts_1.title
@@ -25244,14 +25244,14 @@ select
   max(
     users_1.location), 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname > users_1.location
 group by users_1.creationdate, users_1.aboutme
 limit 5;
 select  
   comments_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
           inner join comments as comments_1
@@ -25270,7 +25270,7 @@ select
   votes_1.userid, 
   votes_1.creationdate, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posts as posts_1
       on (users_1.id = posts_1.id )
@@ -25291,7 +25291,7 @@ select
   postlinks_1.id, 
   votes_1.userid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -25302,7 +25302,7 @@ select
   votes_2.userid, 
   votes_1.userid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -25310,7 +25310,7 @@ where votes_2.postid >= votes_1.id
 limit 21;
 select  
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join postlinks as postlinks_1
       inner join comments as comments_2
@@ -25337,14 +25337,14 @@ select
   count(
     votes_1.userid), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.votetypeid, votes_1.userid, votes_1.id, votes_1.id, votes_1.id, votes_1.postid, votes_1.postid, votes_1.postid, votes_1.votetypeid, votes_1.votetypeid, votes_1.creationdate
 limit 1;
 select  
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 5;
@@ -25359,13 +25359,13 @@ select
   posthistory_1.creationdate, 
   posthistory_1.userid, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text is not NULL
 limit 8;
 select  
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 37;
@@ -25380,7 +25380,7 @@ select
   postlinks_1.postid, 
   max(
     users_1.aboutme)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -25395,7 +25395,7 @@ select
   votes_1.userid, 
   postlinks_1.id, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -25407,7 +25407,7 @@ select
   posts_1.owneruserid, 
   posts_1.tags, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 limit 15;
@@ -25415,13 +25415,13 @@ select
   posthistory_1.userid, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 limit 18;
 select  
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 21;
@@ -25431,7 +25431,7 @@ select
   min(
     users_1.creationdate), 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 group by users_1.creationdate, users_1.id, users_1.profileimageurl
@@ -25446,7 +25446,7 @@ select
   users_1.profileimageurl, 
   users_1.accountid, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl = users_1.displayname
 group by users_1.id, users_1.id, users_1.profileimageurl, users_1.accountid, users_1.profileimageurl
@@ -25459,7 +25459,7 @@ select
   postlinks_1.linktypeid, 
   min(
     comments_1.userdisplayname)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
     on (postlinks_1.id = comments_1.id )
@@ -25472,7 +25472,7 @@ select
   users_1.profileimageurl, 
   users_1.location, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.displayname is not NULL
 group by users_1.profileimageurl, users_1.location, users_1.aboutme
@@ -25497,7 +25497,7 @@ select
   badges_1.id, 
   badges_1.class, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.userid is not NULL
 limit 31;
@@ -25512,7 +25512,7 @@ select
   badges_1.name, 
   badges_1.name, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.date, badges_1.id, badges_1.date, badges_1.userid, badges_1.date, badges_1.name, badges_1.name, badges_1.date
@@ -25523,7 +25523,7 @@ select
   posts_1.id, 
   postlinks_1.creationdate, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posts as posts_1
     on (postlinks_1.id = posts_1.id )
@@ -25531,7 +25531,7 @@ where postlinks_1.relatedpostid is not NULL
 limit 18;
 select  
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 32;
@@ -25545,13 +25545,13 @@ select
   posthistory_1.id, 
   posthistory_1.id, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 limit 35;
 select  
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 limit 39;
@@ -25560,7 +25560,7 @@ select
   avg(
     posthistory_1.userid), 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.id is not NULL
 group by posthistory_1.posthistorytypeid, posthistory_1.id
@@ -25576,7 +25576,7 @@ select
   postlinks_1.postid, 
   postlinks_1.postid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 16;
@@ -25584,7 +25584,7 @@ select
   comments_1.text, 
   max(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join votes as votes_1
         inner join posthistory as posthistory_1
@@ -25609,7 +25609,7 @@ select
   users_1.displayname, 
   users_1.displayname, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location < users_1.aboutme
 limit 10;
@@ -25623,7 +25623,7 @@ select
   votes_1.id, 
   votes_1.votetypeid, 
   posts_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join votes as votes_1
     on (posts_1.id = votes_1.id )
@@ -25632,14 +25632,14 @@ group by votes_1.userid, posts_1.body, votes_1.userid, votes_1.postid, votes_1.i
 limit 30;
 select  
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 limit 38;
 select  
   postlinks_1.linktypeid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate > postlinks_1.creationdate
 limit 14;
@@ -25647,7 +25647,7 @@ select
   votes_1.id, 
   votes_1.id, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 limit 16;
@@ -25655,13 +25655,13 @@ select
   postlinks_1.postid, 
   postlinks_1.linktypeid, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid < postlinks_1.postid
 limit 25;
 select  
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 27;
@@ -25670,7 +25670,7 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 10;
@@ -25729,7 +25729,7 @@ select
   users_1.location, 
   min(
     users_1.aboutme)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id = users_1.id
 group by users_1.profileimageurl, users_1.accountid, users_1.creationdate, users_1.creationdate, users_1.websiteurl, users_1.accountid, users_1.websiteurl, users_1.location, users_1.profileimageurl, users_1.id, users_1.location, users_1.profileimageurl, users_1.creationdate, users_1.location, users_1.location, users_1.aboutme, users_1.creationdate, users_1.accountid, users_1.accountid, users_1.displayname, users_1.displayname, users_1.creationdate, users_1.accountid, users_1.displayname, users_1.accountid, users_1.websiteurl, users_1.location, users_1.id, users_1.displayname, users_1.location, users_1.profileimageurl, users_1.websiteurl, users_1.location, users_1.location
@@ -25744,7 +25744,7 @@ select
   comments_1.id, 
   comments_1.text, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
     on (users_1.id = comments_1.id )
@@ -25763,7 +25763,7 @@ select
     comments_1.creationdate), 
   comments_1.text, 
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid >= comments_1.postid
 group by comments_1.userid, comments_1.id, comments_1.creationdate, comments_1.text, comments_1.id, comments_1.text, comments_1.creationdate
@@ -25787,7 +25787,7 @@ select
   users_1.location, 
   users_1.id, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 group by users_1.websiteurl, users_1.profileimageurl, users_1.creationdate, users_1.websiteurl, users_1.websiteurl, users_1.displayname, users_1.creationdate, users_1.profileimageurl, users_1.websiteurl, users_1.id, users_1.creationdate, users_1.location, users_1.id, users_1.aboutme
@@ -25800,14 +25800,14 @@ select
   max(
     votes_1.id), 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 group by votes_1.postid, votes_1.votetypeid, votes_1.postid
 limit 19;
 select  
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 4;
@@ -25816,7 +25816,7 @@ select
     posts_2.creationdate), 
   max(
     posts_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join posts as posts_2
     on (posts_1.id = posts_2.id )
@@ -25826,7 +25826,7 @@ select
   posthistory_1.revisionguid, 
   badges_1.id, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
       inner join posthistory as posthistory_1
@@ -25857,7 +25857,7 @@ select
   votes_1.creationdate, 
   posthistory_1.contentlicense, 
   votes_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join users as users_1
         on (votes_1.id = users_1.id )
@@ -25882,7 +25882,7 @@ select
   comments_1.creationdate, 
   comments_1.postid, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userdisplayname is not NULL
 group by comments_1.userid, comments_1.id, comments_1.userdisplayname, comments_1.contentlicense, comments_1.userdisplayname, comments_1.userdisplayname, comments_1.postid, comments_1.contentlicense, comments_1.creationdate, comments_1.postid, comments_1.postid
@@ -25890,7 +25890,7 @@ limit 4;
 select  
   votes_1.id, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid is not NULL
 limit 27;
@@ -25898,14 +25898,14 @@ select
   postlinks_1.relatedpostid, 
   postlinks_1.id, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 limit 18;
 select  
   posts_1.ownerdisplayname, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id > posts_1.posttypeid
 limit 2;
@@ -25914,7 +25914,7 @@ select
     posts_1.contentlicense), 
   posts_1.posttypeid, 
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.id is not NULL
 group by posts_1.posttypeid, posts_1.acceptedanswerid
@@ -25922,14 +25922,14 @@ limit 41;
 select  
   max(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 limit 16;
 select  
   posthistory_1.text, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 limit 9;
@@ -25947,7 +25947,7 @@ select
   comments_1.id, 
   comments_1.postid, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join posthistory as posthistory_1
     on (comments_1.id = posthistory_1.id )
@@ -25963,7 +25963,7 @@ select
   votes_2.userid, 
   votes_2.postid, 
   votes_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join votes as votes_1
         inner join users as users_1
@@ -25981,7 +25981,7 @@ select
   min(
     comments_1.contentlicense), 
   postlinks_2.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join postlinks as postlinks_1
       on (comments_1.id = postlinks_1.id )
@@ -26009,7 +26009,7 @@ select distinct
   votes_1.id, 
   votes_1.id, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.userid, votes_1.creationdate, votes_1.userid, votes_1.id, votes_1.userid, votes_1.postid, votes_1.creationdate, votes_1.votetypeid, votes_1.creationdate, votes_1.id, votes_1.postid, votes_1.id, votes_1.id, votes_1.creationdate
@@ -26017,7 +26017,7 @@ limit 33;
 select  
   postlinks_1.creationdate, 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -26036,7 +26036,7 @@ select
     posts_1.ownerdisplayname), 
   posts_1.owneruserid, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 group by posts_1.ownerdisplayname, posts_1.contentlicense, posts_1.acceptedanswerid, posts_1.acceptedanswerid, posts_1.parentid, posts_1.owneruserid, posts_1.owneruserid, posts_1.tags
@@ -26049,7 +26049,7 @@ select
   users_2.displayname, 
   users_1.accountid, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posts as posts_1
           inner join posthistory as posthistory_1
@@ -26067,7 +26067,7 @@ select
   posthistory_1.postid, 
   max(
     votes_1.userid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
       inner join posthistory as posthistory_1
@@ -26079,7 +26079,7 @@ limit 35;
 select  
   posts_1.ownerdisplayname, 
   postlinks_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
             inner join users as users_1
@@ -26107,7 +26107,7 @@ select
   comments_1.id, 
   min(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
     on (users_1.id = comments_1.id )
@@ -26120,7 +26120,7 @@ select
   min(
     votes_1.creationdate), 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.id, votes_1.votetypeid, votes_1.id
@@ -26128,7 +26128,7 @@ limit 30;
 select  
   comments_1.id, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 limit 37;
@@ -26136,7 +26136,7 @@ select
   posthistory_1.text, 
   posthistory_1.revisionguid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.text = posthistory_1.comment
 limit 20;
@@ -26146,7 +26146,7 @@ select
   posts_1.title, 
   posts_1.body, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate < posts_1.creationdate
 limit 13;
@@ -26155,7 +26155,7 @@ select
     users_1.id), 
   users_2.websiteurl, 
   users_2.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join users as users_2
     on (users_1.id = users_2.id )
@@ -26169,7 +26169,7 @@ select
   min(
     postlinks_1.creationdate), 
   postlinks_1.linktypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.linktypeid
@@ -26178,14 +26178,14 @@ select distinct
   users_1.id, 
   users_1.websiteurl, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl >= users_1.accountid
 limit 13;
 select  
   users_1.location, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 limit 8;
@@ -26201,7 +26201,7 @@ select
   postlinks_1.creationdate, 
   sum(
     postlinks_1.linktypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join postlinks as postlinks_1
       on (posts_1.id = postlinks_1.id )
@@ -26213,7 +26213,7 @@ limit 6;
 select  
   postlinks_2.creationdate, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join postlinks as postlinks_2
     on (postlinks_1.id = postlinks_2.id )
@@ -26225,7 +26225,7 @@ select
   posthistory_1.posthistorytypeid, 
   max(
     posthistory_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
         inner join users as users_2
@@ -26238,7 +26238,7 @@ group by posthistory_1.contentlicense, posthistory_1.text, posthistory_1.posthis
 limit 35;
 select  
   comments_3.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join users as users_1
           inner join comments as comments_2
@@ -26263,7 +26263,7 @@ select
   posts_1.title, 
   posts_1.tags, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 group by posts_1.ownerdisplayname, posts_1.creationdate, posts_1.owneruserid, posts_1.title, posts_1.owneruserid, posts_1.title, posts_1.tags, posts_1.id
@@ -26282,7 +26282,7 @@ select
   postlinks_1.creationdate, 
   badges_1.name, 
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
     on (postlinks_1.id = badges_1.id )
@@ -26296,7 +26296,7 @@ select
   posthistory_1.text, 
   max(
     posthistory_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 group by posthistory_1.text, posthistory_1.postid, posthistory_1.id, posthistory_1.text
@@ -26304,7 +26304,7 @@ limit 16;
 select  
   posthistory_1.text, 
   comments_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -26314,7 +26314,7 @@ select
   badges_1.id, 
   badges_1.name, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
     on (badges_1.id = votes_1.id )
@@ -26322,7 +26322,7 @@ where votes_1.votetypeid is not NULL
 limit 34;
 select  
   postlinks_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate < postlinks_1.creationdate
 limit 20;
@@ -26344,7 +26344,7 @@ select
   votes_1.id, 
   postlinks_1.creationdate, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join postlinks as postlinks_1
     on (votes_1.id = postlinks_1.id )
@@ -26366,7 +26366,7 @@ select
   users_1.displayname, 
   users_1.profileimageurl, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
     on (posts_1.id = users_1.id )
@@ -26376,7 +26376,7 @@ limit 23;
 select  
   max(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 13;
@@ -26385,7 +26385,7 @@ select
   comments_1.postid, 
   comments_1.userdisplayname, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
       inner join votes as votes_1
@@ -26399,7 +26399,7 @@ select
     users_1.accountid), 
   min(
     comments_1.contentlicense)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join users as users_1
       inner join users as users_2
@@ -26410,7 +26410,7 @@ group by users_1.creationdate
 limit 42;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl <= users_1.displayname
 limit 18;
@@ -26426,7 +26426,7 @@ select
   badges_1.date, 
   badges_1.userid, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.id is not NULL
 group by badges_1.id, badges_1.date, badges_1.userid, badges_1.name, badges_1.name, badges_1.name, badges_1.date, badges_1.userid, badges_1.name
@@ -26439,7 +26439,7 @@ select
   posthistory_1.posthistorytypeid, 
   posthistory_1.text, 
   posthistory_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userdisplayname is not NULL
 group by posthistory_1.postid, posthistory_1.comment, posthistory_1.posthistorytypeid, posthistory_1.text, posthistory_1.contentlicense
@@ -26449,7 +26449,7 @@ select
   posts_1.owneruserid, 
   posts_1.ownerdisplayname, 
   posts_1.tags
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 limit 6;
@@ -26458,7 +26458,7 @@ select
   posts_1.creationdate, 
   min(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join postlinks as postlinks_1
       on (posts_1.id = postlinks_1.id )
@@ -26472,7 +26472,7 @@ limit 12;
 select  
   posts_1.contentlicense, 
   posts_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate is not NULL
 limit 15;
@@ -26486,7 +26486,7 @@ select
     users_1.websiteurl), 
   min(
     users_1.websiteurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate is not NULL
 group by users_1.websiteurl, users_1.id, users_1.location
@@ -26501,7 +26501,7 @@ select
     badges_1.userid), 
   comments_1.id, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join badges as badges_1
       on (posts_1.id = badges_1.id )
@@ -26516,7 +26516,7 @@ select
   posts_1.tags, 
   posts_1.ownerdisplayname, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 group by posts_1.id, posts_1.tags, posts_1.ownerdisplayname, posts_1.parentid
@@ -26546,7 +26546,7 @@ select
   min(
     postlinks_1.creationdate), 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate < postlinks_1.creationdate
 group by postlinks_1.linktypeid, postlinks_1.linktypeid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.relatedpostid, postlinks_1.creationdate, postlinks_1.relatedpostid, postlinks_1.linktypeid, postlinks_1.creationdate
@@ -26554,7 +26554,7 @@ limit 35;
 select  
   comments_1.id, 
   postlinks_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join badges as badges_1
           inner join comments as comments_1
@@ -26570,14 +26570,14 @@ where comments_1.userid is not NULL
 limit 2;
 select  
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 limit 20;
 select  
   posthistory_1.text, 
   posthistory_1.comment
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join badges as badges_1
     on (posthistory_1.id = badges_1.id )
@@ -26586,7 +26586,7 @@ limit 12;
 select distinct 
   min(
     users_1.accountid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid is not NULL
 limit 1;
@@ -26597,7 +26597,7 @@ select
   comments_2.postid, 
   comments_4.creationdate, 
   comments_2.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join comments as comments_2
         inner join comments as comments_3
@@ -26610,7 +26610,7 @@ limit 28;
 select  
   users_1.accountid, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
     on (votes_1.id = users_1.id )
@@ -26619,13 +26619,13 @@ limit 5;
 select  
   count(
     comments_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 limit 36;
 select  
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -26643,7 +26643,7 @@ select
   max(
     posts_1.title), 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname >= posts_1.body
 group by posts_1.title, posts_1.id, posts_1.ownerdisplayname, posts_1.ownerdisplayname, posts_1.contentlicense, posts_1.owneruserid, posts_1.body
@@ -26652,7 +26652,7 @@ select
   posts_1.owneruserid, 
   posts_1.tags, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.ownerdisplayname is not NULL
 limit 15;
@@ -26672,7 +26672,7 @@ select
   votes_2.postid, 
   votes_2.creationdate, 
   votes_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join votes as votes_2
     on (votes_1.id = votes_2.id )
@@ -26687,7 +26687,7 @@ select
   posts_1.creationdate, 
   posts_1.ownerdisplayname, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate > posts_1.creationdate
 group by posts_1.posttypeid, posts_1.owneruserid, posts_1.contentlicense, posts_1.creationdate, posts_1.ownerdisplayname, posts_1.posttypeid
@@ -26702,7 +26702,7 @@ select
   badges_1.tagbased, 
   badges_1.tagbased, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.tagbased, badges_1.userid, badges_1.userid, badges_1.tagbased, badges_1.tagbased, badges_1.tagbased, badges_1.tagbased
@@ -26732,7 +26732,7 @@ select
     votes_1.creationdate), 
   max(
     votes_1.postid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.creationdate, votes_1.postid, votes_1.id, votes_1.postid, votes_1.id, votes_1.creationdate, votes_1.votetypeid, votes_1.votetypeid, votes_1.postid, votes_1.id, votes_1.id, votes_1.userid
@@ -26748,7 +26748,7 @@ select
   postlinks_1.linktypeid, 
   badges_2.userid, 
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join badges as badges_2
       on (badges_1.id = badges_2.id )
@@ -26766,7 +26766,7 @@ select
   posthistory_1.id, 
   posthistory_1.postid, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate > posthistory_1.creationdate
 group by posthistory_1.posthistorytypeid, posthistory_1.text, posthistory_1.revisionguid, posthistory_1.id, posthistory_1.postid, posthistory_1.userid
@@ -26784,7 +26784,7 @@ select
   votes_1.id, 
   votes_1.creationdate, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.id is not NULL
 limit 5;
@@ -26797,7 +26797,7 @@ select
   count(*), 
   votes_1.postid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 group by votes_1.id, votes_1.creationdate, votes_1.postid, votes_1.postid, votes_1.id
@@ -26814,7 +26814,7 @@ select
   users_1.profileimageurl, 
   min(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join badges as badges_1
     on (users_1.id = badges_1.id )
@@ -26834,7 +26834,7 @@ select
   posts_1.parentid, 
   posts_1.ownerdisplayname, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join comments as comments_1
       on (postlinks_1.id = comments_1.id )
@@ -26854,7 +26854,7 @@ select
   posts_1.acceptedanswerid, 
   max(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate > posts_1.creationdate
 group by posts_1.acceptedanswerid, posts_1.body, posts_1.posttypeid, posts_1.title, posts_1.body, posts_1.acceptedanswerid
@@ -26864,7 +26864,7 @@ select
     users_1.profileimageurl), 
   users_1.websiteurl, 
   posts_2.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posts as posts_2
       on (posts_1.id = posts_2.id )
@@ -26886,7 +26886,7 @@ select
   users_1.id, 
   min(
     users_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.profileimageurl is not NULL
 group by users_1.location, users_1.profileimageurl, users_1.aboutme, users_1.displayname, users_1.accountid, users_1.profileimageurl, users_1.location, users_1.id
@@ -26897,7 +26897,7 @@ select
   users_1.creationdate, 
   users_1.accountid, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location >= users_1.aboutme
 group by users_1.creationdate, users_1.accountid, users_1.creationdate
@@ -26913,14 +26913,14 @@ select
   max(
     users_1.creationdate), 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.accountid = users_1.profileimageurl
 group by users_1.location, users_1.accountid, users_1.id, users_1.aboutme, users_1.displayname, users_1.location
 limit 5;
 select  
   votes_2.votetypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join users as users_1
         inner join votes as votes_1
@@ -26940,7 +26940,7 @@ select
   max(
     posthistory_1.creationdate), 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
       inner join posthistory as posthistory_2
       on (posthistory_1.id = posthistory_2.id )
@@ -26966,7 +26966,7 @@ select
   posts_1.parentid, 
   count(*), 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate = posts_1.creationdate
 group by posts_1.tags, posts_1.acceptedanswerid, posts_1.parentid, posts_1.ownerdisplayname, posts_1.title, posts_1.parentid, posts_1.body
@@ -26981,7 +26981,7 @@ select
     users_1.displayname), 
   users_1.creationdate, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join users as users_1
     on (badges_1.id = users_1.id )
@@ -27013,7 +27013,7 @@ select
   max(
     badges_1.name), 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join badges as badges_1
     on (posthistory_1.id = badges_1.id )
@@ -27023,7 +27023,7 @@ limit 2;
 select  
   votes_1.postid, 
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join votes as votes_1
       on (users_1.id = votes_1.id )
@@ -27034,7 +27034,7 @@ limit 33;
 select  
   votes_1.userid, 
   votes_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.votetypeid > votes_1.userid
 limit 12;
@@ -27047,7 +27047,7 @@ select
   posts_1.creationdate, 
   min(
     posts_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.acceptedanswerid is not NULL
 group by posts_1.acceptedanswerid, posts_1.parentid, posts_1.parentid, posts_1.creationdate
@@ -27096,7 +27096,7 @@ select
   posthistory_1.userdisplayname, 
   posthistory_1.userid, 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.creationdate >= posthistory_1.creationdate
 group by posthistory_1.creationdate, posthistory_1.userid, posthistory_1.contentlicense, posthistory_1.id, posthistory_1.userid, posthistory_1.contentlicense, posthistory_1.id, posthistory_1.id, posthistory_1.userid, posthistory_1.comment, posthistory_1.userid, posthistory_1.revisionguid, posthistory_1.contentlicense, posthistory_1.userdisplayname, posthistory_1.posthistorytypeid, posthistory_1.contentlicense, posthistory_1.creationdate, posthistory_1.contentlicense, posthistory_1.contentlicense, posthistory_1.id, posthistory_1.id, posthistory_1.id, posthistory_1.postid, posthistory_1.creationdate, posthistory_1.creationdate, posthistory_1.comment, posthistory_1.userid, posthistory_1.postid, posthistory_1.posthistorytypeid, posthistory_1.userdisplayname, posthistory_1.text, posthistory_1.text, posthistory_1.postid, posthistory_1.userdisplayname, posthistory_1.userid, posthistory_1.posthistorytypeid
@@ -27106,7 +27106,7 @@ select
   posts_2.creationdate, 
   posts_1.id, 
   posthistory_1.revisionguid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
       inner join posts as posts_1
         inner join posts as posts_2
@@ -27135,7 +27135,7 @@ select
   badges_1.tagbased, 
   max(
     badges_1.date)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.id, badges_1.class, badges_1.id, badges_1.class, badges_1.date, badges_1.tagbased
@@ -27143,7 +27143,7 @@ limit 41;
 select  
   avg(
     users_1.profileimageurl)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join users as users_1
           inner join users as users_2
@@ -27163,7 +27163,7 @@ select
     badges_1.date), 
   badges_1.class, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date > badges_1.date
 group by badges_1.class, badges_1.class, badges_1.name
@@ -27186,20 +27186,20 @@ select
   min(
     postlinks_1.creationdate), 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.postid, postlinks_1.postid, postlinks_1.id, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.creationdate
 limit 37;
 select  
   badges_1.class
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 32;
 select  
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 13;
@@ -27215,7 +27215,7 @@ select
   min(
     badges_1.userid), 
   posthistory_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join badges as badges_1
       inner join posthistory as posthistory_2
@@ -27227,7 +27227,7 @@ limit 3;
 select  
   posts_1.id, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.posttypeid is not NULL
 limit 39;
@@ -27235,7 +27235,7 @@ select
   users_1.accountid, 
   users_1.location, 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.creationdate <= users_1.creationdate
 limit 11;
@@ -27243,7 +27243,7 @@ select
   posthistory_1.comment, 
   posthistory_1.posthistorytypeid, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 limit 7;
@@ -27264,7 +27264,7 @@ select
   posts_1.creationdate, 
   posts_2.tags, 
   posts_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join users as users_1
         inner join posthistory as posthistory_1
@@ -27288,7 +27288,7 @@ select
   posthistory_1.userid, 
   posthistory_1.text, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.postid is not NULL
 group by posthistory_1.contentlicense, posthistory_1.text, posthistory_1.postid, posthistory_1.userid, posthistory_1.text, posthistory_1.userid
@@ -27302,7 +27302,7 @@ select
   max(
     votes_1.creationdate), 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.creationdate is not NULL
 group by votes_1.postid, votes_1.userid, votes_1.userid, votes_1.id, votes_1.id, votes_1.creationdate
@@ -27313,7 +27313,7 @@ select
   posts_1.contentlicense, 
   posts_1.posttypeid, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.body is not NULL
 limit 27;
@@ -27335,7 +27335,7 @@ select
   max(
     users_1.profileimageurl), 
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join posts as posts_1
       inner join comments as comments_1
@@ -27348,7 +27348,7 @@ group by users_1.displayname, votes_1.userid, users_1.websiteurl, posts_1.ownerd
 limit 24;
 select  
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.location is not NULL
 limit 21;
@@ -27356,7 +27356,7 @@ select
   posts_1.title, 
   sum(
     posts_1.posttypeid)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid >= posts_1.acceptedanswerid
 group by posts_1.title
@@ -27368,7 +27368,7 @@ select
     posts_1.ownerdisplayname), 
   posts_1.owneruserid, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate <= posts_1.creationdate
 group by posts_1.creationdate, posts_1.ownerdisplayname, posts_1.owneruserid, posts_1.body
@@ -27384,7 +27384,7 @@ select
   posts_1.parentid, 
   posthistory_1.userdisplayname, 
   posts_1.parentid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join comments as comments_1
         inner join posts as posts_1
@@ -27403,7 +27403,7 @@ select
   postlinks_1.postid, 
   postlinks_1.linktypeid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.linktypeid is not NULL
 limit 36;
@@ -27411,7 +27411,7 @@ select
   min(
     badges_1.date), 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
       inner join posts as posts_1
         inner join comments as comments_1
@@ -27437,14 +27437,14 @@ select
     users_1.displayname), 
   users_1.profileimageurl, 
   users_1.displayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id is not NULL
 group by users_1.accountid, users_1.aboutme, users_1.location, users_1.location, users_1.accountid, users_1.location, users_1.profileimageurl, users_1.displayname, users_1.profileimageurl, users_1.displayname
 limit 25;
 select  
   users_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
       inner join users as users_1
       on (postlinks_1.id = users_1.id )
@@ -27454,14 +27454,14 @@ where postlinks_1.creationdate is not NULL
 limit 27;
 select  
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 42;
 select  
   max(
     badges_1.name)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date < badges_1.date
 limit 39;
@@ -27480,7 +27480,7 @@ select
   posts_1.owneruserid, 
   posts_1.acceptedanswerid, 
   badges_1.tagbased
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join badges as badges_1
       inner join votes as votes_1
@@ -27492,7 +27492,7 @@ limit 25;
 select  
   count(*), 
   posthistory_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.posthistorytypeid is not NULL
 group by posthistory_1.creationdate
@@ -27501,7 +27501,7 @@ select
   posthistory_1.id, 
   postlinks_1.postid, 
   postlinks_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join posthistory as posthistory_1
     on (postlinks_1.id = posthistory_1.id )
@@ -27511,27 +27511,27 @@ select
   votes_1.creationdate, 
   votes_1.userid, 
   votes_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.userid is not NULL
 limit 21;
 select  
   badges_1.id, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.class is not NULL
 limit 1;
 select  
   postlinks_1.relatedpostid, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.postid is not NULL
 limit 30;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.websiteurl is not NULL
 limit 3;
@@ -27539,7 +27539,7 @@ select
   posts_1.title, 
   posts_1.owneruserid, 
   posts_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.owneruserid is not NULL
 limit 8;
@@ -27553,7 +27553,7 @@ select
     posthistory_1.posthistorytypeid), 
   posts_1.ownerdisplayname, 
   posthistory_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join users as users_1
       inner join posts as posts_1
@@ -27569,7 +27569,7 @@ select
   comments_1.userid, 
   max(
     comments_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.creationdate > comments_1.creationdate
 group by comments_1.userid, comments_1.contentlicense, comments_1.postid, comments_1.userid
@@ -27582,7 +27582,7 @@ select
   votes_1.userid, 
   votes_1.postid, 
   votes_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid is not NULL
 group by votes_1.userid, votes_1.creationdate, votes_1.userid, votes_1.postid, votes_1.creationdate
@@ -27595,7 +27595,7 @@ select
   postlinks_1.id, 
   max(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join postlinks as postlinks_1
     on (posts_1.id = postlinks_1.id )
@@ -27611,7 +27611,7 @@ select
   comments_1.postid, 
   badges_1.userid, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -27636,7 +27636,7 @@ select
   votes_1.creationdate, 
   max(
     votes_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
 where votes_1.postid = votes_1.votetypeid
 group by votes_1.postid, votes_1.creationdate, votes_1.id, votes_1.postid, votes_1.creationdate, votes_1.postid, votes_1.id, votes_1.creationdate, votes_1.votetypeid, votes_1.postid, votes_1.creationdate, votes_1.creationdate
@@ -27648,14 +27648,14 @@ select
   badges_1.class, 
   badges_1.class, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.date is not NULL
 group by badges_1.id, badges_1.class, badges_1.class, badges_1.id
 limit 20;
 select  
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
     inner join posts as posts_1
     on (votes_1.id = posts_1.id )
@@ -27664,7 +27664,7 @@ limit 4;
 select  
   comments_1.id, 
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
         inner join users as users_2
         on (users_1.id = users_2.id )
@@ -27684,7 +27684,7 @@ select
   comments_1.text, 
   comments_1.creationdate, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 limit 16;
@@ -27693,7 +27693,7 @@ select
   sum(
     users_1.profileimageurl), 
   users_1.accountid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id > users_1.id
 group by users_1.accountid, users_1.accountid
@@ -27701,7 +27701,7 @@ limit 2;
 select  
   posthistory_1.creationdate, 
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.userid is not NULL
 limit 23;
@@ -27709,7 +27709,7 @@ select
   users_1.creationdate, 
   avg(
     users_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme is not NULL
 group by users_1.creationdate
@@ -27721,7 +27721,7 @@ select
   badges_1.tagbased, 
   badges_1.name, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
     inner join badges as badges_1
     on (comments_1.id = badges_1.id )
@@ -27755,7 +27755,7 @@ select
   postlinks_1.postid, 
   min(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate is not NULL
 group by postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.relatedpostid, postlinks_1.postid, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.creationdate, postlinks_1.postid, postlinks_1.creationdate, postlinks_1.id, postlinks_1.relatedpostid, postlinks_1.id, postlinks_1.postid
@@ -27763,7 +27763,7 @@ limit 1;
 select  
   postlinks_1.creationdate, 
   postlinks_1.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join postlinks as postlinks_1
     on (users_1.id = postlinks_1.id )
@@ -27773,7 +27773,7 @@ select
   users_1.profileimageurl, 
   users_1.aboutme, 
   postlinks_2.relatedpostid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   votes as votes_1
         inner join postlinks as postlinks_1
         on (votes_1.id = postlinks_1.id )
@@ -27785,7 +27785,7 @@ where postlinks_1.id is not NULL
 limit 21;
 select  
   users_1.profileimageurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
         inner join users as users_1
         on (posts_1.id = users_1.id )
@@ -27798,7 +27798,7 @@ limit 27;
 select  
   comments_1.id, 
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.contentlicense is not NULL
 limit 14;
@@ -27811,7 +27811,7 @@ select
   users_1.aboutme, 
   votes_1.postid, 
   votes_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join votes as votes_1
     on (users_1.id = votes_1.id )
@@ -27828,21 +27828,21 @@ select
   users_1.aboutme, 
   users_1.websiteurl, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.id > users_1.id
 group by users_1.creationdate, users_1.id, users_1.displayname, users_1.displayname, users_1.aboutme, users_1.websiteurl, users_1.creationdate
 limit 23;
 select  
   count(*)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment is not NULL
 limit 34;
 select  
   badges_1.id, 
   badges_1.date
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join posts as posts_1
       inner join posthistory as posthistory_1
@@ -27855,7 +27855,7 @@ limit 35;
 select  
   comments_1.text, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id is not NULL
 limit 26;
@@ -27870,7 +27870,7 @@ select
   avg(
     badges_2.class), 
   posthistory_1.posthistorytypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join posts as posts_1
         inner join badges as badges_1
@@ -27885,7 +27885,7 @@ select
   users_1.creationdate, 
   comments_2.text, 
   users_1.location
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
       inner join users as users_1
       on (comments_1.id = users_1.id )
@@ -27899,7 +27899,7 @@ select
   postlinks_1.linktypeid, 
   users_1.location, 
   users_1.websiteurl
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
     inner join users as users_1
     on (postlinks_1.id = users_1.id )
@@ -27916,7 +27916,7 @@ select
   postlinks_1.id, 
   min(
     postlinks_1.creationdate)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.relatedpostid is not NULL
 group by postlinks_1.id, postlinks_1.postid, postlinks_1.postid, postlinks_1.linktypeid, postlinks_1.id
@@ -27931,7 +27931,7 @@ select
   badges_1.tagbased, 
   posthistory_1.comment, 
   posthistory_1.userid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
         inner join badges as badges_1
         on (posthistory_1.id = badges_1.id )
@@ -27946,7 +27946,7 @@ limit 13;
 select  
   badges_1.tagbased, 
   badges_1.name
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
     inner join votes as votes_1
       inner join posthistory as posthistory_1
@@ -27957,7 +27957,7 @@ limit 24;
 select  
   posts_1.contentlicense, 
   posts_1.owneruserid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
     on (posts_1.id = users_1.id )
@@ -27967,7 +27967,7 @@ select
   comments_1.userdisplayname, 
   comments_1.text, 
   users_1.aboutme
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
     inner join comments as comments_1
     on (users_1.id = comments_1.id )
@@ -27978,7 +27978,7 @@ select
   posts_1.posttypeid, 
   posts_1.contentlicense, 
   posts_1.body
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.creationdate = posts_1.creationdate
 limit 10;
@@ -27988,14 +27988,14 @@ select
   badges_1.userid, 
   max(
     badges_1.class)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.name is not NULL
 group by badges_1.id, badges_1.id, badges_1.userid
 limit 5;
 select  
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
     inner join comments as comments_1
     on (posthistory_1.id = comments_1.id )
@@ -28003,7 +28003,7 @@ where posthistory_1.creationdate is not NULL
 limit 22;
 select  
   posthistory_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posthistory as posthistory_1
 where posthistory_1.comment <= posthistory_1.revisionguid
 limit 33;
@@ -28015,14 +28015,14 @@ select
   count(*), 
   comments_1.id, 
   comments_1.contentlicense
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id = comments_1.postid
 group by comments_1.postid, comments_1.id, comments_1.userdisplayname, comments_1.postid, comments_1.id, comments_1.contentlicense
 limit 15;
 select  
   comments_1.userdisplayname
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.userid is not NULL
 limit 24;
@@ -28030,7 +28030,7 @@ select
   users_1.profileimageurl, 
   min(
     users_1.id)
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   users as users_1
 where users_1.aboutme = users_1.location
 group by users_1.profileimageurl
@@ -28039,7 +28039,7 @@ select
   users_1.accountid, 
   users_1.websiteurl, 
   users_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
     inner join users as users_1
     on (posts_1.id = users_1.id )
@@ -28051,13 +28051,13 @@ select
   postlinks_1.linktypeid, 
   postlinks_1.relatedpostid, 
   postlinks_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   postlinks as postlinks_1
 where postlinks_1.creationdate < postlinks_1.creationdate
 limit 34;
 select  
   badges_1.id
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   badges as badges_1
 where badges_1.tagbased is not NULL
 limit 13;
@@ -28084,7 +28084,7 @@ select
   posts_1.parentid, 
   posts_1.tags, 
   posthistory_2.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
       inner join posthistory as posthistory_1
       on (posts_1.id = posthistory_1.id )
@@ -28098,7 +28098,7 @@ select
   posts_2.contentlicense, 
   posts_1.ownerdisplayname, 
   posts_1.posttypeid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
         inner join votes as votes_1
         on (posts_1.id = votes_1.id )
@@ -28110,7 +28110,7 @@ where posts_1.title is not NULL
 limit 13;
 select  
   comments_1.creationdate
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.id > comments_1.postid
 limit 8;
@@ -28121,14 +28121,14 @@ select
     comments_1.creationdate), 
   comments_1.userdisplayname, 
   comments_1.postid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 group by comments_1.contentlicense, comments_1.id, comments_1.userdisplayname, comments_1.postid
 limit 29;
 select  
   posts_1.acceptedanswerid
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   posts as posts_1
 where posts_1.parentid is not NULL
 limit 16;
@@ -28136,7 +28136,7 @@ select
   comments_1.userdisplayname, 
   comments_1.creationdate, 
   comments_1.text
-from 
+  , provsql.sr_why(provsql.provenance(), 'provmap') from
   comments as comments_1
 where comments_1.text is not NULL
 limit 35;
