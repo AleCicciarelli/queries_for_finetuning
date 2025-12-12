@@ -1,11 +1,11 @@
 #!/bin/sh
 
-DB="relstack"
+DB="tpch"
 USER="cicciara"
 HOST="127.0.0.1"
 PORT="5432"
-FILE="queries_relstack_def.sql"
-OUT="report_relstack.csv"
+FILE="queries_tpch_def.sql"
+OUT="report_tpch.csv"
 # password has been set in .pgpass file for security
 # n  CSV
 echo "id,query,success,error" > "$OUT"
