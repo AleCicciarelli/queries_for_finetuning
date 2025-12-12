@@ -2,7 +2,7 @@
 #execute this in sqlsmith directory 
 # config
 #DB_TARGET="host=127.0.0.1 port=5432 dbname=relf1 user=cicciara password=cicciara"
-DB_TARGET="host=127.0.0.1 port=5432 dbname=tpch user=sqlsmith_readonly"
+DB_TARGET="host=127.0.0.1 port=5432 dbname=tpch_tmp user=cicciara"
 
 NUM_QUERIES=2000
 OUTPUT_FILE="../tpch_queries/queries_tpch_def.sql"
