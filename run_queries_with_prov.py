@@ -8,11 +8,19 @@ HOST = "127.0.0.1"
 PORT = "5432"
 
 INPUT_SQL = "queries_tpch_def.sql"
-OUTPUT_JSONL = "tpch_results.jsonl"
+OUTPUT_JSONL = "tpch_prov.jsonl"
 
 # -------------------------
 # Utility
 # -------------------------
+def last_processed_id(path):
+    try:
+        with open(path) as f:
+            for line in f:
+                pass
+        return json.loads(line)["id"]
+    except FileNotFoundError:
+        return 0
 
 def run_psql(query: str) -> str:
     cmd = [
@@ -52,11 +60,15 @@ def load_queries(path):
 # -------------------------
 # Main
 # -------------------------
+START_ID = last_processed_id(OUTPUT_JSONL) + 1
 
-with open(OUTPUT_JSONL, "w") as out:
+
+
+with open(OUTPUT_JSONL, "a") as out:
     for qid, query in enumerate(load_queries(INPUT_SQL), start=1):
         print(f"→ Eseguo query id={qid}")
-
+        if qid < START_ID:
+            continue
         try:
             raw = run_psql(query)
 
