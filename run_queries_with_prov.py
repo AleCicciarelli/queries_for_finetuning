@@ -2,13 +2,13 @@ import subprocess
 import json
 import shlex
 
-DB = "tpch"
+DB = "relstack"
 USER = "cicciara"
 HOST = "127.0.0.1"
 PORT = "5432"
 
-INPUT_SQL = "queries_tpch_def.sql"
-OUTPUT_JSONL = "tpch_prov.jsonl"
+INPUT_SQL = "queries_relstack_def.sql"
+OUTPUT_JSONL = "relstack_prov.jsonl"
 
 # -------------------------
 # Utility

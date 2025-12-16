@@ -3387,7 +3387,7 @@ select
     on (posthistory_1.id = badges_1.id )
 where badges_1.id is not NULL
 limit 18;
-select distinct 
+select  
   posthistory_1.revisionguid
 , provsql.sr_why(provsql.provenance(), 'provmap') from 
   posthistory as posthistory_1
@@ -5461,7 +5461,7 @@ select
 where votes_1.votetypeid is not NULL
 group by votes_1.creationdate, votes_1.postid, votes_1.votetypeid
 limit 13;
-select distinct 
+select  
   badges_1.userid, 
   badges_1.class, 
 
@@ -8775,7 +8775,7 @@ select
 where users_1.accountid is not NULL
 group by users_1.accountid
 limit 14;
-select distinct 
+select  
   postlinks_1.postid, 
   postlinks_1.creationdate, 
   postlinks_1.id, 
@@ -12333,7 +12333,7 @@ select
   badges as badges_1
 where badges_1.date = badges_1.date
 limit 21;
-select distinct 
+select  
 
   posts_1.owneruserid
 , provsql.sr_why(provsql.provenance(), 'provmap') from 
@@ -14259,7 +14259,7 @@ select
 where users_1.location is not NULL
 group by users_1.displayname, users_1.id, users_1.location
 limit 18;
-select distinct 
+select  
   votes_1.userid, 
   votes_1.postid
 , provsql.sr_why(provsql.provenance(), 'provmap') from 
