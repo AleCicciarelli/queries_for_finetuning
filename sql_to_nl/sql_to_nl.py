@@ -2,7 +2,28 @@ import json
 from langchain_ollama import ChatOllama
 from langchain_core.messages import HumanMessage
 import textwrap
+import re
+import json
 
+# ---------------------------------------------------------
+# SQL parsing with metadata extraction
+# ---------------------------------------------------------
+def parse_sql_with_meta(content: str):
+    pattern = re.compile(
+        r"--\s*meta\s*(\{.*?\})\s*(.*?);",
+        re.DOTALL | re.IGNORECASE
+    )
+
+    matches = pattern.findall(content)
+
+    parsed = []
+    for meta_str, sql in matches:
+        parsed.append({
+            "meta": json.loads(meta_str),  # diventa dict
+            "sql": sql.strip() + ";"
+        })
+
+    return parsed
 
 # ---------------------------------------------------------
 # Prompt for SQL to NL conversion
@@ -52,15 +73,19 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3:70b")
         content = f.read()
 
     # split the content of the file into individual queries
-    queries = [q.strip() + ";" for q in content.split(";") if q.strip()]
+    queries = parse_sql_with_meta(content)
 
     results = []
 
     print(f" Found {len(queries)} queries.\n")
 
-    for i, sql in enumerate(queries, start=1):
+    for i, item in enumerate(queries, start=1):
+        sql = item["sql"]
+        meta = item["meta"]
         print(f"➡️  Query {i}:")
         print(sql)
+        print(f"    Meta: {meta}")
+
 
         nl = translate_sql_to_nl(llm, sql)
 
@@ -68,6 +93,7 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3:70b")
 
         results.append({
             "id": i,
+            "meta": meta,
             "sql": sql,
             "nl": nl
         })
