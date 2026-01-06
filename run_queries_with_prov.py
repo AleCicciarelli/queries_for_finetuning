@@ -7,8 +7,8 @@ USER = "cicciara"
 HOST = "127.0.0.1"
 PORT = "5432"
 
-INPUT_SQL = "queries_tpch_noset.sql"
-OUTPUT_JSONL = "tpch_noset_prov.jsonl"
+INPUT_SQL = "queries_tpch_mixedwithset.sql"
+OUTPUT_JSONL = "tpch_mixedwithset_prov.jsonl"
 
 # -------------------------
 # Utility

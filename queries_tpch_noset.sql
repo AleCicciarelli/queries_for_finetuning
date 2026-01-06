@@ -5056,7 +5056,7 @@ where customer_1.c_mktsegment = region_1.r_name
 group by customer_1.c_address, customer_1.c_mktsegment, region_1.r_comment, region_1.r_name, region_1.r_regionkey
 limit 9;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   lineitem_1.l_linestatus, 
   lineitem_1.l_discount
 , provsql.sr_why(provsql.provenance(), 'provmap') from 
@@ -5068,7 +5068,7 @@ select
   supplier_1.s_nationkey
 , provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
-      inner join region as region_1
+      inner join region as region_1, provsql.sr_why(provsql.provenance(), 'provmap') from 
             inner join part as part_1
             on (region_1.r_regionkey = part_1.p_partkey )
           inner join partsupp as partsupp_1
@@ -7654,7 +7654,7 @@ where nation_1.n_nationkey is not NULL
 group by nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
 limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   part_1.p_partkey, 
   part_1.p_comment, 
   part_1.p_container
@@ -9744,7 +9744,7 @@ where lineitem_1.l_shipinstruct < region_1.r_name
 group by lineitem_1.l_shipinstruct, lineitem_1.l_tax, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost, region_1.r_comment, region_1.r_name
 limit 42;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   partsupp_1.ps_suppkey, 
   nation_1.n_regionkey
 , provsql.sr_why(provsql.provenance(), 'provmap') from 
@@ -9921,7 +9921,7 @@ where customer_1.c_custkey is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey, customer_1.c_phone
 limit 3;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   nation_1.n_nationkey, 
   nation_1.n_comment
 , provsql.sr_why(provsql.provenance(), 'provmap') from 

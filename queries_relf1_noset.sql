@@ -2,7 +2,7 @@
 select  
   standings_1.driverid, 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.raceid is not NULL
 limit 37;
@@ -11,7 +11,7 @@ select
   qualifying_1.raceid, 
   qualifying_1.driverid, 
   qualifying_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 limit 22;
@@ -19,7 +19,7 @@ limit 22;
 select  
   circuits_1.lat, 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lat is not NULL
 limit 28;
@@ -28,7 +28,7 @@ select
   results_1.position, 
   qualifying_1.raceid, 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join results as results_1
     on (qualifying_1.qualifyid = results_1.resultid )
@@ -43,7 +43,7 @@ select
   constructor_results_1.points, 
   count(
     constructor_results_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points <= constructor_results_1.points
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -56,7 +56,7 @@ select
   constructor_standings_1.points, 
   min(
     constructor_standings_1.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins is not NULL
 group by constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -66,7 +66,7 @@ select
   standings_1.raceid, 
   constructor_standings_1.points, 
   standings_2.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructor_standings as constructor_standings_1
       inner join standings as standings_2
@@ -80,7 +80,7 @@ select
   count(
     drivers_1.forename), 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.surname is not NULL
 group by drivers_1.dob, drivers_1.driverid
@@ -93,7 +93,7 @@ select
   constructor_standings_1.constructorid, 
   constructor_standings_1.raceid, 
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.position is not NULL
 limit 20;
@@ -105,7 +105,7 @@ select
   races_1.raceid, 
   min(
     races_1.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join races as races_1
     on (drivers_1.driverid = races_1.raceid )
@@ -116,7 +116,7 @@ limit 3;
 select  
   max(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.name is not NULL
 limit 39;
@@ -129,7 +129,7 @@ select
   circuits_1.circuitref, 
   sum(
     circuits_1.circuitid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lat <= circuits_1.alt
 group by circuits_1.alt, circuits_1.circuitref, circuits_1.country, circuits_1.location, circuits_1.name
@@ -141,7 +141,7 @@ select
   constructors_1.constructorref, 
   max(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality > constructors_1.constructorref
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name
@@ -153,7 +153,7 @@ select
   standings_1.position, 
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join standings as standings_1
     on (qualifying_1.qualifyid = standings_1.driverstandingsid )
@@ -163,7 +163,7 @@ limit 24;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_standings as constructor_standings_2
     on (constructor_standings_1.constructorstandingsid = constructor_standings_2.constructorstandingsid )
@@ -181,7 +181,7 @@ select
   races_1.circuitid, 
   count(
     races_1.year)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join constructor_results as constructor_results_1
       on (races_1.raceid = constructor_results_1.constructorresultsid )
@@ -195,7 +195,7 @@ limit 21;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
     on (results_1.resultid = circuits_1.circuitid )
@@ -211,7 +211,7 @@ select
   avg(
     circuits_2.circuitid), 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join circuits as circuits_2
     on (circuits_1.circuitid = circuits_2.circuitid )
@@ -221,7 +221,7 @@ limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date <= constructor_results_1.date
 limit 5;
@@ -232,7 +232,7 @@ select
   constructor_results_1.points, 
   constructor_results_1.constructorresultsid, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.points
@@ -241,7 +241,7 @@ limit 13;
 select  
   min(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructor_standings as constructor_standings_1
       inner join constructor_results as constructor_results_2
@@ -252,7 +252,7 @@ limit 26;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_2.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join constructor_standings as constructor_standings_2
         inner join qualifying as qualifying_1
@@ -280,7 +280,7 @@ select
   sum(
     constructor_standings_1.points), 
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join constructor_results as constructor_results_1
       on (constructor_standings_1.constructorstandingsid = constructor_results_1.constructorresultsid )
@@ -298,7 +298,7 @@ select
   constructor_results_1.raceid, 
   constructor_results_1.constructorresultsid, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.raceid
@@ -306,7 +306,7 @@ limit 14;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join standings as standings_1
     on (circuits_1.circuitid = standings_1.driverstandingsid )
@@ -317,7 +317,7 @@ select
   results_1.driverid, 
   results_1.date, 
   results_1.statusid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.rank is not NULL
 limit 16;
@@ -329,7 +329,7 @@ select
   constructors_1.nationality, 
   constructors_1.name, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join constructors as constructors_1
     on (races_1.raceid = constructors_1.constructorid )
@@ -354,7 +354,7 @@ select
     standings_1.points), 
   sum(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date > standings_1.date
 group by standings_1.date, standings_1.driverid, standings_1.points, standings_1.position, standings_1.raceid, standings_1.wins
@@ -367,7 +367,7 @@ select
   count(
     constructors_1.name), 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref > constructors_1.name
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -375,7 +375,7 @@ limit 31;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 limit 6;
@@ -396,7 +396,7 @@ select
   constructor_standings_1.raceid, 
   races_1.year, 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
         inner join constructor_standings as constructor_standings_1
           inner join races as races_1
@@ -415,7 +415,7 @@ limit 13;
 select  
   constructors_1.nationality, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 limit 34;
@@ -426,7 +426,7 @@ select
   min(
     races_1.date), 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 group by races_1.circuitid, races_1.round, races_1.year
@@ -446,7 +446,7 @@ select
   qualifying_1.date, 
   results_1.milliseconds, 
   results_1.positionorder
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join races as races_1
         inner join results as results_1
@@ -464,7 +464,7 @@ select
   races_1.circuitid, 
   races_1.round, 
   standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join races as races_1
     on (standings_1.driverstandingsid = races_1.raceid )
@@ -476,7 +476,7 @@ select
   constructors_1.nationality, 
   count(
     constructors_1.nationality)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 group by constructors_1.nationality
@@ -494,7 +494,7 @@ select
   races_1.year, 
   max(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
         inner join constructor_results as constructor_results_1
         on (races_1.raceid = constructor_results_1.constructorresultsid )
@@ -516,7 +516,7 @@ select
   circuits_1.alt, 
   circuits_1.name, 
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.alt is not NULL
 limit 33;
@@ -529,7 +529,7 @@ select
   circuits_1.lat, 
   max(
     circuits_1.alt)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.alt is not NULL
 group by circuits_1.alt, circuits_1.lat, circuits_1.location
@@ -537,7 +537,7 @@ limit 41;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
     on (results_1.resultid = circuits_1.circuitid )
@@ -553,7 +553,7 @@ select
   standings_1.points, 
   standings_1.position, 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.raceid = standings_1.wins
 group by standings_1.date, standings_1.driverstandingsid, standings_1.points, standings_1.position, standings_1.raceid, standings_1.wins
@@ -574,7 +574,7 @@ select
   standings_1.wins, 
   sum(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date is not NULL
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.points, standings_1.position, standings_1.wins
@@ -601,7 +601,7 @@ select
     results_1.date), 
   max(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_results as constructor_results_1
       inner join results as results_2
@@ -619,7 +619,7 @@ select
   max(
     constructor_standings_1.position), 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join results as results_1
         inner join constructor_results as constructor_results_1
@@ -640,7 +640,7 @@ select
   min(
     races_1.date), 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time <= races_1.name
 group by races_1.round, races_1.year
@@ -650,7 +650,7 @@ select
   max(
     results_1.resultid), 
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.position is not NULL
 group by results_1.resultid
@@ -659,7 +659,7 @@ limit 33;
 select  
   constructor_results_1.constructorid, 
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 limit 11;
@@ -669,7 +669,7 @@ select
   standings_1.driverid, 
   constructor_results_1.constructorid, 
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join standings as standings_1
     on (constructor_results_1.constructorresultsid = standings_1.driverstandingsid )
@@ -685,7 +685,7 @@ select
     constructor_standings_1.date), 
   constructor_standings_1.position, 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorid is not NULL
 group by constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid
@@ -696,7 +696,7 @@ select
   results_1.resultid, 
   sum(
     results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.positionorder is not NULL
 group by results_1.grid, results_1.resultid
@@ -704,7 +704,7 @@ limit 1;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join constructor_results as constructor_results_1
       inner join qualifying as qualifying_1
@@ -717,7 +717,7 @@ select
   drivers_1.dob, 
   drivers_1.driverid, 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join drivers as drivers_1
     on (constructors_1.constructorid = drivers_1.driverid )
@@ -727,14 +727,14 @@ limit 9;
 select  
   results_1.resultid, 
   results_1.rank
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.raceid is not NULL
 limit 24;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
     on (results_1.resultid = circuits_1.circuitid )
@@ -751,7 +751,7 @@ select
   constructor_results_1.raceid, 
   max(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join standings as standings_1
       inner join qualifying as qualifying_1
@@ -766,7 +766,7 @@ select
   standings_1.driverstandingsid, 
   sum(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructors as constructors_1
     on (standings_1.driverstandingsid = constructors_1.constructorid )
@@ -791,7 +791,7 @@ select
   constructor_standings_1.position, 
   results_1.date, 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join results as results_1
       on (constructor_standings_1.constructorstandingsid = results_1.resultid )
@@ -810,7 +810,7 @@ select
   constructor_results_1.raceid, 
   min(
     constructor_results_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.points, constructor_results_1.raceid
@@ -824,7 +824,7 @@ select
   constructor_results_1.date, 
   constructor_results_1.points, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date < constructor_results_1.date
 group by constructor_results_1.constructorid, constructor_results_1.date, constructor_results_1.points
@@ -836,7 +836,7 @@ select
   qualifying_1.date, 
   max(
     qualifying_1.number)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid is not NULL
 group by qualifying_1.constructorid, qualifying_1.date, qualifying_1.raceid
@@ -850,7 +850,7 @@ select
   results_1.date, 
   max(
     results_1.rank)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join races as races_1
           inner join constructors as constructors_1
@@ -867,7 +867,7 @@ limit 38;
 select  
   races_1.round, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 limit 34;
@@ -877,7 +877,7 @@ select
     constructors_1.constructorid), 
   count(*), 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 group by constructors_1.constructorid
@@ -897,7 +897,7 @@ select
   qualifying_1.number, 
   count(*), 
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 group by qualifying_1.constructorid, qualifying_1.date, qualifying_1.driverid, qualifying_1.number, qualifying_1.qualifyid, qualifying_1.raceid
@@ -920,7 +920,7 @@ select
   min(
     constructor_standings_1.date), 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -928,7 +928,7 @@ limit 32;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 limit 31;
@@ -939,7 +939,7 @@ select
   count(
     circuits_1.circuitid), 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng < circuits_1.lat
 group by circuits_1.circuitref
@@ -954,7 +954,7 @@ select
   min(
     races_1.date), 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 group by races_1.circuitid, races_1.name, races_1.round, races_1.time
@@ -973,7 +973,7 @@ select
     constructor_results_1.date), 
   min(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -985,7 +985,7 @@ select
   circuits_1.country, 
   constructors_1.name, 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join results as results_1
       inner join qualifying as qualifying_1
@@ -1001,7 +1001,7 @@ limit 35;
 select  
   constructor_results_1.date, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points is not NULL
 limit 36;
@@ -1011,7 +1011,7 @@ select
   qualifying_1.driverid, 
   qualifying_1.raceid, 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 limit 13;
@@ -1020,7 +1020,7 @@ select
   constructor_standings_1.raceid, 
   constructor_standings_1.constructorid, 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins is not NULL
 limit 22;
@@ -1037,7 +1037,7 @@ select
   standings_1.date, 
   avg(
     results_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join results as results_1
       inner join standings as standings_1
@@ -1056,7 +1056,7 @@ select
   count(
     circuits_1.location), 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join circuits as circuits_1
     on (races_1.raceid = circuits_1.circuitid )
@@ -1066,7 +1066,7 @@ limit 9;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join circuits as circuits_1
     on (constructor_results_1.constructorresultsid = circuits_1.circuitid )
@@ -1081,7 +1081,7 @@ select
     constructors_1.constructorid), 
   sum(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name
@@ -1094,7 +1094,7 @@ select
   constructor_standings_1.raceid, 
   constructor_standings_1.date, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.raceid
@@ -1113,7 +1113,7 @@ select
   races_1.raceid, 
   circuits_1.lat, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join constructor_results as constructor_results_1
       on (races_1.raceid = constructor_results_1.constructorresultsid )
@@ -1132,7 +1132,7 @@ select
     constructors_1.constructorid), 
   constructors_1.constructorid, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.nationality
@@ -1148,7 +1148,7 @@ select
   circuits_1.lng, 
   circuits_1.alt, 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lat is not NULL
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.circuitref, circuits_1.country, circuits_1.lng, circuits_1.location, circuits_1.name
@@ -1157,7 +1157,7 @@ limit 31;
 select  
   races_1.raceid, 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join drivers as drivers_1
       inner join races as races_1
@@ -1174,7 +1174,7 @@ select
   races_2.raceid, 
   sum(
     qualifying_1.qualifyid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
         inner join qualifying as qualifying_1
           inner join constructor_standings as constructor_standings_1
@@ -1194,7 +1194,7 @@ select
   results_1.driverid, 
   results_1.rank, 
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.milliseconds is not NULL
 limit 2;
@@ -1212,7 +1212,7 @@ select
     constructor_standings_2.points), 
   standings_1.position, 
   constructor_standings_2.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
         inner join qualifying as qualifying_1
         on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -1231,7 +1231,7 @@ select
   max(
     races_1.date), 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 group by races_1.date, races_1.year
@@ -1254,7 +1254,7 @@ select
   sum(
     results_1.milliseconds), 
   results_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.position is not NULL
 group by results_1.constructorid, results_1.driverid, results_1.fastestlap, results_1.grid, results_1.milliseconds, results_1.points, results_1.position, results_1.raceid, results_1.rank, results_1.statusid
@@ -1263,7 +1263,7 @@ limit 25;
 select  
   circuits_1.country, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 limit 33;
@@ -1272,7 +1272,7 @@ select
   max(
     qualifying_1.date), 
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 group by qualifying_1.number
@@ -1287,7 +1287,7 @@ select
   avg(
     results_1.position), 
   results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date <= results_1.date
 group by results_1.constructorid, results_1.date, results_1.grid, results_1.number, results_1.position, results_1.raceid
@@ -1297,7 +1297,7 @@ select
   circuits_1.alt, 
   constructor_results_1.points, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_results as constructor_results_1
     on (circuits_1.circuitid = constructor_results_1.constructorresultsid )
@@ -1308,7 +1308,7 @@ select
   standings_1.position, 
   standings_1.raceid, 
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date > standings_1.date
 limit 26;
@@ -1318,7 +1318,7 @@ select
   races_1.round, 
   constructors_1.nationality, 
   results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join drivers as drivers_1
         inner join results as results_1
@@ -1339,7 +1339,7 @@ select
   circuits_1.circuitid, 
   circuits_1.lng, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join results as results_1
     on (circuits_1.circuitid = results_1.resultid )
@@ -1350,7 +1350,7 @@ select
   circuits_1.circuitid, 
   circuits_1.alt, 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join results as results_1
     on (circuits_1.circuitid = results_1.resultid )
@@ -1362,7 +1362,7 @@ select
   avg(
     qualifying_1.position), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 group by qualifying_1.driverid
@@ -1371,7 +1371,7 @@ limit 1;
 select  
   circuits_1.name, 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join circuits as circuits_1
     on (qualifying_1.qualifyid = circuits_1.circuitid )
@@ -1385,7 +1385,7 @@ select
   results_1.position, 
   results_1.rank, 
   results_1.fastestlap
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date is not NULL
 group by results_1.fastestlap, results_1.laps, results_1.points, results_1.position, results_1.rank
@@ -1396,7 +1396,7 @@ select
   races_1.name, 
   races_1.raceid, 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 limit 25;
@@ -1408,7 +1408,7 @@ select
   avg(
     circuits_1.lat), 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join circuits as circuits_1
     on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -1418,14 +1418,14 @@ limit 10;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng is not NULL
 limit 40;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 limit 29;
@@ -1443,7 +1443,7 @@ select
   constructor_standings_1.position, 
   qualifying_1.driverid, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join qualifying as qualifying_1
     on (constructor_standings_1.constructorstandingsid = qualifying_1.qualifyid )
@@ -1461,7 +1461,7 @@ select
     constructors_1.constructorid), 
   max(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid > constructors_1.constructorid
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.nationality
@@ -1470,7 +1470,7 @@ limit 34;
 select  
   constructor_results_1.constructorid, 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 limit 14;
@@ -1483,7 +1483,7 @@ select
   drivers_1.code, 
   drivers_1.dob, 
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.dob is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.forename
@@ -1503,7 +1503,7 @@ select
   drivers_1.dob, 
   constructor_standings_1.raceid, 
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructor_standings as constructor_standings_1
       inner join races as races_1
@@ -1520,7 +1520,7 @@ select
   count(
     standings_1.wins), 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 group by standings_1.driverstandingsid, standings_1.position, standings_1.wins
@@ -1548,7 +1548,7 @@ select
   avg(
     results_1.number), 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join circuits as circuits_2
       inner join results as results_1
@@ -1565,7 +1565,7 @@ select
   qualifying_1.date, 
   qualifying_1.position, 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 limit 24;
@@ -1573,7 +1573,7 @@ limit 24;
 select  
   races_1.name, 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date > races_1.date
 limit 28;
@@ -1583,7 +1583,7 @@ select
   drivers_1.forename, 
   qualifying_1.raceid, 
   results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join drivers as drivers_1
       inner join results as results_1
@@ -1597,7 +1597,7 @@ select
   min(
     results_1.rank), 
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.position <= results_1.fastestlap
 group by results_1.milliseconds, results_1.position
@@ -1605,14 +1605,14 @@ limit 38;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date is not NULL
 limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points is not NULL
 limit 14;
@@ -1624,7 +1624,7 @@ select
   avg(
     constructor_standings_1.constructorstandingsid), 
   constructor_standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorid = constructor_standings_1.wins
 group by constructor_standings_1.points, constructor_standings_1.wins
@@ -1637,7 +1637,7 @@ select
   circuits_1.circuitid, 
   min(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join results as results_1
         inner join constructor_results as constructor_results_1
@@ -1653,7 +1653,7 @@ select
   constructor_results_1.date, 
   constructor_results_1.points, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 limit 20;
@@ -1665,7 +1665,7 @@ select
   races_1.name, 
   count(*), 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
     on (races_1.raceid = standings_1.driverstandingsid )
@@ -1678,7 +1678,7 @@ select
   results_1.number, 
   results_1.date, 
   results_1.fastestlap
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.statusid is not NULL
 limit 39;
@@ -1688,7 +1688,7 @@ select
   circuits_1.location, 
   circuits_1.lat, 
   circuits_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng is not NULL
 limit 36;
@@ -1706,7 +1706,7 @@ select
   max(
     constructor_standings_1.raceid), 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join circuits as circuits_1
       on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -1725,7 +1725,7 @@ select
   min(
     races_1.date), 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join races as races_1
     on (constructors_1.constructorid = races_1.raceid )
@@ -1740,7 +1740,7 @@ select
   max(
     drivers_1.dob), 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join drivers as drivers_1
     on (constructors_1.constructorid = drivers_1.driverid )
@@ -1754,7 +1754,7 @@ select
   avg(
     qualifying_1.position), 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid is not NULL
 group by qualifying_1.constructorid, qualifying_1.number, qualifying_1.qualifyid
@@ -1762,21 +1762,21 @@ limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid is not NULL
 limit 34;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date is not NULL
 limit 24;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join standings as standings_2
     on (standings_1.driverstandingsid = standings_2.driverstandingsid )
@@ -1785,7 +1785,7 @@ limit 42;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points < standings_1.points
 limit 25;
@@ -1796,7 +1796,7 @@ select
   drivers_1.code, 
   drivers_1.dob, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverid is not NULL
 limit 4;
@@ -1816,7 +1816,7 @@ select
   standings_1.driverstandingsid, 
   standings_2.raceid, 
   standings_2.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join standings as standings_2
     on (standings_1.driverstandingsid = standings_2.driverstandingsid )
@@ -1826,7 +1826,7 @@ limit 18;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 limit 36;
@@ -1834,7 +1834,7 @@ limit 36;
 select  
   avg(
     results_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join qualifying as qualifying_1
       on (results_1.resultid = qualifying_1.qualifyid )
@@ -1856,7 +1856,7 @@ select
   constructor_standings_2.position, 
   min(
     constructor_standings_2.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join races as races_1
       on (constructor_standings_1.constructorstandingsid = races_1.raceid )
@@ -1898,7 +1898,7 @@ select
     drivers_1.dob), 
   max(
     constructor_standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join drivers as drivers_1
         inner join constructor_standings as constructor_standings_1
@@ -1921,7 +1921,7 @@ select
     drivers_1.dob), 
   drivers_1.forename, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructor_results as constructor_results_1
     on (drivers_1.driverid = constructor_results_1.constructorresultsid )
@@ -1941,7 +1941,7 @@ select
   constructors_1.constructorid, 
   avg(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructors as constructors_1
     on (constructor_results_1.constructorresultsid = constructors_1.constructorid )
@@ -1954,7 +1954,7 @@ select
     constructor_results_1.points), 
   min(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 limit 24;
@@ -1967,7 +1967,7 @@ select
   standings_1.points, 
   max(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join qualifying as qualifying_1
       on (constructor_results_1.constructorresultsid = qualifying_1.qualifyid )
@@ -1984,7 +1984,7 @@ select
   qualifying_1.qualifyid, 
   drivers_1.forename, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join qualifying as qualifying_1
     on (drivers_1.driverid = qualifying_1.qualifyid )
@@ -1995,14 +1995,14 @@ select
   circuits_1.lng, 
   circuits_1.circuitref, 
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.alt is not NULL
 limit 30;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join results as results_1
       on (constructor_standings_1.constructorstandingsid = results_1.resultid )
@@ -2015,7 +2015,7 @@ select
   drivers_1.code, 
   drivers_1.nationality, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join races as races_1
     on (drivers_1.driverid = races_1.raceid )
@@ -2029,7 +2029,7 @@ select
   avg(
     qualifying_1.constructorid), 
   qualifying_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 group by qualifying_1.constructorid, qualifying_1.date, qualifying_1.number, qualifying_1.position
@@ -2044,7 +2044,7 @@ select
   constructor_results_1.date, 
   max(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -2059,7 +2059,7 @@ select
   circuits_1.circuitref, 
   sum(
     circuits_1.alt)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join circuits as circuits_1
       on (constructors_1.constructorid = circuits_1.circuitid )
@@ -2073,7 +2073,7 @@ select
   results_1.resultid, 
   results_1.position, 
   results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.raceid is not NULL
 limit 24;
@@ -2083,14 +2083,14 @@ select
   drivers_1.surname, 
   drivers_1.dob, 
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.forename is not NULL
 limit 8;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 limit 31;
@@ -2103,7 +2103,7 @@ select
   results_1.raceid, 
   avg(
     results_1.laps)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.position <= results_1.fastestlap
 group by results_1.grid, results_1.milliseconds, results_1.positionorder, results_1.raceid, results_1.resultid
@@ -2114,7 +2114,7 @@ select
     constructor_standings_1.raceid), 
   constructor_standings_1.raceid, 
   constructor_standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.date is not NULL
 group by constructor_standings_1.raceid, constructor_standings_1.wins
@@ -2124,7 +2124,7 @@ select
   races_1.raceid, 
   count(*), 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join qualifying as qualifying_1
     on (races_1.raceid = qualifying_1.qualifyid )
@@ -2138,7 +2138,7 @@ select
   min(
     constructors_1.constructorid), 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 group by constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -2148,7 +2148,7 @@ select
   drivers_1.nationality, 
   drivers_1.driverref, 
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 limit 10;
@@ -2156,7 +2156,7 @@ limit 10;
 select  
   standings_1.raceid, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid is not NULL
 limit 5;
@@ -2172,7 +2172,7 @@ select
   constructor_results_1.constructorid, 
   sum(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.points, constructor_results_1.raceid
@@ -2183,7 +2183,7 @@ select
   standings_1.date, 
   standings_1.raceid, 
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date is not NULL
 limit 27;
@@ -2195,7 +2195,7 @@ select
   circuits_1.country, 
   max(
     circuits_1.circuitid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.location is not NULL
 group by circuits_1.country, circuits_1.lat, circuits_1.lng, circuits_1.location
@@ -2206,7 +2206,7 @@ select
   qualifying_1.raceid, 
   min(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join standings as standings_1
     on (qualifying_1.qualifyid = standings_1.driverstandingsid )
@@ -2225,7 +2225,7 @@ select
   avg(
     drivers_1.driverid), 
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid, drivers_1.driverref
@@ -2238,7 +2238,7 @@ select
   constructor_standings_1.date, 
   constructor_standings_1.points, 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructor_standings as constructor_standings_1
     on (constructors_1.constructorid = constructor_standings_1.constructorstandingsid )
@@ -2248,7 +2248,7 @@ limit 16;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join circuits as circuits_1
     on (qualifying_1.qualifyid = circuits_1.circuitid )
@@ -2267,7 +2267,7 @@ select
     drivers_1.dob), 
   results_1.rank, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join results as results_1
       on (constructors_1.constructorid = results_1.resultid )
@@ -2279,14 +2279,14 @@ limit 28;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.location is not NULL
 limit 17;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.grid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.raceid is not NULL
 limit 13;
@@ -2296,7 +2296,7 @@ select
     constructor_standings_1.points), 
   constructor_standings_1.points, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.points = constructor_standings_1.points
 group by constructor_standings_1.constructorid, constructor_standings_1.points
@@ -2309,7 +2309,7 @@ select
   min(
     constructors_1.constructorid), 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid <= constructors_1.constructorid
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -2319,7 +2319,7 @@ select
   qualifying_1.driverid, 
   constructors_1.name, 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join qualifying as qualifying_1
     on (constructors_1.constructorid = qualifying_1.qualifyid )
@@ -2328,7 +2328,7 @@ limit 30;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.raceid is not NULL
 limit 13;
@@ -2342,7 +2342,7 @@ select
   constructor_standings_1.wins, 
   min(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join races as races_1
       on (circuits_1.circuitid = races_1.raceid )
@@ -2363,7 +2363,7 @@ select
   avg(
     drivers_1.driverid), 
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 group by drivers_1.driverid, drivers_1.driverref, drivers_1.forename, drivers_1.nationality, drivers_1.surname
@@ -2374,7 +2374,7 @@ select
     qualifying_1.date), 
   qualifying_1.position, 
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 group by qualifying_1.number, qualifying_1.position
@@ -2384,7 +2384,7 @@ select
   constructors_1.constructorid, 
   constructors_1.constructorref, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid > constructors_1.constructorid
 limit 36;
@@ -2393,7 +2393,7 @@ select
   sum(
     constructor_standings_2.points), 
   races_2.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join constructor_standings as constructor_standings_1
       on (races_1.raceid = constructor_standings_1.constructorstandingsid )
@@ -2413,7 +2413,7 @@ select
   sum(
     qualifying_1.driverid), 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 group by qualifying_1.date, qualifying_1.number, qualifying_1.qualifyid
@@ -2423,14 +2423,14 @@ select
   results_1.statusid, 
   results_1.laps, 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.grid > results_1.driverid
 limit 42;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 limit 10;
@@ -2440,7 +2440,7 @@ select
   count(
     standings_1.raceid), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.wins is not NULL
 group by standings_1.wins
@@ -2452,7 +2452,7 @@ select
     constructor_standings_1.date), 
   qualifying_1.number, 
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join constructor_standings as constructor_standings_1
       inner join standings as standings_1
@@ -2470,7 +2470,7 @@ select
   min(
     constructor_results_1.points), 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructor_results as constructor_results_1
     on (constructors_1.constructorid = constructor_results_1.constructorresultsid )
@@ -2480,14 +2480,14 @@ limit 6;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverid is not NULL
 limit 7;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join races as races_2
     on (races_1.raceid = races_2.raceid )
@@ -2496,7 +2496,7 @@ limit 17;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.laps
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.points <= results_1.position
 limit 20;
@@ -2513,7 +2513,7 @@ select
     results_1.fastestlap), 
   max(
     drivers_2.dob)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
           inner join standings as standings_1
           on (drivers_1.driverid = standings_1.driverstandingsid )
@@ -2537,7 +2537,7 @@ select
   constructors_1.constructorref, 
   circuits_1.circuitid, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
         inner join circuits as circuits_1
         on (constructors_1.constructorid = circuits_1.circuitid )
@@ -2563,7 +2563,7 @@ select
   max(
     qualifying_1.driverid), 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 group by qualifying_1.constructorid, qualifying_1.driverid, qualifying_1.number, qualifying_1.position, qualifying_1.raceid
@@ -2571,7 +2571,7 @@ limit 21;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name > constructors_1.nationality
 limit 22;
@@ -2579,7 +2579,7 @@ limit 22;
 select  
   constructor_results_1.constructorid, 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join drivers as drivers_1
       inner join results as results_1
@@ -2593,7 +2593,7 @@ limit 25;
 select  
   constructors_1.name, 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 limit 38;
@@ -2607,7 +2607,7 @@ select
   constructor_results_1.constructorid, 
   constructor_results_1.constructorresultsid, 
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join standings as standings_1
       inner join drivers as drivers_1
@@ -2626,7 +2626,7 @@ select
   qualifying_1.qualifyid, 
   min(
     qualifying_1.qualifyid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join constructors as constructors_1
       on (qualifying_1.qualifyid = constructors_1.constructorid )
@@ -2644,7 +2644,7 @@ limit 26;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.position is not NULL
 limit 11;
@@ -2659,7 +2659,7 @@ select
     results_1.date), 
   results_1.positionorder, 
   results_1.statusid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.grid >= results_1.statusid
 group by results_1.driverid, results_1.number, results_1.points, results_1.positionorder, results_1.raceid, results_1.rank, results_1.statusid
@@ -2668,7 +2668,7 @@ limit 39;
 select  
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date = qualifying_1.date
 limit 9;
@@ -2676,7 +2676,7 @@ limit 9;
 select  
   standings_1.date, 
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 limit 31;
@@ -2685,7 +2685,7 @@ select
   circuits_1.country, 
   circuits_1.location, 
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.alt is not NULL
 limit 35;
@@ -2694,7 +2694,7 @@ select
   races_1.year, 
   races_1.round, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.raceid is not NULL
 limit 25;
@@ -2707,7 +2707,7 @@ select
   max(
     drivers_1.dob), 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructor_results as constructor_results_1
       inner join drivers as drivers_2
@@ -2725,7 +2725,7 @@ select
     constructors_1.constructorid), 
   constructors_1.nationality, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid > constructors_1.constructorid
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.nationality
@@ -2735,7 +2735,7 @@ select
   constructor_standings_1.constructorid, 
   constructor_standings_1.wins, 
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join circuits as circuits_1
       on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -2748,7 +2748,7 @@ select
   constructor_results_1.date, 
   constructor_results_1.points, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 group by constructor_results_1.date, constructor_results_1.points
@@ -2763,7 +2763,7 @@ select
   count(*), 
   min(
     constructor_standings_1.wins)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins > constructor_standings_1.position
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.wins
@@ -2776,7 +2776,7 @@ select
   max(
     drivers_1.dob), 
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join drivers as drivers_1
       inner join qualifying as qualifying_2
@@ -2804,7 +2804,7 @@ select
   min(
     circuits_1.alt), 
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
         inner join drivers as drivers_1
         on (races_1.raceid = drivers_1.driverid )
@@ -2824,7 +2824,7 @@ limit 14;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join drivers as drivers_1
         inner join standings as standings_1
@@ -2849,7 +2849,7 @@ select
   constructor_standings_1.wins, 
   min(
     constructor_standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.date = constructor_standings_1.date
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -2859,7 +2859,7 @@ select
   sum(
     circuits_1.lat), 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_standings as constructor_standings_1
     on (circuits_1.circuitid = constructor_standings_1.constructorstandingsid )
@@ -2870,7 +2870,7 @@ limit 11;
 select  
   standings_1.points, 
   standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.wins is not NULL
 limit 3;
@@ -2879,7 +2879,7 @@ select
   results_1.date, 
   min(
     results_1.number)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.grid is not NULL
 group by results_1.date
@@ -2902,7 +2902,7 @@ select
     circuits_1.circuitid), 
   max(
     circuits_1.circuitid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.country, circuits_1.lng, circuits_1.location, circuits_1.name
@@ -2912,21 +2912,21 @@ select
   drivers_1.forename, 
   drivers_1.surname, 
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverref is not NULL
 limit 4;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name is not NULL
 limit 14;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 limit 40;
@@ -2939,7 +2939,7 @@ select
   max(
     qualifying_1.number), 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 group by qualifying_1.constructorid, qualifying_1.qualifyid, qualifying_1.raceid
@@ -2951,7 +2951,7 @@ select
   drivers_1.driverid, 
   max(
     drivers_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 group by drivers_1.driverid, drivers_1.driverref, drivers_1.nationality
@@ -2964,7 +2964,7 @@ select
   standings_1.wins, 
   standings_1.driverid, 
   standings_2.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
         inner join standings as standings_2
         on (standings_1.driverstandingsid = standings_2.driverstandingsid )
@@ -2980,7 +2980,7 @@ select
   results_1.statusid, 
   results_2.milliseconds, 
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_standings as constructor_standings_1
         inner join results as results_2
@@ -2995,7 +2995,7 @@ select
   standings_1.date, 
   max(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid < standings_1.position
 group by standings_1.date
@@ -3003,7 +3003,7 @@ limit 1;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.points >= constructor_standings_1.points
 limit 13;
@@ -3012,7 +3012,7 @@ select
   constructors_1.nationality, 
   sum(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join races as races_2
       inner join constructors as constructors_1
@@ -3024,7 +3024,7 @@ limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.date is not NULL
 limit 10;
@@ -3047,7 +3047,7 @@ select
     races_1.date), 
   races_1.date, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 group by races_1.date, races_1.name, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -3059,7 +3059,7 @@ select
   constructor_standings_1.raceid, 
   max(
     constructor_standings_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorid is not NULL
 group by constructor_standings_1.raceid
@@ -3076,7 +3076,7 @@ select
   min(
     results_1.raceid), 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
           inner join standings as standings_1
           on (constructor_standings_1.constructorstandingsid = standings_1.driverstandingsid )
@@ -3092,7 +3092,7 @@ limit 27;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join circuits as circuits_1
       on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -3120,7 +3120,7 @@ select
     standings_1.raceid), 
   standings_1.date, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points > standings_1.points
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.points, standings_1.raceid
@@ -3128,7 +3128,7 @@ limit 13;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join drivers as drivers_2
     on (drivers_1.driverid = drivers_2.driverid )
@@ -3144,7 +3144,7 @@ select
     qualifying_1.date), 
   max(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 group by qualifying_1.constructorid, qualifying_1.driverid, qualifying_1.number, qualifying_1.qualifyid
@@ -3154,7 +3154,7 @@ select
   constructor_standings_1.date, 
   drivers_1.nationality, 
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join drivers as drivers_1
     on (constructor_standings_1.constructorstandingsid = drivers_1.driverid )
@@ -3166,7 +3166,7 @@ select
   races_1.raceid, 
   avg(
     races_1.year)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 group by races_1.raceid, races_1.round
@@ -3175,7 +3175,7 @@ limit 40;
 select  
   max(
     constructor_standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructors as constructors_1
     on (constructor_standings_1.constructorstandingsid = constructors_1.constructorid )
@@ -3195,7 +3195,7 @@ select
   avg(
     constructor_standings_1.constructorstandingsid), 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join races as races_1
       inner join drivers as drivers_1
@@ -3212,7 +3212,7 @@ select
   standings_1.raceid, 
   standings_1.wins, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 group by standings_1.date, standings_1.raceid, standings_1.wins
@@ -3222,7 +3222,7 @@ select
   qualifying_1.number, 
   constructors_1.nationality, 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join qualifying as qualifying_1
     on (constructors_1.constructorid = qualifying_1.qualifyid )
@@ -3232,7 +3232,7 @@ limit 23;
 select  
   races_1.date, 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.name is not NULL
 limit 13;
@@ -3244,7 +3244,7 @@ select
   min(
     qualifying_1.date), 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid is not NULL
 group by qualifying_1.constructorid, qualifying_1.date, qualifying_1.driverid, qualifying_1.qualifyid
@@ -3259,7 +3259,7 @@ select
   constructor_standings_1.raceid, 
   max(
     constructor_standings_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.date <= constructor_standings_1.date
 group by constructor_standings_1.constructorid, constructor_standings_1.points, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -3268,7 +3268,7 @@ limit 29;
 select  
   circuits_1.alt, 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitid is not NULL
 limit 13;
@@ -3278,7 +3278,7 @@ select
   results_1.fastestlap, 
   results_1.position, 
   results_1.rank
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date >= results_1.date
 limit 27;
@@ -3287,7 +3287,7 @@ select
   circuits_2.name, 
   constructors_1.nationality, 
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join circuits as circuits_2
       inner join constructors as constructors_1
@@ -3302,7 +3302,7 @@ select
   constructor_standings_1.date, 
   sum(
     circuits_2.lng)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
         inner join constructor_standings as constructor_standings_1
         on (circuits_1.circuitid = constructor_standings_1.constructorstandingsid )
@@ -3322,7 +3322,7 @@ select
   constructors_1.constructorref, 
   constructors_1.nationality, 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 limit 26;
@@ -3338,7 +3338,7 @@ select
   qualifying_2.date, 
   qualifying_2.position, 
   drivers_1.surname
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join qualifying as qualifying_1
       inner join qualifying as qualifying_2
@@ -3350,7 +3350,7 @@ limit 12;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.fastestlap
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
       inner join results as results_1
@@ -3371,7 +3371,7 @@ select
   results_1.date, 
   standings_1.date, 
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join standings as standings_1
       on (results_1.resultid = standings_1.driverstandingsid )
@@ -3388,7 +3388,7 @@ select
     constructor_standings_1.points), 
   circuits_1.circuitref, 
   results_1.positionorder
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
       inner join constructor_standings as constructor_standings_1
@@ -3402,7 +3402,7 @@ select
   min(
     constructor_results_1.date), 
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join drivers as drivers_1
         inner join constructors as constructors_2
@@ -3422,7 +3422,7 @@ limit 9;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 limit 22;
@@ -3430,7 +3430,7 @@ limit 22;
 select  
   standings_1.driverstandingsid, 
   results_2.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join standings as standings_1
       on (results_1.resultid = standings_1.driverstandingsid )
@@ -3447,7 +3447,7 @@ select
   races_1.date, 
   races_1.time, 
   races_2.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join races as races_2
       on (races_1.raceid = races_2.raceid )
@@ -3458,7 +3458,7 @@ limit 22;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join races as races_1
     on (results_1.resultid = races_1.raceid )
@@ -3474,7 +3474,7 @@ select
   results_1.resultid, 
   sum(
     results_1.milliseconds)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.milliseconds is not NULL
 group by results_1.position, results_1.rank, results_1.resultid, results_1.statusid
@@ -3482,7 +3482,7 @@ limit 27;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 limit 17;
@@ -3500,7 +3500,7 @@ select
     qualifying_1.date), 
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructors as constructors_1
       inner join qualifying as qualifying_1
@@ -3515,7 +3515,7 @@ select
   qualifying_1.position, 
   qualifying_1.date, 
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 limit 10;
@@ -3525,7 +3525,7 @@ select
   results_1.number, 
   results_1.raceid, 
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join results as results_1
     on (constructor_standings_1.constructorstandingsid = results_1.resultid )
@@ -3542,7 +3542,7 @@ select
   constructors_1.nationality, 
   constructors_1.name, 
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join constructor_standings as constructor_standings_1
       on (constructors_1.constructorid = constructor_standings_1.constructorstandingsid )
@@ -3556,7 +3556,7 @@ select
   avg(
     constructors_1.constructorid), 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 group by constructors_1.constructorid
@@ -3567,7 +3567,7 @@ select
   standings_1.position, 
   standings_1.driverid, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.position < standings_1.driverid
 limit 9;
@@ -3582,7 +3582,7 @@ select
   constructor_standings_2.points, 
   constructor_standings_1.date, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join constructor_standings as constructor_standings_1
       on (races_1.raceid = constructor_standings_1.constructorstandingsid )
@@ -3595,7 +3595,7 @@ limit 6;
 select  
   results_1.resultid, 
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.constructorid is not NULL
 limit 17;
@@ -3611,7 +3611,7 @@ select
     standings_1.raceid), 
   min(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
     on (races_1.raceid = standings_1.driverstandingsid )
@@ -3621,7 +3621,7 @@ limit 39;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.rank
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.statusid is not NULL
 limit 12;
@@ -3632,7 +3632,7 @@ select
   results_1.number, 
   results_1.rank, 
   results_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.statusid is not NULL
 limit 17;
@@ -3644,7 +3644,7 @@ select
     races_1.date), 
   races_1.name, 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
         inner join races as races_1
         on (standings_1.driverstandingsid = races_1.raceid )
@@ -3659,7 +3659,7 @@ limit 4;
 select  
   qualifying_1.date, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join qualifying as qualifying_1
       inner join races as races_1
@@ -3674,7 +3674,7 @@ select
   qualifying_1.constructorid, 
   avg(
     qualifying_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 group by qualifying_1.constructorid
@@ -3686,7 +3686,7 @@ select
     drivers_1.dob), 
   drivers_1.code, 
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join drivers as drivers_2
     on (drivers_1.driverid = drivers_2.driverid )
@@ -3696,7 +3696,7 @@ limit 32;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructors as constructors_1
       inner join races as races_1
@@ -3709,7 +3709,7 @@ select
   standings_1.position, 
   max(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.wins is not NULL
 group by standings_1.position
@@ -3717,7 +3717,7 @@ limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitid is not NULL
 limit 17;
@@ -3725,7 +3725,7 @@ limit 17;
 select  
   max(
     results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join results as results_1
     on (constructors_1.constructorid = results_1.resultid )
@@ -3746,7 +3746,7 @@ select
   constructors_1.constructorid, 
   min(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -3761,7 +3761,7 @@ select
     constructor_results_1.date), 
   constructor_results_1.points, 
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_results as constructor_results_1
     on (results_1.resultid = constructor_results_1.constructorresultsid )
@@ -3776,7 +3776,7 @@ select
     standings_1.wins), 
   standings_1.wins, 
   standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructor_results as constructor_results_1
     on (standings_1.driverstandingsid = constructor_results_1.constructorresultsid )
@@ -3786,7 +3786,7 @@ limit 15;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.location <= circuits_1.circuitref
 limit 42;
@@ -3796,7 +3796,7 @@ select
   results_1.raceid, 
   avg(
     results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
         inner join constructors as constructors_1
           inner join standings as standings_1
@@ -3818,7 +3818,7 @@ select
   constructors_1.name, 
   constructors_1.constructorid, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 limit 2;
@@ -3831,7 +3831,7 @@ select
     results_1.date), 
   circuits_1.lng, 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
       inner join races as races_1
@@ -3855,7 +3855,7 @@ select
   drivers_1.code, 
   count(*), 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join drivers as drivers_1
       on (constructors_1.constructorid = drivers_1.driverid )
@@ -3870,7 +3870,7 @@ select
   sum(
     standings_1.points), 
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.raceid is not NULL
 group by standings_1.driverstandingsid, standings_1.position
@@ -3882,7 +3882,7 @@ select
     qualifying_1.date), 
   qualifying_1.raceid, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join qualifying as qualifying_1
     on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -3896,7 +3896,7 @@ select
   races_2.round, 
   max(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join races as races_1
       on (results_1.resultid = races_1.raceid )
@@ -3908,7 +3908,7 @@ limit 39;
 -- meta {"num_joins":5,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
           inner join drivers as drivers_2
           on (drivers_1.driverid = drivers_2.driverid )
@@ -3930,7 +3930,7 @@ select
   results_1.fastestlap, 
   count(
     results_1.laps)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.resultid is not NULL
 group by results_1.driverid, results_1.fastestlap, results_1.position, results_1.positionorder
@@ -3940,7 +3940,7 @@ select
   constructor_results_1.constructorid, 
   constructor_results_1.points, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points is not NULL
 limit 6;
@@ -3950,7 +3950,7 @@ select
   avg(
     constructors_1.constructorid), 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 group by constructors_1.name, constructors_1.nationality
@@ -3958,7 +3958,7 @@ limit 11;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.milliseconds is not NULL
 limit 40;
@@ -3975,7 +3975,7 @@ select
     constructors_1.constructorid), 
   count(*), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -3991,7 +3991,7 @@ select
   circuits_1.country, 
   circuits_1.lng, 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name is not NULL
 group by circuits_1.alt, circuits_1.country, circuits_1.lat, circuits_1.lng, circuits_1.name
@@ -4018,7 +4018,7 @@ select
   sum(
     races_1.year), 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join standings as standings_1
           inner join standings as standings_2
@@ -4047,7 +4047,7 @@ select
   drivers_1.dob, 
   avg(
     drivers_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.forename is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid, drivers_1.driverref, drivers_1.forename, drivers_1.nationality, drivers_1.surname
@@ -4063,7 +4063,7 @@ select
   drivers_1.code, 
   min(
     drivers_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.dob is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid, drivers_1.driverref, drivers_1.forename, drivers_1.nationality, drivers_1.surname
@@ -4077,7 +4077,7 @@ select
   min(
     circuits_1.lat), 
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.lat, circuits_1.lng, circuits_1.name
@@ -4086,7 +4086,7 @@ limit 21;
 select  
   constructor_results_1.constructorid, 
   standings_2.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join standings as standings_1
       inner join standings as standings_2
@@ -4103,7 +4103,7 @@ select
   results_1.laps, 
   results_1.rank, 
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join results as results_1
     on (standings_1.driverstandingsid = results_1.resultid )
@@ -4116,7 +4116,7 @@ select
     results_1.milliseconds), 
   results_1.milliseconds, 
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_standings as constructor_standings_1
     on (results_1.resultid = constructor_standings_1.constructorstandingsid )
@@ -4126,7 +4126,7 @@ limit 18;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date is not NULL
 limit 31;
@@ -4140,7 +4140,7 @@ select
   constructor_standings_1.raceid, 
   max(
     constructor_standings_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -4148,7 +4148,7 @@ limit 7;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date is not NULL
 limit 11;
@@ -4157,7 +4157,7 @@ select
   constructor_standings_1.raceid, 
   constructor_standings_1.constructorstandingsid, 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.date > constructor_standings_1.date
 limit 16;
@@ -4166,7 +4166,7 @@ select
   qualifying_2.number, 
   min(
     qualifying_2.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join qualifying as qualifying_2
     on (qualifying_1.qualifyid = qualifying_2.qualifyid )
@@ -4182,7 +4182,7 @@ select
   count(*), 
   sum(
     circuits_1.circuitid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name >= circuits_1.country
 group by circuits_1.circuitref, circuits_1.country, circuits_1.lng, circuits_1.location
@@ -4190,7 +4190,7 @@ limit 36;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join races as races_1
       inner join races as races_2
@@ -4201,7 +4201,7 @@ limit 31;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid is not NULL
 limit 32;
@@ -4215,7 +4215,7 @@ select
   constructor_standings_1.raceid, 
   max(
     constructor_standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorid is not NULL
 group by constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid
@@ -4223,7 +4223,7 @@ limit 12;
 -- meta {"num_joins":6,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
         inner join standings as standings_1
         on (constructors_1.constructorid = standings_1.driverstandingsid )
@@ -4247,7 +4247,7 @@ select
   max(
     constructor_standings_1.date), 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_standings as constructor_standings_1
     on (circuits_1.circuitid = constructor_standings_1.constructorstandingsid )
@@ -4260,7 +4260,7 @@ select
     results_1.number), 
   results_1.number, 
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.points >= results_1.milliseconds
 group by results_1.milliseconds, results_1.number
@@ -4268,7 +4268,7 @@ limit 13;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join standings as standings_1
     on (constructor_standings_1.constructorstandingsid = standings_1.driverstandingsid )
@@ -4281,7 +4281,7 @@ select
   races_1.round, 
   races_1.raceid, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 limit 34;
@@ -4292,7 +4292,7 @@ select
   circuits_1.name, 
   circuits_1.country, 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name is not NULL
 group by circuits_1.circuitref, circuits_1.country, circuits_1.lat, circuits_1.name
@@ -4301,7 +4301,7 @@ limit 24;
 select  
   qualifying_1.date, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join standings as standings_1
     on (qualifying_1.qualifyid = standings_1.driverstandingsid )
@@ -4314,7 +4314,7 @@ select
   circuits_2.country, 
   circuits_2.circuitid, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join circuits as circuits_1
         inner join constructors as constructors_1
@@ -4330,7 +4330,7 @@ select
   races_1.name, 
   races_1.time, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 limit 19;
@@ -4342,7 +4342,7 @@ select
   races_1.name, 
   count(*), 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 group by races_1.name, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -4350,7 +4350,7 @@ limit 12;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
     on (results_1.resultid = circuits_1.circuitid )
@@ -4363,7 +4363,7 @@ select
   min(
     standings_1.date), 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date = standings_1.date
 group by standings_1.date, standings_1.driverid, standings_1.position
@@ -4376,7 +4376,7 @@ select
     standings_1.raceid), 
   standings_1.date, 
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.wins is not NULL
 group by standings_1.date, standings_1.driverstandingsid, standings_1.points, standings_1.raceid
@@ -4384,7 +4384,7 @@ limit 3;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join qualifying as qualifying_1
     on (races_1.raceid = qualifying_1.qualifyid )
@@ -4395,7 +4395,7 @@ select
   circuits_2.alt, 
   circuits_1.alt, 
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join circuits as circuits_2
     on (circuits_1.circuitid = circuits_2.circuitid )
@@ -4410,7 +4410,7 @@ select
   min(
     standings_1.driverstandingsid), 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
       inner join qualifying as qualifying_1
       on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -4425,7 +4425,7 @@ select
   standings_1.driverid, 
   standings_1.position, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid < standings_1.wins
 limit 15;
@@ -4443,7 +4443,7 @@ select
   constructor_results_1.raceid, 
   constructor_results_1.constructorresultsid, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join races as races_1
       on (constructor_results_1.constructorresultsid = races_1.raceid )
@@ -4462,7 +4462,7 @@ select
   races_1.name, 
   drivers_1.forename, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join races as races_1
       on (qualifying_1.qualifyid = races_1.raceid )
@@ -4477,7 +4477,7 @@ select
   constructors_1.constructorid, 
   circuits_1.alt, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join constructors as constructors_1
       on (constructor_results_1.constructorresultsid = constructors_1.constructorid )
@@ -4490,7 +4490,7 @@ select
   drivers_1.code, 
   constructors_1.nationality, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructors as constructors_1
     on (drivers_1.driverid = constructors_1.constructorid )
@@ -4501,7 +4501,7 @@ select
   max(
     constructor_results_1.points), 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join drivers as drivers_1
     on (constructor_results_1.constructorresultsid = drivers_1.driverid )
@@ -4513,14 +4513,14 @@ select
   constructor_standings_1.date, 
   constructor_standings_1.wins, 
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 limit 22;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join standings as standings_1
         inner join constructor_results as constructor_results_1
@@ -4539,7 +4539,7 @@ select
   standings_1.raceid, 
   sum(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date <= standings_1.date
 group by standings_1.date, standings_1.raceid, standings_1.wins
@@ -4554,7 +4554,7 @@ select
   avg(
     results_1.number), 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join circuits as circuits_1
         inner join drivers as drivers_1
@@ -4570,7 +4570,7 @@ select
   min(
     results_1.milliseconds), 
   results_1.positionorder
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.milliseconds is not NULL
 group by results_1.positionorder
@@ -4581,7 +4581,7 @@ select
   circuits_1.circuitid, 
   avg(
     circuits_1.alt)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng is not NULL
 group by circuits_1.alt, circuits_1.circuitid
@@ -4589,14 +4589,14 @@ limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.dob is not NULL
 limit 39;
 -- meta {"num_joins":5,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
         inner join constructor_standings as constructor_standings_1
         on (qualifying_1.qualifyid = constructor_standings_1.constructorstandingsid )
@@ -4613,7 +4613,7 @@ limit 22;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.qualifyid < qualifying_1.constructorid
 limit 9;
@@ -4627,7 +4627,7 @@ select
     drivers_1.dob), 
   max(
     drivers_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join drivers as drivers_1
     on (constructors_1.constructorid = drivers_1.driverid )
@@ -4638,7 +4638,7 @@ limit 37;
 select  
   standings_1.driverid, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.raceid <= standings_1.driverid
 limit 13;
@@ -4649,7 +4649,7 @@ select
   count(*), 
   constructors_1.constructorid, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -4670,7 +4670,7 @@ select
   constructor_standings_1.position, 
   constructor_standings_1.constructorstandingsid, 
   results_1.grid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_standings as constructor_standings_1
     on (results_1.resultid = constructor_standings_1.constructorstandingsid )
@@ -4681,7 +4681,7 @@ limit 14;
 select  
   max(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 limit 14;
@@ -4690,7 +4690,7 @@ select
   standings_1.wins, 
   min(
     standings_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.position is not NULL
 group by standings_1.wins
@@ -4708,7 +4708,7 @@ select
   circuits_1.lat, 
   constructor_results_1.points, 
   circuits_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
         inner join standings as standings_1
         on (drivers_1.driverid = standings_1.driverstandingsid )
@@ -4737,7 +4737,7 @@ select
   circuits_1.alt, 
   circuits_1.name, 
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.location <= circuits_1.country
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.country, circuits_1.lat, circuits_1.location, circuits_1.name
@@ -4747,7 +4747,7 @@ select
   results_1.date, 
   results_1.number, 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.number >= results_1.milliseconds
 limit 11;
@@ -4765,7 +4765,7 @@ select
   races_1.raceid, 
   count(
     races_1.time)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join races as races_1
     on (constructors_1.constructorid = races_1.raceid )
@@ -4775,7 +4775,7 @@ limit 25;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 limit 27;
@@ -4789,7 +4789,7 @@ select
     results_1.number), 
   results_1.fastestlap, 
   results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.fastestlap < results_1.rank
 group by results_1.date, results_1.fastestlap, results_1.points, results_1.positionorder
@@ -4798,7 +4798,7 @@ limit 37;
 select  
   results_1.statusid, 
   results_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.resultid is not NULL
 limit 28;
@@ -4807,7 +4807,7 @@ select
   max(
     constructor_results_1.points), 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points <= constructor_results_1.points
 group by constructor_results_1.date
@@ -4815,7 +4815,7 @@ limit 9;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_3.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructors as constructors_1
         inner join circuits as circuits_2
@@ -4831,7 +4831,7 @@ limit 25;
 select  
   constructor_results_1.date, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 limit 25;
@@ -4840,7 +4840,7 @@ select
   max(
     qualifying_1.date), 
   drivers_2.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join drivers as drivers_1
       inner join constructors as constructors_2
@@ -4862,7 +4862,7 @@ limit 19;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid >= standings_1.position
 limit 35;
@@ -4875,21 +4875,21 @@ select
   standings_1.wins, 
   standings_1.date, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.position is not NULL
 limit 39;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name < constructors_1.constructorref
 limit 33;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 limit 39;
@@ -4898,7 +4898,7 @@ select
   qualifying_1.date, 
   qualifying_1.driverid, 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 limit 2;
@@ -4906,14 +4906,14 @@ limit 2;
 select  
   constructors_1.constructorid, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid <= constructors_1.constructorid
 limit 12;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 limit 9;
@@ -4926,7 +4926,7 @@ select
   races_1.time, 
   min(
     races_1.round)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 group by races_1.circuitid, races_1.date, races_1.raceid, races_1.time, races_1.year
@@ -4937,7 +4937,7 @@ select
   races_1.time, 
   races_1.round, 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.name > races_1.time
 limit 23;
@@ -4946,7 +4946,7 @@ select
   constructor_standings_1.constructorstandingsid, 
   avg(
     constructor_standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_standings as constructor_standings_1
     on (circuits_1.circuitid = constructor_standings_1.constructorstandingsid )
@@ -4956,7 +4956,7 @@ limit 16;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 limit 18;
@@ -4971,7 +4971,7 @@ select
   standings_1.date, 
   avg(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid is not NULL
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.raceid, standings_1.wins
@@ -4983,7 +4983,7 @@ select
   max(
     results_1.positionorder), 
   results_1.grid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.number is not NULL
 group by results_1.constructorid, results_1.grid, results_1.statusid
@@ -4991,7 +4991,7 @@ limit 7;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join circuits as circuits_1
       on (constructor_results_1.constructorresultsid = circuits_1.circuitid )
@@ -5012,7 +5012,7 @@ select
     qualifying_1.date), 
   qualifying_1.number, 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 group by qualifying_1.date, qualifying_1.driverid, qualifying_1.number, qualifying_1.position, qualifying_1.qualifyid, qualifying_1.raceid
@@ -5021,7 +5021,7 @@ limit 15;
 select  
   constructor_results_1.points, 
   results_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_results as constructor_results_1
     on (results_1.resultid = constructor_results_1.constructorresultsid )
@@ -5036,7 +5036,7 @@ select
   qualifying_1.number, 
   qualifying_1.qualifyid, 
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 group by qualifying_1.driverid, qualifying_1.number, qualifying_1.position, qualifying_1.qualifyid, qualifying_1.raceid
@@ -5044,7 +5044,7 @@ limit 14;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join circuits as circuits_1
     on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -5055,7 +5055,7 @@ select
   races_1.round, 
   races_1.circuitid, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.round is not NULL
 limit 25;
@@ -5066,7 +5066,7 @@ select
   count(
     circuits_1.lat), 
   circuits_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join circuits as circuits_1
       on (races_1.raceid = circuits_1.circuitid )
@@ -5083,7 +5083,7 @@ select
   constructors_1.nationality, 
   constructor_results_1.date, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
         inner join results as results_1
         on (constructors_1.constructorid = results_1.resultid )
@@ -5102,7 +5102,7 @@ select
   avg(
     drivers_1.driverid), 
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.forename is not NULL
 group by drivers_1.driverref, drivers_1.forename, drivers_1.nationality
@@ -5116,7 +5116,7 @@ select
   races_1.time, 
   drivers_1.forename, 
   drivers_1.surname
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join drivers as drivers_1
       inner join races as races_2
@@ -5135,7 +5135,7 @@ select
   standings_1.position, 
   standings_1.driverid, 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.raceid is not NULL
 group by standings_1.driverid, standings_1.position, standings_1.raceid, standings_1.wins
@@ -5152,15 +5152,15 @@ select
   count(*), 
   max(
     results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date >= results_1.date
 group by results_1.constructorid, results_1.points, results_1.rank
 limit 40;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_results as constructor_results_1
     on (circuits_1.circuitid = constructor_results_1.constructorresultsid )
@@ -5176,7 +5176,7 @@ select
     drivers_1.dob), 
   drivers_1.driverref, 
   drivers_1.surname
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 group by drivers_1.driverref, drivers_1.forename, drivers_1.nationality, drivers_1.surname
@@ -5185,7 +5185,7 @@ limit 38;
 select  
   constructor_standings_1.date, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join constructor_standings as constructor_standings_1
       inner join constructors as constructors_1
@@ -5200,7 +5200,7 @@ select
   count(
     constructor_standings_1.date), 
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructor_standings as constructor_standings_1
       inner join drivers as drivers_1
@@ -5218,7 +5218,7 @@ select
   avg(
     drivers_2.driverid), 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join drivers as drivers_1
       inner join circuits as circuits_1
@@ -5235,7 +5235,7 @@ select
     standings_1.raceid), 
   circuits_1.lat, 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join standings as standings_1
     on (circuits_1.circuitid = standings_1.driverstandingsid )
@@ -5251,7 +5251,7 @@ select
     races_1.round), 
   races_1.round, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date is not NULL
 group by races_1.circuitid, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -5267,7 +5267,7 @@ select
   races_1.name, 
   count(
     races_1.year)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join results as results_1
     on (races_1.raceid = results_1.resultid )
@@ -5277,14 +5277,14 @@ limit 8;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitref <= circuits_1.country
 limit 20;
@@ -5295,7 +5295,7 @@ select
   races_1.name, 
   max(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 group by races_1.circuitid, races_1.name, races_1.year
@@ -5310,7 +5310,7 @@ select
   avg(
     results_1.rank), 
   results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.laps >= results_1.constructorid
 group by results_1.driverid, results_1.milliseconds, results_1.position, results_1.raceid, results_1.rank, results_1.resultid
@@ -5318,14 +5318,14 @@ limit 27;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.position >= constructor_standings_1.constructorstandingsid
 limit 21;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructors as constructors_2
       inner join standings as standings_1
@@ -5342,7 +5342,7 @@ select
     qualifying_1.date), 
   constructor_results_1.constructorid, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
         inner join constructor_results as constructor_results_1
           inner join standings as standings_1
@@ -5362,7 +5362,7 @@ select
   constructor_standings_1.raceid, 
   constructor_results_1.constructorid, 
   constructor_standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructor_standings as constructor_standings_1
       inner join results as results_1
@@ -5373,7 +5373,7 @@ limit 4;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 limit 6;
@@ -5387,7 +5387,7 @@ select
   qualifying_1.position, 
   constructor_standings_1.constructorid, 
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_results as constructor_results_1
       inner join qualifying as qualifying_1
@@ -5400,7 +5400,7 @@ limit 2;
 select  
   constructors_3.constructorid, 
   constructors_3.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
             inner join constructors as constructors_1
             on (constructor_standings_1.constructorstandingsid = constructors_1.constructorid )
@@ -5428,7 +5428,7 @@ select
   races_1.year, 
   circuits_1.lng, 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join races as races_1
     on (circuits_1.circuitid = races_1.raceid )
@@ -5438,7 +5438,7 @@ limit 11;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join standings as standings_1
       on (constructor_standings_1.constructorstandingsid = standings_1.driverstandingsid )
@@ -5449,7 +5449,7 @@ limit 11;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.rank is not NULL
 limit 37;
@@ -5458,7 +5458,7 @@ select
   drivers_1.forename, 
   drivers_1.dob, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.dob is not NULL
 limit 23;
@@ -5466,7 +5466,7 @@ limit 23;
 select  
   results_1.laps, 
   results_1.positionorder
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.rank <= results_1.fastestlap
 limit 17;
@@ -5481,7 +5481,7 @@ select
     results_1.points), 
   results_1.statusid, 
   results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.fastestlap <= results_1.number
 group by results_1.date, results_1.fastestlap, results_1.grid, results_1.laps, results_1.points, results_1.position, results_1.statusid
@@ -5489,7 +5489,7 @@ limit 41;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points > constructor_results_1.points
 limit 7;
@@ -5499,7 +5499,7 @@ select
   drivers_1.driverid, 
   drivers_1.forename, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverref is not NULL
 limit 28;
@@ -5509,7 +5509,7 @@ select
   circuits_1.circuitid, 
   circuits_1.circuitref, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng < circuits_1.alt
 limit 12;
@@ -5528,7 +5528,7 @@ select
   min(
     circuits_1.alt), 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join standings as standings_1
     on (circuits_1.circuitid = standings_1.driverstandingsid )
@@ -5541,7 +5541,7 @@ select
   constructor_results_1.points, 
   constructor_results_1.raceid, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join circuits as circuits_1
     on (constructor_results_1.constructorresultsid = circuits_1.circuitid )
@@ -5554,7 +5554,7 @@ select
   circuits_1.lat, 
   circuits_1.circuitref, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join circuits as circuits_1
     on (drivers_1.driverid = circuits_1.circuitid )
@@ -5568,7 +5568,7 @@ select
   count(
     qualifying_1.constructorid), 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 group by qualifying_1.date, qualifying_1.number, qualifying_1.qualifyid, qualifying_1.raceid
@@ -5589,7 +5589,7 @@ select
   results_1.grid, 
   results_1.number, 
   results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.constructorid is not NULL
 group by results_1.driverid, results_1.fastestlap, results_1.grid, results_1.milliseconds, results_1.number, results_1.position, results_1.positionorder, results_1.raceid, results_1.resultid
@@ -5597,7 +5597,7 @@ limit 15;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
         inner join constructor_standings as constructor_standings_1
         on (constructors_1.constructorid = constructor_standings_1.constructorstandingsid )
@@ -5616,7 +5616,7 @@ select
   circuits_1.lat, 
   min(
     circuits_1.lng)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitid is not NULL
 group by circuits_1.alt, circuits_1.circuitref, circuits_1.country, circuits_1.lat, circuits_1.location
@@ -5637,7 +5637,7 @@ select
   races_1.date, 
   races_1.raceid, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join constructors as constructors_1
     on (races_1.raceid = constructors_1.constructorid )
@@ -5654,7 +5654,7 @@ select
   results_1.position, 
   constructor_standings_1.position, 
   results_1.grid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join results as results_1
     on (constructor_standings_1.constructorstandingsid = results_1.resultid )
@@ -5666,7 +5666,7 @@ select
   constructors_1.nationality, 
   qualifying_1.driverid, 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join qualifying as qualifying_1
       inner join qualifying as qualifying_2
@@ -5682,7 +5682,7 @@ select
     circuits_1.circuitid), 
   circuits_1.circuitref, 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitid > circuits_1.circuitid
 group by circuits_1.circuitref, circuits_1.location
@@ -5702,7 +5702,7 @@ select
   constructor_standings_1.constructorstandingsid, 
   min(
     constructor_standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -5714,7 +5714,7 @@ select
     drivers_1.dob), 
   max(
     drivers_1.dob)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join drivers as drivers_1
       on (constructor_standings_1.constructorstandingsid = drivers_1.driverid )
@@ -5737,7 +5737,7 @@ select
     qualifying_1.date), 
   qualifying_1.driverid, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join constructor_standings as constructor_standings_1
       on (qualifying_1.qualifyid = constructor_standings_1.constructorstandingsid )
@@ -5749,7 +5749,7 @@ limit 39;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join standings as standings_1
     on (qualifying_1.qualifyid = standings_1.driverstandingsid )
@@ -5759,7 +5759,7 @@ limit 34;
 select  
   standings_1.date, 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join drivers as drivers_1
     on (standings_1.driverstandingsid = drivers_1.driverid )
@@ -5769,7 +5769,7 @@ limit 14;
 select  
   circuits_1.lat, 
   circuits_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name is not NULL
 limit 37;
@@ -5782,7 +5782,7 @@ select
   min(
     races_1.date), 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time = races_1.name
 group by races_1.name, races_1.raceid, races_1.round
@@ -5811,7 +5811,7 @@ select
   drivers_1.driverref, 
   min(
     circuits_1.lng)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
       inner join qualifying as qualifying_1
         inner join circuits as circuits_1
@@ -5827,7 +5827,7 @@ limit 18;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructors as constructors_1
     on (circuits_1.circuitid = constructors_1.constructorid )
@@ -5844,7 +5844,7 @@ select
   max(
     constructor_standings_1.constructorstandingsid), 
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -5858,7 +5858,7 @@ select
   min(
     qualifying_1.date), 
   standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join qualifying as qualifying_1
       inner join results as results_1
@@ -5883,7 +5883,7 @@ select
   results_1.position, 
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join qualifying as qualifying_1
     on (results_1.resultid = qualifying_1.qualifyid )
@@ -5898,7 +5898,7 @@ select
   max(
     qualifying_1.date), 
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join drivers as drivers_1
     on (qualifying_1.qualifyid = drivers_1.driverid )
@@ -5910,7 +5910,7 @@ select
   qualifying_1.driverid, 
   qualifying_1.raceid, 
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date >= qualifying_1.date
 limit 16;
@@ -5918,7 +5918,7 @@ limit 16;
 select  
   avg(
     results_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join qualifying as qualifying_1
       on (circuits_1.circuitid = qualifying_1.qualifyid )
@@ -5933,7 +5933,7 @@ select
   results_1.rank, 
   results_1.raceid, 
   results_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.grid is not NULL
 limit 42;
@@ -5959,7 +5959,7 @@ select
   races_1.date, 
   max(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join races as races_1
       inner join standings as standings_1
@@ -5974,7 +5974,7 @@ select
   sum(
     results_1.number), 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join races as races_1
       inner join results as results_1
@@ -6013,7 +6013,7 @@ select
     standings_1.points), 
   max(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
     on (races_1.raceid = standings_1.driverstandingsid )
@@ -6023,14 +6023,14 @@ limit 27;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points < constructor_results_1.points
 limit 34;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_2.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructor_results as constructor_results_2
     on (constructor_results_1.constructorresultsid = constructor_results_2.constructorresultsid )
@@ -6043,7 +6043,7 @@ select
   constructor_results_1.constructorresultsid, 
   constructor_results_1.raceid, 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date <= constructor_results_1.date
 limit 32;
@@ -6059,7 +6059,7 @@ select
     drivers_1.dob), 
   drivers_1.driverref, 
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid, drivers_1.driverref, drivers_1.forename, drivers_1.surname
@@ -6070,7 +6070,7 @@ select
     races_1.date), 
   count(*), 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.round is not NULL
 group by races_1.raceid
@@ -6078,7 +6078,7 @@ limit 40;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join results as results_1
     on (circuits_1.circuitid = results_1.resultid )
@@ -6089,7 +6089,7 @@ select
   qualifying_1.qualifyid, 
   races_1.year, 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join constructor_standings as constructor_standings_1
       on (races_1.raceid = constructor_standings_1.constructorstandingsid )
@@ -6106,7 +6106,7 @@ select
   drivers_1.surname, 
   drivers_1.driverref, 
   circuits_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
       inner join circuits as circuits_1
       on (standings_1.driverstandingsid = circuits_1.circuitid )
@@ -6120,7 +6120,7 @@ select
   races_1.name, 
   drivers_1.dob, 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
       inner join qualifying as qualifying_1
       on (drivers_1.driverid = qualifying_1.qualifyid )
@@ -6131,7 +6131,7 @@ limit 33;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 limit 16;
@@ -6148,7 +6148,7 @@ select
   races_1.raceid, 
   min(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.raceid is not NULL
 group by races_1.circuitid, races_1.date, races_1.raceid, races_1.time
@@ -6163,7 +6163,7 @@ select
   races_1.year, 
   max(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join circuits as circuits_1
     on (races_1.raceid = circuits_1.circuitid )
@@ -6179,7 +6179,7 @@ select
   constructor_standings_1.position, 
   max(
     constructor_standings_1.wins)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins is not NULL
 group by constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.position, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -6190,7 +6190,7 @@ select
   constructor_results_1.raceid, 
   constructor_results_1.points, 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 limit 19;
@@ -6198,7 +6198,7 @@ limit 19;
 select  
   drivers_1.code, 
   drivers_1.surname
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 limit 22;
@@ -6211,7 +6211,7 @@ select
   max(
     results_1.date), 
   results_1.fastestlap
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructors as constructors_1
     on (results_1.resultid = constructors_1.constructorid )
@@ -6222,7 +6222,7 @@ limit 41;
 select  
   constructor_results_1.points, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points < constructor_results_1.points
 limit 18;
@@ -6239,7 +6239,7 @@ select
     circuits_1.circuitid), 
   circuits_1.name, 
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lat is not NULL
 group by circuits_1.circuitid, circuits_1.circuitref, circuits_1.lng, circuits_1.location, circuits_1.name
@@ -6251,7 +6251,7 @@ select
   count(*), 
   constructors_1.constructorref, 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join qualifying as qualifying_1
     on (constructors_1.constructorid = qualifying_1.qualifyid )
@@ -6261,7 +6261,7 @@ limit 20;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.grid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join results as results_1
     on (constructors_1.constructorid = results_1.resultid )
@@ -6278,7 +6278,7 @@ select
   max(
     constructor_results_1.points), 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_results as constructor_results_1
     on (constructor_standings_1.constructorstandingsid = constructor_results_1.constructorresultsid )
@@ -6294,7 +6294,7 @@ select
     results_1.date), 
   results_1.driverid, 
   results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.points is not NULL
 group by results_1.driverid, results_1.fastestlap, results_1.grid, results_1.laps, results_1.raceid
@@ -6303,7 +6303,7 @@ limit 27;
 select  
   min(
     results_1.number)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.rank > results_1.fastestlap
 limit 26;
@@ -6311,7 +6311,7 @@ limit 26;
 select  
   max(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 limit 38;
@@ -6319,14 +6319,14 @@ limit 38;
 select  
   races_1.name, 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date > races_1.date
 limit 35;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join results as results_1
       inner join constructor_results as constructor_results_1
@@ -6339,7 +6339,7 @@ limit 37;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join races as races_1
       on (results_1.resultid = races_1.raceid )
@@ -6353,7 +6353,7 @@ select
   circuits_1.lng, 
   races_1.raceid, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join circuits as circuits_1
       inner join drivers as drivers_1
@@ -6365,7 +6365,7 @@ limit 30;
 select  
   constructor_standings_1.constructorid, 
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join standings as standings_1
     on (constructor_standings_1.constructorstandingsid = standings_1.driverstandingsid )
@@ -6380,7 +6380,7 @@ select
   drivers_1.driverid, 
   min(
     drivers_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.surname is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid, drivers_1.driverref, drivers_1.nationality
@@ -6392,7 +6392,7 @@ select
   min(
     constructor_results_1.constructorid), 
   constructor_standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructor_standings as constructor_standings_1
     on (constructor_results_1.constructorresultsid = constructor_standings_1.constructorstandingsid )
@@ -6403,21 +6403,21 @@ limit 32;
 select  
   constructor_results_1.date, 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 limit 12;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date >= constructor_results_1.date
 limit 26;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructor_results as constructor_results_1
       inner join constructor_results as constructor_results_2
@@ -6431,7 +6431,7 @@ select
   avg(
     constructor_standings_1.points), 
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_standings as constructor_standings_1
     on (circuits_1.circuitid = constructor_standings_1.constructorstandingsid )
@@ -6441,7 +6441,7 @@ limit 20;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join circuits as circuits_1
       inner join results as results_1
@@ -6457,7 +6457,7 @@ select
   constructor_results_1.constructorid, 
   circuits_1.circuitref, 
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
         inner join constructor_standings as constructor_standings_1
         on (constructor_results_1.constructorresultsid = constructor_standings_1.constructorstandingsid )
@@ -6471,7 +6471,7 @@ limit 7;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.laps
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join results as results_2
       inner join qualifying as qualifying_1
@@ -6485,7 +6485,7 @@ limit 26;
 select  
   constructor_standings_1.position, 
   results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
         inner join results as results_1
         on (standings_1.driverstandingsid = results_1.resultid )
@@ -6504,7 +6504,7 @@ select
   races_1.raceid, 
   races_1.date, 
   races_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 group by races_1.date, races_1.name, races_1.raceid, races_1.time, races_1.year
@@ -6516,7 +6516,7 @@ select
   drivers_2.nationality, 
   drivers_1.nationality, 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join races as races_1
       inner join drivers as drivers_2
@@ -6527,7 +6527,7 @@ limit 32;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join qualifying as qualifying_1
     on (constructor_results_1.constructorresultsid = qualifying_1.qualifyid )
@@ -6548,7 +6548,7 @@ select
     circuits_1.lng), 
   circuits_1.lat, 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join drivers as drivers_1
     on (circuits_1.circuitid = drivers_1.driverid )
@@ -6559,7 +6559,7 @@ limit 22;
 select  
   standings_1.date, 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join races as races_1
       on (constructors_1.constructorid = races_1.raceid )
@@ -6573,7 +6573,7 @@ limit 34;
 select  
   count(*), 
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join drivers as drivers_1
     on (results_1.resultid = drivers_1.driverid )
@@ -6584,7 +6584,7 @@ limit 16;
 select  
   drivers_1.surname, 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructor_standings as constructor_standings_1
       inner join circuits as circuits_1
@@ -6595,7 +6595,7 @@ limit 28;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join results as results_1
     on (qualifying_1.qualifyid = results_1.resultid )
@@ -6608,7 +6608,7 @@ select
   qualifying_1.constructorid, 
   qualifying_1.position, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date <= qualifying_1.date
 limit 14;
@@ -6619,7 +6619,7 @@ select
   results_1.fastestlap, 
   results_1.number, 
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.raceid > results_1.constructorid
 limit 26;
@@ -6632,7 +6632,7 @@ select
   min(
     constructor_results_1.date), 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -6642,7 +6642,7 @@ select
   circuits_1.alt, 
   circuits_1.circuitid, 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 limit 42;
@@ -6653,7 +6653,7 @@ select
   constructor_results_1.constructorid, 
   constructor_results_1.constructorresultsid, 
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date < constructor_results_1.date
 limit 23;
@@ -6661,7 +6661,7 @@ limit 23;
 select  
   sum(
     constructor_results_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 limit 33;
@@ -6672,7 +6672,7 @@ select
   constructor_results_1.raceid, 
   circuits_1.circuitref, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join circuits as circuits_1
       inner join standings as standings_1
@@ -6691,7 +6691,7 @@ select
   races_1.time, 
   max(
     races_1.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date < races_1.date
 group by races_1.circuitid, races_1.name, races_1.round, races_1.time
@@ -6706,7 +6706,7 @@ select
   standings_1.driverid, 
   standings_1.date, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.wins is not NULL
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.points, standings_1.position, standings_1.wins
@@ -6715,7 +6715,7 @@ limit 2;
 select  
   standings_2.driverid, 
   standings_2.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
       inner join constructor_results as constructor_results_1
         inner join races as races_1
@@ -6734,7 +6734,7 @@ select
   races_1.round, 
   sum(
     races_1.year)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 group by races_1.date, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -6743,14 +6743,14 @@ limit 8;
 select  
   standings_1.date, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points is not NULL
 limit 38;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 limit 42;
@@ -6764,7 +6764,7 @@ select
     races_1.date), 
   races_1.circuitid, 
   races_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 group by races_1.circuitid, races_1.date, races_1.name, races_1.raceid, races_1.round, races_1.year
@@ -6772,7 +6772,7 @@ limit 32;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join standings as standings_1
     on (circuits_1.circuitid = standings_1.driverstandingsid )
@@ -6786,7 +6786,7 @@ select
   results_1.constructorid, 
   min(
     results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date <= results_1.date
 group by results_1.constructorid, results_1.grid, results_1.number, results_1.position
@@ -6800,7 +6800,7 @@ select
   qualifying_1.position, 
   qualifying_1.qualifyid, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join qualifying as qualifying_1
     on (constructors_1.constructorid = qualifying_1.qualifyid )
@@ -6820,7 +6820,7 @@ select
   results_1.fastestlap, 
   sum(
     results_1.milliseconds)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.position is not NULL
 group by results_1.constructorid, results_1.date, results_1.fastestlap, results_1.laps, results_1.number, results_1.points, results_1.position
@@ -6828,7 +6828,7 @@ limit 42;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join drivers as drivers_1
       inner join constructors as constructors_1
@@ -6841,7 +6841,7 @@ select
   drivers_1.surname, 
   drivers_1.driverid, 
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 limit 31;
@@ -6850,14 +6850,14 @@ select
   qualifying_1.position, 
   qualifying_1.driverid, 
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 limit 31;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid is not NULL
 limit 8;
@@ -6879,7 +6879,7 @@ select
   standings_1.driverid, 
   standings_1.wins, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points is not NULL
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.points, standings_1.position, standings_1.raceid, standings_1.wins
@@ -6891,7 +6891,7 @@ select
   constructors_1.name, 
   constructors_1.constructorid, 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructors as constructors_1
     on (circuits_1.circuitid = constructors_1.constructorid )
@@ -6902,7 +6902,7 @@ select
   standings_1.raceid, 
   standings_1.date, 
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points = standings_1.points
 limit 15;
@@ -6911,7 +6911,7 @@ select
   constructor_results_1.raceid, 
   constructors_1.constructorid, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
           inner join qualifying as qualifying_1
           on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -6937,7 +6937,7 @@ select
   races_1.round, 
   races_1.circuitid, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date >= races_1.date
 group by races_1.circuitid, races_1.date, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -6947,7 +6947,7 @@ select
   standings_1.points, 
   max(
     standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points is not NULL
 group by standings_1.points
@@ -6955,7 +6955,7 @@ limit 31;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 limit 39;
@@ -6975,7 +6975,7 @@ select
     constructor_results_1.date), 
   constructors_1.constructorref, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_results as constructor_results_1
       inner join qualifying as qualifying_1
@@ -6989,7 +6989,7 @@ limit 35;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverid is not NULL
 limit 6;
@@ -6998,7 +6998,7 @@ select
   circuits_1.circuitid, 
   max(
     circuits_1.circuitid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 group by circuits_1.circuitid
@@ -7022,7 +7022,7 @@ select
     standings_1.points), 
   sum(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join standings as standings_1
     on (drivers_1.driverid = standings_1.driverstandingsid )
@@ -7047,7 +7047,7 @@ select
     standings_1.date), 
   min(
     standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points <= standings_1.points
 group by standings_1.date, standings_1.driverstandingsid, standings_1.points, standings_1.position, standings_1.raceid, standings_1.wins
@@ -7060,7 +7060,7 @@ select
   circuits_1.alt, 
   circuits_1.lat, 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitref is not NULL
 limit 25;
@@ -7068,14 +7068,14 @@ limit 25;
 select  
   standings_1.raceid, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.raceid is not NULL
 limit 32;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructors as constructors_1
     on (circuits_1.circuitid = constructors_1.constructorid )
@@ -7084,7 +7084,7 @@ limit 11;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.statusid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.raceid is not NULL
 limit 5;
@@ -7098,7 +7098,7 @@ select
     results_1.raceid), 
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
         inner join results as results_1
         on (qualifying_1.qualifyid = results_1.resultid )
@@ -7115,7 +7115,7 @@ select
   min(
     results_1.date), 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date <= results_1.date
 group by results_1.constructorid, results_1.positionorder
@@ -7128,7 +7128,7 @@ select
   circuits_1.country, 
   circuits_1.name, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitid < circuits_1.circuitid
 limit 15;
@@ -7140,7 +7140,7 @@ select
   drivers_1.nationality, 
   drivers_1.driverid, 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverid is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid, drivers_1.nationality
@@ -7149,7 +7149,7 @@ limit 35;
 select  
   min(
     results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.driverid is not NULL
 limit 2;
@@ -7160,7 +7160,7 @@ select
   constructor_standings_1.date, 
   drivers_1.code, 
   constructor_standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
         inner join drivers as drivers_1
         on (results_1.resultid = drivers_1.driverid )
@@ -7177,7 +7177,7 @@ select
   standings_1.position, 
   min(
     standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid is not NULL
 group by standings_1.position, standings_1.raceid
@@ -7185,7 +7185,7 @@ limit 26;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join qualifying as qualifying_1
     on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -7205,7 +7205,7 @@ select
   max(
     constructor_results_1.date), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -7221,7 +7221,7 @@ select
   qualifying_1.position, 
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 group by qualifying_1.constructorid, qualifying_1.driverid, qualifying_1.position, qualifying_1.qualifyid, qualifying_1.raceid
@@ -7233,7 +7233,7 @@ select
   results_1.driverid, 
   results_1.number, 
   results_1.statusid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date >= results_1.date
 limit 27;
@@ -7248,7 +7248,7 @@ select
   standings_1.date, 
   standings_1.wins, 
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid is not NULL
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.position, standings_1.raceid, standings_1.wins
@@ -7261,7 +7261,7 @@ select
   constructor_results_1.constructorresultsid, 
   constructor_results_1.points, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 group by constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -7271,7 +7271,7 @@ select
   standings_1.driverid, 
   qualifying_1.date, 
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join qualifying as qualifying_1
     on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -7283,7 +7283,7 @@ select
   races_1.date, 
   races_1.time, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 limit 29;
@@ -7299,7 +7299,7 @@ select
   races_1.circuitid, 
   races_1.round, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join circuits as circuits_1
     on (races_1.raceid = circuits_1.circuitid )
@@ -7313,7 +7313,7 @@ select
   results_1.points, 
   constructor_results_1.date, 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join constructor_standings as constructor_standings_1
       on (constructor_results_1.constructorresultsid = constructor_standings_1.constructorstandingsid )
@@ -7326,7 +7326,7 @@ limit 34;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join drivers as drivers_1
     on (constructors_1.constructorid = drivers_1.driverid )
@@ -7342,7 +7342,7 @@ select
   standings_1.date, 
   sum(
     standings_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.raceid
@@ -7360,7 +7360,7 @@ select
   standings_1.wins, 
   standings_2.driverid, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join standings as standings_1
       on (constructors_1.constructorid = standings_1.driverstandingsid )
@@ -7380,7 +7380,7 @@ select
   avg(
     constructor_standings_2.position), 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
         inner join constructor_standings as constructor_standings_1
         on (circuits_1.circuitid = constructor_standings_1.constructorstandingsid )
@@ -7398,7 +7398,7 @@ select
   constructor_standings_1.points, 
   constructor_standings_1.date, 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins is not NULL
 limit 29;
@@ -7414,7 +7414,7 @@ select
     results_1.milliseconds), 
   results_1.resultid, 
   results_1.grid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.positionorder is not NULL
 group by results_1.fastestlap, results_1.grid, results_1.milliseconds, results_1.rank, results_1.resultid, results_1.statusid
@@ -7424,7 +7424,7 @@ select
   constructors_1.constructorid, 
   min(
     drivers_2.dob)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join drivers as drivers_1
       on (results_1.resultid = drivers_1.driverid )
@@ -7455,7 +7455,7 @@ select
   races_3.raceid, 
   constructor_results_1.points, 
   races_2.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
         inner join constructor_results as constructor_results_1
         on (drivers_1.driverid = constructor_results_1.constructorresultsid )
@@ -7479,7 +7479,7 @@ select
   constructors_1.constructorid, 
   constructors_1.name, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid > constructors_1.constructorid
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -7488,7 +7488,7 @@ limit 15;
 select  
   constructor_standings_1.constructorid, 
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructor_standings as constructor_standings_1
     on (constructor_results_1.constructorresultsid = constructor_standings_1.constructorstandingsid )
@@ -7502,7 +7502,7 @@ select
   constructor_results_1.constructorresultsid, 
   standings_1.driverid, 
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join circuits as circuits_1
       inner join constructor_results as constructor_results_1
@@ -7514,7 +7514,7 @@ limit 20;
 select  
   constructors_1.constructorref, 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 limit 35;
@@ -7524,7 +7524,7 @@ select
   max(
     constructor_results_1.raceid), 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 group by constructor_results_1.constructorresultsid, constructor_results_1.date
@@ -7537,7 +7537,7 @@ select
   constructor_standings_1.constructorstandingsid, 
   constructor_standings_1.date, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.position is not NULL
 limit 41;
@@ -7545,7 +7545,7 @@ limit 41;
 select  
   constructor_results_1.points, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 limit 27;
@@ -7555,7 +7555,7 @@ select
   constructor_results_1.constructorid, 
   constructor_results_1.points, 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid < constructor_results_1.constructorid
 limit 11;
@@ -7566,7 +7566,7 @@ select
   constructor_standings_1.points, 
   constructor_standings_1.constructorstandingsid, 
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorid <= constructor_standings_1.wins
 limit 28;
@@ -7581,7 +7581,7 @@ select
   max(
     standings_1.points), 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join standings as standings_1
     on (drivers_1.driverid = standings_1.driverstandingsid )
@@ -7594,7 +7594,7 @@ select
   races_1.round, 
   results_1.driverid, 
   results_1.positionorder
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join races as races_1
     on (results_1.resultid = races_1.raceid )
@@ -7608,7 +7608,7 @@ select
   constructors_1.constructorid, 
   count(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid >= constructors_1.constructorid
 group by constructors_1.constructorid, constructors_1.nationality
@@ -7622,7 +7622,7 @@ select
     constructor_results_1.points), 
   constructor_results_1.date, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid <= constructor_results_1.constructorid
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -7630,14 +7630,14 @@ limit 19;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 limit 28;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join qualifying as qualifying_1
     on (results_1.resultid = qualifying_1.qualifyid )
@@ -7649,7 +7649,7 @@ select
   qualifying_1.qualifyid, 
   qualifying_1.number, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.number is not NULL
 limit 15;
@@ -7660,7 +7660,7 @@ select
     circuits_1.lat), 
   circuits_1.country, 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitid is not NULL
 group by circuits_1.circuitid, circuits_1.country, circuits_1.location
@@ -7673,7 +7673,7 @@ select
     results_1.laps), 
   results_1.positionorder, 
   results_1.grid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date < results_1.date
 group by results_1.driverid, results_1.grid, results_1.positionorder, results_1.raceid
@@ -7682,7 +7682,7 @@ limit 23;
 select  
   count(*), 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join standings as standings_1
         inner join constructor_results as constructor_results_2
@@ -7704,7 +7704,7 @@ select
     constructor_results_1.points), 
   drivers_1.driverid, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructor_results as constructor_results_1
     on (drivers_1.driverid = constructor_results_1.constructorresultsid )
@@ -7720,7 +7720,7 @@ select
   constructor_standings_1.raceid, 
   races_1.year, 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
         inner join results as results_1
         on (constructors_1.constructorid = results_1.resultid )
@@ -7741,7 +7741,7 @@ select
     results_1.position), 
   avg(
     results_1.milliseconds)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.milliseconds is not NULL
 limit 17;
@@ -7749,14 +7749,14 @@ limit 17;
 select  
   results_1.positionorder, 
   results_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date < results_1.date
 limit 26;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructors as constructors_1
     on (standings_1.driverstandingsid = constructors_1.constructorid )
@@ -7766,14 +7766,14 @@ limit 2;
 select  
   qualifying_1.driverid, 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid < qualifying_1.driverid
 limit 37;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.points is not NULL
 limit 9;
@@ -7781,7 +7781,7 @@ limit 9;
 select  
   qualifying_1.qualifyid, 
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 limit 23;
@@ -7790,7 +7790,7 @@ select
   standings_1.driverid, 
   qualifying_1.qualifyid, 
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join standings as standings_1
     on (qualifying_1.qualifyid = standings_1.driverstandingsid )
@@ -7800,7 +7800,7 @@ limit 21;
 select  
   constructor_standings_1.constructorstandingsid, 
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_standings as constructor_standings_2
     on (constructor_standings_1.constructorstandingsid = constructor_standings_2.constructorstandingsid )
@@ -7809,7 +7809,7 @@ limit 6;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join constructor_results as constructor_results_1
           inner join drivers as drivers_1
@@ -7825,7 +7825,7 @@ limit 19;
 select  
   results_1.statusid, 
   results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.driverid is not NULL
 limit 10;
@@ -7836,7 +7836,7 @@ select
   drivers_1.code, 
   drivers_1.forename, 
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverref is not NULL
 limit 23;
@@ -7848,7 +7848,7 @@ select
   min(
     drivers_1.dob), 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality <= drivers_1.surname
 group by drivers_1.code, drivers_1.dob, drivers_1.forename, drivers_1.surname
@@ -7857,7 +7857,7 @@ limit 18;
 select  
   standings_1.points, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points is not NULL
 limit 32;
@@ -7867,7 +7867,7 @@ select
     circuits_1.lng), 
   constructors_1.name, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join standings as standings_1
       inner join circuits as circuits_1
@@ -7890,7 +7890,7 @@ select
   circuits_2.name, 
   circuits_2.circuitref, 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join circuits as circuits_2
     on (circuits_1.circuitid = circuits_2.circuitid )
@@ -7906,7 +7906,7 @@ select
     constructors_1.constructorid), 
   constructors_1.constructorid, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name
@@ -7921,7 +7921,7 @@ select
     constructor_results_2.date), 
   constructor_results_2.raceid, 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructor_results as constructor_results_2
       inner join qualifying as qualifying_1
@@ -7933,7 +7933,7 @@ limit 3;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 limit 32;
@@ -7941,7 +7941,7 @@ limit 32;
 select  
   standings_1.position, 
   standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructor_results as constructor_results_1
     on (standings_1.driverstandingsid = constructor_results_1.constructorresultsid )
@@ -7955,7 +7955,7 @@ select
   qualifying_1.constructorid, 
   max(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.qualifyid is not NULL
 group by qualifying_1.constructorid, qualifying_1.date, qualifying_1.driverid, qualifying_1.position
@@ -7963,7 +7963,7 @@ limit 40;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.position is not NULL
 limit 16;
@@ -7973,7 +7973,7 @@ select
     qualifying_1.date), 
   qualifying_1.constructorid, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 group by qualifying_1.constructorid, qualifying_1.raceid
@@ -7981,14 +7981,14 @@ limit 21;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.points is not NULL
 limit 12;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join circuits as circuits_1
       inner join qualifying as qualifying_1
@@ -8003,7 +8003,7 @@ select
   results_1.date, 
   min(
     results_1.positionorder)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join results as results_1
     on (constructor_standings_1.constructorstandingsid = results_1.resultid )
@@ -8017,7 +8017,7 @@ select
   constructor_standings_1.constructorstandingsid, 
   constructor_standings_1.date, 
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 limit 30;
@@ -8029,7 +8029,7 @@ select
   count(
     constructor_standings_1.date), 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.position is not NULL
 group by constructor_standings_1.date, constructor_standings_1.points
@@ -8045,7 +8045,7 @@ select
   results_1.positionorder, 
   results_1.constructorid, 
   results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.laps > results_1.constructorid
 group by results_1.constructorid, results_1.date, results_1.driverid, results_1.milliseconds, results_1.positionorder, results_1.raceid, results_1.resultid
@@ -8059,7 +8059,7 @@ select
   sum(
     circuits_1.circuitid), 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.location is not NULL
 group by circuits_1.circuitref, circuits_1.country, circuits_1.lng, circuits_1.location, circuits_1.name
@@ -8068,7 +8068,7 @@ limit 31;
 select  
   count(
     constructor_results_1.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 limit 22;
@@ -8083,7 +8083,7 @@ select
     constructors_1.nationality), 
   constructors_1.constructorref, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 group by constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -8093,7 +8093,7 @@ select
   max(
     standings_1.date), 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructor_results as constructor_results_1
     on (standings_1.driverstandingsid = constructor_results_1.constructorresultsid )
@@ -8101,11 +8101,11 @@ where standings_1.date is not NULL
 group by standings_1.points
 limit 20;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   standings_2.wins, 
   standings_1.points, 
   standings_2.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join standings as standings_2
     on (standings_1.driverstandingsid = standings_2.driverstandingsid )
@@ -8118,7 +8118,7 @@ select
   races_1.raceid, 
   sum(
     races_1.year)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 group by races_1.circuitid, races_1.raceid, races_1.time
@@ -8132,7 +8132,7 @@ select
   constructor_standings_1.constructorstandingsid, 
   count(*), 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructor_standings as constructor_standings_1
       inner join constructor_results as constructor_results_1
@@ -8147,7 +8147,7 @@ select
     standings_1.points), 
   standings_1.position, 
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
     on (races_1.raceid = standings_1.driverstandingsid )
@@ -8163,7 +8163,7 @@ select
   circuits_1.lat, 
   circuits_1.alt, 
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join circuits as circuits_1
     on (constructor_results_1.constructorresultsid = circuits_1.circuitid )
@@ -8173,7 +8173,7 @@ limit 26;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position < qualifying_1.driverid
 limit 26;
@@ -8181,7 +8181,7 @@ limit 26;
 select  
   constructor_standings_1.points, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins is not NULL
 limit 32;
@@ -8190,7 +8190,7 @@ select
   circuits_2.country, 
   constructor_results_2.constructorresultsid, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join constructor_results as constructor_results_1
       on (constructors_1.constructorid = constructor_results_1.constructorresultsid )
@@ -8209,7 +8209,7 @@ limit 4;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructors as constructors_1
     on (standings_1.driverstandingsid = constructors_1.constructorid )
@@ -8226,7 +8226,7 @@ select
     results_1.date), 
   circuits_1.lng, 
   results_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
     on (results_1.resultid = circuits_1.circuitid )
@@ -8239,7 +8239,7 @@ select
   max(
     constructors_1.constructorid), 
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join drivers as drivers_1
     on (constructors_1.constructorid = drivers_1.driverid )
@@ -8249,7 +8249,7 @@ limit 16;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join results as results_1
     on (circuits_1.circuitid = results_1.resultid )
@@ -8259,7 +8259,7 @@ limit 23;
 select  
   count(*), 
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 group by drivers_1.code
@@ -8270,7 +8270,7 @@ select
     qualifying_1.date), 
   results_1.positionorder, 
   qualifying_2.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join qualifying as qualifying_1
       inner join qualifying as qualifying_2
@@ -8289,7 +8289,7 @@ select
   standings_1.position, 
   circuits_1.circuitid, 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
       inner join circuits as circuits_1
@@ -8307,7 +8307,7 @@ select
   qualifying_1.constructorid, 
   sum(
     constructor_standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join races as races_1
       on (constructor_standings_1.constructorstandingsid = races_1.raceid )
@@ -8324,7 +8324,7 @@ select
   drivers_1.nationality, 
   results_1.rank, 
   results_1.fastestlap
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join results as results_1
     on (drivers_1.driverid = results_1.resultid )
@@ -8337,7 +8337,7 @@ select
   results_1.number, 
   results_1.laps, 
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.positionorder > results_1.laps
 limit 9;
@@ -8347,7 +8347,7 @@ select
     constructor_results_1.date), 
   circuits_1.alt, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join circuits as circuits_1
     on (constructor_results_1.constructorresultsid = circuits_1.circuitid )
@@ -8360,7 +8360,7 @@ select
     circuits_1.alt), 
   circuits_1.name, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name is not NULL
 group by circuits_1.alt, circuits_1.name
@@ -8369,7 +8369,7 @@ limit 10;
 select  
   constructor_results_1.date, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructors as constructors_1
     on (constructor_results_1.constructorresultsid = constructors_1.constructorid )
@@ -8378,7 +8378,7 @@ limit 10;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.positionorder
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join results as results_1
     on (constructor_standings_1.constructorstandingsid = results_1.resultid )
@@ -8395,7 +8395,7 @@ select
   count(*), 
   standings_1.position, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid = standings_1.wins
 group by standings_1.date, standings_1.driverid, standings_1.points, standings_1.position
@@ -8411,7 +8411,7 @@ select
   count(*), 
   circuits_2.name, 
   circuits_2.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join results as results_1
         inner join circuits as circuits_1
@@ -8425,7 +8425,7 @@ limit 21;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 limit 7;
@@ -8437,7 +8437,7 @@ select
     standings_1.wins), 
   avg(
     constructor_standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join standings as standings_1
     on (constructor_standings_1.constructorstandingsid = standings_1.driverstandingsid )
@@ -8455,7 +8455,7 @@ select
   results_1.rank, 
   constructors_1.constructorref, 
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_standings as constructor_standings_1
       inner join constructors as constructors_1
@@ -8477,7 +8477,7 @@ select
   constructors_1.constructorid, 
   constructor_results_1.constructorresultsid, 
   constructors_2.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructor_results as constructor_results_1
       inner join results as results_1
@@ -8495,14 +8495,14 @@ select
   drivers_1.forename, 
   drivers_1.code, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 limit 24;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorid is not NULL
 limit 2;
@@ -8512,7 +8512,7 @@ select
   results_1.rank, 
   sum(
     races_1.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join constructor_standings as constructor_standings_1
       inner join results as results_1
@@ -8524,7 +8524,7 @@ limit 18;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join races as races_1
     on (constructor_standings_1.constructorstandingsid = races_1.raceid )
@@ -8535,14 +8535,14 @@ select
   races_1.round, 
   races_1.raceid, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 limit 41;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.raceid is not NULL
 limit 30;
@@ -8552,7 +8552,7 @@ select
   constructors_1.constructorid, 
   constructor_results_1.constructorid, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join drivers as drivers_1
       on (constructors_1.constructorid = drivers_1.driverid )
@@ -8563,7 +8563,7 @@ limit 17;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_2.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_standings as constructor_standings_2
       inner join drivers as drivers_1
@@ -8585,7 +8585,7 @@ select
     results_1.date), 
   min(
     results_1.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join results as results_1
     on (standings_1.driverstandingsid = results_1.resultid )
@@ -8597,7 +8597,7 @@ select
   standings_1.raceid, 
   constructors_1.constructorid, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructors as constructors_1
     on (standings_1.driverstandingsid = constructors_1.constructorid )
@@ -8606,7 +8606,7 @@ limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.number is not NULL
 limit 22;
@@ -8614,7 +8614,7 @@ limit 22;
 select  
   constructor_standings_1.position, 
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join circuits as circuits_1
       on (constructors_1.constructorid = circuits_1.circuitid )
@@ -8635,7 +8635,7 @@ select
     drivers_1.driverid), 
   drivers_1.surname, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.surname is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid, drivers_1.nationality, drivers_1.surname
@@ -8657,7 +8657,7 @@ select
   qualifying_2.number, 
   sum(
     results_2.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join results as results_1
         inner join results as results_2
@@ -8677,7 +8677,7 @@ select
   circuits_1.name, 
   races_1.circuitid, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join races as races_1
     on (circuits_1.circuitid = races_1.raceid )
@@ -8686,7 +8686,7 @@ limit 42;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
       inner join circuits as circuits_1
       on (drivers_1.driverid = circuits_1.circuitid )
@@ -8697,7 +8697,7 @@ limit 9;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points is not NULL
 limit 33;
@@ -8715,7 +8715,7 @@ select
     standings_1.driverstandingsid), 
   min(
     standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.position is not NULL
 group by standings_1.date, standings_1.driverid, standings_1.points, standings_1.position, standings_1.raceid, standings_1.wins
@@ -8725,7 +8725,7 @@ select
   standings_1.points, 
   standings_1.raceid, 
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points < standings_1.points
 limit 13;
@@ -8735,14 +8735,14 @@ select
   qualifying_1.constructorid, 
   qualifying_1.qualifyid, 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.qualifyid is not NULL
 limit 27;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 limit 6;
@@ -8762,7 +8762,7 @@ select
   qualifying_1.position, 
   races_1.name, 
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join qualifying as qualifying_1
           inner join constructor_standings as constructor_standings_1
@@ -8780,7 +8780,7 @@ select
   races_1.raceid, 
   races_1.date, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time <= races_1.name
 limit 24;
@@ -8794,7 +8794,7 @@ select
   qualifying_1.date, 
   count(
     qualifying_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 group by qualifying_1.date, qualifying_1.driverid, qualifying_1.number, qualifying_1.position, qualifying_1.qualifyid
@@ -8802,7 +8802,7 @@ limit 13;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join constructor_results as constructor_results_2
       on (constructor_results_1.constructorresultsid = constructor_results_2.constructorresultsid )
@@ -8813,7 +8813,7 @@ limit 36;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitref is not NULL
 limit 24;
@@ -8822,7 +8822,7 @@ select
   qualifying_1.date, 
   qualifying_1.number, 
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 limit 6;
@@ -8832,7 +8832,7 @@ select
   drivers_1.surname, 
   drivers_1.nationality, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join races as races_1
     on (drivers_1.driverid = races_1.raceid )
@@ -8854,7 +8854,7 @@ select
   sum(
     circuits_1.alt), 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng is not NULL
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.circuitref, circuits_1.country, circuits_1.lat, circuits_1.lng, circuits_1.location, circuits_1.name
@@ -8864,7 +8864,7 @@ select
   standings_1.points, 
   standings_1.driverstandingsid, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 limit 5;
@@ -8873,7 +8873,7 @@ select
   constructor_results_1.date, 
   drivers_1.nationality, 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join drivers as drivers_1
     on (constructor_results_1.constructorresultsid = drivers_1.driverid )
@@ -8884,7 +8884,7 @@ select
   results_1.milliseconds, 
   results_1.resultid, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join results as results_1
         inner join races as races_1
@@ -8899,7 +8899,7 @@ select
   constructors_1.constructorid, 
   constructors_1.name, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 limit 20;
@@ -8907,7 +8907,7 @@ limit 20;
 select  
   constructor_results_1.date, 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join circuits as circuits_1
       inner join constructor_standings as constructor_standings_1
@@ -8922,7 +8922,7 @@ select
   constructor_results_1.date, 
   min(
     constructor_results_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date
@@ -8933,7 +8933,7 @@ select
   constructor_results_1.date, 
   constructors_1.constructorid, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructor_results as constructor_results_1
       inner join qualifying as qualifying_1
@@ -8948,7 +8948,7 @@ select
     results_1.date), 
   results_1.date, 
   results_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join standings as standings_2
       inner join constructor_standings as constructor_standings_1
@@ -8963,7 +8963,7 @@ limit 25;
 select  
   constructor_results_1.constructorid, 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join qualifying as qualifying_1
         inner join circuits as circuits_1
@@ -8989,7 +8989,7 @@ select
     constructor_results_1.date), 
   min(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -9007,7 +9007,7 @@ select
     circuits_1.lng), 
   min(
     circuits_1.alt)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructors as constructors_1
     on (circuits_1.circuitid = constructors_1.constructorid )
@@ -9022,7 +9022,7 @@ select
   count(
     constructors_1.nationality), 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -9033,7 +9033,7 @@ select
     results_1.points), 
   min(
     results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date is not NULL
 limit 28;
@@ -9047,7 +9047,7 @@ select
   count(
     qualifying_1.driverid), 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 group by qualifying_1.constructorid, qualifying_1.driverid, qualifying_1.number, qualifying_1.raceid
@@ -9056,7 +9056,7 @@ limit 39;
 select  
   races_1.time, 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join qualifying as qualifying_1
       inner join qualifying as qualifying_2
@@ -9068,7 +9068,7 @@ limit 42;
 select  
   constructors_1.constructorid, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 limit 40;
@@ -9083,7 +9083,7 @@ select
   constructor_standings_1.wins, 
   constructor_standings_1.raceid, 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -9093,7 +9093,7 @@ select
   standings_1.date, 
   standings_1.driverid, 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.raceid = standings_1.position
 limit 20;
@@ -9101,7 +9101,7 @@ limit 20;
 select  
   min(
     constructor_standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructors as constructors_1
     on (constructor_standings_1.constructorstandingsid = constructors_1.constructorid )
@@ -9112,7 +9112,7 @@ select
   results_1.points, 
   results_1.laps, 
   results_1.statusid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.number is not NULL
 limit 22;
@@ -9121,14 +9121,14 @@ select
   drivers_1.dob, 
   drivers_1.driverid, 
   drivers_1.surname
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 limit 29;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join constructor_standings as constructor_standings_1
     on (constructor_results_1.constructorresultsid = constructor_standings_1.constructorstandingsid )
@@ -9145,7 +9145,7 @@ select
   avg(
     races_1.raceid), 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.name is not NULL
 group by races_1.circuitid, races_1.name, races_1.raceid, races_1.round, races_1.year
@@ -9156,7 +9156,7 @@ select
   races_1.name, 
   races_1.raceid, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date is not NULL
 limit 13;
@@ -9165,7 +9165,7 @@ select
   qualifying_1.driverid, 
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date >= qualifying_1.date
 group by qualifying_1.driverid
@@ -9182,7 +9182,7 @@ select
     results_1.raceid), 
   results_1.raceid, 
   results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date < results_1.date
 group by results_1.fastestlap, results_1.grid, results_1.points, results_1.position, results_1.raceid, results_1.statusid
@@ -9197,7 +9197,7 @@ select
   qualifying_1.qualifyid, 
   sum(
     results_1.resultid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join qualifying as qualifying_1
       inner join constructor_results as constructor_results_1
@@ -9210,7 +9210,7 @@ limit 41;
 select  
   qualifying_1.constructorid, 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.number is not NULL
 limit 12;
@@ -9221,7 +9221,7 @@ select
   races_1.name, 
   min(
     results_1.milliseconds)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join drivers as drivers_1
       inner join results as results_1
@@ -9234,7 +9234,7 @@ limit 3;
 select  
   constructors_1.constructorref, 
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join circuits as circuits_1
       on (constructors_1.constructorid = circuits_1.circuitid )
@@ -9248,7 +9248,7 @@ limit 41;
 select  
   circuits_1.circuitref, 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructors as constructors_1
     on (circuits_1.circuitid = constructors_1.constructorid )
@@ -9266,7 +9266,7 @@ select
   max(
     constructor_standings_1.points), 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 group by constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.raceid
@@ -9274,7 +9274,7 @@ limit 14;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join circuits as circuits_1
     on (constructors_1.constructorid = circuits_1.circuitid )
@@ -9287,7 +9287,7 @@ select
   races_1.round, 
   races_1.raceid, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.round is not NULL
 group by races_1.raceid, races_1.round, races_1.year
@@ -9300,7 +9300,7 @@ select
   constructor_results_1.constructorresultsid, 
   max(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid
@@ -9317,7 +9317,7 @@ select
   sum(
     constructor_standings_1.position), 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_results as constructor_results_1
     on (constructor_standings_1.constructorstandingsid = constructor_results_1.constructorresultsid )
@@ -9331,7 +9331,7 @@ select
   constructor_standings_1.position, 
   max(
     constructor_standings_4.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join constructor_standings as constructor_standings_2
       on (constructor_standings_1.constructorstandingsid = constructor_standings_2.constructorstandingsid )
@@ -9354,7 +9354,7 @@ select
   standings_1.driverstandingsid, 
   standings_1.points, 
   standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points < standings_1.points
 limit 35;
@@ -9368,7 +9368,7 @@ select
   races_1.round, 
   avg(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join constructor_results as constructor_results_1
         inner join constructor_standings as constructor_standings_1
@@ -9385,7 +9385,7 @@ select
     constructor_results_1.constructorid), 
   constructor_results_1.date, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.date
@@ -9393,7 +9393,7 @@ limit 19;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
       inner join drivers as drivers_1
       on (standings_1.driverstandingsid = drivers_1.driverid )
@@ -9404,7 +9404,7 @@ limit 39;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date > results_1.date
 limit 32;
@@ -9416,7 +9416,7 @@ select
   circuits_1.circuitid, 
   circuits_1.location, 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 group by circuits_1.circuitid, circuits_1.circuitref, circuits_1.country, circuits_1.location
@@ -9425,7 +9425,7 @@ limit 7;
 select  
   races_1.raceid, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 limit 30;
@@ -9445,7 +9445,7 @@ select
   avg(
     constructor_standings_1.raceid), 
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join circuits as circuits_1
     on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -9456,7 +9456,7 @@ limit 26;
 select  
   results_1.resultid, 
   results_1.milliseconds
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.fastestlap <= results_1.number
 limit 32;
@@ -9466,7 +9466,7 @@ select
   drivers_1.driverref, 
   max(
     drivers_1.dob)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverref is not NULL
 group by drivers_1.driverref, drivers_1.surname
@@ -9474,7 +9474,7 @@ limit 31;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.location is not NULL
 limit 15;
@@ -9484,7 +9484,7 @@ select
     drivers_1.dob), 
   qualifying_1.date, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join races as races_1
         inner join circuits as circuits_1
@@ -9502,7 +9502,7 @@ select
     constructor_results_1.points), 
   constructor_results_1.constructorresultsid, 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 group by constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points
@@ -9515,7 +9515,7 @@ select
     constructors_1.constructorid), 
   constructors_1.constructorid, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -9526,7 +9526,7 @@ select
   drivers_1.driverid, 
   drivers_1.nationality, 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.forename is not NULL
 limit 42;
@@ -9537,7 +9537,7 @@ select
   qualifying_1.qualifyid, 
   qualifying_1.raceid, 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.driverid is not NULL
 limit 30;
@@ -9548,7 +9548,7 @@ select
     qualifying_1.date), 
   qualifying_1.position, 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.qualifyid is not NULL
 group by qualifying_1.position, qualifying_1.qualifyid, qualifying_1.raceid
@@ -9558,7 +9558,7 @@ select
   results_2.grid, 
   qualifying_1.position, 
   results_2.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join results as results_1
       on (qualifying_1.qualifyid = results_1.resultid )
@@ -9569,7 +9569,7 @@ limit 22;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.laps is not NULL
 limit 7;
@@ -9578,7 +9578,7 @@ select
   constructor_standings_1.wins, 
   constructor_standings_1.raceid, 
   constructor_standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins is not NULL
 limit 13;
@@ -9586,7 +9586,7 @@ limit 13;
 select  
   constructors_1.constructorid, 
   constructor_results_2.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join races as races_1
       on (constructor_results_1.constructorresultsid = races_1.raceid )
@@ -9609,7 +9609,7 @@ select
   standings_1.driverid, 
   max(
     standings_1.driverstandingsid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points <= standings_1.points
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.raceid, standings_1.wins
@@ -9623,7 +9623,7 @@ select
   standings_1.driverid, 
   standings_1.points, 
   standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date is not NULL
 group by standings_1.date, standings_1.driverid, standings_1.driverstandingsid, standings_1.points, standings_1.position
@@ -9632,7 +9632,7 @@ limit 26;
 select  
   results_1.grid, 
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join results as results_1
     on (circuits_1.circuitid = results_1.resultid )
@@ -9649,7 +9649,7 @@ select
   drivers_1.surname, 
   sum(
     drivers_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.surname is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverref, drivers_1.nationality, drivers_1.surname
@@ -9659,14 +9659,14 @@ select
   standings_1.date, 
   standings_1.wins, 
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points is not NULL
 limit 5;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join qualifying as qualifying_1
       on (circuits_1.circuitid = qualifying_1.qualifyid )
@@ -9677,7 +9677,7 @@ limit 37;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date is not NULL
 limit 22;
@@ -9690,7 +9690,7 @@ select
   standings_1.driverstandingsid, 
   qualifying_1.number, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join constructors as constructors_1
         inner join standings as standings_1
@@ -9703,7 +9703,7 @@ limit 12;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 limit 41;
@@ -9716,7 +9716,7 @@ select
     qualifying_1.date), 
   qualifying_1.qualifyid, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 group by qualifying_1.constructorid, qualifying_1.qualifyid, qualifying_1.raceid
@@ -9726,7 +9726,7 @@ select
   drivers_1.code, 
   drivers_1.forename, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.dob is not NULL
 limit 7;
@@ -9741,7 +9741,7 @@ select
   qualifying_1.qualifyid, 
   constructor_standings_1.date, 
   races_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join constructor_standings as constructor_standings_1
       on (races_1.raceid = constructor_standings_1.constructorstandingsid )
@@ -9761,7 +9761,7 @@ select
   circuits_1.lat, 
   max(
     drivers_1.dob)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join circuits as circuits_1
     on (drivers_1.driverid = circuits_1.circuitid )
@@ -9779,7 +9779,7 @@ select
   constructor_standings_1.date, 
   sum(
     constructor_standings_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorstandingsid is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.position, constructor_standings_1.wins
@@ -9790,7 +9790,7 @@ select
   avg(
     circuits_1.lat), 
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lat <= circuits_1.alt
 group by circuits_1.alt, circuits_1.lng
@@ -9800,7 +9800,7 @@ select
   races_1.date, 
   max(
     races_1.circuitid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.round <= races_1.raceid
 group by races_1.date
@@ -9811,14 +9811,14 @@ select
   standings_1.points, 
   standings_1.date, 
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date is not NULL
 limit 31;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join results as results_1
     on (races_1.raceid = results_1.resultid )
@@ -9829,7 +9829,7 @@ select
   constructor_results_1.constructorid, 
   constructor_results_1.constructorresultsid, 
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date < constructor_results_1.date
 limit 22;
@@ -9842,7 +9842,7 @@ select
   qualifying_1.number, 
   qualifying_1.qualifyid, 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid is not NULL
 group by qualifying_1.date, qualifying_1.number, qualifying_1.qualifyid
@@ -9853,7 +9853,7 @@ select
   constructors_1.name, 
   max(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 group by constructors_1.name, constructors_1.nationality
@@ -9863,7 +9863,7 @@ select
   constructor_standings_1.date, 
   constructor_standings_1.wins, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.position is not NULL
 limit 18;
@@ -9874,14 +9874,14 @@ select
   drivers_1.code, 
   drivers_1.dob, 
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 limit 12;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng is not NULL
 limit 37;
@@ -9900,7 +9900,7 @@ select
   races_1.raceid, 
   races_1.time, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join races as races_1
     on (constructors_1.constructorid = races_1.raceid )
@@ -9914,7 +9914,7 @@ select
   standings_1.driverstandingsid, 
   constructors_1.nationality, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructors as constructors_1
     on (standings_1.driverstandingsid = constructors_1.constructorid )
@@ -9927,7 +9927,7 @@ select
   max(
     standings_1.date), 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join drivers as drivers_1
       on (races_1.raceid = drivers_1.driverid )
@@ -9939,7 +9939,7 @@ limit 22;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 limit 37;
@@ -9954,7 +9954,7 @@ select
   circuits_1.country, 
   count(*), 
   circuits_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitref is not NULL
 group by circuits_1.circuitid, circuits_1.circuitref, circuits_1.country, circuits_1.lat, circuits_1.lng, circuits_1.name
@@ -9965,7 +9965,7 @@ select
   max(
     standings_1.points), 
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join standings as standings_1
     on (drivers_1.driverid = standings_1.driverstandingsid )
@@ -9985,7 +9985,7 @@ select
   constructors_1.constructorref, 
   count(*), 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructors as constructors_1
       inner join constructor_standings as constructor_standings_1
@@ -9997,7 +9997,7 @@ limit 35;
 -- meta {"num_joins":6,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
           inner join constructor_results as constructor_results_1
             inner join circuits as circuits_1
@@ -10018,7 +10018,7 @@ select
   constructor_results_1.raceid, 
   constructor_results_1.date, 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 limit 5;
@@ -10041,7 +10041,7 @@ select
   races_1.name, 
   constructor_results_1.date, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
         inner join drivers as drivers_1
           inner join races as races_1
@@ -10060,7 +10060,7 @@ limit 23;
 select  
   avg(
     circuits_1.lng)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join races as races_1
       inner join constructor_results as constructor_results_1
@@ -10079,7 +10079,7 @@ select
   results_1.driverid, 
   races_1.date, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join results as results_1
       inner join races as races_1
@@ -10091,7 +10091,7 @@ limit 13;
 select  
   races_2.round, 
   qualifying_3.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
         inner join constructor_standings as constructor_standings_1
           inner join qualifying as qualifying_1
@@ -10116,7 +10116,7 @@ select
   avg(
     circuits_1.alt), 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join results as results_1
     on (circuits_1.circuitid = results_1.resultid )
@@ -10128,7 +10128,7 @@ select
   standings_1.raceid, 
   standings_2.points, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join standings as standings_1
       on (races_1.raceid = standings_1.driverstandingsid )
@@ -10142,21 +10142,21 @@ limit 19;
 select  
   standings_1.driverid, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.raceid is not NULL
 limit 41;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid = constructor_results_1.raceid
 limit 21;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join results as results_1
     on (races_1.raceid = results_1.resultid )
@@ -10171,7 +10171,7 @@ select
   constructor_results_1.date, 
   constructor_results_1.constructorid, 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join constructor_results as constructor_results_1
       on (constructor_standings_1.constructorstandingsid = constructor_results_1.constructorresultsid )
@@ -10184,7 +10184,7 @@ limit 20;
 select  
   results_1.date, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.milliseconds is not NULL
 group by results_1.date
@@ -10197,7 +10197,7 @@ select
   sum(
     standings_1.points), 
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join qualifying as qualifying_1
     on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -10208,7 +10208,7 @@ limit 41;
 select  
   circuits_1.circuitid, 
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 limit 8;
@@ -10218,7 +10218,7 @@ select
   max(
     constructor_standings_1.points), 
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join standings as standings_1
     on (constructor_standings_1.constructorstandingsid = standings_1.driverstandingsid )
@@ -10229,7 +10229,7 @@ limit 29;
 select  
   constructors_1.constructorref, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join constructors as constructors_2
       on (constructors_1.constructorid = constructors_2.constructorid )
@@ -10243,7 +10243,7 @@ limit 28;
 select  
   races_1.date, 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid is not NULL
 limit 42;
@@ -10256,7 +10256,7 @@ select
   constructor_standings_1.wins, 
   constructor_standings_1.date, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins <= constructor_standings_1.raceid
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.position, constructor_standings_1.wins
@@ -10270,7 +10270,7 @@ select
   standings_1.driverid, 
   standings_1.driverstandingsid, 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid is not NULL
 limit 2;
@@ -10286,7 +10286,7 @@ select
   min(
     constructor_results_1.date), 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_results as constructor_results_1
     on (results_1.resultid = constructor_results_1.constructorresultsid )
@@ -10305,7 +10305,7 @@ select
   qualifying_1.number, 
   avg(
     results_1.resultid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
           inner join qualifying as qualifying_1
           on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -10327,7 +10327,7 @@ select
     qualifying_1.date), 
   qualifying_1.position, 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 group by qualifying_1.constructorid, qualifying_1.date, qualifying_1.number, qualifying_1.position, qualifying_1.raceid
@@ -10337,7 +10337,7 @@ select
   constructors_1.constructorid, 
   constructors_1.nationality, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 limit 34;
@@ -10350,7 +10350,7 @@ select
   count(*), 
   qualifying_1.driverid, 
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 group by qualifying_1.constructorid, qualifying_1.driverid, qualifying_1.number, qualifying_1.qualifyid
@@ -10362,7 +10362,7 @@ select
   standings_1.driverid, 
   min(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join drivers as drivers_1
     on (standings_1.driverstandingsid = drivers_1.driverid )
@@ -10376,7 +10376,7 @@ select
   constructors_1.constructorid, 
   constructors_1.constructorref, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructors as constructors_1
     on (results_1.resultid = constructors_1.constructorid )
@@ -10397,7 +10397,7 @@ select
   results_1.fastestlap, 
   max(
     circuits_1.alt)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_results as constructor_results_1
       inner join results as results_1
@@ -10414,7 +10414,7 @@ select
     drivers_1.forename), 
   drivers_1.code, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 group by drivers_1.code, drivers_1.driverid, drivers_1.nationality, drivers_1.surname
@@ -10428,7 +10428,7 @@ select
   count(*), 
   sum(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 group by constructors_1.constructorref, constructors_1.name
@@ -10439,7 +10439,7 @@ select
   results_1.grid, 
   qualifying_1.constructorid, 
   results_1.rank
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join results as results_1
     on (qualifying_1.qualifyid = results_1.resultid )
@@ -10452,7 +10452,7 @@ select
   constructors_1.nationality, 
   sum(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 group by constructors_1.constructorid, constructors_1.name, constructors_1.nationality
@@ -10469,7 +10469,7 @@ select
   max(
     constructor_results_1.points), 
   constructor_results_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points
@@ -10482,7 +10482,7 @@ select
   results_2.fastestlap, 
   results_1.grid, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join results as results_1
       on (circuits_1.circuitid = results_1.resultid )
@@ -10499,7 +10499,7 @@ select
   drivers_1.dob, 
   races_1.date, 
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join races as races_1
       inner join results as results_1
@@ -10516,7 +10516,7 @@ select
   races_1.circuitid, 
   races_1.time, 
   races_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.name is not NULL
 limit 13;
@@ -10524,7 +10524,7 @@ limit 13;
 select  
   races_1.circuitid, 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 limit 13;
@@ -10535,7 +10535,7 @@ select
   max(
     standings_1.date), 
   standings_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverid is not NULL
 group by standings_1.driverid, standings_1.position, standings_1.raceid
@@ -10554,7 +10554,7 @@ select
     races_1.date), 
   max(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date >= races_1.date
 group by races_1.circuitid, races_1.date, races_1.name, races_1.raceid, races_1.time, races_1.year
@@ -10563,14 +10563,14 @@ limit 13;
 select  
   qualifying_1.position, 
   qualifying_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 limit 10;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 limit 34;
@@ -10584,7 +10584,7 @@ select
   results_1.laps, 
   results_1.position, 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date = results_1.date
 group by results_1.constructorid, results_1.date, results_1.laps, results_1.position, results_1.positionorder, results_1.statusid
@@ -10598,7 +10598,7 @@ select
     constructor_standings_1.points), 
   constructor_standings_1.points, 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorid is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid, constructor_standings_1.points
@@ -10619,7 +10619,7 @@ select
   races_1.year, 
   races_1.time, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date is not NULL
 group by races_1.circuitid, races_1.name, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -10628,7 +10628,7 @@ limit 4;
 select  
   constructor_results_1.points, 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 limit 27;
@@ -10641,7 +10641,7 @@ select
   max(
     drivers_1.dob), 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 group by drivers_1.dob, drivers_1.driverid, drivers_1.driverref, drivers_1.forename, drivers_1.nationality
@@ -10673,7 +10673,7 @@ select
   min(
     constructor_standings_1.date), 
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join circuits as circuits_1
     on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -10693,7 +10693,7 @@ select
   min(
     circuits_1.circuitid), 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 group by circuits_1.circuitid, circuits_1.circuitref, circuits_1.lng, circuits_1.location, circuits_1.name
@@ -10708,7 +10708,7 @@ select
   results_1.positionorder, 
   results_1.rank, 
   results_1.grid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join results as results_1
     on (standings_1.driverstandingsid = results_1.resultid )
@@ -10732,7 +10732,7 @@ select
   drivers_1.code, 
   min(
     drivers_1.dob)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.dob is not NULL
 group by drivers_1.code, drivers_1.driverid, drivers_1.driverref, drivers_1.forename, drivers_1.surname
@@ -10752,7 +10752,7 @@ select
   races_1.year, 
   avg(
     standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join races as races_1
     on (standings_1.driverstandingsid = races_1.raceid )
@@ -10763,7 +10763,7 @@ limit 29;
 select  
   count(*), 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 group by races_1.circuitid
@@ -10788,7 +10788,7 @@ select
   races_2.date, 
   races_1.time, 
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join drivers as drivers_1
       on (circuits_1.circuitid = drivers_1.driverid )
@@ -10800,9 +10800,9 @@ where drivers_1.forename is not NULL
 group by circuits_1.country, circuits_1.lat, circuits_1.lng, races_1.round, races_1.time, races_2.date, races_2.name, races_2.round
 limit 22;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join constructor_results as constructor_results_1
       on (qualifying_1.qualifyid = constructor_results_1.constructorresultsid )
@@ -10814,7 +10814,7 @@ limit 23;
 select  
   races_1.circuitid, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join races as races_1
     on (qualifying_1.qualifyid = races_1.raceid )
@@ -10834,7 +10834,7 @@ select
     qualifying_1.date), 
   sum(
     qualifying_1.qualifyid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.position is not NULL
 group by qualifying_1.constructorid, qualifying_1.date, qualifying_1.driverid, qualifying_1.number, qualifying_1.position, qualifying_1.qualifyid, qualifying_1.raceid
@@ -10843,7 +10843,7 @@ limit 26;
 select  
   races_1.time, 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 limit 11;
@@ -10857,7 +10857,7 @@ select
   drivers_1.driverid, 
   drivers_1.forename, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverid is not NULL
 group by drivers_1.dob, drivers_1.driverid, drivers_1.driverref, drivers_1.forename, drivers_1.nationality, drivers_1.surname
@@ -10872,7 +10872,7 @@ select
   drivers_1.code, 
   count(
     drivers_1.surname)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 group by drivers_1.code, drivers_1.driverid, drivers_1.driverref, drivers_1.surname
@@ -10881,7 +10881,7 @@ limit 29;
 select  
   results_1.grid, 
   results_1.fastestlap
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.driverid is not NULL
 limit 2;
@@ -10896,7 +10896,7 @@ select
   circuits_1.alt, 
   avg(
     circuits_1.lat)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng is not NULL
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.circuitref, circuits_1.lng, circuits_1.location
@@ -10908,7 +10908,7 @@ select
     constructor_standings_1.date), 
   min(
     circuits_1.circuitid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join circuits as circuits_1
     on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -10920,14 +10920,14 @@ select
   races_1.date, 
   races_1.year, 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.name <= races_1.time
 limit 12;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_2.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join constructor_results as constructor_results_1
       on (constructor_standings_1.constructorstandingsid = constructor_results_1.constructorresultsid )
@@ -10947,7 +10947,7 @@ select
   standings_1.points, 
   constructor_standings_1.constructorid, 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructor_standings as constructor_standings_1
       inner join standings as standings_1
@@ -10961,7 +10961,7 @@ select
   drivers_1.dob, 
   drivers_1.surname, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join drivers as drivers_2
     on (drivers_1.driverid = drivers_2.driverid )
@@ -10970,7 +10970,7 @@ limit 21;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time > races_1.name
 limit 1;
@@ -10978,7 +10978,7 @@ limit 1;
 select  
   circuits_1.location, 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitid >= circuits_1.circuitid
 limit 37;
@@ -10996,7 +10996,7 @@ select
   races_1.raceid, 
   min(
     races_1.round)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 group by races_1.circuitid, races_1.name, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -11006,7 +11006,7 @@ select
   min(
     results_1.fastestlap), 
   results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.grid is not NULL
 group by results_1.date
@@ -11021,7 +11021,7 @@ select
   races_1.raceid, 
   races_1.year, 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join constructors as constructors_1
     on (races_1.raceid = constructors_1.constructorid )
@@ -11032,7 +11032,7 @@ limit 30;
 select  
   races_1.date, 
   results_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join qualifying as qualifying_1
           inner join qualifying as qualifying_2
@@ -11053,7 +11053,7 @@ select
   circuits_1.alt, 
   circuits_1.country, 
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.alt is not NULL
 limit 31;
@@ -11066,7 +11066,7 @@ select
   sum(
     standings_1.points), 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join constructor_results as constructor_results_1
       inner join standings as standings_1
@@ -11080,7 +11080,7 @@ limit 32;
 -- meta {"num_joins":5,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_2.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join drivers as drivers_1
           inner join constructors as constructors_1
@@ -11100,7 +11100,7 @@ select
     races_1.round), 
   races_1.round, 
   races_1.time
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 group by races_1.round, races_1.time
@@ -11108,7 +11108,7 @@ limit 9;
 -- meta {"num_joins":4,"num_aggregates":1,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join races as races_1
       inner join results as results_2
@@ -11125,7 +11125,7 @@ select
   constructors_1.nationality, 
   count(*), 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join constructors as constructors_1
     on (races_1.raceid = constructors_1.constructorid )
@@ -11141,7 +11141,7 @@ select
   drivers_1.forename, 
   drivers_1.code, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality is not NULL
 limit 13;
@@ -11153,7 +11153,7 @@ select
   constructor_results_1.points, 
   count(
     constructor_results_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -11162,7 +11162,7 @@ limit 28;
 select  
   results_1.raceid, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join races as races_1
     on (results_1.resultid = races_1.raceid )
@@ -11174,7 +11174,7 @@ select
     results_1.milliseconds), 
   circuits_1.country, 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
     on (results_1.resultid = circuits_1.circuitid )
@@ -11190,7 +11190,7 @@ select
   max(
     results_1.date), 
   qualifying_2.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
       inner join qualifying as qualifying_1
         inner join circuits as circuits_1
@@ -11222,7 +11222,7 @@ select
   constructor_results_1.constructorresultsid, 
   min(
     constructor_results_1.constructorresultsid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -11238,7 +11238,7 @@ select
   circuits_1.circuitid, 
   avg(
     circuits_1.lng)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name is not NULL
 group by circuits_1.circuitid
@@ -11254,7 +11254,7 @@ select
     circuits_1.lng), 
   avg(
     circuits_2.lng)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
       inner join circuits as circuits_1
       on (standings_1.driverstandingsid = circuits_1.circuitid )
@@ -11268,7 +11268,7 @@ select
   results_1.date, 
   results_1.statusid, 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.number is not NULL
 limit 14;
@@ -11280,7 +11280,7 @@ select
   results_1.constructorid, 
   max(
     results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.points is not NULL
 group by results_1.constructorid, results_1.position
@@ -11290,7 +11290,7 @@ select
   constructor_results_1.raceid, 
   qualifying_1.qualifyid, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
       inner join constructor_results as constructor_results_2
       on (constructor_results_1.constructorresultsid = constructor_results_2.constructorresultsid )
@@ -11310,7 +11310,7 @@ select
   sum(
     circuits_1.lat), 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join circuits as circuits_2
     on (circuits_1.circuitid = circuits_2.circuitid )
@@ -11320,7 +11320,7 @@ limit 22;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join results as results_1
       inner join constructor_standings as constructor_standings_1
@@ -11332,7 +11332,7 @@ limit 33;
 select  
   qualifying_3.driverid, 
   qualifying_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join races as races_1
         inner join circuits as circuits_1
@@ -11348,7 +11348,7 @@ limit 40;
 select  
   constructor_results_1.constructorresultsid, 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join constructor_results as constructor_results_1
     on (qualifying_1.qualifyid = constructor_results_1.constructorresultsid )
@@ -11363,7 +11363,7 @@ select
   circuits_1.alt, 
   min(
     circuits_1.lat)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country < circuits_1.location
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.circuitref, circuits_1.lat, circuits_1.location
@@ -11378,7 +11378,7 @@ select
   standings_1.date, 
   min(
     standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.position is not NULL
 group by standings_1.date, standings_1.driverstandingsid, standings_1.points, standings_1.position
@@ -11389,7 +11389,7 @@ select
   constructor_results_1.points, 
   min(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.points
@@ -11399,7 +11399,7 @@ select
   circuits_1.country, 
   circuits_1.location, 
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lat < circuits_1.lng
 limit 25;
@@ -11412,7 +11412,7 @@ select
   drivers_1.code, 
   drivers_1.surname, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.nationality <= drivers_1.driverref
 group by drivers_1.code, drivers_1.driverid, drivers_1.forename, drivers_1.nationality, drivers_1.surname
@@ -11428,7 +11428,7 @@ select
   standings_1.wins, 
   standings_2.date, 
   standings_2.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join standings as standings_2
       inner join races as races_1
@@ -11443,7 +11443,7 @@ select
   qualifying_2.constructorid, 
   circuits_1.country, 
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join circuits as circuits_1
       on (qualifying_1.qualifyid = circuits_1.circuitid )
@@ -11455,7 +11455,7 @@ limit 30;
 select  
   results_1.driverid, 
   results_1.rank
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.statusid is not NULL
 limit 31;
@@ -11469,7 +11469,7 @@ select
   constructor_standings_1.wins, 
   constructor_standings_1.constructorstandingsid, 
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.date = constructor_standings_1.date
 group by constructor_standings_1.constructorstandingsid, constructor_standings_1.date, constructor_standings_1.points, constructor_standings_1.position, constructor_standings_1.raceid, constructor_standings_1.wins
@@ -11479,7 +11479,7 @@ select
   qualifying_2.date, 
   min(
     standings_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join qualifying as qualifying_2
       inner join standings as standings_1
@@ -11500,7 +11500,7 @@ select
     races_1.date), 
   max(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.raceid is not NULL
 group by races_1.circuitid, races_1.date, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -11513,7 +11513,7 @@ select
   constructor_results_1.raceid, 
   sum(
     constructor_results_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 group by constructor_results_1.constructorresultsid, constructor_results_1.raceid
@@ -11522,7 +11522,7 @@ limit 28;
 select  
   circuits_1.lat, 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name is not NULL
 limit 15;
@@ -11530,7 +11530,7 @@ limit 15;
 select  
   sum(
     qualifying_1.position)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date < qualifying_1.date
 limit 3;
@@ -11540,7 +11540,7 @@ select
   qualifying_1.raceid, 
   qualifying_1.constructorid, 
   qualifying_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 limit 2;
@@ -11549,7 +11549,7 @@ select
   count(*), 
   constructor_results_1.constructorid, 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid >= constructor_results_1.constructorid
 group by constructor_results_1.constructorid, constructor_results_1.date
@@ -11557,7 +11557,7 @@ limit 8;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid <= qualifying_1.driverid
 limit 5;
@@ -11579,7 +11579,7 @@ select
     constructor_results_1.raceid), 
   count(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid = constructor_results_1.raceid
 group by constructor_results_1.constructorid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -11587,7 +11587,7 @@ limit 33;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join standings as standings_1
     on (qualifying_1.qualifyid = standings_1.driverstandingsid )
@@ -11596,7 +11596,7 @@ limit 40;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructor_standings as constructor_standings_1
     on (drivers_1.driverid = constructor_standings_1.constructorstandingsid )
@@ -11608,7 +11608,7 @@ select
   max(
     circuits_1.lat), 
   standings_2.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
       inner join standings as standings_1
       on (drivers_1.driverid = standings_1.driverstandingsid )
@@ -11623,14 +11623,14 @@ limit 38;
 select  
   qualifying_1.number, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.qualifyid is not NULL
 limit 16;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 limit 17;
@@ -11646,7 +11646,7 @@ select
   qualifying_1.driverid, 
   qualifying_1.raceid, 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.qualifyid is not NULL
 group by qualifying_1.constructorid, qualifying_1.date, qualifying_1.driverid, qualifying_1.number, qualifying_1.position, qualifying_1.qualifyid, qualifying_1.raceid
@@ -11654,7 +11654,7 @@ limit 6;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join standings as standings_1
     on (constructors_1.constructorid = standings_1.driverstandingsid )
@@ -11672,7 +11672,7 @@ select
   drivers_1.nationality, 
   results_1.grid, 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
         inner join drivers as drivers_1
         on (results_1.resultid = drivers_1.driverid )
@@ -11685,7 +11685,7 @@ limit 20;
 -- meta {"num_joins":0,"num_aggregates":1,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.date is not NULL
 limit 14;
@@ -11693,14 +11693,14 @@ limit 14;
 select  
   circuits_1.alt, 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.country is not NULL
 limit 11;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join circuits as circuits_1
       inner join constructor_standings as constructor_standings_1
@@ -11713,14 +11713,14 @@ select
   standings_1.date, 
   standings_1.raceid, 
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.driverstandingsid is not NULL
 limit 8;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date < races_1.date
 limit 22;
@@ -11739,7 +11739,7 @@ select
   drivers_1.driverref, 
   count(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join drivers as drivers_1
     on (constructors_1.constructorid = drivers_1.driverid )
@@ -11747,9 +11747,9 @@ where constructors_1.constructorref is not NULL
 group by constructors_1.constructorref, constructors_1.nationality, drivers_1.driverref
 limit 17;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.points <= standings_1.points
 limit 26;
@@ -11758,7 +11758,7 @@ select
   circuits_1.country, 
   circuits_1.lng, 
   circuits_1.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.alt is not NULL
 limit 27;
@@ -11769,7 +11769,7 @@ select
     constructor_results_1.date), 
   constructor_results_1.date, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.date, constructor_results_1.raceid
@@ -11782,7 +11782,7 @@ select
   circuits_1.circuitref, 
   constructor_results_1.constructorresultsid, 
   circuits_1.country
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join constructor_results as constructor_results_1
       on (circuits_1.circuitid = constructor_results_1.constructorresultsid )
@@ -11797,7 +11797,7 @@ select
   qualifying_1.number, 
   qualifying_1.driverid, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 limit 25;
@@ -11806,7 +11806,7 @@ select
   constructor_standings_1.position, 
   min(
     constructor_standings_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join constructor_standings as constructor_standings_1
     on (qualifying_1.qualifyid = constructor_standings_1.constructorstandingsid )
@@ -11823,7 +11823,7 @@ select
   drivers_1.forename, 
   drivers_1.code, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.forename is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid, drivers_1.forename, drivers_1.nationality, drivers_1.surname
@@ -11838,7 +11838,7 @@ select
   min(
     races_1.date), 
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join circuits as circuits_1
       inner join races as races_1
@@ -11856,7 +11856,7 @@ select
   max(
     races_1.round), 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date = races_1.date
 group by races_1.circuitid, races_1.date, races_1.name, races_1.round, races_1.time
@@ -11864,7 +11864,7 @@ limit 3;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 limit 28;
@@ -11876,7 +11876,7 @@ select
   constructor_results_1.date, 
   constructor_results_1.points, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points
@@ -11887,7 +11887,7 @@ select
   drivers_1.nationality, 
   drivers_1.driverref, 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join drivers as drivers_1
     on (constructors_1.constructorid = drivers_1.driverid )
@@ -11897,7 +11897,7 @@ limit 7;
 select  
   drivers_1.driverref, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverid <= drivers_1.driverid
 limit 39;
@@ -11905,7 +11905,7 @@ limit 39;
 select  
   qualifying_1.constructorid, 
   qualifying_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date is not NULL
 limit 13;
@@ -11913,7 +11913,7 @@ limit 13;
 select  
   circuits_1.lng, 
   circuits_1.location
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join circuits as circuits_1
       inner join constructor_standings as constructor_standings_1
@@ -11927,7 +11927,7 @@ limit 16;
 select  
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid is not NULL
 limit 28;
@@ -11939,7 +11939,7 @@ select
   constructor_results_1.constructorresultsid, 
   constructor_results_1.points, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.points = constructor_results_1.points
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.points, constructor_results_1.raceid
@@ -11952,7 +11952,7 @@ select
   races_1.year, 
   min(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.round is not NULL
 group by races_1.date, races_1.round, races_1.time, races_1.year
@@ -11963,7 +11963,7 @@ select
   constructors_1.name, 
   constructors_1.nationality, 
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 limit 22;
@@ -11975,7 +11975,7 @@ select
     constructors_1.constructorid), 
   constructors_1.constructorref, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -11986,7 +11986,7 @@ select
   max(
     races_1.date), 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join races as races_1
       on (qualifying_1.qualifyid = races_1.raceid )
@@ -12009,7 +12009,7 @@ select
   standings_1.points, 
   min(
     standings_2.driverstandingsid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join standings as standings_1
       on (constructor_standings_1.constructorstandingsid = standings_1.driverstandingsid )
@@ -12031,7 +12031,7 @@ select
   races_1.date, 
   min(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
     on (races_1.raceid = standings_1.driverstandingsid )
@@ -12044,7 +12044,7 @@ select
   min(
     standings_1.points), 
   standings_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructor_results as constructor_results_1
     on (standings_1.driverstandingsid = constructor_results_1.constructorresultsid )
@@ -12055,7 +12055,7 @@ limit 2;
 select  
   sum(
     circuits_1.lat)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_standings as constructor_standings_1
     on (circuits_1.circuitid = constructor_standings_1.constructorstandingsid )
@@ -12064,7 +12064,7 @@ limit 7;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   drivers_1.surname
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
     inner join constructors as constructors_1
     on (drivers_1.driverid = constructors_1.constructorid )
@@ -12077,7 +12077,7 @@ select
   drivers_2.dob, 
   max(
     drivers_2.dob)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
         inner join drivers as drivers_1
         on (constructors_1.constructorid = drivers_1.driverid )
@@ -12097,7 +12097,7 @@ select
   min(
     standings_1.date), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
 where standings_1.wins is not NULL
 group by standings_1.driverstandingsid, standings_1.wins
@@ -12113,7 +12113,7 @@ select
     results_1.resultid), 
   results_1.raceid, 
   results_1.rank
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.driverid is not NULL
 group by results_1.driverid, results_1.raceid, results_1.rank
@@ -12123,7 +12123,7 @@ select
   constructors_1.constructorref, 
   count(
     constructors_1.nationality)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 group by constructors_1.constructorref
@@ -12132,7 +12132,7 @@ limit 17;
 select  
   constructor_results_1.constructorresultsid, 
   constructor_results_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorid is not NULL
 limit 21;
@@ -12142,7 +12142,7 @@ select
   constructors_1.nationality, 
   avg(
     circuits_1.circuitid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join circuits as circuits_1
     on (constructors_1.constructorid = circuits_1.circuitid )
@@ -12156,7 +12156,7 @@ select
   constructor_standings_2.wins, 
   constructor_standings_1.points, 
   circuits_3.circuitref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join circuits as circuits_1
         inner join constructor_standings as constructor_standings_2
@@ -12171,7 +12171,7 @@ limit 2;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
       inner join constructor_results as constructor_results_1
       on (qualifying_1.qualifyid = constructor_results_1.constructorresultsid )
@@ -12191,7 +12191,7 @@ select
   min(
     drivers_1.dob), 
   standings_1.driverstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
           inner join standings as standings_1
           on (constructor_standings_1.constructorstandingsid = standings_1.driverstandingsid )
@@ -12214,7 +12214,7 @@ select
   constructors_1.name, 
   constructors_1.nationality, 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality >= constructors_1.constructorref
 group by constructors_1.constructorid, constructors_1.constructorref, constructors_1.name, constructors_1.nationality
@@ -12235,7 +12235,7 @@ select
   races_1.time, 
   min(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.circuitid > races_1.raceid
 group by races_1.circuitid, races_1.date, races_1.raceid, races_1.round, races_1.time, races_1.year
@@ -12245,14 +12245,14 @@ select
   drivers_1.dob, 
   drivers_1.forename, 
   drivers_1.driverref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.forename is not NULL
 limit 29;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.rank
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.date < results_1.date
 limit 16;
@@ -12260,7 +12260,7 @@ limit 16;
 select  
   min(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.constructorresultsid is not NULL
 limit 19;
@@ -12271,7 +12271,7 @@ select
     circuits_1.alt), 
   standings_1.date, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join standings as standings_1
       inner join constructors as constructors_1
@@ -12284,7 +12284,7 @@ limit 4;
 select  
   drivers_1.nationality, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 limit 33;
@@ -12300,7 +12300,7 @@ select
   constructor_standings_1.date, 
   drivers_1.code, 
   constructor_standings_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join drivers as drivers_1
     on (constructor_standings_1.constructorstandingsid = drivers_1.driverid )
@@ -12320,7 +12320,7 @@ select
     qualifying_1.qualifyid), 
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 group by qualifying_1.date, qualifying_1.driverid, qualifying_1.number, qualifying_1.position, qualifying_1.raceid
@@ -12330,7 +12330,7 @@ select
   min(
     standings_2.date), 
   drivers_1.dob
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
       inner join constructor_standings as constructor_standings_1
       on (standings_1.driverstandingsid = constructor_standings_1.constructorstandingsid )
@@ -12351,14 +12351,14 @@ select
   results_1.rank, 
   results_1.driverid, 
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.grid is not NULL
 limit 8;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lng is not NULL
 limit 1;
@@ -12371,7 +12371,7 @@ select
   count(
     constructor_results_1.points), 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.raceid
@@ -12384,14 +12384,14 @@ select
   qualifying_1.constructorid, 
   qualifying_1.date, 
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.constructorid is not NULL
 limit 40;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join constructors as constructors_2
     on (constructors_1.constructorid = constructors_2.constructorid )
@@ -12404,7 +12404,7 @@ select
   drivers_1.dob, 
   drivers_1.driverref, 
   drivers_1.forename
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.code is not NULL
 limit 33;
@@ -12415,7 +12415,7 @@ select
   constructor_results_1.raceid, 
   avg(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date >= constructor_results_1.date
 group by constructor_results_1.constructorresultsid, constructor_results_1.points, constructor_results_1.raceid
@@ -12424,7 +12424,7 @@ limit 29;
 select  
   standings_1.position, 
   standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join results as results_1
     on (standings_1.driverstandingsid = results_1.resultid )
@@ -12445,7 +12445,7 @@ select
   qualifying_1.constructorid, 
   standings_1.position, 
   drivers_1.code
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join drivers as drivers_1
       on (races_1.raceid = drivers_1.driverid )
@@ -12473,7 +12473,7 @@ select
   max(
     constructor_results_1.date), 
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_results as constructor_results_1
     on (constructor_standings_1.constructorstandingsid = constructor_results_1.constructorresultsid )
@@ -12484,7 +12484,7 @@ limit 20;
 select  
   races_1.year, 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.round is not NULL
 limit 21;
@@ -12497,7 +12497,7 @@ select
   results_1.resultid, 
   circuits_1.location, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join results as results_1
     on (circuits_1.circuitid = results_1.resultid )
@@ -12512,7 +12512,7 @@ select
   standings_1.date, 
   max(
     standings_1.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
     inner join constructors as constructors_1
     on (standings_1.driverstandingsid = constructors_1.constructorid )
@@ -12527,7 +12527,7 @@ select
   min(
     constructor_standings_1.date), 
   constructor_standings_1.constructorstandingsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorid is not NULL
 group by constructor_standings_1.constructorid, constructor_standings_1.constructorstandingsid
@@ -12535,7 +12535,7 @@ limit 14;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join standings as standings_1
           inner join results as results_1
@@ -12555,7 +12555,7 @@ select
   min(
     results_1.constructorid), 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
         inner join standings as standings_1
         on (races_1.raceid = standings_1.driverstandingsid )
@@ -12580,7 +12580,7 @@ select
     constructor_results_1.constructorresultsid), 
   constructor_results_1.date, 
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points
@@ -12593,7 +12593,7 @@ select
   constructor_results_1.constructorresultsid, 
   constructor_results_1.points, 
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.points, constructor_results_1.raceid
@@ -12604,7 +12604,7 @@ select
   drivers_1.driverref, 
   drivers_1.forename, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverref is not NULL
 limit 23;
@@ -12615,7 +12615,7 @@ select
   constructor_standings_1.constructorstandingsid, 
   constructor_standings_1.wins, 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.wins < constructor_standings_1.position
 limit 30;
@@ -12626,7 +12626,7 @@ select
   races_1.date, 
   max(
     races_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.name is not NULL
 group by races_1.date
@@ -12644,7 +12644,7 @@ select
   results_1.number, 
   results_1.fastestlap, 
   results_1.position
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.points is not NULL
 group by results_1.fastestlap, results_1.number, results_1.points, results_1.position, results_1.positionorder
@@ -12659,7 +12659,7 @@ select
   drivers_1.dob, 
   drivers_1.nationality, 
   drivers_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverid is not NULL
 group by drivers_1.dob, drivers_1.driverid, drivers_1.driverref, drivers_1.forename, drivers_1.nationality
@@ -12675,7 +12675,7 @@ select
   avg(
     circuits_1.circuitid), 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.name is not NULL
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.country, circuits_1.lat, circuits_1.lng, circuits_1.location, circuits_1.name
@@ -12683,7 +12683,7 @@ limit 26;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join circuits as circuits_1
     on (constructor_standings_1.constructorstandingsid = circuits_1.circuitid )
@@ -12692,7 +12692,7 @@ limit 37;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join constructors as constructors_1
       inner join qualifying as qualifying_2
@@ -12704,14 +12704,14 @@ limit 39;
 select  
   constructors_1.constructorid, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 limit 26;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   qualifying_1.number
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join constructor_standings as constructor_standings_1
       inner join constructors as constructors_1
@@ -12724,7 +12724,7 @@ select
   standings_1.date, 
   qualifying_2.constructorid, 
   circuits_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
       inner join qualifying as qualifying_1
       on (standings_1.driverstandingsid = qualifying_1.qualifyid )
@@ -12739,7 +12739,7 @@ limit 7;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 limit 27;
@@ -12747,7 +12747,7 @@ limit 27;
 select  
   avg(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date <= constructor_results_1.date
 limit 37;
@@ -12756,7 +12756,7 @@ select
   races_1.circuitid, 
   races_1.raceid, 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time is not NULL
 limit 25;
@@ -12767,7 +12767,7 @@ select
     races_1.raceid), 
   standings_1.driverid, 
   standings_2.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
         inner join standings as standings_2
@@ -12783,14 +12783,14 @@ select
   constructors_1.constructorref, 
   constructors_1.nationality, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorref is not NULL
 limit 20;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.date is not NULL
 limit 9;
@@ -12802,7 +12802,7 @@ select
     constructors_1.constructorid), 
   drivers_1.forename, 
   drivers_1.surname
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
       inner join drivers as drivers_1
       on (constructors_1.constructorid = drivers_1.driverid )
@@ -12818,7 +12818,7 @@ select
   drivers_1.driverid, 
   min(
     drivers_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.driverref is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverid
@@ -12832,7 +12832,7 @@ select
   drivers_1.dob, 
   min(
     drivers_1.dob)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.forename is not NULL
 group by drivers_1.code, drivers_1.dob, drivers_1.driverref, drivers_1.nationality, drivers_1.surname
@@ -12844,7 +12844,7 @@ select
   circuits_1.name, 
   circuits_1.lng, 
   circuits_1.lat
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.location is not NULL
 group by circuits_1.lat, circuits_1.lng, circuits_1.name
@@ -12859,7 +12859,7 @@ select
   drivers_2.dob, 
   drivers_2.code, 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
         inner join constructors as constructors_1
         on (drivers_1.driverid = constructors_1.constructorid )
@@ -12887,7 +12887,7 @@ select
   max(
     standings_1.date), 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
     inner join standings as standings_1
     on (constructors_1.constructorid = standings_1.driverstandingsid )
@@ -12903,7 +12903,7 @@ select
   qualifying_2.raceid, 
   min(
     qualifying_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join qualifying as qualifying_2
     on (qualifying_1.qualifyid = qualifying_2.qualifyid )
@@ -12920,7 +12920,7 @@ select
   results_1.positionorder, 
   results_2.date, 
   results_2.positionorder
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join results as results_2
     on (results_1.resultid = results_2.resultid )
@@ -12931,7 +12931,7 @@ select
   max(
     results_1.rank), 
   results_1.rank
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
       inner join results as results_1
       on (constructor_standings_1.constructorstandingsid = results_1.resultid )
@@ -12943,7 +12943,7 @@ limit 24;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   results_1.resultid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.milliseconds <= results_1.rank
 limit 21;
@@ -12956,7 +12956,7 @@ select
   avg(
     results_1.milliseconds), 
   results_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.statusid <= results_1.positionorder
 group by results_1.driverid, results_1.grid, results_1.position, results_1.raceid, results_1.rank
@@ -12965,7 +12965,7 @@ limit 16;
 select  
   constructors_1.name, 
   constructors_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.name is not NULL
 limit 1;
@@ -12973,7 +12973,7 @@ limit 1;
 select  
   standings_1.date, 
   results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
         inner join qualifying as qualifying_1
         on (results_1.resultid = qualifying_1.qualifyid )
@@ -12991,7 +12991,7 @@ limit 13;
 select  
   circuits_1.location, 
   constructor_standings_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
       inner join qualifying as qualifying_1
         inner join qualifying as qualifying_2
@@ -13006,7 +13006,7 @@ select
   max(
     constructor_standings_1.date), 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructors as constructors_1
     on (constructor_standings_1.constructorstandingsid = constructors_1.constructorid )
@@ -13017,7 +13017,7 @@ limit 21;
 select  
   constructor_standings_2.raceid, 
   constructor_standings_1.wins
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
     inner join constructor_standings as constructor_standings_2
     on (constructor_standings_1.constructorstandingsid = constructor_standings_2.constructorstandingsid )
@@ -13027,7 +13027,7 @@ limit 4;
 select  
   constructor_standings_1.constructorid, 
   constructor_standings_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 limit 21;
@@ -13039,7 +13039,7 @@ select
   constructor_results_1.raceid, 
   max(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -13048,7 +13048,7 @@ limit 16;
 select  
   circuits_1.circuitid, 
   circuits_1.lng
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.lat is not NULL
 limit 39;
@@ -13060,7 +13060,7 @@ select
   constructor_results_1.constructorid, 
   sum(
     constructor_results_1.points)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.date > constructor_results_1.date
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.points, constructor_results_1.raceid
@@ -13068,7 +13068,7 @@ limit 11;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.qualifyid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
     inner join qualifying as qualifying_2
     on (qualifying_1.qualifyid = qualifying_2.qualifyid )
@@ -13082,7 +13082,7 @@ select
   constructor_standings_1.date, 
   max(
     constructor_standings_1.constructorstandingsid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.raceid is not NULL
 group by constructor_standings_1.constructorstandingsid, constructor_standings_1.date
@@ -13091,7 +13091,7 @@ limit 15;
 select  
   drivers_1.forename, 
   races_1.round
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
       inner join drivers as drivers_2
       on (drivers_1.driverid = drivers_2.driverid )
@@ -13104,7 +13104,7 @@ select
   qualifying_1.position, 
   min(
     qualifying_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.raceid > qualifying_1.constructorid
 group by qualifying_1.position
@@ -13120,7 +13120,7 @@ select
   standings_1.wins, 
   standings_1.raceid, 
   standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
     inner join standings as standings_1
     on (constructor_results_1.constructorresultsid = standings_1.driverstandingsid )
@@ -13135,7 +13135,7 @@ select
   circuits_1.lng, 
   circuits_1.circuitid, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.circuitid is not NULL
 group by circuits_1.circuitid, circuits_1.country, circuits_1.lng, circuits_1.location, circuits_1.name
@@ -13147,7 +13147,7 @@ select
   standings_1.driverstandingsid, 
   races_1.round, 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
     on (races_1.raceid = standings_1.driverstandingsid )
@@ -13167,7 +13167,7 @@ select
     constructor_results_1.points), 
   min(
     constructor_results_1.date)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -13181,7 +13181,7 @@ select
   constructor_results_1.raceid, 
   constructor_results_1.date, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_results as constructor_results_1
 where constructor_results_1.raceid is not NULL
 group by constructor_results_1.constructorid, constructor_results_1.constructorresultsid, constructor_results_1.date, constructor_results_1.points, constructor_results_1.raceid
@@ -13191,7 +13191,7 @@ select
   constructor_standings_1.constructorid, 
   constructor_standings_1.date, 
   constructor_standings_1.points
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructor_standings as constructor_standings_1
 where constructor_standings_1.constructorstandingsid is not NULL
 limit 32;
@@ -13199,7 +13199,7 @@ limit 32;
 select  
   races_1.raceid, 
   races_1.circuitid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.raceid is not NULL
 limit 8;
@@ -13208,7 +13208,7 @@ select
   constructors_1.constructorid, 
   max(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 group by constructors_1.constructorid
@@ -13222,7 +13222,7 @@ select
     circuits_1.lng), 
   circuits_1.alt, 
   constructors_1.name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructors as constructors_1
     on (circuits_1.circuitid = constructors_1.constructorid )
@@ -13233,7 +13233,7 @@ limit 30;
 select  
   sum(
     races_1.raceid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
     inner join standings as standings_1
     on (races_1.raceid = standings_1.driverstandingsid )
@@ -13246,7 +13246,7 @@ select
   constructors_1.constructorid, 
   sum(
     constructors_1.constructorid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.nationality is not NULL
 group by constructors_1.constructorid, constructors_1.name, constructors_1.nationality
@@ -13262,7 +13262,7 @@ select
   constructors_1.constructorref, 
   constructors_1.nationality, 
   races_1.raceid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
       inner join constructor_standings as constructor_standings_1
       on (races_1.raceid = constructor_standings_1.constructorstandingsid )
@@ -13277,7 +13277,7 @@ limit 24;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructor_results_1.constructorresultsid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   standings as standings_1
       inner join constructor_results as constructor_results_1
       on (standings_1.driverstandingsid = constructor_results_1.constructorresultsid )
@@ -13311,7 +13311,7 @@ select
   drivers_1.driverref, 
   races_1.time, 
   drivers_1.nationality
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
     inner join races as races_1
           inner join drivers as drivers_1
@@ -13330,7 +13330,7 @@ select
   results_1.points, 
   results_1.number, 
   results_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.laps is not NULL
 limit 11;
@@ -13339,7 +13339,7 @@ select
   min(
     constructors_1.constructorid), 
   constructors_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid >= constructors_1.constructorid
 group by constructors_1.constructorid
@@ -13351,7 +13351,7 @@ select
   max(
     races_1.raceid), 
   races_1.date
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.year is not NULL
 group by races_1.circuitid, races_1.date, races_1.raceid
@@ -13369,7 +13369,7 @@ select
   drivers_1.surname, 
   max(
     drivers_1.driverid)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   drivers as drivers_1
 where drivers_1.surname is not NULL
 group by drivers_1.dob, drivers_1.driverid, drivers_1.forename, drivers_1.nationality, drivers_1.surname
@@ -13377,7 +13377,7 @@ limit 18;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   constructors_1.constructorref
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   constructors as constructors_1
 where constructors_1.constructorid is not NULL
 limit 7;
@@ -13387,7 +13387,7 @@ select
   max(
     results_1.raceid), 
   results_1.positionorder
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   results as results_1
 where results_1.statusid is not NULL
 group by results_1.positionorder, results_1.statusid
@@ -13396,7 +13396,7 @@ limit 41;
 select  
   circuits_1.circuitid, 
   constructor_results_1.constructorid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join constructor_results as constructor_results_1
     on (circuits_1.circuitid = constructor_results_1.constructorresultsid )
@@ -13411,7 +13411,7 @@ select
     circuits_1.circuitid), 
   circuits_1.country, 
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
 where circuits_1.alt > circuits_1.lat
 group by circuits_1.alt, circuits_1.circuitid, circuits_1.country, circuits_1.lat, circuits_1.location
@@ -13420,14 +13420,14 @@ limit 4;
 select  
   races_1.name, 
   races_1.year
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   races as races_1
 where races_1.time < races_1.name
 limit 10;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   circuits_1.alt
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   circuits as circuits_1
     inner join qualifying as qualifying_1
     on (circuits_1.circuitid = qualifying_1.qualifyid )
@@ -13436,7 +13436,7 @@ limit 31;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   qualifying_1.driverid
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from  
   qualifying as qualifying_1
 where qualifying_1.date < qualifying_1.date
 limit 37;
