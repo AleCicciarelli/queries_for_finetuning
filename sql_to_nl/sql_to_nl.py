@@ -110,7 +110,7 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3:70b")
 # ---------------------------------------------------------
 if __name__ == "__main__":
     process_sql_file(
-        input_path="../queries_relamazon_def.sql",
-        output_path="sql_nl_relamazon_llama70b.json",
+        input_path="../set_queries/queries_tpch_mixedwithset.sql",
+        output_path="sql_nl_tpch_mixedwithset_llama70b.json",
         model_name="llama3:70b"
     )

@@ -1,14 +1,93 @@
+import re
 import subprocess
 import json
 import shlex
 
-DB = "relstack"
+DB = "relf1"
 USER = "cicciara"
 HOST = "127.0.0.1"
 PORT = "5432"
 
-INPUT_SQL = "queries_relstack_def.sql"
-OUTPUT_JSONL = "relstack_prov.jsonl"
+INPUT_SQL = "set_queries/queries_relf1_mixedwithset.sql"
+OUTPUT_JSONL = "queries_with_prov/relf1_prov.jsonl"
+
+
+# -------------------------
+# Provenance rewriter
+# -------------------------
+PROV_COL_ALIAS = "sr_why"
+PROV_EXPR = "provsql.sr_why(provsql.provenance(), 'provmap')"
+SETOP_PATTERN = re.compile(r"\b(UNION|EXCEPT)\b", re.IGNORECASE)
+
+def strip_leading_meta(sql: str):
+    sql = sql.strip()
+    lines = sql.splitlines()
+    if lines and lines[0].lstrip().startswith("-- meta"):
+        return lines[0], "\n".join(lines[1:]).strip()
+    return None, sql
+
+def has_top_level_setop(sql: str) -> bool:
+    depth = 0
+    upper = sql.upper()
+    i = 0
+    while i < len(sql):
+        ch = sql[i]
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(0, depth - 1)
+        elif depth == 0:
+            m = SETOP_PATTERN.match(upper, i)
+            if m:
+                return True
+        i += 1
+    return False
+
+def insert_before_top_level_from(sql: str, insertion: str) -> str:
+    depth = 0
+    upper = sql.upper()
+    i = 0
+    while i < len(sql):
+        ch = sql[i]
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(0, depth - 1)
+
+        if depth == 0:
+            if upper.startswith(" FROM", i) or upper.startswith("\nFROM", i) or upper.startswith("\tFROM", i):
+                return sql[:i] + insertion + sql[i:]
+        i += 1
+
+    # fallback (molto raro con query smith): wrap totale
+    return f"SELECT q.*{insertion} FROM (\n{sql}\n) AS q"
+
+def add_provenance(sql: str) -> str:
+    """
+    - Se set-op top-level: wrap in subquery e aggiungi sr_why fuori.
+    - Altrimenti: aggiungi sr_why nella SELECT list prima del FROM.
+    Preserva eventuale riga iniziale '-- meta ...'
+    """
+    meta, body = strip_leading_meta(sql)
+    body = body.strip().rstrip(";")
+
+    if has_top_level_setop(body):
+        rewritten = (
+            "SELECT q.*, "
+            f"{PROV_EXPR} AS {PROV_COL_ALIAS} "
+            "FROM (\n"
+            f"{body}\n"
+            ") AS q"
+        )
+    else:
+        rewritten = insert_before_top_level_from(
+            body,
+            f", {PROV_EXPR} AS {PROV_COL_ALIAS}"
+        )
+
+    if meta:
+        return meta + "\n" + rewritten + ";"
+    return rewritten + ";"
 
 # -------------------------
 # Utility
@@ -70,7 +149,8 @@ with open(OUTPUT_JSONL, "a") as out:
         if qid < START_ID:
             continue
         try:
-            raw = run_psql(query)
+            query_prov = add_provenance(query)
+            raw = run_psql(query_prov)
 
             if not raw:
                 result = {"tuples": []}
@@ -81,7 +161,7 @@ with open(OUTPUT_JSONL, "a") as out:
 
                 # individua colonne speciali
                 try:
-                    why_idx = header.index("sr_why")
+                    why_idx = header.index(PROV_COL_ALIAS)
                 except ValueError:
                     why_idx = None
 
@@ -108,14 +188,14 @@ with open(OUTPUT_JSONL, "a") as out:
 
             record = {
                 "id": qid,
-                "sql_query": query,
+                "sql_query_prov": query_prov,
                 "result": result
             }
 
         except Exception as e:
             record = {
                 "id": qid,
-                "sql_query": query,
+                "sql_query_prov": query_prov,
                 "error": str(e)
             }
 
