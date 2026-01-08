@@ -4,4 +4,4 @@ documentation.log
 venv
 queries_with_prov/
 sql_to_nl/*.json
-
+results_prov/

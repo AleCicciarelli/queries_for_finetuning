@@ -8,7 +8,7 @@ select
   lineitem_1.l_quantity, 
   lineitem_1.l_receiptdate, 
   lineitem_1.l_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_partkey is not NULL
 limit 1;
@@ -16,7 +16,7 @@ limit 1;
 select  
   nation_1.n_regionkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 limit 35;
@@ -33,7 +33,7 @@ select
   max(
     lineitem_1.l_commitdate), 
   lineitem_1.l_shipinstruct
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipdate is not NULL
 group by lineitem_1.l_commitdate, lineitem_1.l_linestatus, lineitem_1.l_orderkey, lineitem_1.l_receiptdate, lineitem_1.l_shipinstruct, lineitem_1.l_shipmode, lineitem_1.l_suppkey
@@ -41,7 +41,7 @@ limit 9;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 33;
@@ -59,7 +59,7 @@ select
   region_1.r_regionkey, 
   lineitem_1.l_discount, 
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join lineitem as lineitem_1
         inner join region as region_1
@@ -76,7 +76,7 @@ select
   min(
     lineitem_1.l_receiptdate), 
   lineitem_1.l_tax
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join nation as nation_1
         inner join supplier as supplier_1
@@ -103,7 +103,7 @@ select
   customer_1.c_mktsegment, 
   min(
     customer_1.c_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_name is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_nationkey
@@ -112,7 +112,7 @@ limit 10;
 select  
   max(
     orders_1.o_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_shippriority is not NULL
 limit 10;
@@ -127,7 +127,7 @@ select
   count(
     partsupp_2.ps_comment), 
   partsupp_2.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
         inner join partsupp as partsupp_1
         on (orders_1.o_orderkey = partsupp_1.ps_partkey )
@@ -141,7 +141,7 @@ limit 31;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_shipinstruct
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join lineitem as lineitem_1
     on (supplier_1.s_suppkey = lineitem_1.l_orderkey )
@@ -152,7 +152,7 @@ select
   supplier_1.s_address, 
   supplier_1.s_comment, 
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone is not NULL
 limit 39;
@@ -167,7 +167,7 @@ select
     nation_1.n_nationkey), 
   nation_1.n_regionkey, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -186,7 +186,7 @@ select
   sum(
     customer_1.c_acctbal), 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_custkey, customer_1.c_name, customer_1.c_nationkey
@@ -204,7 +204,7 @@ select
   max(
     part_1.p_partkey), 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey = part_1.p_size
 group by part_1.p_brand, part_1.p_container, part_1.p_partkey, part_1.p_retailprice, part_1.p_size
@@ -214,7 +214,7 @@ select
   lineitem_1.l_commitdate, 
   lineitem_1.l_quantity, 
   lineitem_1.l_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_quantity < lineitem_1.l_extendedprice
 limit 40;
@@ -223,7 +223,7 @@ select
   customer_1.c_nationkey, 
   max(
     partsupp_1.ps_availqty)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join customer as customer_1
         inner join partsupp as partsupp_1
@@ -237,7 +237,7 @@ limit 37;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join region as region_1
     on (nation_1.n_nationkey = region_1.r_regionkey )
@@ -246,7 +246,7 @@ limit 29;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join orders as orders_1
     on (nation_1.n_nationkey = orders_1.o_orderkey )
@@ -256,7 +256,7 @@ limit 26;
 select  
   supplier_1.s_acctbal, 
   lineitem_1.l_tax
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join supplier as supplier_2
       on (supplier_1.s_suppkey = supplier_2.s_suppkey )
@@ -271,7 +271,7 @@ select
   count(*), 
   partsupp_1.ps_comment, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_supplycost
@@ -280,7 +280,7 @@ limit 1;
 select  
   partsupp_1.ps_comment, 
   lineitem_1.l_returnflag
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join region as region_1
         inner join partsupp as partsupp_1
@@ -301,7 +301,7 @@ select
     region_1.r_regionkey), 
   sum(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -310,7 +310,7 @@ limit 4;
 select  
   customer_1.c_comment, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_comment is not NULL
 limit 14;
@@ -323,7 +323,7 @@ select
   nation_1.n_regionkey, 
   min(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -352,7 +352,7 @@ select
   lineitem_1.l_linenumber, 
   orders_2.o_shippriority, 
   orders_2.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join orders as orders_1
       on (lineitem_1.l_orderkey = orders_1.o_orderkey )
@@ -368,7 +368,7 @@ select
   region_1.r_comment, 
   min(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -379,7 +379,7 @@ select
   lineitem_1.l_discount, 
   lineitem_1.l_quantity, 
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_partkey > lineitem_1.l_linenumber
 limit 12;
@@ -392,7 +392,7 @@ select
   count(*), 
   avg(
     part_1.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey is not NULL
 group by part_1.p_container, part_1.p_mfgr, part_1.p_name, part_1.p_size
@@ -402,7 +402,7 @@ select
   region_1.r_name, 
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 28;
@@ -412,7 +412,7 @@ select
   part_1.p_container, 
   part_1.p_brand, 
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice = part_1.p_retailprice
 limit 7;
@@ -424,14 +424,14 @@ select
   supplier_1.s_nationkey, 
   supplier_1.s_acctbal, 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 limit 4;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_address is not NULL
 limit 30;
@@ -444,14 +444,14 @@ select
   supplier_1.s_address, 
   supplier_1.s_nationkey, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_address is not NULL
 limit 1;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_extendedprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate is not NULL
 limit 36;
@@ -460,7 +460,7 @@ select
   customer_1.c_acctbal, 
   part_1.p_name, 
   part_2.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join part as part_2
       inner join customer as customer_1
@@ -471,7 +471,7 @@ limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size is not NULL
 limit 17;
@@ -500,7 +500,7 @@ select
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_suppkey, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
         inner join orders as orders_1
           inner join region as region_1
@@ -518,7 +518,7 @@ select
   region_1.r_regionkey, 
   region_1.r_comment, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey >= region_1.r_regionkey
 limit 40;
@@ -530,7 +530,7 @@ select
     orders_1.o_comment), 
   count(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join orders as orders_1
       on (region_1.r_regionkey = orders_1.o_orderkey )
@@ -549,7 +549,7 @@ select
     region_1.r_regionkey), 
   sum(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_name
@@ -557,14 +557,14 @@ limit 36;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linenumber < lineitem_1.l_partkey
 limit 41;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_shipmode
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join lineitem as lineitem_1
     on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -577,7 +577,7 @@ select
   min(
     partsupp_1.ps_suppkey), 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join partsupp as partsupp_1
     on (region_1.r_regionkey = partsupp_1.ps_partkey )
@@ -596,7 +596,7 @@ select
   count(
     lineitem_1.l_shipmode), 
   lineitem_1.l_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linenumber >= lineitem_1.l_suppkey
 group by lineitem_1.l_comment, lineitem_1.l_commitdate, lineitem_1.l_quantity, lineitem_1.l_tax
@@ -606,7 +606,7 @@ select
   orders_1.o_orderstatus, 
   max(
     orders_1.o_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join lineitem as lineitem_1
     on (orders_1.o_orderkey = lineitem_1.l_orderkey )
@@ -621,7 +621,7 @@ select
   customer_1.c_custkey, 
   customer_1.c_address, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join supplier as supplier_1
     on (customer_1.c_custkey = supplier_1.s_suppkey )
@@ -630,14 +630,14 @@ limit 40;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 17;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_shipmode
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipmode = lineitem_1.l_shipinstruct
 limit 31;
@@ -646,7 +646,7 @@ select
   lineitem_1.l_linenumber, 
   region_1.r_comment, 
   region_2.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join region as region_1
         inner join lineitem as lineitem_1
@@ -666,7 +666,7 @@ select
   min(
     region_1.r_regionkey), 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join region as region_1
     on (nation_1.n_nationkey = region_1.r_regionkey )
@@ -703,7 +703,7 @@ select
   customer_1.c_phone, 
   sum(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey > customer_1.c_nationkey
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey, customer_1.c_phone
@@ -713,7 +713,7 @@ select
   max(
     supplier_1.s_nationkey), 
   supplier_2.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join supplier as supplier_2
     on (supplier_1.s_suppkey = supplier_2.s_suppkey )
@@ -724,7 +724,7 @@ limit 6;
 select  
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost is not NULL
 limit 37;
@@ -734,7 +734,7 @@ select
   region_1.r_name, 
   min(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join orders as orders_1
         inner join region as region_2
@@ -764,7 +764,7 @@ select
   orders_1.o_orderpriority, 
   partsupp_1.ps_suppkey, 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
         inner join lineitem as lineitem_1
         on (partsupp_1.ps_partkey = lineitem_1.l_orderkey )
@@ -783,7 +783,7 @@ limit 17;
 select  
   orders_1.o_totalprice, 
   orders_1.o_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join nation as nation_1
       on (orders_1.o_orderkey = nation_1.n_nationkey )
@@ -795,7 +795,7 @@ limit 42;
 select  
   part_1.p_container, 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr is not NULL
 limit 33;
@@ -803,7 +803,7 @@ limit 33;
 select  
   avg(
     orders_1.o_totalprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderkey >= orders_1.o_shippriority
 limit 6;
@@ -821,7 +821,7 @@ select
     customer_1.c_nationkey), 
   customer_1.c_custkey, 
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey is not NULL
 group by customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey, customer_1.c_phone
@@ -831,7 +831,7 @@ select
   customer_1.c_nationkey, 
   customer_1.c_comment, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join customer as customer_2
       on (customer_1.c_custkey = customer_2.c_custkey )
@@ -843,7 +843,7 @@ limit 17;
 select  
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 26;
@@ -856,7 +856,7 @@ select
   lineitem_1.l_quantity, 
   lineitem_1.l_tax, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join partsupp as partsupp_1
     on (lineitem_1.l_orderkey = partsupp_1.ps_partkey )
@@ -866,7 +866,7 @@ limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 limit 11;
@@ -877,7 +877,7 @@ select
     supplier_1.s_suppkey), 
   supplier_1.s_address, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_nationkey >= supplier_1.s_suppkey
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_suppkey
@@ -885,7 +885,7 @@ limit 28;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 limit 24;
@@ -904,7 +904,7 @@ select
   supplier_1.s_acctbal, 
   sum(
     customer_1.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join customer as customer_1
       on (region_1.r_regionkey = customer_1.c_custkey )
@@ -922,7 +922,7 @@ select
   part_1.p_container, 
   max(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
         inner join part as part_1
         on (nation_1.n_nationkey = part_1.p_partkey )
@@ -938,7 +938,7 @@ limit 25;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 limit 3;
@@ -946,7 +946,7 @@ limit 3;
 select  
   lineitem_1.l_shipdate, 
   lineitem_1.l_commitdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipdate is not NULL
 limit 1;
@@ -959,7 +959,7 @@ select
     customer_1.c_custkey), 
   customer_1.c_name, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal < customer_1.c_acctbal
 group by customer_1.c_address, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey
@@ -967,7 +967,7 @@ limit 27;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join region as region_1
       inner join lineitem as lineitem_1
@@ -982,14 +982,14 @@ select
   lineitem_1.l_commitdate, 
   lineitem_1.l_returnflag, 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate is not NULL
 limit 16;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join lineitem as lineitem_1
     on (region_1.r_regionkey = lineitem_1.l_orderkey )
@@ -998,14 +998,14 @@ limit 30;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 limit 16;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderdate is not NULL
 limit 13;
@@ -1013,7 +1013,7 @@ limit 13;
 select  
   region_1.r_regionkey, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 26;
@@ -1025,7 +1025,7 @@ select
   customer_1.c_nationkey, 
   region_1.r_comment, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join customer as customer_1
     on (region_1.r_regionkey = customer_1.c_custkey )
@@ -1043,7 +1043,7 @@ select
     nation_1.n_name), 
   region_1.r_regionkey, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join nation as nation_1
     on (region_1.r_regionkey = nation_1.n_nationkey )
@@ -1053,14 +1053,14 @@ limit 32;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_shipinstruct
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_comment is not NULL
 limit 26;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 6;
@@ -1080,7 +1080,7 @@ select
     orders_1.o_orderdate), 
   orders_1.o_comment, 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join orders as orders_1
     on (lineitem_1.l_orderkey = orders_1.o_orderkey )
@@ -1095,7 +1095,7 @@ select
     lineitem_1.l_linenumber), 
   min(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join lineitem as lineitem_1
       on (orders_1.o_orderkey = lineitem_1.l_orderkey )
@@ -1113,7 +1113,7 @@ select
   orders_1.o_shippriority, 
   orders_1.o_clerk, 
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_shippriority is not NULL
 group by orders_1.o_clerk, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_shippriority, orders_1.o_totalprice
@@ -1123,7 +1123,7 @@ select
   region_1.r_name, 
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join lineitem as lineitem_1
       inner join region as region_1
@@ -1148,7 +1148,7 @@ select
   min(
     orders_1.o_orderdate), 
   orders_1.o_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join region as region_1
       inner join supplier as supplier_1
@@ -1166,7 +1166,7 @@ select
   min(
     supplier_1.s_suppkey), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join supplier as supplier_1
     on (region_1.r_regionkey = supplier_1.s_suppkey )
@@ -1181,7 +1181,7 @@ select
   nation_1.n_regionkey, 
   orders_1.o_orderstatus, 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join orders as orders_1
       on (supplier_1.s_suppkey = orders_1.o_orderkey )
@@ -1199,7 +1199,7 @@ select
   part_1.p_partkey, 
   part_1.p_size, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_comment is not NULL
 limit 7;
@@ -1207,14 +1207,14 @@ limit 7;
 select  
   nation_1.n_name, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey < nation_1.n_regionkey
 limit 28;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_comment is not NULL
 limit 35;
@@ -1227,7 +1227,7 @@ select
   nation_1.n_nationkey, 
   avg(
     nation_1.n_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -1237,7 +1237,7 @@ select
   customer_1.c_custkey, 
   customer_1.c_address, 
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey <= customer_1.c_nationkey
 limit 28;
@@ -1246,7 +1246,7 @@ select
   supplier_1.s_suppkey, 
   supplier_1.s_acctbal, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 limit 17;
@@ -1262,7 +1262,7 @@ select
     region_1.r_regionkey), 
   sum(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_name
@@ -1273,7 +1273,7 @@ select
   supplier_1.s_address, 
   supplier_1.s_nationkey, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_comment is not NULL
 limit 39;
@@ -1283,7 +1283,7 @@ select
   region_1.r_regionkey, 
   count(
     region_1.r_comment)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_regionkey
@@ -1295,7 +1295,7 @@ select
     region_1.r_regionkey), 
   count(
     region_1.r_name)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment
@@ -1304,7 +1304,7 @@ limit 8;
 select  
   lineitem_1.l_linenumber, 
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_discount is not NULL
 limit 36;
@@ -1315,7 +1315,7 @@ select
   max(
     nation_1.n_nationkey), 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_nationkey, nation_1.n_regionkey
@@ -1323,7 +1323,7 @@ limit 29;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join region as region_1
     on (supplier_1.s_suppkey = region_1.r_regionkey )
@@ -1336,7 +1336,7 @@ select
     part_1.p_retailprice), 
   part_1.p_mfgr, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join region as region_1
     on (part_1.p_partkey = region_1.r_regionkey )
@@ -1346,7 +1346,7 @@ limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size <= part_1.p_partkey
 limit 4;
@@ -1355,7 +1355,7 @@ select
   orders_1.o_orderkey, 
   customer_1.c_name, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join orders as orders_1
       inner join customer as customer_1
@@ -1373,7 +1373,7 @@ select
   part_1.p_size, 
   min(
     part_1.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_size, part_1.p_type
@@ -1386,7 +1386,7 @@ select
   partsupp_2.ps_supplycost, 
   max(
     partsupp_1.ps_supplycost)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join partsupp as partsupp_2
     on (partsupp_1.ps_partkey = partsupp_2.ps_partkey )
@@ -1402,7 +1402,7 @@ select
   supplier_4.s_address, 
   supplier_3.s_comment, 
   supplier_4.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
         inner join part as part_1
         on (customer_1.c_custkey = part_1.p_partkey )
@@ -1428,7 +1428,7 @@ select
   lineitem_1.l_shipinstruct, 
   count(
     lineitem_1.l_shipinstruct)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate is not NULL
 group by lineitem_1.l_linenumber, lineitem_1.l_shipinstruct
@@ -1443,7 +1443,7 @@ select
   supplier_1.s_name, 
   max(
     supplier_1.s_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_nationkey, supplier_1.s_suppkey
@@ -1460,7 +1460,7 @@ select
     supplier_1.s_nationkey), 
   lineitem_1.l_shipinstruct, 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join region as region_1
         inner join lineitem as lineitem_1
@@ -1480,7 +1480,7 @@ select
   supplier_1.s_suppkey, 
   partsupp_1.ps_supplycost, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join supplier as supplier_1
     on (partsupp_1.ps_partkey = supplier_1.s_suppkey )
@@ -1494,7 +1494,7 @@ select
   supplier_1.s_comment, 
   avg(
     supplier_2.s_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join supplier as supplier_2
     on (supplier_1.s_suppkey = supplier_2.s_suppkey )
@@ -1506,7 +1506,7 @@ select
   customer_1.c_custkey, 
   customer_1.c_mktsegment, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal is not NULL
 limit 9;
@@ -1514,14 +1514,14 @@ limit 9;
 select  
   part_1.p_partkey, 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey = part_1.p_size
 limit 36;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey > region_1.r_regionkey
 limit 29;
@@ -1534,7 +1534,7 @@ select
   max(
     region_1.r_regionkey), 
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join region as region_1
     on (customer_1.c_custkey = region_1.r_regionkey )
@@ -1544,7 +1544,7 @@ limit 37;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name <= region_1.r_name
 limit 40;
@@ -1556,7 +1556,7 @@ select
   orders_1.o_shippriority, 
   min(
     part_1.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join orders as orders_1
     on (part_1.p_partkey = orders_1.o_orderkey )
@@ -1576,7 +1576,7 @@ select
   count(*), 
   min(
     part_2.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join part as part_2
     on (part_1.p_partkey = part_2.p_partkey )
@@ -1600,7 +1600,7 @@ select
   partsupp_1.ps_partkey, 
   avg(
     partsupp_1.ps_supplycost)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -1617,7 +1617,7 @@ select
   min(
     orders_1.o_custkey), 
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_shippriority >= orders_1.o_custkey
 group by orders_1.o_orderdate, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -1631,7 +1631,7 @@ select
     lineitem_1.l_receiptdate), 
   max(
     lineitem_1.l_commitdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_returnflag is not NULL
 group by lineitem_1.l_linestatus, lineitem_1.l_orderkey, lineitem_1.l_tax
@@ -1648,7 +1648,7 @@ select
   nation_1.n_comment, 
   avg(
     customer_2.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join customer as customer_1
         inner join customer as customer_2
@@ -1662,14 +1662,14 @@ limit 36;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 limit 38;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_name is not NULL
 limit 8;
@@ -1678,7 +1678,7 @@ select
   region_1.r_name, 
   supplier_1.s_address, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join supplier as supplier_1
     on (region_1.r_regionkey = supplier_1.s_suppkey )
@@ -1687,7 +1687,7 @@ limit 1;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 41;
@@ -1699,7 +1699,7 @@ select
   region_1.r_regionkey, 
   region_1.r_comment, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -1712,7 +1712,7 @@ select
   customer_3.c_mktsegment, 
   customer_3.c_address, 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join customer as customer_2
       inner join customer as customer_3
@@ -1726,21 +1726,21 @@ select
   supplier_1.s_acctbal, 
   supplier_1.s_name, 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 limit 1;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost > partsupp_1.ps_supplycost
 limit 34;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_mfgr
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr is not NULL
 limit 42;
@@ -1752,7 +1752,7 @@ select
   nation_1.n_nationkey, 
   nation_1.n_regionkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -1763,7 +1763,7 @@ select
   customer_1.c_acctbal, 
   customer_1.c_custkey, 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 limit 13;
@@ -1780,7 +1780,7 @@ select
   lineitem_1.l_quantity, 
   lineitem_1.l_partkey, 
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_partkey is not NULL
 group by lineitem_1.l_extendedprice, lineitem_1.l_orderkey, lineitem_1.l_partkey, lineitem_1.l_quantity, lineitem_1.l_receiptdate, lineitem_1.l_suppkey, lineitem_1.l_tax
@@ -1799,7 +1799,7 @@ select
   min(
     nation_1.n_nationkey), 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -1808,14 +1808,14 @@ limit 11;
 select  
   customer_1.c_comment, 
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey <= customer_1.c_nationkey
 limit 42;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_tax
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_returnflag <= lineitem_1.l_shipinstruct
 limit 42;
@@ -1826,7 +1826,7 @@ select
   part_1.p_mfgr, 
   part_1.p_type, 
   part_2.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join part as part_2
     on (part_1.p_partkey = part_2.p_partkey )
@@ -1840,7 +1840,7 @@ select
   nation_1.n_nationkey, 
   nation_1.n_regionkey, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -1850,7 +1850,7 @@ select
   region_1.r_name, 
   count(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join region as region_2
     on (region_1.r_regionkey = region_2.r_regionkey )
@@ -1863,7 +1863,7 @@ select
     supplier_1.s_nationkey), 
   min(
     supplier_1.s_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone = supplier_1.s_name
 limit 40;
@@ -1874,7 +1874,7 @@ select
     orders_1.o_custkey), 
   orders_1.o_custkey, 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderkey is not NULL
 group by orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderpriority
@@ -1885,7 +1885,7 @@ select
   nation_1.n_name, 
   nation_1.n_regionkey, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 7;
@@ -1895,7 +1895,7 @@ select
   region_2.r_comment, 
   avg(
     lineitem_1.l_extendedprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join lineitem as lineitem_1
       on (orders_1.o_orderkey = lineitem_1.l_orderkey )
@@ -1916,7 +1916,7 @@ select
   region_1.r_comment, 
   count(*), 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -1929,7 +1929,7 @@ select
   orders_1.o_orderpriority, 
   orders_1.o_custkey, 
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderpriority is not NULL
 group by orders_1.o_custkey, orders_1.o_orderdate, orders_1.o_orderkey, orders_1.o_orderpriority
@@ -1943,7 +1943,7 @@ select
     partsupp_1.ps_supplycost), 
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 group by partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -1959,7 +1959,7 @@ select
   orders_1.o_clerk, 
   max(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_shippriority is not NULL
 group by orders_1.o_clerk, orders_1.o_comment, orders_1.o_orderkey, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -1972,7 +1972,7 @@ select
   lineitem_1.l_commitdate, 
   nation_2.n_name, 
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join nation as nation_1
       on (lineitem_1.l_orderkey = nation_1.n_nationkey )
@@ -1986,7 +1986,7 @@ limit 20;
 select  
   orders_1.o_comment, 
   orders_1.o_clerk
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderdate is not NULL
 limit 23;
@@ -1998,7 +1998,7 @@ select
   customer_1.c_acctbal, 
   customer_1.c_nationkey, 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone is not NULL
 limit 31;
@@ -2006,7 +2006,7 @@ limit 31;
 select  
   partsupp_1.ps_supplycost, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join nation as nation_1
     on (partsupp_1.ps_partkey = nation_1.n_nationkey )
@@ -2022,7 +2022,7 @@ select
   part_1.p_comment, 
   max(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr > part_1.p_container
 group by part_1.p_brand, part_1.p_comment, part_1.p_name, part_1.p_type
@@ -2031,7 +2031,7 @@ limit 21;
 select  
   nation_1.n_name, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join part as part_1
       on (region_1.r_regionkey = part_1.p_partkey )
@@ -2042,7 +2042,7 @@ limit 18;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey is not NULL
 limit 24;
@@ -2050,7 +2050,7 @@ limit 24;
 select  
   nation_1.n_name, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 12;
@@ -2059,7 +2059,7 @@ select
   lineitem_1.l_orderkey, 
   lineitem_1.l_linestatus, 
   lineitem_1.l_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_returnflag >= lineitem_1.l_linestatus
 limit 23;
@@ -2067,7 +2067,7 @@ limit 23;
 select  
   customer_1.c_name, 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone is not NULL
 limit 12;
@@ -2077,7 +2077,7 @@ select
   supplier_1.s_phone, 
   lineitem_1.l_extendedprice, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join supplier as supplier_1
       on (lineitem_1.l_orderkey = supplier_1.s_suppkey )
@@ -2088,7 +2088,7 @@ limit 3;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join part as part_1
       on (orders_1.o_orderkey = part_1.p_partkey )
@@ -2100,14 +2100,14 @@ limit 33;
 select  
   partsupp_1.ps_availqty, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 limit 42;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
       inner join lineitem as lineitem_1
       on (partsupp_1.ps_partkey = lineitem_1.l_orderkey )
@@ -2124,7 +2124,7 @@ select
   part_1.p_name, 
   part_1.p_retailprice, 
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 limit 16;
@@ -2132,7 +2132,7 @@ limit 16;
 select  
   supplier_1.s_phone, 
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal <= supplier_1.s_acctbal
 limit 39;
@@ -2140,7 +2140,7 @@ limit 39;
 select  
   part_1.p_container, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 limit 41;
@@ -2151,7 +2151,7 @@ select
   supplier_1.s_nationkey, 
   supplier_1.s_name, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_nationkey is not NULL
 limit 1;
@@ -2161,7 +2161,7 @@ select
   partsupp_1.ps_partkey, 
   partsupp_1.ps_availqty, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 limit 38;
@@ -2171,7 +2171,7 @@ select
   partsupp_1.ps_availqty, 
   count(
     partsupp_1.ps_availqty)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_supplycost
@@ -2179,7 +2179,7 @@ limit 29;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 limit 3;
@@ -2188,7 +2188,7 @@ select
   nation_1.n_comment, 
   customer_1.c_name, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join customer as customer_1
     on (nation_1.n_nationkey = customer_1.c_custkey )
@@ -2202,7 +2202,7 @@ select
     partsupp_1.ps_partkey), 
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -2214,7 +2214,7 @@ select
   partsupp_1.ps_availqty, 
   orders_1.o_orderkey, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join supplier as supplier_1
           inner join orders as orders_1
@@ -2236,7 +2236,7 @@ select
     supplier_1.s_suppkey), 
   max(
     supplier_1.s_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_nationkey is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_name, supplier_1.s_suppkey
@@ -2248,7 +2248,7 @@ select
   orders_1.o_orderstatus, 
   avg(
     orders_1.o_totalprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice is not NULL
 group by orders_1.o_comment, orders_1.o_orderdate, orders_1.o_orderstatus
@@ -2271,7 +2271,7 @@ select
     lineitem_1.l_shipdate), 
   lineitem_1.l_returnflag, 
   lineitem_2.l_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join lineitem as lineitem_2
     on (lineitem_1.l_orderkey = lineitem_2.l_orderkey )
@@ -2282,7 +2282,7 @@ limit 39;
 select  
   customer_1.c_name, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join customer as customer_1
       inner join customer as customer_2
@@ -2294,14 +2294,14 @@ limit 23;
 select  
   partsupp_1.ps_partkey, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey is not NULL
 limit 31;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join orders as orders_1
       on (region_1.r_regionkey = orders_1.o_orderkey )
@@ -2312,7 +2312,7 @@ limit 39;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join orders as orders_1
         inner join part as part_2
@@ -2333,7 +2333,7 @@ select
   min(
     partsupp_1.ps_suppkey), 
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -2353,7 +2353,7 @@ select
     lineitem_1.l_partkey), 
   part_1.p_type, 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
       inner join part as part_1
       on (partsupp_1.ps_partkey = part_1.p_partkey )
@@ -2371,7 +2371,7 @@ select
   min(
     supplier_1.s_acctbal), 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_comment is not NULL
 group by supplier_1.s_phone
@@ -2384,7 +2384,7 @@ select
   customer_1.c_nationkey, 
   customer_1.c_acctbal, 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey >= customer_1.c_nationkey
 limit 1;
@@ -2393,7 +2393,7 @@ select
   lineitem_1.l_linestatus, 
   customer_2.c_address, 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join customer as customer_1
       on (lineitem_1.l_orderkey = customer_1.c_custkey )
@@ -2423,7 +2423,7 @@ select
   orders_1.o_orderpriority, 
   avg(
     orders_1.o_totalprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey is not NULL
 group by orders_1.o_clerk, orders_1.o_custkey, orders_1.o_orderdate, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -2437,7 +2437,7 @@ select
   min(
     customer_1.c_nationkey), 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey <= customer_1.c_nationkey
 group by customer_1.c_acctbal, customer_1.c_comment, customer_1.c_custkey, customer_1.c_name, customer_1.c_phone
@@ -2454,7 +2454,7 @@ select
   supplier_1.s_suppkey, 
   lineitem_1.l_commitdate, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
           inner join lineitem as lineitem_1
           on (orders_1.o_orderkey = lineitem_1.l_orderkey )
@@ -2475,14 +2475,14 @@ select
   orders_1.o_totalprice, 
   orders_1.o_comment, 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_clerk is not NULL
 limit 31;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_name = supplier_1.s_phone
 limit 40;
@@ -2497,7 +2497,7 @@ select
     region_1.r_comment), 
   partsupp_1.ps_availqty, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join region as region_1
     on (partsupp_1.ps_partkey = region_1.r_regionkey )
@@ -2519,7 +2519,7 @@ select
     partsupp_1.ps_availqty), 
   partsupp_1.ps_comment, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join part as part_1
       inner join customer as customer_1
@@ -2536,7 +2536,7 @@ select
   customer_1.c_address, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -2550,7 +2550,7 @@ select
   part_1.p_type, 
   part_1.p_container, 
   part_1.p_mfgr
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr >= part_1.p_brand
 limit 1;
@@ -2559,7 +2559,7 @@ select
   lineitem_1.l_commitdate, 
   lineitem_1.l_linenumber, 
   lineitem_1.l_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_commitdate is not NULL
 limit 35;
@@ -2572,7 +2572,7 @@ select
     part_1.p_partkey), 
   part_1.p_brand, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join part as part_1
     on (customer_1.c_custkey = part_1.p_partkey )
@@ -2582,7 +2582,7 @@ limit 22;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join supplier as supplier_1
       inner join supplier as supplier_2
@@ -2602,7 +2602,7 @@ select
   avg(
     part_1.p_size), 
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size is not NULL
 group by part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_name, part_1.p_partkey, part_1.p_retailprice, part_1.p_size, part_1.p_type
@@ -2610,7 +2610,7 @@ limit 36;
 -- meta {"num_joins":2,"num_aggregates":1,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join partsupp as partsupp_1
       inner join region as region_1
@@ -2627,7 +2627,7 @@ select
     part_1.p_partkey), 
   part_1.p_retailprice, 
   part_1.p_mfgr
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 group by part_1.p_brand, part_1.p_mfgr, part_1.p_name, part_1.p_retailprice, part_1.p_type
@@ -2646,7 +2646,7 @@ select
     lineitem_1.l_partkey), 
   supplier_1.s_nationkey, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
       inner join lineitem as lineitem_1
       on (partsupp_1.ps_partkey = lineitem_1.l_orderkey )
@@ -2666,7 +2666,7 @@ select
   region_1.r_comment, 
   region_1.r_name, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join partsupp as partsupp_1
     on (region_1.r_regionkey = partsupp_1.ps_partkey )
@@ -2687,7 +2687,7 @@ select
   supplier_1.s_name, 
   min(
     partsupp_1.ps_availqty)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join partsupp as partsupp_1
     on (supplier_1.s_suppkey = partsupp_1.ps_partkey )
@@ -2699,7 +2699,7 @@ select
   supplier_1.s_nationkey, 
   part_1.p_container, 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join customer as customer_1
         inner join lineitem as lineitem_1
@@ -2719,7 +2719,7 @@ select
   nation_1.n_regionkey, 
   nation_1.n_name, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -2730,7 +2730,7 @@ select
   customer_1.c_comment, 
   lineitem_1.l_linestatus, 
   lineitem_1.l_linenumber
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join customer as customer_1
     on (lineitem_1.l_orderkey = customer_1.c_custkey )
@@ -2739,7 +2739,7 @@ limit 4;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 3;
@@ -2749,7 +2749,7 @@ select
   max(
     orders_1.o_custkey), 
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderdate is not NULL
 group by orders_1.o_orderpriority, orders_1.o_totalprice
@@ -2764,7 +2764,7 @@ select
   avg(
     nation_1.n_regionkey), 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join supplier as supplier_1
     on (nation_1.n_nationkey = supplier_1.s_suppkey )
@@ -2783,7 +2783,7 @@ select
   min(
     lineitem_1.l_discount), 
   lineitem_1.l_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_orderkey is not NULL
 group by lineitem_1.l_comment, lineitem_1.l_linenumber, lineitem_1.l_partkey, lineitem_1.l_shipdate, lineitem_1.l_shipinstruct, lineitem_1.l_shipmode
@@ -2806,7 +2806,7 @@ select
     orders_1.o_orderkey), 
   orders_1.o_comment, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join region as region_1
     on (orders_1.o_orderkey = region_1.r_regionkey )
@@ -2823,7 +2823,7 @@ select
   count(*), 
   part_2.p_container, 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join part as part_2
       on (part_1.p_partkey = part_2.p_partkey )
@@ -2844,7 +2844,7 @@ select
   nation_1.n_nationkey, 
   max(
     nation_1.n_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -2856,7 +2856,7 @@ select
   supplier_1.s_phone, 
   supplier_1.s_suppkey, 
   supplier_2.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join supplier as supplier_1
       inner join supplier as supplier_2
@@ -2869,7 +2869,7 @@ select
   customer_1.c_name, 
   count(*), 
   customer_2.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
       inner join nation as nation_1
@@ -2885,7 +2885,7 @@ select
   part_1.p_container, 
   part_1.p_size, 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey is not NULL
 limit 4;
@@ -2894,7 +2894,7 @@ select
   supplier_1.s_acctbal, 
   supplier_1.s_phone, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join supplier as supplier_1
     on (partsupp_1.ps_partkey = supplier_1.s_suppkey )
@@ -2917,7 +2917,7 @@ select
   part_1.p_brand, 
   sum(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand > part_1.p_container
 group by part_1.p_brand, part_1.p_container, part_1.p_name, part_1.p_partkey, part_1.p_retailprice, part_1.p_type
@@ -2940,7 +2940,7 @@ select
   part_2.p_container, 
   min(
     part_2.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
         inner join partsupp as partsupp_1
         on (part_1.p_partkey = partsupp_1.ps_partkey )
@@ -2954,7 +2954,7 @@ limit 42;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 2;
@@ -2972,7 +2972,7 @@ select
     partsupp_1.ps_partkey), 
   min(
     partsupp_1.ps_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost >= partsupp_1.ps_supplycost
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_suppkey
@@ -2988,7 +2988,7 @@ select
   orders_1.o_shippriority, 
   orders_1.o_orderpriority, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderkey <= orders_1.o_shippriority
 group by orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderdate, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority
@@ -3001,7 +3001,7 @@ select
   nation_1.n_name, 
   part_1.p_comment, 
   part_2.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join part as part_2
       inner join nation as nation_1
@@ -3016,7 +3016,7 @@ select
     part_1.p_partkey), 
   sum(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 group by part_1.p_name
@@ -3031,7 +3031,7 @@ select
   lineitem_1.l_orderkey, 
   lineitem_1.l_quantity, 
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipmode < lineitem_1.l_returnflag
 limit 10;
@@ -3045,7 +3045,7 @@ select
   orders_1.o_custkey, 
   max(
     orders_1.o_totalprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice <= orders_1.o_totalprice
 group by orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderdate, orders_1.o_orderkey
@@ -3057,14 +3057,14 @@ select
   lineitem_1.l_linenumber, 
   lineitem_1.l_suppkey, 
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate = lineitem_1.l_shipdate
 limit 31;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_2.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
         inner join region as region_2
         on (region_1.r_regionkey = region_2.r_regionkey )
@@ -3082,7 +3082,7 @@ select
   count(
     partsupp_1.ps_comment), 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment
@@ -3090,7 +3090,7 @@ limit 27;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand is not NULL
 limit 27;
@@ -3102,7 +3102,7 @@ select
   sum(
     orders_2.o_totalprice), 
   orders_2.o_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join orders as orders_2
       inner join supplier as supplier_1
@@ -3117,7 +3117,7 @@ select
     nation_1.n_comment), 
   nation_1.n_nationkey, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join partsupp as partsupp_1
         inner join nation as nation_1
@@ -3140,7 +3140,7 @@ select
   nation_1.n_nationkey, 
   avg(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -3149,7 +3149,7 @@ limit 2;
 select  
   orders_1.o_custkey, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join orders as orders_1
     on (partsupp_1.ps_partkey = orders_1.o_orderkey )
@@ -3165,7 +3165,7 @@ select
   max(
     partsupp_1.ps_suppkey), 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join partsupp as partsupp_1
       on (supplier_1.s_suppkey = partsupp_1.ps_partkey )
@@ -3185,7 +3185,7 @@ select
   min(
     customer_1.c_nationkey), 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_nationkey
@@ -3201,7 +3201,7 @@ select
   supplier_1.s_address, 
   count(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_nationkey, supplier_1.s_phone, supplier_1.s_suppkey
@@ -3211,7 +3211,7 @@ select
   orders_1.o_clerk, 
   max(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join part as part_1
       on (orders_1.o_orderkey = part_1.p_partkey )
@@ -3224,7 +3224,7 @@ limit 34;
 select  
   nation_1.n_nationkey, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 limit 27;
@@ -3244,7 +3244,7 @@ select
     orders_1.o_orderkey), 
   min(
     orders_1.o_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderpriority is not NULL
 group by orders_1.o_clerk, orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -3254,7 +3254,7 @@ select
   supplier_1.s_address, 
   supplier_1.s_name, 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_address is not NULL
 limit 19;
@@ -3263,7 +3263,7 @@ select
   part_1.p_type, 
   part_1.p_mfgr, 
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 limit 31;
@@ -3275,7 +3275,7 @@ select
   lineitem_1.l_suppkey, 
   min(
     supplier_1.s_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join supplier as supplier_1
       inner join region as region_1
@@ -3289,7 +3289,7 @@ limit 20;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_extendedprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join region as region_1
       on (customer_1.c_custkey = region_1.r_regionkey )
@@ -3302,7 +3302,7 @@ select
   supplier_1.s_comment, 
   supplier_1.s_phone, 
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone is not NULL
 limit 41;
@@ -3310,7 +3310,7 @@ limit 41;
 select  
   region_1.r_name, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 18;
@@ -3318,7 +3318,7 @@ limit 18;
 select  
   count(
     region_1.r_comment)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join partsupp as partsupp_1
         inner join region as region_1
@@ -3331,7 +3331,7 @@ limit 20;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey is not NULL
 limit 8;
@@ -3339,7 +3339,7 @@ limit 8;
 select  
   partsupp_1.ps_availqty, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost >= partsupp_1.ps_supplycost
 limit 29;
@@ -3347,7 +3347,7 @@ limit 29;
 select  
   lineitem_1.l_returnflag, 
   lineitem_1.l_linenumber
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipinstruct is not NULL
 limit 27;
@@ -3358,7 +3358,7 @@ select
   nation_1.n_comment, 
   count(
     nation_1.n_comment)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_regionkey
@@ -3371,7 +3371,7 @@ select
   lineitem_1.l_discount, 
   lineitem_1.l_receiptdate, 
   lineitem_1.l_extendedprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate <= lineitem_1.l_commitdate
 group by lineitem_1.l_discount, lineitem_1.l_extendedprice, lineitem_1.l_receiptdate, lineitem_1.l_shipinstruct
@@ -3390,7 +3390,7 @@ select
   customer_1.c_comment, 
   part_1.p_size, 
   part_2.p_mfgr
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
         inner join part as part_2
         on (part_1.p_partkey = part_2.p_partkey )
@@ -3410,7 +3410,7 @@ select
   max(
     customer_1.c_acctbal), 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey <= customer_1.c_custkey
 group by customer_1.c_custkey, customer_1.c_nationkey, customer_1.c_phone
@@ -3422,7 +3422,7 @@ select
   sum(
     lineitem_1.l_suppkey), 
   lineitem_1.l_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_discount >= lineitem_1.l_extendedprice
 group by lineitem_1.l_commitdate, lineitem_1.l_linestatus, lineitem_1.l_orderkey
@@ -3432,7 +3432,7 @@ select
   supplier_1.s_nationkey, 
   supplier_1.s_suppkey, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal >= supplier_1.s_acctbal
 limit 28;
@@ -3444,7 +3444,7 @@ select
   customer_1.c_address, 
   customer_1.c_mktsegment, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_comment is not NULL
 group by customer_1.c_address, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_nationkey
@@ -3456,7 +3456,7 @@ select
   part_1.p_mfgr, 
   lineitem_1.l_discount, 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join part as part_1
     on (lineitem_1.l_orderkey = part_1.p_partkey )
@@ -3468,7 +3468,7 @@ select
   partsupp_1.ps_availqty, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 limit 39;
@@ -3477,7 +3477,7 @@ select
   customer_1.c_nationkey, 
   customer_1.c_acctbal, 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join orders as orders_1
     on (customer_1.c_custkey = orders_1.o_orderkey )
@@ -3487,7 +3487,7 @@ limit 19;
 select  
   orders_1.o_orderkey, 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice is not NULL
 limit 29;
@@ -3508,7 +3508,7 @@ select
     customer_1.c_custkey), 
   nation_1.n_nationkey, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join part as part_1
       on (nation_1.n_nationkey = part_1.p_partkey )
@@ -3529,7 +3529,7 @@ select
   partsupp_1.ps_partkey, 
   lineitem_2.l_linenumber, 
   lineitem_1.l_tax
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join lineitem as lineitem_1
         inner join lineitem as lineitem_2
@@ -3551,7 +3551,7 @@ select
   supplier_1.s_suppkey, 
   supplier_1.s_name, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_address is not NULL
 limit 5;
@@ -3559,7 +3559,7 @@ limit 5;
 select  
   part_1.p_size, 
   part_1.p_type
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice >= part_1.p_retailprice
 limit 37;
@@ -3571,7 +3571,7 @@ select
   customer_1.c_mktsegment, 
   avg(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 group by customer_1.c_address, customer_1.c_mktsegment, customer_1.c_nationkey, customer_1.c_phone
@@ -3579,7 +3579,7 @@ limit 20;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join orders as orders_2
     on (orders_1.o_orderkey = orders_2.o_orderkey )
@@ -3588,7 +3588,7 @@ limit 7;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join partsupp as partsupp_1
     on (nation_1.n_nationkey = partsupp_1.ps_partkey )
@@ -3602,7 +3602,7 @@ select
   max(
     region_1.r_regionkey), 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_regionkey
@@ -3615,7 +3615,7 @@ select
   supplier_1.s_name, 
   supplier_1.s_acctbal, 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone >= supplier_1.s_name
 limit 12;
@@ -3626,7 +3626,7 @@ select
     customer_1.c_nationkey), 
   customer_1.c_phone, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone is not NULL
 group by customer_1.c_acctbal, customer_1.c_comment, customer_1.c_phone
@@ -3641,7 +3641,7 @@ select
   count(*), 
   customer_1.c_mktsegment, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment is not NULL
 group by customer_1.c_acctbal, customer_1.c_custkey, customer_1.c_mktsegment
@@ -3659,7 +3659,7 @@ select
     region_1.r_regionkey), 
   min(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -3667,7 +3667,7 @@ limit 24;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join orders as orders_1
           inner join supplier as supplier_1
@@ -3686,7 +3686,7 @@ select
   max(
     supplier_1.s_nationkey), 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal >= supplier_1.s_acctbal
 group by supplier_1.s_name, supplier_1.s_phone
@@ -3703,7 +3703,7 @@ select
   customer_1.c_address, 
   customer_1.c_phone, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone < customer_1.c_mktsegment
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey, customer_1.c_phone
@@ -3711,7 +3711,7 @@ limit 2;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_2.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
         inner join nation as nation_1
         on (supplier_1.s_suppkey = nation_1.n_nationkey )
@@ -3727,7 +3727,7 @@ select
   nation_1.n_comment, 
   nation_1.n_nationkey, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 29;
@@ -3737,7 +3737,7 @@ select
   partsupp_1.ps_partkey, 
   max(
     partsupp_1.ps_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 group by partsupp_1.ps_partkey, partsupp_1.ps_suppkey
@@ -3749,7 +3749,7 @@ select
   part_1.p_size, 
   nation_1.n_regionkey, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join part as part_1
     on (nation_1.n_nationkey = part_1.p_partkey )
@@ -3766,7 +3766,7 @@ select
     lineitem_1.l_receiptdate), 
   lineitem_1.l_discount, 
   lineitem_1.l_tax
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate = lineitem_1.l_commitdate
 group by lineitem_1.l_discount, lineitem_1.l_extendedprice, lineitem_1.l_linestatus, lineitem_1.l_orderkey, lineitem_1.l_tax
@@ -3775,7 +3775,7 @@ limit 16;
 select  
   region_1.r_name, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 25;
@@ -3792,7 +3792,7 @@ select
   max(
     lineitem_1.l_suppkey), 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join lineitem as lineitem_1
     on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -3804,7 +3804,7 @@ select
   nation_1.n_name, 
   nation_1.n_comment, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 limit 42;
@@ -3812,7 +3812,7 @@ limit 42;
 select  
   region_1.r_name, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 11;
@@ -3820,7 +3820,7 @@ limit 11;
 select  
   orders_1.o_shippriority, 
   orders_1.o_clerk
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderstatus > orders_1.o_orderpriority
 limit 5;
@@ -3828,7 +3828,7 @@ limit 5;
 select  
   count(*), 
   orders_2.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
         inner join customer as customer_1
           inner join orders as orders_1
@@ -3850,7 +3850,7 @@ select
   lineitem_1.l_shipinstruct, 
   lineitem_1.l_discount, 
   lineitem_1.l_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_suppkey = lineitem_1.l_orderkey
 group by lineitem_1.l_discount, lineitem_1.l_linestatus, lineitem_1.l_quantity, lineitem_1.l_shipinstruct, lineitem_1.l_suppkey
@@ -3861,7 +3861,7 @@ select
   customer_1.c_comment, 
   min(
     customer_1.c_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey > customer_1.c_custkey
 group by customer_1.c_comment, customer_1.c_mktsegment
@@ -3869,7 +3869,7 @@ limit 24;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost <= partsupp_1.ps_supplycost
 limit 18;
@@ -3880,7 +3880,7 @@ select
   customer_1.c_mktsegment, 
   customer_1.c_comment, 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone < customer_1.c_mktsegment
 group by customer_1.c_address, customer_1.c_comment, customer_1.c_mktsegment
@@ -3897,7 +3897,7 @@ select
     part_1.p_brand), 
   part_1.p_size, 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_comment is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_container, part_1.p_name, part_1.p_partkey, part_1.p_retailprice, part_1.p_size, part_1.p_type
@@ -3910,7 +3910,7 @@ select
     orders_1.o_custkey), 
   orders_1.o_orderdate, 
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderdate is not NULL
 group by orders_1.o_clerk, orders_1.o_orderdate, orders_1.o_orderstatus, orders_1.o_totalprice
@@ -3919,7 +3919,7 @@ limit 10;
 select  
   sum(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join customer as customer_1
     on (nation_1.n_nationkey = customer_1.c_custkey )
@@ -3934,7 +3934,7 @@ select
   supplier_1.s_suppkey, 
   supplier_1.s_address, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_address is not NULL
 group by supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_phone, supplier_1.s_suppkey
@@ -3943,7 +3943,7 @@ limit 11;
 select  
   supplier_2.s_acctbal, 
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join partsupp as partsupp_1
         inner join region as region_1
@@ -3972,7 +3972,7 @@ select
   max(
     partsupp_1.ps_availqty), 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join partsupp as partsupp_1
     on (customer_1.c_custkey = partsupp_1.ps_partkey )
@@ -3991,7 +3991,7 @@ select
     customer_1.c_custkey), 
   customer_1.c_mktsegment, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_phone
@@ -4000,7 +4000,7 @@ limit 40;
 select  
   supplier_1.s_address, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join region as region_1
         inner join partsupp as partsupp_1
@@ -4019,7 +4019,7 @@ select
   min(
     nation_1.n_regionkey), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -4032,7 +4032,7 @@ select
   max(
     customer_1.c_acctbal), 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join customer as customer_1
         inner join region as region_1
@@ -4051,7 +4051,7 @@ select
     region_1.r_regionkey), 
   min(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_regionkey
@@ -4061,7 +4061,7 @@ select
   nation_1.n_nationkey, 
   min(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_nationkey
@@ -4071,7 +4071,7 @@ select
   orders_1.o_orderpriority, 
   min(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join region as region_1
       on (part_1.p_partkey = region_1.r_regionkey )
@@ -4086,7 +4086,7 @@ select
   customer_1.c_acctbal, 
   customer_1.c_address, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey is not NULL
 limit 17;
@@ -4100,7 +4100,7 @@ select
     lineitem_1.l_linenumber), 
   count(*), 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join lineitem as lineitem_1
     on (customer_1.c_custkey = lineitem_1.l_orderkey )
@@ -4116,7 +4116,7 @@ select
   nation_1.n_regionkey, 
   min(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name = nation_1.n_name
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -4128,7 +4128,7 @@ select
   region_1.r_comment, 
   max(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -4144,7 +4144,7 @@ select
   lineitem_1.l_shipdate, 
   lineitem_1.l_shipmode, 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join lineitem as lineitem_1
     on (supplier_1.s_suppkey = lineitem_1.l_orderkey )
@@ -4154,7 +4154,7 @@ limit 7;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join lineitem as lineitem_1
     on (region_1.r_regionkey = lineitem_1.l_orderkey )
@@ -4168,7 +4168,7 @@ select
     supplier_1.s_acctbal), 
   count(*), 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join nation as nation_1
         inner join nation as nation_2
@@ -4186,14 +4186,14 @@ select
   customer_1.c_name, 
   customer_1.c_nationkey, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment is not NULL
 limit 31;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_shippriority <= orders_1.o_orderkey
 limit 10;
@@ -4202,7 +4202,7 @@ select
   region_1.r_name, 
   part_1.p_size, 
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join part as part_1
     on (region_1.r_regionkey = part_1.p_partkey )
@@ -4214,7 +4214,7 @@ select
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_availqty, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join supplier as supplier_1
     on (partsupp_1.ps_partkey = supplier_1.s_suppkey )
@@ -4223,7 +4223,7 @@ limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment is not NULL
 limit 13;
@@ -4235,7 +4235,7 @@ select
   region_1.r_regionkey, 
   sum(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_name, region_1.r_regionkey
@@ -4245,7 +4245,7 @@ select
   supplier_1.s_phone, 
   supplier_1.s_name, 
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal = supplier_1.s_acctbal
 limit 35;
@@ -4253,7 +4253,7 @@ limit 35;
 select  
   nation_1.n_name, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 38;
@@ -4270,7 +4270,7 @@ select
   customer_1.c_phone, 
   count(
     region_1.r_comment)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join customer as customer_1
     on (region_1.r_regionkey = customer_1.c_custkey )
@@ -4287,7 +4287,7 @@ select
   lineitem_1.l_partkey, 
   min(
     lineitem_1.l_quantity)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate is not NULL
 group by lineitem_1.l_linenumber, lineitem_1.l_partkey, lineitem_1.l_quantity, lineitem_1.l_tax
@@ -4296,7 +4296,7 @@ limit 31;
 select  
   orders_1.o_shippriority, 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join orders as orders_1
     on (supplier_1.s_suppkey = orders_1.o_orderkey )
@@ -4307,7 +4307,7 @@ select
   orders_1.o_orderkey, 
   orders_1.o_custkey, 
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_comment is not NULL
 limit 5;
@@ -4316,7 +4316,7 @@ select
   nation_1.n_regionkey, 
   nation_1.n_comment, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 limit 11;
@@ -4325,7 +4325,7 @@ select
   nation_1.n_nationkey, 
   max(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join nation as nation_1
       on (orders_1.o_orderkey = nation_1.n_nationkey )
@@ -4346,7 +4346,7 @@ select
   nation_1.n_nationkey, 
   lineitem_1.l_suppkey, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join nation as nation_1
     on (lineitem_1.l_orderkey = nation_1.n_nationkey )
@@ -4363,7 +4363,7 @@ select
     part_1.p_size), 
   part_1.p_name, 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_container, part_1.p_name, part_1.p_partkey, part_1.p_size
@@ -4378,7 +4378,7 @@ select
     region_1.r_regionkey), 
   min(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 group by region_1.r_comment, region_1.r_regionkey
@@ -4386,14 +4386,14 @@ limit 39;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 limit 36;
 -- meta {"num_joins":5,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_2.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join nation as nation_2
         inner join supplier as supplier_1
@@ -4433,7 +4433,7 @@ select
     orders_1.o_orderdate), 
   orders_1.o_shippriority, 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join nation as nation_1
     on (orders_1.o_orderkey = nation_1.n_nationkey )
@@ -4445,7 +4445,7 @@ select
   min(
     nation_1.n_regionkey), 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment
@@ -4458,7 +4458,7 @@ select
   partsupp_1.ps_availqty, 
   count(
     partsupp_1.ps_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty <= partsupp_1.ps_suppkey
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment
@@ -4466,7 +4466,7 @@ limit 4;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey >= region_1.r_regionkey
 limit 35;
@@ -4480,7 +4480,7 @@ select
   orders_1.o_orderdate, 
   sum(
     orders_1.o_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join orders as orders_1
     on (partsupp_1.ps_partkey = orders_1.o_orderkey )
@@ -4495,7 +4495,7 @@ select
   sum(
     partsupp_1.ps_partkey), 
   lineitem_1.l_shipinstruct
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join partsupp as partsupp_1
     on (lineitem_1.l_orderkey = partsupp_1.ps_partkey )
@@ -4507,7 +4507,7 @@ select
   nation_1.n_nationkey, 
   orders_1.o_custkey, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join nation as nation_1
       on (orders_1.o_orderkey = nation_1.n_nationkey )
@@ -4519,7 +4519,7 @@ limit 21;
 select  
   customer_1.c_name, 
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_name is not NULL
 limit 17;
@@ -4533,7 +4533,7 @@ select
     part_1.p_retailprice), 
   region_2.r_name, 
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join part as part_1
       inner join region as region_2
@@ -4550,7 +4550,7 @@ select
   min(
     supplier_1.s_suppkey), 
   region_2.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join region as region_1
         inner join region as region_2
@@ -4565,7 +4565,7 @@ limit 16;
 select  
   part_2.p_name, 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join part as part_2
       on (part_1.p_partkey = part_2.p_partkey )
@@ -4579,7 +4579,7 @@ select
   avg(
     nation_1.n_regionkey), 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_name, nation_1.n_regionkey
@@ -4589,7 +4589,7 @@ select
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey is not NULL
 limit 2;
@@ -4597,7 +4597,7 @@ limit 2;
 select  
   sum(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey is not NULL
 limit 3;
@@ -4607,7 +4607,7 @@ select
     part_1.p_retailprice), 
   part_1.p_size, 
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey is not NULL
 group by part_1.p_container, part_1.p_size
@@ -4629,7 +4629,7 @@ select
     supplier_1.s_phone), 
   min(
     supplier_1.s_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey >= supplier_1.s_nationkey
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_nationkey
@@ -4640,7 +4640,7 @@ select
   customer_1.c_nationkey, 
   avg(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment is not NULL
 group by customer_1.c_nationkey, customer_1.c_phone
@@ -4652,7 +4652,7 @@ select
   max(
     nation_1.n_regionkey), 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join part as part_1
     on (nation_1.n_nationkey = part_1.p_partkey )
@@ -4665,7 +4665,7 @@ select
   partsupp_2.ps_comment, 
   partsupp_2.ps_suppkey, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join partsupp as partsupp_2
     on (partsupp_1.ps_partkey = partsupp_2.ps_partkey )
@@ -4687,7 +4687,7 @@ select
   lineitem_1.l_shipinstruct, 
   sum(
     lineitem_1.l_quantity)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join customer as customer_1
     on (lineitem_1.l_orderkey = customer_1.c_custkey )
@@ -4698,7 +4698,7 @@ limit 22;
 select  
   orders_1.o_orderstatus, 
   lineitem_1.l_linestatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join lineitem as lineitem_1
       on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -4711,7 +4711,7 @@ select
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost = partsupp_1.ps_supplycost
 limit 33;
@@ -4733,7 +4733,7 @@ select
   partsupp_1.ps_partkey, 
   count(
     partsupp_1.ps_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join nation as nation_1
       inner join supplier as supplier_1
@@ -4747,7 +4747,7 @@ select
   part_1.p_comment, 
   part_1.p_mfgr, 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join orders as orders_1
     on (part_1.p_partkey = orders_1.o_orderkey )
@@ -4759,7 +4759,7 @@ select
   max(
     customer_2.c_custkey), 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join customer as customer_1
       on (nation_1.n_nationkey = customer_1.c_custkey )
@@ -4784,7 +4784,7 @@ select
   count(
     part_1.p_mfgr), 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_name, part_1.p_type
@@ -4798,7 +4798,7 @@ select
   supplier_1.s_name, 
   lineitem_1.l_tax, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
         inner join lineitem as lineitem_2
         on (lineitem_1.l_orderkey = lineitem_2.l_orderkey )
@@ -4815,7 +4815,7 @@ select
   min(
     lineitem_1.l_commitdate), 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join lineitem as lineitem_1
     on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -4827,7 +4827,7 @@ select
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_availqty, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 limit 1;
@@ -4835,7 +4835,7 @@ limit 1;
 select  
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join orders as orders_1
     on (partsupp_1.ps_partkey = orders_1.o_orderkey )
@@ -4847,7 +4847,7 @@ select
   orders_1.o_orderkey, 
   nation_1.n_regionkey, 
   orders_1.o_clerk
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join orders as orders_1
     on (nation_1.n_nationkey = orders_1.o_orderkey )
@@ -4862,7 +4862,7 @@ select
     region_1.r_regionkey), 
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -4877,7 +4877,7 @@ select
   supplier_1.s_name, 
   min(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
           inner join nation as nation_1
           on (orders_1.o_orderkey = nation_1.n_nationkey )
@@ -4912,7 +4912,7 @@ select
     region_1.r_regionkey), 
   sum(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_regionkey
@@ -4926,7 +4926,7 @@ select
     nation_1.n_nationkey), 
   count(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -4939,7 +4939,7 @@ select
   customer_1.c_mktsegment, 
   customer_2.c_acctbal, 
   region_2.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join customer as customer_1
       on (region_1.r_regionkey = customer_1.c_custkey )
@@ -4955,7 +4955,7 @@ limit 23;
 select  
   nation_1.n_regionkey, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name > nation_1.n_name
 limit 16;
@@ -4965,7 +4965,7 @@ select
   nation_1.n_comment, 
   nation_1.n_nationkey, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 limit 1;
@@ -4975,7 +4975,7 @@ select
     supplier_1.s_nationkey), 
   supplier_1.s_address, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address
@@ -4985,7 +4985,7 @@ select
   min(
     orders_1.o_orderdate), 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
         inner join orders as orders_1
         on (supplier_1.s_suppkey = orders_1.o_orderkey )
@@ -5003,7 +5003,7 @@ select
   max(
     region_1.r_regionkey), 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name <= region_1.r_name
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -5022,7 +5022,7 @@ select
   lineitem_1.l_linenumber, 
   lineitem_1.l_discount, 
   part_1.p_mfgr
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
         inner join customer as customer_1
           inner join nation as nation_1
@@ -5048,7 +5048,7 @@ select
   count(
     customer_1.c_comment), 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join customer as customer_1
     on (region_1.r_regionkey = customer_1.c_custkey )
@@ -5056,19 +5056,19 @@ where customer_1.c_mktsegment = region_1.r_name
 group by customer_1.c_address, customer_1.c_mktsegment, region_1.r_comment, region_1.r_name, region_1.r_regionkey
 limit 9;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   lineitem_1.l_linestatus, 
   lineitem_1.l_discount
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_extendedprice is not NULL
 limit 30;
 -- meta {"num_joins":5,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
-      inner join region as region_1
+      inner join region as region_1, provsql.sr_why(provsql.provenance(), 'provmap') from 
             inner join part as part_1
             on (region_1.r_regionkey = part_1.p_partkey )
           inner join partsupp as partsupp_1
@@ -5090,7 +5090,7 @@ select
   region_1.r_comment, 
   sum(
     supplier_1.s_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join region as region_1
       on (supplier_1.s_suppkey = region_1.r_regionkey )
@@ -5107,7 +5107,7 @@ select
   part_1.p_retailprice, 
   min(
     part_1.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join nation as nation_1
     on (part_1.p_partkey = nation_1.n_nationkey )
@@ -5122,7 +5122,7 @@ select
   partsupp_1.ps_partkey, 
   supplier_2.s_name, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join nation as nation_1
           inner join partsupp as partsupp_1
@@ -5150,7 +5150,7 @@ select
   partsupp_1.ps_supplycost, 
   lineitem_2.l_returnflag, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
           inner join lineitem as lineitem_1
           on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -5170,14 +5170,14 @@ limit 40;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 17;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment is not NULL
 limit 30;
@@ -5195,7 +5195,7 @@ select
   min(
     customer_1.c_nationkey), 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone is not NULL
 group by customer_1.c_acctbal, customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey
@@ -5205,7 +5205,7 @@ select
   part_2.p_mfgr, 
   part_2.p_brand, 
   part_2.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join part as part_2
     on (part_1.p_partkey = part_2.p_partkey )
@@ -5225,7 +5225,7 @@ select
   lineitem_1.l_suppkey, 
   orders_1.o_comment, 
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join orders as orders_1
     on (lineitem_1.l_orderkey = orders_1.o_orderkey )
@@ -5238,7 +5238,7 @@ select
   part_1.p_comment, 
   customer_1.c_mktsegment, 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join customer as customer_1
     on (part_1.p_partkey = customer_1.c_custkey )
@@ -5248,7 +5248,7 @@ limit 2;
 select  
   region_1.r_regionkey, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 34;
@@ -5256,7 +5256,7 @@ limit 34;
 select  
   region_1.r_comment, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey > region_1.r_regionkey
 limit 16;
@@ -5266,7 +5266,7 @@ select
   customer_1.c_acctbal, 
   region_1.r_regionkey, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join lineitem as lineitem_1
       inner join region as region_1
@@ -5292,7 +5292,7 @@ select
   max(
     lineitem_1.l_linenumber), 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join part as part_1
     on (lineitem_1.l_orderkey = part_1.p_partkey )
@@ -5310,7 +5310,7 @@ select
   lineitem_1.l_quantity, 
   part_1.p_partkey, 
   lineitem_1.l_commitdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join part as part_2
         inner join lineitem as lineitem_1
@@ -5325,7 +5325,7 @@ limit 38;
 select  
   count(*), 
   lineitem_1.l_returnflag
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linestatus is not NULL
 group by lineitem_1.l_returnflag
@@ -5337,7 +5337,7 @@ select
   orders_1.o_orderpriority, 
   orders_1.o_custkey, 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_shippriority > orders_1.o_custkey
 limit 38;
@@ -5358,7 +5358,7 @@ select
   lineitem_1.l_commitdate, 
   max(
     lineitem_1.l_receiptdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linenumber is not NULL
 group by lineitem_1.l_commitdate, lineitem_1.l_linenumber, lineitem_1.l_orderkey, lineitem_1.l_returnflag, lineitem_1.l_shipdate, lineitem_1.l_shipinstruct, lineitem_1.l_tax
@@ -5368,7 +5368,7 @@ select
   min(
     lineitem_1.l_orderkey), 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join lineitem as lineitem_1
     on (nation_1.n_nationkey = lineitem_1.l_orderkey )
@@ -5378,7 +5378,7 @@ limit 26;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_returnflag
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipinstruct is not NULL
 limit 34;
@@ -5389,7 +5389,7 @@ select
     part_1.p_partkey), 
   customer_2.c_mktsegment, 
   customer_2.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join customer as customer_1
       inner join customer as customer_2
@@ -5411,7 +5411,7 @@ select
   min(
     nation_1.n_regionkey), 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey
@@ -5420,7 +5420,7 @@ limit 30;
 select  
   supplier_1.s_suppkey, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_comment is not NULL
 limit 7;
@@ -5458,7 +5458,7 @@ select
   part_1.p_mfgr, 
   customer_2.c_comment, 
   customer_2.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join part as part_1
       on (orders_1.o_orderkey = part_1.p_partkey )
@@ -5473,7 +5473,7 @@ limit 24;
 select  
   customer_1.c_phone, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join supplier as supplier_1
     on (customer_1.c_custkey = supplier_1.s_suppkey )
@@ -5484,7 +5484,7 @@ select
   lineitem_1.l_linenumber, 
   lineitem_1.l_extendedprice, 
   lineitem_1.l_linestatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_extendedprice < lineitem_1.l_tax
 limit 37;
@@ -5492,7 +5492,7 @@ limit 37;
 select  
   customer_1.c_address, 
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join customer as customer_1
     on (lineitem_1.l_orderkey = customer_1.c_custkey )
@@ -5507,7 +5507,7 @@ select
   count(
     lineitem_1.l_partkey), 
   lineitem_1.l_shipmode
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_discount >= lineitem_1.l_tax
 group by lineitem_1.l_quantity, lineitem_1.l_shipmode, lineitem_1.l_tax
@@ -5517,7 +5517,7 @@ select
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey = partsupp_1.ps_availqty
 limit 36;
@@ -5531,7 +5531,7 @@ select
     orders_1.o_orderdate), 
   orders_1.o_orderstatus, 
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderkey is not NULL
 group by orders_1.o_clerk, orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus
@@ -5540,7 +5540,7 @@ limit 28;
 select  
   region_1.r_name, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name = region_1.r_name
 limit 25;
@@ -5553,7 +5553,7 @@ select
   supplier_1.s_suppkey, 
   partsupp_1.ps_supplycost, 
   customer_2.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join supplier as supplier_1
         inner join customer as customer_1
@@ -5568,7 +5568,7 @@ limit 26;
 -- meta {"num_joins":5,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_2.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join orders as orders_1
         inner join supplier as supplier_1
@@ -5596,7 +5596,7 @@ select
   customer_1.c_custkey, 
   count(
     supplier_1.s_name)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
         inner join partsupp as partsupp_1
         on (nation_1.n_nationkey = partsupp_1.ps_partkey )
@@ -5620,7 +5620,7 @@ select
   max(
     orders_1.o_orderdate), 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_comment is not NULL
 group by orders_1.o_comment, orders_1.o_orderdate, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -5633,7 +5633,7 @@ select
   min(
     partsupp_1.ps_suppkey), 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 group by partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -5654,7 +5654,7 @@ select
   partsupp_1.ps_availqty, 
   region_2.r_comment, 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join partsupp as partsupp_1
       inner join region as region_2
@@ -5669,7 +5669,7 @@ limit 9;
 select  
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 limit 2;
@@ -5679,7 +5679,7 @@ select
   supplier_1.s_suppkey, 
   supplier_1.s_name, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone <= supplier_1.s_name
 limit 37;
@@ -5688,7 +5688,7 @@ select
   max(
     lineitem_1.l_partkey), 
   lineitem_1.l_commitdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join supplier as supplier_1
         inner join partsupp as partsupp_1
@@ -5716,7 +5716,7 @@ select
   supplier_1.s_nationkey, 
   supplier_1.s_phone, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_comment, supplier_1.s_nationkey, supplier_1.s_phone, supplier_1.s_suppkey
@@ -5734,7 +5734,7 @@ select
   part_1.p_type, 
   nation_2.n_comment, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join nation as nation_1
       on (part_1.p_partkey = nation_1.n_nationkey )
@@ -5770,7 +5770,7 @@ select
     supplier_1.s_nationkey), 
   sum(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_name is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_nationkey, supplier_1.s_phone, supplier_1.s_suppkey
@@ -5790,7 +5790,7 @@ select
   orders_1.o_orderstatus, 
   nation_1.n_regionkey, 
   nation_2.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join nation as nation_1
       inner join nation as nation_2
@@ -5805,7 +5805,7 @@ select
   partsupp_1.ps_supplycost, 
   max(
     partsupp_1.ps_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_supplycost
@@ -5815,7 +5815,7 @@ select
   nation_1.n_name, 
   orders_1.o_clerk, 
   supplier_3.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join supplier as supplier_2
           inner join nation as nation_1
@@ -5842,7 +5842,7 @@ select
     part_1.p_size), 
   max(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size is not NULL
 group by part_1.p_container, part_1.p_mfgr, part_1.p_retailprice, part_1.p_size, part_1.p_type
@@ -5866,7 +5866,7 @@ select
     part_1.p_size), 
   max(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_comment is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_name, part_1.p_partkey
@@ -5883,7 +5883,7 @@ select
     supplier_1.s_suppkey), 
   max(
     supplier_1.s_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal <= supplier_1.s_acctbal
 group by supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_suppkey
@@ -5892,7 +5892,7 @@ limit 4;
 select  
   count(*), 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name < region_1.r_name
 group by region_1.r_comment
@@ -5900,7 +5900,7 @@ limit 5;
 -- meta {"num_joins":6,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
         inner join customer as customer_1
         on (nation_1.n_nationkey = customer_1.c_custkey )
@@ -5923,7 +5923,7 @@ select
     region_1.r_regionkey), 
   max(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_regionkey
@@ -5932,7 +5932,7 @@ limit 26;
 select  
   min(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 limit 32;
@@ -5942,7 +5942,7 @@ select
   supplier_1.s_phone, 
   sum(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_nationkey = supplier_1.s_suppkey
 group by supplier_1.s_name, supplier_1.s_phone
@@ -5953,7 +5953,7 @@ select
   max(
     part_1.p_partkey), 
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey is not NULL
 group by part_1.p_container, part_1.p_name
@@ -5970,7 +5970,7 @@ select
   part_1.p_comment, 
   min(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_name, part_1.p_retailprice
@@ -5982,7 +5982,7 @@ select
   lineitem_1.l_tax, 
   lineitem_2.l_tax, 
   part_1.p_mfgr
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join part as part_1
         inner join lineitem as lineitem_2
@@ -5998,7 +5998,7 @@ select
   partsupp_2.ps_partkey, 
   partsupp_2.ps_supplycost, 
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join part as part_1
           inner join customer as customer_1
@@ -6024,7 +6024,7 @@ select
   min(
     lineitem_1.l_partkey), 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join lineitem as lineitem_1
       inner join nation as nation_1
@@ -6040,7 +6040,7 @@ select
   region_1.r_comment, 
   count(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment
@@ -6057,7 +6057,7 @@ select
     nation_1.n_nationkey), 
   sum(
     nation_1.n_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name > nation_1.n_name
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -6069,7 +6069,7 @@ select
   nation_1.n_name, 
   customer_1.c_nationkey, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join nation as nation_1
       on (customer_1.c_custkey = nation_1.n_nationkey )
@@ -6087,7 +6087,7 @@ select
   supplier_1.s_comment, 
   min(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_nationkey, supplier_1.s_phone, supplier_1.s_suppkey
@@ -6100,7 +6100,7 @@ select
   customer_1.c_mktsegment, 
   customer_1.c_nationkey, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment <= customer_1.c_phone
 group by customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_nationkey
@@ -6108,7 +6108,7 @@ limit 39;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join orders as orders_1
     on (lineitem_1.l_orderkey = orders_1.o_orderkey )
@@ -6117,7 +6117,7 @@ limit 12;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr >= part_1.p_brand
 limit 42;
@@ -6126,7 +6126,7 @@ select
   customer_1.c_custkey, 
   customer_1.c_comment, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal < customer_1.c_acctbal
 limit 42;
@@ -6138,7 +6138,7 @@ select
   nation_1.n_nationkey, 
   min(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name <= nation_1.n_name
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -6148,7 +6148,7 @@ select
   supplier_1.s_acctbal, 
   region_1.r_comment, 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join supplier as supplier_1
     on (region_1.r_regionkey = supplier_1.s_suppkey )
@@ -6162,7 +6162,7 @@ select
   customer_1.c_custkey, 
   lineitem_1.l_shipmode, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join lineitem as lineitem_1
       on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -6174,7 +6174,7 @@ limit 32;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join partsupp as partsupp_1
     on (orders_1.o_orderkey = partsupp_1.ps_partkey )
@@ -6185,7 +6185,7 @@ select
   partsupp_3.ps_comment, 
   partsupp_3.ps_availqty, 
   partsupp_2.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join partsupp as partsupp_2
       inner join partsupp as partsupp_3
@@ -6205,7 +6205,7 @@ select
   lineitem_1.l_tax, 
   lineitem_1.l_orderkey, 
   lineitem_1.l_extendedprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipmode > lineitem_1.l_linestatus
 group by lineitem_1.l_commitdate, lineitem_1.l_extendedprice, lineitem_1.l_orderkey, lineitem_1.l_returnflag, lineitem_1.l_shipdate, lineitem_1.l_tax
@@ -6215,14 +6215,14 @@ select
   region_1.r_name, 
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 16;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey > partsupp_1.ps_partkey
 limit 37;
@@ -6230,7 +6230,7 @@ limit 37;
 select  
   lineitem_1.l_shipinstruct, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
         inner join supplier as supplier_1
         on (region_1.r_regionkey = supplier_1.s_suppkey )
@@ -6246,7 +6246,7 @@ limit 1;
 select  
   count(*), 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty <= partsupp_1.ps_partkey
 group by partsupp_1.ps_supplycost
@@ -6257,7 +6257,7 @@ select
   partsupp_1.ps_partkey, 
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey is not NULL
 limit 4;
@@ -6265,7 +6265,7 @@ limit 4;
 select  
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join partsupp as partsupp_1
     on (part_1.p_partkey = partsupp_1.ps_partkey )
@@ -6275,7 +6275,7 @@ limit 4;
 select  
   max(
     partsupp_1.ps_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost is not NULL
 limit 15;
@@ -6289,7 +6289,7 @@ select
   nation_1.n_nationkey, 
   max(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -6300,7 +6300,7 @@ select
   partsupp_1.ps_availqty, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 limit 22;
@@ -6311,7 +6311,7 @@ select
   orders_1.o_orderdate, 
   count(*), 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join orders as orders_1
         inner join partsupp as partsupp_1
@@ -6334,7 +6334,7 @@ select
     region_1.r_regionkey), 
   supplier_1.s_phone, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join region as region_1
     on (supplier_1.s_suppkey = region_1.r_regionkey )
@@ -6345,7 +6345,7 @@ limit 21;
 select  
   nation_1.n_nationkey, 
   part_1.p_mfgr
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join part as part_1
     on (nation_1.n_nationkey = part_1.p_partkey )
@@ -6361,7 +6361,7 @@ select
   supplier_1.s_name, 
   count(
     supplier_1.s_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join region as region_1
     on (supplier_1.s_suppkey = region_1.r_regionkey )
@@ -6381,7 +6381,7 @@ select
   partsupp_1.ps_suppkey, 
   region_1.r_comment, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join partsupp as partsupp_1
     on (region_1.r_regionkey = partsupp_1.ps_partkey )
@@ -6395,7 +6395,7 @@ select
     customer_1.c_custkey), 
   customer_1.c_mktsegment, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal < customer_1.c_acctbal
 group by customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_nationkey
@@ -6409,7 +6409,7 @@ select
   max(
     customer_1.c_acctbal), 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone is not NULL
 group by customer_1.c_acctbal, customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name
@@ -6418,7 +6418,7 @@ limit 5;
 select  
   part_1.p_comment, 
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand is not NULL
 limit 30;
@@ -6434,7 +6434,7 @@ select
   supplier_1.s_name, 
   supplier_1.s_comment, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal = supplier_1.s_acctbal
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_phone, supplier_1.s_suppkey
@@ -6443,7 +6443,7 @@ limit 24;
 select  
   orders_1.o_clerk, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join lineitem as lineitem_1
       on (nation_1.n_nationkey = lineitem_1.l_orderkey )
@@ -6454,7 +6454,7 @@ limit 28;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join partsupp as partsupp_1
       on (region_1.r_regionkey = partsupp_1.ps_partkey )
@@ -6469,7 +6469,7 @@ select
   customer_1.c_custkey, 
   count(*), 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join nation as nation_1
           inner join orders as orders_1
@@ -6495,7 +6495,7 @@ select
   min(
     orders_1.o_orderdate), 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice = orders_1.o_totalprice
 group by orders_1.o_clerk, orders_1.o_orderdate, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -6505,7 +6505,7 @@ select
   orders_1.o_orderstatus, 
   orders_1.o_clerk, 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderkey > orders_1.o_shippriority
 limit 27;
@@ -6520,7 +6520,7 @@ select
   part_1.p_comment, 
   max(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_container is not NULL
 group by part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_partkey, part_1.p_size
@@ -6533,7 +6533,7 @@ select
     nation_1.n_regionkey), 
   nation_1.n_comment, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -6542,7 +6542,7 @@ limit 33;
 select  
   partsupp_1.ps_partkey, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -6553,7 +6553,7 @@ select
   orders_1.o_orderdate, 
   lineitem_1.l_suppkey, 
   orders_1.o_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join lineitem as lineitem_1
     on (orders_1.o_orderkey = lineitem_1.l_orderkey )
@@ -6568,7 +6568,7 @@ select
   part_1.p_type, 
   part_1.p_mfgr, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join nation as nation_1
     on (part_1.p_partkey = nation_1.n_nationkey )
@@ -6590,7 +6590,7 @@ select
   sum(
     part_1.p_size), 
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_container = part_1.p_mfgr
 group by part_1.p_container, part_1.p_mfgr, part_1.p_partkey
@@ -6605,7 +6605,7 @@ select
   supplier_1.s_acctbal, 
   supplier_1.s_comment, 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join customer as customer_1
     on (supplier_1.s_suppkey = customer_1.c_custkey )
@@ -6623,7 +6623,7 @@ select
   customer_1.c_name, 
   customer_1.c_mktsegment, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join region as region_1
       inner join part as part_1
@@ -6652,7 +6652,7 @@ select
   customer_1.c_comment, 
   partsupp_1.ps_comment, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join orders as orders_2
       inner join partsupp as partsupp_1
@@ -6683,7 +6683,7 @@ select
   customer_1.c_phone, 
   min(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone = customer_1.c_mktsegment
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey, customer_1.c_phone
@@ -6692,7 +6692,7 @@ limit 20;
 select  
   supplier_1.s_address, 
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 limit 23;
@@ -6700,7 +6700,7 @@ limit 23;
 select  
   min(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_comment is not NULL
 limit 25;
@@ -6715,7 +6715,7 @@ select
   partsupp_1.ps_suppkey, 
   max(
     partsupp_1.ps_supplycost)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -6725,7 +6725,7 @@ select
   part_1.p_mfgr, 
   part_1.p_retailprice, 
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join customer as customer_1
     on (part_1.p_partkey = customer_1.c_custkey )
@@ -6735,7 +6735,7 @@ limit 37;
 select  
   max(
     customer_1.c_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 limit 31;
@@ -6746,7 +6746,7 @@ select
   supplier_2.s_name, 
   supplier_1.s_comment, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join customer as customer_1
       inner join supplier as supplier_2
@@ -6759,7 +6759,7 @@ select
   lineitem_1.l_receiptdate, 
   lineitem_1.l_returnflag, 
   lineitem_1.l_commitdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate <= lineitem_1.l_shipdate
 limit 1;
@@ -6777,7 +6777,7 @@ select
   lineitem_1.l_receiptdate, 
   lineitem_1.l_comment, 
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linestatus > lineitem_1.l_shipmode
 group by lineitem_1.l_comment, lineitem_1.l_linenumber, lineitem_1.l_orderkey, lineitem_1.l_partkey, lineitem_1.l_quantity, lineitem_1.l_receiptdate, lineitem_1.l_suppkey, lineitem_1.l_tax
@@ -6791,7 +6791,7 @@ select
     nation_1.n_regionkey), 
   max(
     nation_1.n_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey
@@ -6806,7 +6806,7 @@ select
   part_1.p_retailprice, 
   sum(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 group by part_1.p_container, part_1.p_partkey, part_1.p_retailprice, part_1.p_size
@@ -6824,7 +6824,7 @@ select
   min(
     orders_1.o_orderdate), 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey is not NULL
 group by orders_1.o_comment, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -6833,7 +6833,7 @@ limit 1;
 select  
   region_1.r_name, 
   lineitem_2.l_returnflag
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join lineitem as lineitem_1
       inner join region as region_1
@@ -6849,7 +6849,7 @@ select
   partsupp_1.ps_supplycost, 
   region_1.r_comment, 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join partsupp as partsupp_1
       on (customer_1.c_custkey = partsupp_1.ps_partkey )
@@ -6866,7 +6866,7 @@ select
   lineitem_1.l_suppkey, 
   lineitem_1.l_shipdate, 
   lineitem_1.l_quantity
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipdate is not NULL
 limit 27;
@@ -6882,7 +6882,7 @@ select
   max(
     nation_1.n_nationkey), 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join nation as nation_1
     on (part_1.p_partkey = nation_1.n_nationkey )
@@ -6895,7 +6895,7 @@ select
   customer_1.c_phone, 
   max(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal is not NULL
 group by customer_1.c_address, customer_1.c_phone
@@ -6906,7 +6906,7 @@ select
   part_1.p_container, 
   part_1.p_comment, 
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr >= part_1.p_brand
 limit 33;
@@ -6916,14 +6916,14 @@ select
   customer_1.c_nationkey, 
   customer_1.c_address, 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal is not NULL
 limit 23;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey >= supplier_1.s_nationkey
 limit 41;
@@ -6931,7 +6931,7 @@ limit 41;
 select  
   part_2.p_container, 
   part_2.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join supplier as supplier_1
       on (part_1.p_partkey = supplier_1.s_suppkey )
@@ -6951,7 +6951,7 @@ select
   count(
     region_1.r_regionkey), 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_name
@@ -6968,7 +6968,7 @@ select
   min(
     orders_1.o_orderkey), 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice = orders_1.o_totalprice
 group by orders_1.o_clerk, orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderpriority, orders_1.o_shippriority, orders_1.o_totalprice
@@ -6981,7 +6981,7 @@ select
   sum(
     customer_1.c_acctbal), 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
       inner join customer as customer_2
@@ -7000,7 +7000,7 @@ select
   orders_1.o_custkey, 
   max(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderkey is not NULL
 group by orders_1.o_custkey, orders_1.o_orderdate, orders_1.o_orderkey, orders_1.o_totalprice
@@ -7010,7 +7010,7 @@ select
   lineitem_1.l_comment, 
   partsupp_1.ps_partkey, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join lineitem as lineitem_1
       inner join supplier as supplier_1
@@ -7024,7 +7024,7 @@ select
   part_1.p_comment, 
   region_1.r_name, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join region as region_1
     on (part_1.p_partkey = region_1.r_regionkey )
@@ -7038,7 +7038,7 @@ select
   customer_1.c_acctbal, 
   orders_1.o_comment, 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join customer as customer_1
       inner join orders as orders_1
@@ -7052,7 +7052,7 @@ limit 1;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_extendedprice is not NULL
 limit 4;
@@ -7062,7 +7062,7 @@ select
   part_1.p_name, 
   part_1.p_mfgr, 
   part_1.p_type
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand is not NULL
 limit 16;
@@ -7087,7 +7087,7 @@ select
   lineitem_1.l_shipdate, 
   lineitem_1.l_commitdate, 
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_orderkey is not NULL
 group by lineitem_1.l_comment, lineitem_1.l_commitdate, lineitem_1.l_discount, lineitem_1.l_extendedprice, lineitem_1.l_partkey, lineitem_1.l_receiptdate, lineitem_1.l_returnflag, lineitem_1.l_shipdate, lineitem_1.l_shipinstruct, lineitem_1.l_suppkey, lineitem_1.l_tax
@@ -7100,7 +7100,7 @@ select
     supplier_1.s_nationkey), 
   sum(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_comment is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address
@@ -7109,7 +7109,7 @@ limit 9;
 select  
   part_2.p_partkey, 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join supplier as supplier_1
       on (part_1.p_partkey = supplier_1.s_suppkey )
@@ -7136,7 +7136,7 @@ select
   count(
     orders_2.o_orderstatus), 
   orders_2.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join orders as orders_2
     on (orders_1.o_orderkey = orders_2.o_orderkey )
@@ -7148,7 +7148,7 @@ select
   min(
     lineitem_1.l_orderkey), 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join lineitem as lineitem_1
     on (customer_1.c_custkey = lineitem_1.l_orderkey )
@@ -7161,7 +7161,7 @@ select
   max(
     customer_1.c_custkey), 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal is not NULL
 group by customer_1.c_acctbal, customer_1.c_phone
@@ -7192,7 +7192,7 @@ select
   sum(
     customer_1.c_nationkey), 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join customer as customer_2
         inner join customer as customer_3
@@ -7206,7 +7206,7 @@ limit 14;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey < part_1.p_size
 limit 5;
@@ -7234,7 +7234,7 @@ select
   max(
     supplier_1.s_nationkey), 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join supplier as supplier_1
       on (part_1.p_partkey = supplier_1.s_suppkey )
@@ -7249,14 +7249,14 @@ select
   orders_1.o_comment, 
   orders_1.o_custkey, 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey is not NULL
 limit 19;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_type
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_container is not NULL
 limit 9;
@@ -7270,7 +7270,7 @@ select
   part_1.p_brand, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join part as part_1
     on (partsupp_1.ps_partkey = part_1.p_partkey )
@@ -7281,7 +7281,7 @@ limit 16;
 select  
   part_1.p_retailprice, 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand is not NULL
 limit 23;
@@ -7294,7 +7294,7 @@ select
   partsupp_1.ps_comment, 
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -7302,7 +7302,7 @@ limit 32;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -7320,7 +7320,7 @@ select
   sum(
     customer_1.c_acctbal), 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join part as part_1
       inner join customer as customer_1
@@ -7352,7 +7352,7 @@ select
   max(
     orders_1.o_orderdate), 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join customer as customer_2
         inner join orders as orders_1
@@ -7371,7 +7371,7 @@ select
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_partkey, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 limit 2;
@@ -7382,7 +7382,7 @@ select
     nation_1.n_regionkey), 
   nation_1.n_comment, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_regionkey
@@ -7408,7 +7408,7 @@ select
   max(
     supplier_1.s_acctbal), 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join supplier as supplier_1
     on (customer_1.c_custkey = supplier_1.s_suppkey )
@@ -7430,7 +7430,7 @@ select
   part_1.p_type, 
   sum(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand is not NULL
 group by part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_name, part_1.p_retailprice, part_1.p_size, part_1.p_type
@@ -7439,7 +7439,7 @@ limit 11;
 select  
   nation_1.n_comment, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 limit 32;
@@ -7448,7 +7448,7 @@ select
   nation_1.n_regionkey, 
   nation_1.n_comment, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 limit 28;
@@ -7459,7 +7459,7 @@ select
   partsupp_1.ps_availqty, 
   max(
     lineitem_1.l_receiptdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join partsupp as partsupp_1
     on (lineitem_1.l_orderkey = partsupp_1.ps_partkey )
@@ -7480,7 +7480,7 @@ select
   min(
     part_1.p_size), 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand is not NULL
 group by part_1.p_brand, part_1.p_container, part_1.p_mfgr, part_1.p_name, part_1.p_partkey, part_1.p_type
@@ -7490,7 +7490,7 @@ select
   part_1.p_name, 
   part_1.p_mfgr, 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr > part_1.p_container
 limit 33;
@@ -7503,7 +7503,7 @@ select
   lineitem_1.l_comment, 
   sum(
     lineitem_1.l_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_comment is not NULL
 group by lineitem_1.l_comment, lineitem_1.l_linenumber, lineitem_1.l_linestatus, lineitem_1.l_shipmode, lineitem_1.l_tax
@@ -7515,7 +7515,7 @@ select
   sum(
     region_1.r_regionkey), 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -7529,7 +7529,7 @@ select
   supplier_1.s_nationkey, 
   supplier_1.s_address, 
   supplier_2.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join nation as nation_1
       on (supplier_1.s_suppkey = nation_1.n_nationkey )
@@ -7544,7 +7544,7 @@ select
   sum(
     supplier_1.s_nationkey), 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_name is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_comment
@@ -7566,7 +7566,7 @@ select
   count(*), 
   max(
     nation_1.n_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -7580,7 +7580,7 @@ select
   supplier_2.s_acctbal, 
   supplier_1.s_comment, 
   supplier_2.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join supplier as supplier_2
     on (supplier_1.s_suppkey = supplier_2.s_suppkey )
@@ -7593,7 +7593,7 @@ select
   part_1.p_size, 
   max(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice > part_1.p_retailprice
 group by part_1.p_container, part_1.p_size
@@ -7602,7 +7602,7 @@ limit 18;
 select  
   count(
     region_1.r_comment)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 36;
@@ -7610,7 +7610,7 @@ limit 36;
 select  
   orders_3.o_clerk, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join orders as orders_1
         inner join region as region_2
@@ -7636,7 +7636,7 @@ select
   lineitem_1.l_shipmode, 
   lineitem_1.l_commitdate, 
   lineitem_1.l_linestatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linenumber is not NULL
 group by lineitem_1.l_comment, lineitem_1.l_commitdate, lineitem_1.l_discount, lineitem_1.l_linestatus, lineitem_1.l_returnflag, lineitem_1.l_shipdate, lineitem_1.l_shipinstruct, lineitem_1.l_shipmode
@@ -7648,17 +7648,17 @@ select
   max(
     nation_1.n_nationkey), 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
 limit 13;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   part_1.p_partkey, 
   part_1.p_comment, 
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 limit 28;
@@ -7670,7 +7670,7 @@ select
   max(
     customer_1.c_custkey), 
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join customer as customer_2
         inner join orders as orders_1
@@ -7689,7 +7689,7 @@ select
   region_1.r_regionkey, 
   region_1.r_comment, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -7699,7 +7699,7 @@ select
   part_1.p_comment, 
   sum(
     part_1.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_container is not NULL
 group by part_1.p_comment
@@ -7720,7 +7720,7 @@ select
   partsupp_1.ps_partkey, 
   sum(
     partsupp_1.ps_supplycost)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -7731,7 +7731,7 @@ select
   orders_1.o_totalprice, 
   orders_1.o_clerk, 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey is not NULL
 limit 34;
@@ -7747,7 +7747,7 @@ select
   part_2.p_retailprice, 
   lineitem_1.l_comment, 
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
         inner join lineitem as lineitem_1
         on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -7763,7 +7763,7 @@ limit 29;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_tax
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_suppkey is not NULL
 limit 40;
@@ -7785,7 +7785,7 @@ select
   lineitem_1.l_extendedprice, 
   max(
     lineitem_1.l_linenumber)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join lineitem as lineitem_1
       inner join region as region_1
@@ -7797,7 +7797,7 @@ limit 38;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 11;
@@ -7807,7 +7807,7 @@ select
   part_1.p_type, 
   max(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 group by part_1.p_comment, part_1.p_type
@@ -7830,7 +7830,7 @@ select
   avg(
     supplier_1.s_acctbal), 
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone < supplier_1.s_name
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_comment, supplier_1.s_nationkey, supplier_1.s_phone, supplier_1.s_suppkey
@@ -7839,21 +7839,21 @@ limit 8;
 select  
   supplier_1.s_comment, 
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_address is not NULL
 limit 27;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_type
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 limit 14;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice is not NULL
 limit 18;
@@ -7862,7 +7862,7 @@ select
   partsupp_1.ps_partkey, 
   partsupp_1.ps_comment, 
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join orders as orders_1
     on (partsupp_1.ps_partkey = orders_1.o_orderkey )
@@ -7875,7 +7875,7 @@ select
   max(
     orders_1.o_orderdate), 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderstatus > orders_1.o_orderpriority
 group by orders_1.o_clerk, orders_1.o_orderdate, orders_1.o_orderkey
@@ -7888,7 +7888,7 @@ select
   min(
     nation_1.n_regionkey), 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -7902,7 +7902,7 @@ select
   part_1.p_container, 
   nation_1.n_regionkey, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join nation as nation_1
     on (part_1.p_partkey = nation_1.n_nationkey )
@@ -7920,7 +7920,7 @@ select
     region_1.r_name), 
   region_1.r_comment, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name = region_1.r_name
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -7928,7 +7928,7 @@ limit 6;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join partsupp as partsupp_1
     on (part_1.p_partkey = partsupp_1.ps_partkey )
@@ -7940,7 +7940,7 @@ select
   lineitem_1.l_suppkey, 
   supplier_1.s_acctbal, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join customer as customer_1
       on (lineitem_1.l_orderkey = customer_1.c_custkey )
@@ -7956,7 +7956,7 @@ select
   min(
     nation_1.n_nationkey), 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_name, nation_1.n_nationkey
@@ -7968,7 +7968,7 @@ select
   partsupp_1.ps_supplycost, 
   part_1.p_mfgr, 
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join part as part_1
           inner join orders as orders_1
@@ -7989,7 +7989,7 @@ select
   partsupp_1.ps_comment, 
   region_1.r_comment, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join region as region_1
     on (partsupp_1.ps_partkey = region_1.r_regionkey )
@@ -8005,7 +8005,7 @@ select
   partsupp_1.ps_suppkey, 
   count(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join part as part_1
     on (partsupp_1.ps_partkey = part_1.p_partkey )
@@ -8015,7 +8015,7 @@ limit 20;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 34;
@@ -8027,7 +8027,7 @@ select
   region_1.r_regionkey, 
   region_1.r_comment, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join nation as nation_1
       on (region_1.r_regionkey = nation_1.n_nationkey )
@@ -8044,7 +8044,7 @@ select
     region_1.r_regionkey), 
   region_1.r_regionkey, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -8060,7 +8060,7 @@ select
     part_1.p_retailprice), 
   part_1.p_name, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_container, part_1.p_name, part_1.p_retailprice
@@ -8069,7 +8069,7 @@ limit 41;
 select  
   customer_2.c_mktsegment, 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
         inner join part as part_1
         on (customer_1.c_custkey = part_1.p_partkey )
@@ -8086,7 +8086,7 @@ select
   supplier_1.s_name, 
   supplier_1.s_nationkey, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join supplier as supplier_1
     on (customer_1.c_custkey = supplier_1.s_suppkey )
@@ -8124,7 +8124,7 @@ select
   min(
     orders_2.o_orderdate), 
   orders_2.o_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join orders as orders_2
       on (orders_1.o_orderkey = orders_2.o_orderkey )
@@ -8141,7 +8141,7 @@ select
     lineitem_1.l_shipdate), 
   lineitem_1.l_suppkey, 
   lineitem_1.l_linenumber
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_extendedprice = lineitem_1.l_tax
 group by lineitem_1.l_linenumber, lineitem_1.l_suppkey
@@ -8158,7 +8158,7 @@ select
     customer_1.c_acctbal), 
   customer_1.c_name, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment < customer_1.c_phone
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey
@@ -8167,7 +8167,7 @@ limit 23;
 select  
   customer_1.c_address, 
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey >= customer_1.c_nationkey
 limit 15;
@@ -8191,7 +8191,7 @@ select
     orders_1.o_orderdate), 
   min(
     orders_1.o_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join orders as orders_1
     on (partsupp_1.ps_partkey = orders_1.o_orderkey )
@@ -8202,7 +8202,7 @@ limit 31;
 select  
   orders_1.o_clerk, 
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderkey is not NULL
 limit 1;
@@ -8211,7 +8211,7 @@ select
   supplier_1.s_phone, 
   supplier_1.s_name, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_name is not NULL
 limit 9;
@@ -8219,7 +8219,7 @@ limit 9;
 select  
   customer_1.c_name, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey is not NULL
 limit 3;
@@ -8229,7 +8229,7 @@ select
   orders_1.o_comment, 
   orders_1.o_orderstatus, 
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderstatus is not NULL
 limit 42;
@@ -8247,7 +8247,7 @@ select
   sum(
     partsupp_1.ps_partkey), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -8261,7 +8261,7 @@ select
   partsupp_1.ps_availqty, 
   partsupp_1.ps_comment, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join customer as customer_1
       inner join partsupp as partsupp_1
@@ -8274,7 +8274,7 @@ limit 12;
 select  
   supplier_1.s_name, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_comment is not NULL
 limit 40;
@@ -8291,7 +8291,7 @@ select
   orders_1.o_custkey, 
   max(
     orders_1.o_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join orders as orders_1
     on (region_1.r_regionkey = orders_1.o_orderkey )
@@ -8305,7 +8305,7 @@ select
     partsupp_1.ps_suppkey), 
   partsupp_1.ps_supplycost, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -8321,7 +8321,7 @@ select
   customer_1.c_phone, 
   lineitem_2.l_returnflag, 
   lineitem_1.l_linenumber
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join part as part_1
         inner join supplier as supplier_1
@@ -8343,7 +8343,7 @@ select
   supplier_1.s_name, 
   min(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join nation as nation_1
       inner join supplier as supplier_1
@@ -8355,7 +8355,7 @@ limit 14;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -8365,14 +8365,14 @@ limit 30;
 select  
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey > partsupp_1.ps_partkey
 limit 28;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 limit 37;
@@ -8380,7 +8380,7 @@ limit 37;
 select  
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 38;
@@ -8395,7 +8395,7 @@ select
   part_1.p_brand, 
   min(
     part_1.p_size)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join partsupp as partsupp_1
     on (part_1.p_partkey = partsupp_1.ps_partkey )
@@ -8406,7 +8406,7 @@ limit 4;
 select  
   orders_1.o_orderkey, 
   orders_1.o_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice is not NULL
 limit 24;
@@ -8418,7 +8418,7 @@ select
   customer_1.c_mktsegment, 
   customer_1.c_nationkey, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join customer as customer_1
     on (supplier_1.s_suppkey = customer_1.c_custkey )
@@ -8430,7 +8430,7 @@ select
   min(
     lineitem_1.l_linenumber), 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join lineitem as lineitem_1
     on (supplier_1.s_suppkey = lineitem_1.l_orderkey )
@@ -8445,7 +8445,7 @@ select
   nation_1.n_nationkey, 
   count(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join partsupp as partsupp_1
       on (orders_1.o_orderkey = partsupp_1.ps_partkey )
@@ -8459,7 +8459,7 @@ select
   region_1.r_comment, 
   region_1.r_name, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join nation as nation_1
         inner join partsupp as partsupp_1
@@ -8474,7 +8474,7 @@ select
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_availqty, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join supplier as supplier_1
       inner join supplier as supplier_2
@@ -8485,7 +8485,7 @@ limit 23;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 limit 23;
@@ -8493,7 +8493,7 @@ limit 23;
 select  
   lineitem_1.l_returnflag, 
   lineitem_1.l_shipinstruct
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate = lineitem_1.l_shipdate
 limit 15;
@@ -8505,7 +8505,7 @@ select
   avg(
     nation_1.n_regionkey), 
   part_1.p_mfgr
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join nation as nation_1
         inner join region as region_1
@@ -8524,7 +8524,7 @@ select
   region_1.r_comment, 
   nation_1.n_name, 
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join nation as nation_1
       inner join region as region_1
@@ -8545,7 +8545,7 @@ select
   supplier_1.s_phone, 
   supplier_1.s_suppkey, 
   supplier_2.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join supplier as supplier_2
     on (supplier_1.s_suppkey = supplier_2.s_suppkey )
@@ -8557,7 +8557,7 @@ select
   part_1.p_brand, 
   nation_2.n_name, 
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
         inner join customer as customer_1
         on (nation_1.n_nationkey = customer_1.c_custkey )
@@ -8573,7 +8573,7 @@ select
   partsupp_1.ps_availqty, 
   supplier_1.s_phone, 
   lineitem_1.l_discount
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join supplier as supplier_1
       on (lineitem_1.l_orderkey = supplier_1.s_suppkey )
@@ -8588,7 +8588,7 @@ select
   orders_1.o_orderdate, 
   max(
     orders_1.o_orderkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join orders as orders_1
     on (customer_1.c_custkey = orders_1.o_orderkey )
@@ -8601,7 +8601,7 @@ select
   orders_1.o_orderkey, 
   avg(
     partsupp_1.ps_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join orders as orders_1
     on (partsupp_1.ps_partkey = orders_1.o_orderkey )
@@ -8612,7 +8612,7 @@ limit 35;
 select  
   max(
     lineitem_1.l_extendedprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linestatus > lineitem_1.l_shipinstruct
 limit 37;
@@ -8628,7 +8628,7 @@ select
   orders_1.o_comment, 
   orders_1.o_orderstatus, 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderdate is not NULL
 group by orders_1.o_comment, orders_1.o_orderdate, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority
@@ -8640,7 +8640,7 @@ select
   max(
     orders_1.o_orderdate), 
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join customer as customer_1
     on (orders_1.o_orderkey = customer_1.c_custkey )
@@ -8652,14 +8652,14 @@ select
   region_1.r_comment, 
   region_1.r_regionkey, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 4;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join nation as nation_2
       inner join supplier as supplier_1
@@ -8684,7 +8684,7 @@ select
     nation_1.n_nationkey), 
   max(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -8692,14 +8692,14 @@ limit 7;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal is not NULL
 limit 39;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_comment is not NULL
 limit 9;
@@ -8716,7 +8716,7 @@ select
   customer_1.c_acctbal, 
   customer_1.c_phone, 
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey >= customer_1.c_nationkey
 group by customer_1.c_acctbal, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_nationkey, customer_1.c_phone
@@ -8728,7 +8728,7 @@ select
   min(
     customer_1.c_nationkey), 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal < customer_1.c_acctbal
 group by customer_1.c_acctbal, customer_1.c_custkey, customer_1.c_mktsegment
@@ -8739,7 +8739,7 @@ select
   customer_1.c_mktsegment, 
   count(
     customer_1.c_comment)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join region as region_1
         inner join customer as customer_1
@@ -8758,7 +8758,7 @@ limit 3;
 select  
   supplier_1.s_address, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join region as region_1
     on (supplier_1.s_suppkey = region_1.r_regionkey )
@@ -8773,7 +8773,7 @@ select
     lineitem_1.l_shipdate), 
   region_1.r_comment, 
   lineitem_1.l_shipmode
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join lineitem as lineitem_1
     on (region_1.r_regionkey = lineitem_1.l_orderkey )
@@ -8788,7 +8788,7 @@ select
   orders_1.o_totalprice, 
   partsupp_1.ps_availqty, 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join partsupp as partsupp_1
     on (orders_1.o_orderkey = partsupp_1.ps_partkey )
@@ -8806,7 +8806,7 @@ select
     partsupp_1.ps_partkey), 
   count(
     partsupp_1.ps_availqty)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost <= partsupp_1.ps_supplycost
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_supplycost
@@ -8814,7 +8814,7 @@ limit 4;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join partsupp as partsupp_1
       on (customer_1.c_custkey = partsupp_1.ps_partkey )
@@ -8831,7 +8831,7 @@ select
   lineitem_1.l_partkey, 
   lineitem_1.l_orderkey, 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join lineitem as lineitem_1
     on (nation_1.n_nationkey = lineitem_1.l_orderkey )
@@ -8860,7 +8860,7 @@ select
   orders_1.o_comment, 
   max(
     supplier_1.s_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join supplier as supplier_1
     on (orders_1.o_orderkey = supplier_1.s_suppkey )
@@ -8872,7 +8872,7 @@ select
   supplier_1.s_address, 
   supplier_1.s_nationkey, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal is not NULL
 limit 3;
@@ -8881,7 +8881,7 @@ select
   customer_1.c_name, 
   avg(
     customer_1.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal is not NULL
 group by customer_1.c_name
@@ -8897,7 +8897,7 @@ select
   part_1.p_mfgr, 
   avg(
     part_1.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice >= part_1.p_retailprice
 group by part_1.p_mfgr, part_1.p_retailprice, part_1.p_size, part_1.p_type
@@ -8907,7 +8907,7 @@ select
   region_1.r_regionkey, 
   region_1.r_comment, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 32;
@@ -8915,7 +8915,7 @@ limit 32;
 select  
   part_1.p_comment, 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 limit 41;
@@ -8925,7 +8925,7 @@ select
   part_1.p_partkey, 
   part_1.p_name, 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 limit 22;
@@ -8941,7 +8941,7 @@ select
     orders_1.o_totalprice), 
   orders_1.o_totalprice, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join customer as customer_1
         inner join partsupp as partsupp_1
@@ -8957,7 +8957,7 @@ limit 23;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 limit 14;
@@ -8968,7 +8968,7 @@ select
   max(
     region_1.r_regionkey), 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -8980,7 +8980,7 @@ select
     customer_1.c_custkey), 
   customer_1.c_acctbal, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_name is not NULL
 group by customer_1.c_acctbal, customer_1.c_comment, customer_1.c_mktsegment
@@ -8989,7 +8989,7 @@ limit 26;
 select  
   region_1.r_regionkey, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 6;
@@ -8999,7 +8999,7 @@ select
     customer_1.c_custkey), 
   customer_1.c_comment, 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey is not NULL
 group by customer_1.c_comment, customer_1.c_name
@@ -9009,7 +9009,7 @@ select
   min(
     nation_1.n_regionkey), 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join region as region_1
     on (nation_1.n_nationkey = region_1.r_regionkey )
@@ -9019,7 +9019,7 @@ limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_linestatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linestatus >= lineitem_1.l_shipmode
 limit 27;
@@ -9032,7 +9032,7 @@ select
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty <= partsupp_1.ps_suppkey
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -9040,7 +9040,7 @@ limit 24;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name > nation_1.n_name
 limit 36;
@@ -9048,7 +9048,7 @@ limit 36;
 select  
   nation_1.n_name, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join nation as nation_1
       on (supplier_1.s_suppkey = nation_1.n_nationkey )
@@ -9062,7 +9062,7 @@ select
   lineitem_1.l_linestatus, 
   orders_1.o_orderdate, 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join region as region_1
       inner join lineitem as lineitem_1
@@ -9077,7 +9077,7 @@ select
   sum(
     supplier_1.s_acctbal), 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_address is not NULL
 group by supplier_1.s_phone
@@ -9086,14 +9086,14 @@ limit 11;
 select  
   nation_1.n_comment, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey >= nation_1.n_nationkey
 limit 42;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 limit 7;
@@ -9101,7 +9101,7 @@ limit 7;
 select  
   orders_1.o_shippriority, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join region as region_1
     on (orders_1.o_orderkey = region_1.r_regionkey )
@@ -9110,7 +9110,7 @@ limit 42;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join partsupp as partsupp_2
       inner join orders as orders_1
@@ -9125,7 +9125,7 @@ select
   customer_1.c_mktsegment, 
   customer_1.c_nationkey, 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment is not NULL
 group by customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey
@@ -9135,14 +9135,14 @@ select
   region_1.r_name, 
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey > region_1.r_regionkey
 limit 16;
 -- meta {"num_joins":5,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join part as part_1
         inner join supplier as supplier_1
@@ -9163,7 +9163,7 @@ select
   max(
     lineitem_1.l_suppkey), 
   lineitem_2.l_shipinstruct
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join customer as customer_1
       inner join lineitem as lineitem_2
@@ -9183,7 +9183,7 @@ select
     region_1.r_comment), 
   max(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -9195,7 +9195,7 @@ select
   supplier_1.s_acctbal, 
   supplier_1.s_address, 
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_nationkey
@@ -9204,7 +9204,7 @@ limit 38;
 select  
   part_1.p_size, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join partsupp as partsupp_1
           inner join customer as customer_1
@@ -9237,7 +9237,7 @@ select
     partsupp_1.ps_availqty), 
   part_1.p_partkey, 
   orders_1.o_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join lineitem as lineitem_1
       inner join part as part_1
@@ -9251,7 +9251,7 @@ limit 2;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 25;
@@ -9274,7 +9274,7 @@ select
     lineitem_2.l_receiptdate), 
   customer_2.c_address, 
   orders_2.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
         inner join orders as orders_1
             inner join orders as orders_2
@@ -9295,7 +9295,7 @@ select
   avg(
     part_1.p_retailprice), 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 group by part_1.p_name, part_1.p_partkey
@@ -9305,7 +9305,7 @@ select
   lineitem_1.l_linenumber, 
   lineitem_1.l_partkey, 
   nation_3.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
         inner join nation as nation_1
         on (lineitem_1.l_orderkey = nation_1.n_nationkey )
@@ -9323,7 +9323,7 @@ select
   nation_1.n_nationkey, 
   nation_1.n_name, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 limit 35;
@@ -9332,7 +9332,7 @@ select
   count(*), 
   nation_1.n_regionkey, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_nationkey, nation_1.n_regionkey
@@ -9343,7 +9343,7 @@ select
   region_1.r_regionkey, 
   max(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey >= region_1.r_regionkey
 group by region_1.r_name, region_1.r_regionkey
@@ -9357,7 +9357,7 @@ select
   max(
     part_1.p_size), 
   part_1.p_type
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_name, part_1.p_retailprice, part_1.p_type
@@ -9365,7 +9365,7 @@ limit 28;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey >= partsupp_1.ps_availqty
 limit 27;
@@ -9376,14 +9376,14 @@ select
   orders_1.o_orderpriority, 
   orders_1.o_totalprice, 
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_clerk >= orders_1.o_orderpriority
 limit 19;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_type
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join lineitem as lineitem_1
     on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -9396,7 +9396,7 @@ select
   part_1.p_brand, 
   part_1.p_name, 
   part_1.p_type
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 group by part_1.p_brand, part_1.p_name, part_1.p_type
@@ -9413,7 +9413,7 @@ select
     part_1.p_size), 
   max(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 group by part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_name
@@ -9424,7 +9424,7 @@ select
   lineitem_2.l_shipinstruct, 
   lineitem_1.l_quantity, 
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
       inner join lineitem as lineitem_1
       on (orders_1.o_orderkey = lineitem_1.l_orderkey )
@@ -9436,7 +9436,7 @@ limit 16;
 select  
   customer_1.c_phone, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone is not NULL
 limit 15;
@@ -9446,7 +9446,7 @@ select
   part_1.p_brand, 
   max(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 group by part_1.p_brand, part_1.p_partkey
@@ -9456,7 +9456,7 @@ select
   partsupp_1.ps_partkey, 
   nation_1.n_comment, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join partsupp as partsupp_1
     on (nation_1.n_nationkey = partsupp_1.ps_partkey )
@@ -9466,7 +9466,7 @@ limit 35;
 select  
   customer_1.c_custkey, 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 limit 38;
@@ -9483,7 +9483,7 @@ select
   min(
     nation_1.n_regionkey), 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -9499,7 +9499,7 @@ select
   count(
     customer_1.c_nationkey), 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join customer as customer_1
     on (part_1.p_partkey = customer_1.c_custkey )
@@ -9510,7 +9510,7 @@ limit 32;
 select  
   supplier_1.s_comment, 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join supplier as supplier_1
     on (orders_1.o_orderkey = supplier_1.s_suppkey )
@@ -9524,7 +9524,7 @@ select
   supplier_1.s_suppkey, 
   avg(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_nationkey > supplier_1.s_suppkey
 group by supplier_1.s_address, supplier_1.s_name, supplier_1.s_phone, supplier_1.s_suppkey
@@ -9535,7 +9535,7 @@ select
   nation_1.n_comment, 
   nation_1.n_name, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name <= nation_1.n_name
 limit 20;
@@ -9548,7 +9548,7 @@ select
     orders_1.o_totalprice), 
   orders_1.o_shippriority, 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice is not NULL
 group by orders_1.o_orderpriority, orders_1.o_shippriority
@@ -9558,7 +9558,7 @@ select
   lineitem_1.l_comment, 
   region_2.r_name, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join region as region_2
       inner join lineitem as lineitem_1
@@ -9578,7 +9578,7 @@ select
     supplier_1.s_suppkey), 
   part_1.p_size, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join part as part_1
       on (nation_1.n_nationkey = part_1.p_partkey )
@@ -9593,7 +9593,7 @@ select
   avg(
     part_1.p_retailprice), 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey is not NULL
 group by part_1.p_brand, part_1.p_comment
@@ -9608,7 +9608,7 @@ select
   max(
     region_1.r_regionkey), 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -9620,7 +9620,7 @@ select
     region_1.r_regionkey), 
   region_1.r_name, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -9635,7 +9635,7 @@ select
   customer_1.c_address, 
   customer_1.c_name, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_comment is not NULL
 group by customer_1.c_address, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_phone
@@ -9647,7 +9647,7 @@ select
   sum(
     region_1.r_regionkey), 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_comment
@@ -9666,7 +9666,7 @@ select
   partsupp_1.ps_partkey, 
   max(
     supplier_1.s_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join supplier as supplier_1
       inner join partsupp as partsupp_1
@@ -9682,7 +9682,7 @@ select
   lineitem_1.l_tax, 
   nation_1.n_nationkey, 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join nation as nation_1
     on (lineitem_1.l_orderkey = nation_1.n_nationkey )
@@ -9696,7 +9696,7 @@ select
     lineitem_2.l_tax), 
   lineitem_1.l_returnflag, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
       inner join supplier as supplier_1
         inner join lineitem as lineitem_1
@@ -9712,7 +9712,7 @@ select
   nation_1.n_comment, 
   count(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment
@@ -9734,7 +9734,7 @@ select
   avg(
     lineitem_1.l_quantity), 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join region as region_1
       inner join lineitem as lineitem_1
@@ -9744,10 +9744,10 @@ where lineitem_1.l_shipinstruct < region_1.r_name
 group by lineitem_1.l_shipinstruct, lineitem_1.l_tax, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost, region_1.r_comment, region_1.r_name
 limit 42;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   partsupp_1.ps_suppkey, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join partsupp as partsupp_1
       on (nation_1.n_nationkey = partsupp_1.ps_partkey )
@@ -9762,7 +9762,7 @@ select
   part_1.p_brand, 
   customer_1.c_phone, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join part as part_1
     on (customer_1.c_custkey = part_1.p_partkey )
@@ -9777,7 +9777,7 @@ select
   orders_1.o_custkey, 
   orders_1.o_comment, 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderdate <= orders_1.o_orderdate
 limit 18;
@@ -9790,7 +9790,7 @@ select
   max(
     nation_1.n_regionkey), 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_comment
@@ -9805,7 +9805,7 @@ select
     customer_1.c_acctbal), 
   customer_1.c_mktsegment, 
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join orders as orders_1
     on (customer_1.c_custkey = orders_1.o_orderkey )
@@ -9822,7 +9822,7 @@ select
     customer_1.c_custkey), 
   customer_1.c_comment, 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_custkey, customer_1.c_name, customer_1.c_nationkey
@@ -9830,7 +9830,7 @@ limit 34;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name >= nation_1.n_name
 limit 34;
@@ -9840,7 +9840,7 @@ select
   count(*), 
   region_1.r_comment, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join region as region_1
         inner join part as part_1
@@ -9856,7 +9856,7 @@ limit 14;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join partsupp as partsupp_1
     on (orders_1.o_orderkey = partsupp_1.ps_partkey )
@@ -9865,7 +9865,7 @@ limit 19;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 33;
@@ -9875,7 +9875,7 @@ select
   max(
     part_1.p_retailprice), 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice is not NULL
 group by part_1.p_comment, part_1.p_partkey
@@ -9888,7 +9888,7 @@ select
   customer_1.c_acctbal, 
   min(
     customer_1.c_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_name is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_phone
@@ -9898,7 +9898,7 @@ select
   lineitem_1.l_extendedprice, 
   lineitem_1.l_shipmode, 
   lineitem_1.l_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_comment is not NULL
 limit 4;
@@ -9915,16 +9915,16 @@ select
   customer_1.c_address, 
   max(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_custkey, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey, customer_1.c_phone
 limit 3;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   nation_1.n_nationkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 5;
@@ -9934,7 +9934,7 @@ select
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty > partsupp_1.ps_partkey
 limit 6;
@@ -9942,7 +9942,7 @@ limit 6;
 select  
   sum(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal is not NULL
 limit 9;
@@ -9953,7 +9953,7 @@ select
     lineitem_1.l_commitdate), 
   lineitem_1.l_quantity, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join nation as nation_1
       on (customer_1.c_custkey = nation_1.n_nationkey )
@@ -9982,7 +9982,7 @@ select
   part_1.p_size, 
   sum(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join customer as customer_1
     on (part_1.p_partkey = customer_1.c_custkey )
@@ -9992,7 +9992,7 @@ limit 20;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join lineitem as lineitem_1
     on (orders_1.o_orderkey = lineitem_1.l_orderkey )
@@ -10006,7 +10006,7 @@ select
   part_1.p_partkey, 
   min(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size is not NULL
 group by part_1.p_brand, part_1.p_mfgr, part_1.p_name, part_1.p_partkey
@@ -10021,7 +10021,7 @@ select
   lineitem_1.l_comment, 
   lineitem_1.l_tax, 
   lineitem_1.l_shipmode
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_tax is not NULL
 limit 27;
@@ -10035,7 +10035,7 @@ select
   sum(
     partsupp_1.ps_availqty), 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join partsupp as partsupp_2
     on (partsupp_1.ps_partkey = partsupp_2.ps_partkey )
@@ -10045,7 +10045,7 @@ limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty = partsupp_1.ps_suppkey
 limit 25;
@@ -10059,7 +10059,7 @@ select
   supplier_1.s_suppkey, 
   supplier_1.s_phone, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_nationkey >= supplier_1.s_suppkey
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_phone, supplier_1.s_suppkey
@@ -10068,7 +10068,7 @@ limit 14;
 select  
   lineitem_1.l_quantity, 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join lineitem as lineitem_1
     on (supplier_1.s_suppkey = lineitem_1.l_orderkey )
@@ -10081,7 +10081,7 @@ select
   avg(
     customer_1.c_custkey), 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey is not NULL
 group by customer_1.c_custkey
@@ -10092,7 +10092,7 @@ select
   nation_1.n_comment, 
   count(*), 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_regionkey
@@ -10105,7 +10105,7 @@ select
   part_1.p_name, 
   part_1.p_type, 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 group by part_1.p_container, part_1.p_name, part_1.p_partkey, part_1.p_type
@@ -10124,7 +10124,7 @@ select
   min(
     orders_1.o_orderdate), 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey <= orders_1.o_shippriority
 group by orders_1.o_clerk, orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderkey, orders_1.o_orderstatus, orders_1.o_shippriority
@@ -10132,7 +10132,7 @@ limit 22;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -10144,7 +10144,7 @@ select
     orders_1.o_orderdate), 
   orders_1.o_orderkey, 
   orders_1.o_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderstatus is not NULL
 group by orders_1.o_custkey, orders_1.o_orderkey
@@ -10153,7 +10153,7 @@ limit 27;
 select  
   max(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderstatus is not NULL
 limit 19;
@@ -10164,7 +10164,7 @@ select
   min(
     nation_1.n_nationkey), 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey is not NULL
 group by nation_1.n_comment, nation_1.n_nationkey, nation_1.n_regionkey
@@ -10175,7 +10175,7 @@ select
     lineitem_1.l_discount), 
   lineitem_1.l_comment, 
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_suppkey is not NULL
 group by lineitem_1.l_comment, lineitem_1.l_receiptdate
@@ -10196,7 +10196,7 @@ select
   min(
     customer_1.c_custkey), 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey
@@ -10209,7 +10209,7 @@ select
   count(
     nation_1.n_name), 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_nationkey
@@ -10223,7 +10223,7 @@ select
   customer_1.c_acctbal, 
   min(
     customer_1.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone is not NULL
 group by customer_1.c_acctbal, customer_1.c_comment, customer_1.c_name, customer_1.c_nationkey, customer_1.c_phone
@@ -10232,7 +10232,7 @@ limit 11;
 select  
   lineitem_1.l_suppkey, 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join lineitem as lineitem_1
     on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -10244,7 +10244,7 @@ select
   customer_1.c_phone, 
   customer_1.c_comment, 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey is not NULL
 limit 20;
@@ -10261,7 +10261,7 @@ select
   part_1.p_partkey, 
   min(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_brand is not NULL
 group by part_1.p_container, part_1.p_mfgr, part_1.p_name, part_1.p_partkey, part_1.p_type
@@ -10276,7 +10276,7 @@ select
   partsupp_1.ps_availqty, 
   lineitem_1.l_linenumber, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join lineitem as lineitem_1
     on (partsupp_1.ps_partkey = lineitem_1.l_orderkey )
@@ -10288,7 +10288,7 @@ select
   customer_1.c_custkey, 
   sum(
     customer_1.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey >= customer_1.c_custkey
 group by customer_1.c_custkey
@@ -10298,7 +10298,7 @@ select
   region_1.r_name, 
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 9;
@@ -10313,7 +10313,7 @@ select
   lineitem_1.l_comment, 
   region_1.r_comment, 
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join partsupp as partsupp_1
       on (lineitem_1.l_orderkey = partsupp_1.ps_partkey )
@@ -10326,7 +10326,7 @@ limit 31;
 select  
   supplier_1.s_name, 
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal = supplier_1.s_acctbal
 limit 41;
@@ -10340,7 +10340,7 @@ select
   part_1.p_size, 
   part_1.p_type, 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_container is not NULL
 group by part_1.p_brand, part_1.p_comment, part_1.p_mfgr, part_1.p_name, part_1.p_size, part_1.p_type
@@ -10353,7 +10353,7 @@ select
   avg(
     partsupp_1.ps_supplycost), 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join region as region_1
     on (partsupp_1.ps_partkey = region_1.r_regionkey )
@@ -10367,7 +10367,7 @@ select
   region_1.r_comment, 
   min(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey > region_1.r_regionkey
 group by region_1.r_comment
@@ -10375,7 +10375,7 @@ limit 26;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name = region_1.r_name
 limit 24;
@@ -10384,7 +10384,7 @@ select
   supplier_1.s_comment, 
   max(
     supplier_1.s_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_nationkey is not NULL
 group by supplier_1.s_comment
@@ -10393,7 +10393,7 @@ limit 19;
 select  
   min(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 limit 20;
@@ -10402,7 +10402,7 @@ select
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_availqty, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost is not NULL
 limit 12;
@@ -10413,7 +10413,7 @@ select
   max(
     customer_1.c_custkey), 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey = customer_1.c_nationkey
 group by customer_1.c_address, customer_1.c_name, customer_1.c_phone
@@ -10430,7 +10430,7 @@ select
     region_1.r_regionkey), 
   max(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_name
@@ -10450,7 +10450,7 @@ select
   nation_1.n_nationkey, 
   customer_1.c_comment, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join part as part_1
       inner join partsupp as partsupp_1
@@ -10466,7 +10466,7 @@ select
   supplier_1.s_nationkey, 
   supplier_1.s_comment, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
         inner join part as part_1
         on (supplier_1.s_suppkey = part_1.p_partkey )
@@ -10488,7 +10488,7 @@ select
     supplier_1.s_nationkey), 
   supplier_1.s_address, 
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey = supplier_1.s_nationkey
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_name, supplier_1.s_nationkey
@@ -10501,7 +10501,7 @@ select
     orders_1.o_custkey), 
   orders_1.o_orderpriority, 
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderstatus is not NULL
 group by orders_1.o_orderdate, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_totalprice
@@ -10509,7 +10509,7 @@ limit 38;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size < part_1.p_partkey
 limit 31;
@@ -10524,7 +10524,7 @@ select
   nation_1.n_comment, 
   part_1.p_brand, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
         inner join region as region_1
         on (nation_1.n_nationkey = region_1.r_regionkey )
@@ -10545,7 +10545,7 @@ select
   part_1.p_mfgr, 
   orders_1.o_comment, 
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join part as part_1
     on (orders_1.o_orderkey = part_1.p_partkey )
@@ -10557,7 +10557,7 @@ select
   part_1.p_comment, 
   part_1.p_size, 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join orders as orders_1
     on (part_1.p_partkey = orders_1.o_orderkey )
@@ -10568,7 +10568,7 @@ select
   supplier_1.s_suppkey, 
   partsupp_1.ps_supplycost, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join partsupp as partsupp_1
     on (supplier_1.s_suppkey = partsupp_1.ps_partkey )
@@ -10579,7 +10579,7 @@ limit 16;
 select  
   nation_1.n_regionkey, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
           inner join region as region_1
           on (partsupp_1.ps_partkey = region_1.r_regionkey )
@@ -10607,7 +10607,7 @@ select
   max(
     lineitem_1.l_shipdate), 
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join lineitem as lineitem_1
       on (supplier_1.s_suppkey = lineitem_1.l_orderkey )
@@ -10625,7 +10625,7 @@ select
   supplier_1.s_phone, 
   supplier_1.s_address, 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_name = supplier_1.s_phone
 limit 41;
@@ -10638,7 +10638,7 @@ select
   min(
     partsupp_1.ps_supplycost), 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -10647,7 +10647,7 @@ limit 35;
 select  
   supplier_1.s_address, 
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone > supplier_1.s_name
 limit 25;
@@ -10656,7 +10656,7 @@ select
   min(
     region_1.r_regionkey), 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 group by region_1.r_comment
@@ -10670,7 +10670,7 @@ select
   lineitem_1.l_returnflag, 
   max(
     lineitem_1.l_quantity)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linenumber is not NULL
 group by lineitem_1.l_linestatus, lineitem_1.l_returnflag, lineitem_1.l_shipdate, lineitem_1.l_shipinstruct, lineitem_1.l_tax
@@ -10678,7 +10678,7 @@ limit 16;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal is not NULL
 limit 11;
@@ -10690,7 +10690,7 @@ select
   nation_1.n_name, 
   customer_1.c_comment, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join customer as customer_1
       inner join region as region_1
@@ -10701,7 +10701,7 @@ limit 24;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice > orders_1.o_totalprice
 limit 6;
@@ -10711,7 +10711,7 @@ select
   max(
     orders_1.o_orderdate), 
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderstatus is not NULL
 group by orders_1.o_orderdate, orders_1.o_shippriority
@@ -10722,7 +10722,7 @@ select
   partsupp_1.ps_supplycost, 
   orders_2.o_shippriority, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join orders as orders_1
       inner join orders as orders_2
@@ -10741,7 +10741,7 @@ select
   customer_1.c_phone, 
   customer_1.c_mktsegment, 
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 group by customer_1.c_acctbal, customer_1.c_mktsegment, customer_1.c_name, customer_1.c_nationkey, customer_1.c_phone
@@ -10771,7 +10771,7 @@ select
   nation_1.n_nationkey, 
   part_1.p_retailprice, 
   nation_3.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join nation as nation_1
         inner join part as part_1
@@ -10791,7 +10791,7 @@ select
   max(
     partsupp_1.ps_suppkey), 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 group by partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey
@@ -10806,7 +10806,7 @@ select
   supplier_1.s_nationkey, 
   supplier_1.s_phone, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join supplier as supplier_1
     on (region_1.r_regionkey = supplier_1.s_suppkey )
@@ -10822,7 +10822,7 @@ select
   min(
     lineitem_1.l_linenumber), 
   lineitem_1.l_shipinstruct
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join nation as nation_1
     on (lineitem_1.l_orderkey = nation_1.n_nationkey )
@@ -10837,7 +10837,7 @@ select
   orders_1.o_orderdate, 
   sum(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join part as part_1
           inner join part as part_2
@@ -10856,7 +10856,7 @@ select
   supplier_1.s_suppkey, 
   customer_1.c_nationkey, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join nation as nation_1
         inner join customer as customer_1
@@ -10872,7 +10872,7 @@ limit 40;
 select  
   count(*), 
   orders_1.o_clerk
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey is not NULL
 group by orders_1.o_clerk
@@ -10891,7 +10891,7 @@ select
     orders_1.o_custkey), 
   orders_1.o_comment, 
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey is not NULL
 group by orders_1.o_clerk, orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -10905,7 +10905,7 @@ select
   customer_2.c_phone, 
   customer_2.c_comment, 
   customer_2.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join customer as customer_2
     on (customer_1.c_custkey = customer_2.c_custkey )
@@ -10918,7 +10918,7 @@ select
   part_1.p_retailprice, 
   part_1.p_comment, 
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey = part_1.p_size
 limit 13;
@@ -10927,7 +10927,7 @@ select
   orders_1.o_orderpriority, 
   customer_1.c_nationkey, 
   orders_1.o_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join orders as orders_1
     on (customer_1.c_custkey = orders_1.o_orderkey )
@@ -10936,7 +10936,7 @@ limit 10;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 39;
@@ -10947,7 +10947,7 @@ select
     customer_1.c_acctbal), 
   min(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join nation as nation_1
     on (customer_1.c_custkey = nation_1.n_nationkey )
@@ -10962,7 +10962,7 @@ select
     nation_1.n_regionkey), 
   nation_1.n_regionkey, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -10970,7 +10970,7 @@ limit 19;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 21;
@@ -10981,7 +10981,7 @@ select
     customer_1.c_nationkey), 
   customer_1.c_phone, 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey is not NULL
 group by customer_1.c_acctbal, customer_1.c_name, customer_1.c_phone
@@ -10990,14 +10990,14 @@ limit 35;
 select  
   part_1.p_brand, 
   part_1.p_size
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_container >= part_1.p_mfgr
 limit 36;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join supplier as supplier_1
     on (partsupp_1.ps_partkey = supplier_1.s_suppkey )
@@ -11017,7 +11017,7 @@ select
     partsupp_1.ps_availqty), 
   avg(
     partsupp_1.ps_supplycost)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey
@@ -11029,7 +11029,7 @@ select
   avg(
     lineitem_1.l_partkey), 
   lineitem_1.l_receiptdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_discount is not NULL
 group by lineitem_1.l_linestatus, lineitem_1.l_receiptdate, lineitem_1.l_tax
@@ -11037,7 +11037,7 @@ limit 39;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 limit 11;
@@ -11052,7 +11052,7 @@ select
     part_1.p_retailprice), 
   min(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 group by part_1.p_comment, part_1.p_container, part_1.p_mfgr, part_1.p_partkey, part_1.p_type
@@ -11066,7 +11066,7 @@ select
     supplier_1.s_nationkey), 
   min(
     supplier_1.s_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join supplier as supplier_1
     on (customer_1.c_custkey = supplier_1.s_suppkey )
@@ -11077,7 +11077,7 @@ limit 33;
 select  
   nation_1.n_nationkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 8;
@@ -11085,7 +11085,7 @@ limit 8;
 select  
   max(
     lineitem_1.l_shipdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join lineitem as lineitem_1
     on (partsupp_1.ps_partkey = lineitem_1.l_orderkey )
@@ -11096,7 +11096,7 @@ select
   lineitem_1.l_tax, 
   lineitem_1.l_shipinstruct, 
   lineitem_1.l_linestatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_partkey is not NULL
 limit 21;
@@ -11108,7 +11108,7 @@ select
   customer_1.c_name, 
   customer_1.c_comment, 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_custkey is not NULL
 limit 31;
@@ -11118,7 +11118,7 @@ select
     customer_1.c_nationkey), 
   customer_1.c_comment, 
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey is not NULL
 group by customer_1.c_comment, customer_1.c_mktsegment
@@ -11136,7 +11136,7 @@ select
   supplier_1.s_comment, 
   min(
     supplier_1.s_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join supplier as supplier_1
     on (customer_1.c_custkey = supplier_1.s_suppkey )
@@ -11149,7 +11149,7 @@ select
   max(
     part_1.p_retailprice), 
   part_1.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr is not NULL
 group by part_1.p_mfgr, part_1.p_retailprice
@@ -11160,7 +11160,7 @@ select
   supplier_1.s_acctbal, 
   max(
     supplier_2.s_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join supplier as supplier_2
     on (supplier_1.s_suppkey = supplier_2.s_suppkey )
@@ -11172,7 +11172,7 @@ select
   orders_1.o_comment, 
   orders_1.o_orderkey, 
   orders_1.o_totalprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_clerk is not NULL
 limit 25;
@@ -11181,7 +11181,7 @@ select
   max(
     customer_1.c_acctbal), 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 group by customer_1.c_name
@@ -11192,7 +11192,7 @@ select
   count(
     region_1.r_comment), 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_comment, region_1.r_regionkey
@@ -11203,7 +11203,7 @@ select
   max(
     supplier_1.s_suppkey), 
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_comment is not NULL
 group by supplier_1.s_name, supplier_1.s_suppkey
@@ -11215,7 +11215,7 @@ select
   region_2.r_comment, 
   customer_1.c_nationkey, 
   region_2.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join region as region_1
         inner join part as part_1
@@ -11233,7 +11233,7 @@ select
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 limit 32;
@@ -11245,7 +11245,7 @@ select
   lineitem_1.l_quantity, 
   lineitem_1.l_returnflag, 
   lineitem_1.l_shipmode
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate >= lineitem_1.l_shipdate
 group by lineitem_1.l_commitdate, lineitem_1.l_quantity, lineitem_1.l_returnflag, lineitem_1.l_shipmode, lineitem_1.l_suppkey
@@ -11257,7 +11257,7 @@ select
     nation_1.n_regionkey), 
   nation_1.n_regionkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey < nation_1.n_regionkey
 group by nation_1.n_comment, nation_1.n_regionkey
@@ -11271,7 +11271,7 @@ select
     region_1.r_regionkey), 
   min(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey = region_1.r_regionkey
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -11279,7 +11279,7 @@ limit 9;
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join nation as nation_1
       on (part_1.p_partkey = nation_1.n_nationkey )
@@ -11297,7 +11297,7 @@ select
   partsupp_1.ps_supplycost, 
   customer_1.c_address, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -11326,7 +11326,7 @@ select
   supplier_1.s_address, 
   customer_1.c_name, 
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
         inner join orders as orders_1
         on (supplier_1.s_suppkey = orders_1.o_orderkey )
@@ -11346,7 +11346,7 @@ select
   supplier_1.s_acctbal, 
   region_1.r_comment, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join region as region_1
         inner join supplier as supplier_1
@@ -11369,7 +11369,7 @@ select
   orders_1.o_orderdate, 
   orders_1.o_custkey, 
   orders_1.o_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join orders as orders_1
     on (region_1.r_regionkey = orders_1.o_orderkey )
@@ -11387,7 +11387,7 @@ select
   customer_1.c_custkey, 
   partsupp_1.ps_supplycost, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
     on (partsupp_1.ps_partkey = customer_1.c_custkey )
@@ -11400,7 +11400,7 @@ select
   min(
     part_1.p_size), 
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice >= part_1.p_retailprice
 group by part_1.p_container, part_1.p_size
@@ -11409,7 +11409,7 @@ limit 37;
 select  
   lineitem_1.l_quantity, 
   lineitem_1.l_linestatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_extendedprice is not NULL
 limit 14;
@@ -11417,14 +11417,14 @@ limit 14;
 select  
   part_1.p_partkey, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_type is not NULL
 limit 6;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey >= region_1.r_regionkey
 limit 8;
@@ -11435,7 +11435,7 @@ select
   max(
     partsupp_1.ps_suppkey), 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 group by partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -11444,14 +11444,14 @@ limit 35;
 select  
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 17;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_comment is not NULL
 limit 34;
@@ -11460,7 +11460,7 @@ select
   region_1.r_name, 
   region_1.r_comment, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join customer as customer_1
       on (nation_1.n_nationkey = customer_1.c_custkey )
@@ -11481,7 +11481,7 @@ select
     customer_1.c_nationkey), 
   max(
     customer_1.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join customer as customer_1
     on (region_1.r_regionkey = customer_1.c_custkey )
@@ -11496,7 +11496,7 @@ select
   nation_1.n_nationkey, 
   count(
     nation_1.n_name)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name < nation_1.n_name
 group by nation_1.n_comment, nation_1.n_nationkey
@@ -11509,7 +11509,7 @@ select
   region_1.r_name, 
   region_1.r_comment, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -11523,7 +11523,7 @@ select
   count(*), 
   sum(
     customer_1.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
       inner join nation as nation_1
       on (partsupp_1.ps_partkey = nation_1.n_nationkey )
@@ -11535,14 +11535,14 @@ limit 26;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal <= supplier_1.s_acctbal
 limit 5;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_2.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
         inner join nation as nation_1
         on (partsupp_1.ps_partkey = nation_1.n_nationkey )
@@ -11557,7 +11557,7 @@ limit 22;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_comment is not NULL
 limit 15;
@@ -11570,7 +11570,7 @@ select
   orders_1.o_orderkey, 
   orders_1.o_comment, 
   orders_1.o_orderpriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_clerk = orders_1.o_orderpriority
 group by orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderdate, orders_1.o_orderkey, orders_1.o_orderpriority
@@ -11582,7 +11582,7 @@ select
   supplier_1.s_name, 
   supplier_1.s_comment, 
   supplier_1.s_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join supplier as supplier_1
     on (partsupp_1.ps_partkey = supplier_1.s_suppkey )
@@ -11594,7 +11594,7 @@ select
   customer_1.c_name, 
   min(
     customer_1.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal < customer_1.c_acctbal
 group by customer_1.c_name
@@ -11604,7 +11604,7 @@ select
   partsupp_1.ps_supplycost, 
   nation_1.n_comment, 
   lineitem_1.l_commitdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
         inner join nation as nation_1
         on (orders_1.o_orderkey = nation_1.n_nationkey )
@@ -11618,7 +11618,7 @@ limit 17;
 select  
   partsupp_1.ps_partkey, 
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
         inner join partsupp as partsupp_1
         on (part_1.p_partkey = partsupp_1.ps_partkey )
@@ -11639,7 +11639,7 @@ select
     lineitem_1.l_orderkey), 
   lineitem_1.l_discount, 
   lineitem_1.l_linenumber
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_tax = lineitem_1.l_extendedprice
 group by lineitem_1.l_discount, lineitem_1.l_linenumber, lineitem_1.l_partkey
@@ -11650,7 +11650,7 @@ select
   customer_1.c_comment, 
   nation_1.n_nationkey, 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join customer as customer_1
     on (nation_1.n_nationkey = customer_1.c_custkey )
@@ -11669,7 +11669,7 @@ select
   orders_1.o_clerk, 
   orders_1.o_custkey, 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderpriority is not NULL
 group by orders_1.o_clerk, orders_1.o_custkey, orders_1.o_orderdate, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus
@@ -11682,7 +11682,7 @@ select
   customer_1.c_name, 
   avg(
     customer_1.c_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_nationkey is not NULL
 group by customer_1.c_mktsegment, customer_1.c_name
@@ -11692,7 +11692,7 @@ select
   lineitem_1.l_orderkey, 
   lineitem_1.l_shipdate, 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join supplier as supplier_1
     on (lineitem_1.l_orderkey = supplier_1.s_suppkey )
@@ -11705,7 +11705,7 @@ select
   region_1.r_name, 
   max(
     lineitem_1.l_receiptdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
       inner join supplier as supplier_1
       on (region_1.r_regionkey = supplier_1.s_suppkey )
@@ -11722,7 +11722,7 @@ select
   partsupp_1.ps_partkey, 
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join region as region_1
     on (partsupp_1.ps_partkey = region_1.r_regionkey )
@@ -11737,7 +11737,7 @@ select
   avg(
     customer_2.c_nationkey), 
   customer_2.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join customer as customer_1
       inner join customer as customer_2
@@ -11749,7 +11749,7 @@ limit 17;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_2.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join nation as nation_1
       inner join supplier as supplier_2
@@ -11762,7 +11762,7 @@ select
   supplier_1.s_acctbal, 
   supplier_1.s_comment, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal >= supplier_1.s_acctbal
 limit 6;
@@ -11775,7 +11775,7 @@ select
   customer_1.c_mktsegment, 
   customer_1.c_name, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_name is not NULL
 limit 30;
@@ -11783,7 +11783,7 @@ limit 30;
 select  
   partsupp_1.ps_availqty, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey is not NULL
 limit 38;
@@ -11798,7 +11798,7 @@ select
   part_1.p_brand, 
   min(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join orders as orders_1
     on (part_1.p_partkey = orders_1.o_orderkey )
@@ -11817,7 +11817,7 @@ select
   max(
     part_1.p_partkey), 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr < part_1.p_container
 group by part_1.p_brand, part_1.p_container, part_1.p_name, part_1.p_partkey, part_1.p_retailprice, part_1.p_size
@@ -11832,7 +11832,7 @@ select
     nation_1.n_regionkey), 
   count(
     nation_1.n_name)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -11844,7 +11844,7 @@ select
   part_1.p_brand, 
   part_1.p_type, 
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_name is not NULL
 limit 29;
@@ -11857,7 +11857,7 @@ select
   partsupp_1.ps_partkey, 
   nation_1.n_name, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
         inner join region as region_1
         on (lineitem_1.l_orderkey = region_1.r_regionkey )
@@ -11877,7 +11877,7 @@ select
   customer_1.c_address, 
   customer_1.c_custkey, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_custkey, customer_1.c_nationkey
@@ -11885,7 +11885,7 @@ limit 22;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 8;
@@ -11897,7 +11897,7 @@ select
   customer_1.c_custkey, 
   customer_1.c_nationkey, 
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_address is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_custkey, customer_1.c_nationkey
@@ -11909,7 +11909,7 @@ select
   nation_1.n_nationkey, 
   nation_1.n_regionkey, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join partsupp as partsupp_1
     on (nation_1.n_nationkey = partsupp_1.ps_partkey )
@@ -11918,14 +11918,14 @@ limit 22;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_shippriority < orders_1.o_orderkey
 limit 40;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 limit 4;
@@ -11939,7 +11939,7 @@ select
   part_1.p_container, 
   max(
     part_1.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey <= part_1.p_size
 group by part_1.p_brand, part_1.p_container, part_1.p_partkey, part_1.p_retailprice, part_1.p_size, part_1.p_type
@@ -11947,7 +11947,7 @@ limit 33;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join part as part_1
       on (lineitem_1.l_orderkey = part_1.p_partkey )
@@ -11960,7 +11960,7 @@ select
   lineitem_1.l_orderkey, 
   lineitem_1.l_shipinstruct, 
   lineitem_1.l_returnflag
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_orderkey is not NULL
 limit 34;
@@ -11975,7 +11975,7 @@ select
   orders_1.o_shippriority, 
   orders_1.o_clerk, 
   orders_1.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_comment is not NULL
 group by orders_1.o_clerk, orders_1.o_custkey, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -11990,7 +11990,7 @@ select
   customer_1.c_address, 
   customer_1.c_acctbal, 
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_name is not NULL
 group by customer_1.c_acctbal, customer_1.c_address, customer_1.c_comment, customer_1.c_custkey, customer_1.c_name, customer_1.c_nationkey
@@ -12003,7 +12003,7 @@ select
   part_1.p_container, 
   sum(
     customer_1.c_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join customer as customer_1
         inner join part as part_1
@@ -12023,7 +12023,7 @@ select
   supplier_1.s_acctbal, 
   lineitem_1.l_orderkey, 
   supplier_1.s_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join lineitem as lineitem_1
     on (supplier_1.s_suppkey = lineitem_1.l_orderkey )
@@ -12038,7 +12038,7 @@ select
   part_1.p_partkey, 
   part_1.p_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
         inner join customer as customer_1
             inner join lineitem as lineitem_2
@@ -12069,7 +12069,7 @@ select
   max(
     partsupp_1.ps_availqty), 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join partsupp as partsupp_1
       on (nation_1.n_nationkey = partsupp_1.ps_partkey )
@@ -12086,7 +12086,7 @@ select
   max(
     orders_1.o_orderdate), 
   orders_1.o_orderstatus
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_totalprice = orders_1.o_totalprice
 group by orders_1.o_clerk, orders_1.o_orderstatus
@@ -12097,7 +12097,7 @@ select
   supplier_1.s_nationkey, 
   supplier_1.s_acctbal, 
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 limit 5;
@@ -12112,7 +12112,7 @@ select
   nation_1.n_regionkey, 
   count(
     nation_1.n_comment)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -12127,7 +12127,7 @@ select
   part_1.p_brand, 
   part_1.p_retailprice, 
   customer_1.c_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join customer as customer_1
       on (part_1.p_partkey = customer_1.c_custkey )
@@ -12140,14 +12140,14 @@ limit 13;
 select  
   customer_1.c_phone, 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_phone = customer_1.c_mktsegment
 limit 19;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderdate is not NULL
 limit 27;
@@ -12160,7 +12160,7 @@ select
   partsupp_1.ps_suppkey, 
   min(
     partsupp_1.ps_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 group by partsupp_1.ps_comment, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -12178,7 +12178,7 @@ select
   orders_1.o_orderdate, 
   max(
     orders_1.o_custkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_shippriority <= orders_1.o_custkey
 group by orders_1.o_orderdate, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority, orders_1.o_totalprice
@@ -12203,7 +12203,7 @@ select
     partsupp_1.ps_availqty), 
   max(
     orders_1.o_orderdate)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join part as part_1
         inner join partsupp as partsupp_1
@@ -12238,7 +12238,7 @@ select
     part_1.p_partkey), 
   avg(
     nation_1.n_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join region as region_1
       on (part_1.p_partkey = region_1.r_regionkey )
@@ -12255,7 +12255,7 @@ select
   orders_1.o_totalprice, 
   nation_1.n_regionkey, 
   orders_1.o_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join orders as orders_1
     on (nation_1.n_nationkey = orders_1.o_orderkey )
@@ -12271,7 +12271,7 @@ select
   nation_2.n_nationkey, 
   count(*), 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join nation as nation_2
     on (nation_1.n_nationkey = nation_2.n_nationkey )
@@ -12284,7 +12284,7 @@ select
   min(
     part_1.p_partkey), 
   customer_1.c_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join customer as customer_1
     on (part_1.p_partkey = customer_1.c_custkey )
@@ -12303,7 +12303,7 @@ select
     nation_1.n_regionkey), 
   min(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_name
@@ -12317,7 +12317,7 @@ select
     partsupp_1.ps_supplycost), 
   partsupp_1.ps_comment, 
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -12331,7 +12331,7 @@ select
   lineitem_1.l_shipmode, 
   lineitem_1.l_shipdate, 
   customer_1.c_mktsegment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join customer as customer_1
     on (lineitem_1.l_orderkey = customer_1.c_custkey )
@@ -12342,7 +12342,7 @@ limit 13;
 select  
   nation_1.n_nationkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 limit 12;
@@ -12351,7 +12351,7 @@ select
   lineitem_1.l_suppkey, 
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join lineitem as lineitem_1
     on (partsupp_1.ps_partkey = lineitem_1.l_orderkey )
@@ -12361,7 +12361,7 @@ limit 19;
 select  
   max(
     orders_1.o_orderkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join orders as orders_2
     on (orders_1.o_orderkey = orders_2.o_orderkey )
@@ -12374,7 +12374,7 @@ select
   avg(
     customer_1.c_custkey), 
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal <= customer_1.c_acctbal
 group by customer_1.c_acctbal, customer_1.c_custkey, customer_1.c_name
@@ -12392,7 +12392,7 @@ select
     supplier_1.s_acctbal), 
   sum(
     supplier_1.s_acctbal)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_comment, supplier_1.s_name, supplier_1.s_nationkey
@@ -12401,7 +12401,7 @@ limit 13;
 select  
   nation_1.n_regionkey, 
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join nation as nation_1
       on (part_1.p_partkey = nation_1.n_nationkey )
@@ -12424,7 +12424,7 @@ select
     orders_1.o_totalprice), 
   max(
     orders_1.o_orderkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_custkey = orders_1.o_shippriority
 group by orders_1.o_clerk, orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderkey, orders_1.o_orderpriority, orders_1.o_orderstatus, orders_1.o_shippriority
@@ -12439,7 +12439,7 @@ select
   partsupp_1.ps_availqty, 
   max(
     partsupp_1.ps_supplycost)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey
@@ -12447,7 +12447,7 @@ limit 16;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_extendedprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipmode is not NULL
 limit 19;
@@ -12459,7 +12459,7 @@ select
   supplier_1.s_nationkey, 
   min(
     supplier_1.s_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_acctbal is not NULL
 group by supplier_1.s_acctbal, supplier_1.s_address, supplier_1.s_nationkey, supplier_1.s_suppkey
@@ -12469,7 +12469,7 @@ select
   customer_2.c_nationkey, 
   customer_1.c_acctbal, 
   customer_1.c_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join customer as customer_2
     on (customer_1.c_custkey = customer_2.c_custkey )
@@ -12479,7 +12479,7 @@ limit 22;
 select  
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 limit 11;
@@ -12491,7 +12491,7 @@ select
   lineitem_1.l_partkey, 
   lineitem_1.l_linestatus, 
   lineitem_1.l_extendedprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_quantity is not NULL
 group by lineitem_1.l_extendedprice, lineitem_1.l_linestatus, lineitem_1.l_partkey, lineitem_1.l_shipmode
@@ -12506,7 +12506,7 @@ select
   nation_1.n_comment, 
   lineitem_1.l_returnflag, 
   lineitem_1.l_shipmode
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join nation as nation_1
       inner join lineitem as lineitem_1
@@ -12518,7 +12518,7 @@ limit 22;
 select  
   lineitem_1.l_linestatus, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join orders as orders_1
       inner join region as region_1
@@ -12529,14 +12529,14 @@ limit 32;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 limit 36;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_nationkey > supplier_1.s_suppkey
 limit 2;
@@ -12544,7 +12544,7 @@ limit 2;
 select  
   min(
     part_1.p_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
         inner join nation as nation_1
         on (supplier_1.s_suppkey = nation_1.n_nationkey )
@@ -12557,7 +12557,7 @@ limit 19;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderstatus is not NULL
 limit 30;
@@ -12566,7 +12566,7 @@ select
   partsupp_1.ps_availqty, 
   max(
     partsupp_1.ps_supplycost)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_suppkey = partsupp_1.ps_availqty
 group by partsupp_1.ps_availqty
@@ -12580,7 +12580,7 @@ select
   lineitem_1.l_returnflag, 
   lineitem_1.l_partkey, 
   lineitem_1.l_quantity
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linestatus <= lineitem_1.l_shipmode
 group by lineitem_1.l_partkey, lineitem_1.l_quantity, lineitem_1.l_receiptdate, lineitem_1.l_returnflag, lineitem_1.l_suppkey
@@ -12591,7 +12591,7 @@ select
   region_1.r_comment, 
   region_1.r_name, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 group by region_1.r_comment, region_1.r_name, region_1.r_regionkey
@@ -12600,7 +12600,7 @@ limit 25;
 select  
   count(
     part_1.p_brand)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size is not NULL
 limit 11;
@@ -12612,7 +12612,7 @@ select
   count(*), 
   max(
     partsupp_1.ps_supplycost)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_partkey is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_supplycost
@@ -12622,7 +12622,7 @@ select
   nation_1.n_name, 
   nation_1.n_comment, 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name < nation_1.n_name
 limit 12;
@@ -12633,7 +12633,7 @@ select
     nation_1.n_regionkey), 
   nation_1.n_name, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey
@@ -12642,7 +12642,7 @@ limit 24;
 select  
   supplier_1.s_suppkey, 
   supplier_1.s_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey <= supplier_1.s_nationkey
 limit 27;
@@ -12656,7 +12656,7 @@ select
   min(
     nation_1.n_regionkey), 
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -12672,7 +12672,7 @@ select
   lineitem_1.l_linenumber, 
   count(
     lineitem_1.l_shipmode)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_discount is not NULL
 group by lineitem_1.l_commitdate, lineitem_1.l_discount, lineitem_1.l_extendedprice, lineitem_1.l_linenumber, lineitem_1.l_orderkey, lineitem_1.l_returnflag, lineitem_1.l_shipdate
@@ -12681,7 +12681,7 @@ limit 29;
 select  
   orders_1.o_orderpriority, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join region as region_1
     on (orders_1.o_orderkey = region_1.r_regionkey )
@@ -12702,7 +12702,7 @@ select
   partsupp_1.ps_partkey, 
   min(
     partsupp_1.ps_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
     inner join supplier as supplier_1
         inner join partsupp as partsupp_1
@@ -12722,7 +12722,7 @@ select
   region_2.r_name, 
   min(
     lineitem_1.l_extendedprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
         inner join region as region_1
         on (lineitem_1.l_orderkey = region_1.r_regionkey )
@@ -12739,7 +12739,7 @@ select
   orders_1.o_comment, 
   customer_1.c_address, 
   orders_2.o_orderkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
       inner join orders as orders_1
         inner join orders as orders_2
@@ -12762,7 +12762,7 @@ select
   partsupp_1.ps_supplycost, 
   avg(
     partsupp_1.ps_suppkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 group by partsupp_1.ps_supplycost
@@ -12784,7 +12784,7 @@ select
   count(*), 
   orders_1.o_totalprice, 
   lineitem_1.l_commitdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join orders as orders_1
       inner join partsupp as partsupp_1
@@ -12798,7 +12798,7 @@ select
   region_1.r_name, 
   region_1.r_regionkey, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 limit 14;
@@ -12808,7 +12808,7 @@ select
   min(
     nation_1.n_nationkey), 
   nation_1.n_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_comment, nation_1.n_nationkey
@@ -12817,7 +12817,7 @@ limit 25;
 select  
   lineitem_1.l_discount, 
   lineitem_1.l_shipdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_receiptdate = lineitem_1.l_commitdate
 limit 12;
@@ -12826,7 +12826,7 @@ select
   orders_1.o_orderdate, 
   nation_1.n_comment, 
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join orders as orders_1
     on (nation_1.n_nationkey = orders_1.o_orderkey )
@@ -12838,7 +12838,7 @@ select
   partsupp_2.ps_suppkey, 
   partsupp_2.ps_comment, 
   count(*)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join partsupp as partsupp_2
     on (partsupp_1.ps_partkey = partsupp_2.ps_partkey )
@@ -12848,7 +12848,7 @@ limit 18;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_2.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
         inner join nation as nation_2
         on (nation_1.n_nationkey = nation_2.n_nationkey )
@@ -12865,7 +12865,7 @@ select
   nation_1.n_name, 
   nation_1.n_nationkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey <= nation_1.n_regionkey
 limit 21;
@@ -12874,7 +12874,7 @@ select
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_comment, 
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost > partsupp_1.ps_supplycost
 limit 28;
@@ -12885,7 +12885,7 @@ select
   lineitem_1.l_extendedprice, 
   lineitem_1.l_linenumber, 
   lineitem_1.l_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_commitdate is not NULL
 limit 39;
@@ -12893,21 +12893,21 @@ limit 39;
 select  
   part_1.p_size, 
   part_1.p_type
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_retailprice < part_1.p_retailprice
 limit 34;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name < nation_1.n_name
 limit 16;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join supplier as supplier_2
       on (supplier_1.s_suppkey = supplier_2.s_suppkey )
@@ -12920,7 +12920,7 @@ select
   orders_1.o_custkey, 
   orders_1.o_orderkey, 
   orders_1.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join orders as orders_1
     on (nation_1.n_nationkey = orders_1.o_orderkey )
@@ -12932,7 +12932,7 @@ select
   avg(
     region_1.r_regionkey), 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 group by region_1.r_name, region_1.r_regionkey
@@ -12940,7 +12940,7 @@ limit 3;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 limit 38;
@@ -12948,7 +12948,7 @@ limit 38;
 select  
   part_1.p_mfgr, 
   part_1.p_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_partkey is not NULL
 limit 2;
@@ -12957,14 +12957,14 @@ select
   region_1.r_comment, 
   region_1.r_regionkey, 
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 8;
 -- meta {"num_joins":5,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
         inner join region as region_1
         on (customer_1.c_custkey = region_1.r_regionkey )
@@ -12982,7 +12982,7 @@ limit 1;
 select  
   orders_1.o_shippriority, 
   orders_1.o_custkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join orders as orders_1
     on (part_1.p_partkey = orders_1.o_orderkey )
@@ -12997,7 +12997,7 @@ select
   nation_1.n_name, 
   nation_1.n_nationkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey
@@ -13005,7 +13005,7 @@ limit 22;
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_2.l_tax
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join partsupp as partsupp_1
           inner join lineitem as lineitem_2
@@ -13024,7 +13024,7 @@ select
   nation_1.n_name, 
   max(
     nation_1.n_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 group by nation_1.n_name, nation_1.n_nationkey, nation_1.n_regionkey
@@ -13035,7 +13035,7 @@ select
   nation_1.n_comment, 
   sum(
     nation_1.n_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name is not NULL
 group by nation_1.n_comment, nation_1.n_regionkey
@@ -13043,7 +13043,7 @@ limit 14;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
       inner join part as part_1
       on (lineitem_1.l_orderkey = part_1.p_partkey )
@@ -13055,7 +13055,7 @@ limit 36;
 select  
   max(
     region_1.r_regionkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name > region_1.r_name
 limit 9;
@@ -13063,7 +13063,7 @@ limit 9;
 select  
   orders_2.o_orderkey, 
   orders_2.o_orderdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join orders as orders_1
       on (nation_1.n_nationkey = orders_1.o_orderkey )
@@ -13074,7 +13074,7 @@ limit 34;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 26;
@@ -13086,7 +13086,7 @@ select
     lineitem_1.l_suppkey), 
   customer_1.c_acctbal, 
   lineitem_1.l_shipmode
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join lineitem as lineitem_1
     on (customer_1.c_custkey = lineitem_1.l_orderkey )
@@ -13110,7 +13110,7 @@ select
   lineitem_1.l_shipdate, 
   max(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
     inner join part as part_1
         inner join partsupp as partsupp_1
@@ -13124,7 +13124,7 @@ limit 10;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
     inner join nation as nation_1
     on (orders_1.o_orderkey = nation_1.n_nationkey )
@@ -13137,7 +13137,7 @@ select
   nation_1.n_nationkey, 
   max(
     nation_1.n_nationkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_comment is not NULL
 group by nation_1.n_comment, nation_1.n_name, nation_1.n_nationkey
@@ -13149,7 +13149,7 @@ select
   supplier_1.s_name, 
   orders_1.o_comment, 
   partsupp_1.ps_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join partsupp as partsupp_1
         inner join supplier as supplier_1
@@ -13178,7 +13178,7 @@ select
   part_2.p_mfgr, 
   part_2.p_partkey, 
   part_2.p_retailprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
       inner join part as part_2
       on (part_1.p_partkey = part_2.p_partkey )
@@ -13191,7 +13191,7 @@ limit 29;
 select  
   customer_1.c_comment, 
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_comment is not NULL
 limit 28;
@@ -13201,7 +13201,7 @@ select
   avg(
     region_1.r_regionkey), 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_comment is not NULL
 group by region_1.r_name, region_1.r_regionkey
@@ -13219,7 +13219,7 @@ select
     lineitem_1.l_suppkey), 
   sum(
     lineitem_1.l_discount)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_returnflag > lineitem_1.l_shipmode
 group by lineitem_1.l_commitdate, lineitem_1.l_discount, lineitem_1.l_partkey, lineitem_1.l_receiptdate, lineitem_1.l_shipinstruct, lineitem_1.l_shipmode, lineitem_1.l_suppkey
@@ -13227,7 +13227,7 @@ limit 29;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_nationkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_name is not NULL
 limit 19;
@@ -13242,7 +13242,7 @@ select
   orders_1.o_clerk, 
   orders_1.o_orderpriority, 
   orders_1.o_shippriority
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
     inner join orders as orders_1
     on (nation_1.n_nationkey = orders_1.o_orderkey )
@@ -13252,7 +13252,7 @@ limit 3;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_mfgr >= part_1.p_container
 limit 4;
@@ -13273,7 +13273,7 @@ select
     supplier_2.s_nationkey), 
   supplier_1.s_address, 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
       inner join nation as nation_1
       on (supplier_1.s_suppkey = nation_1.n_nationkey )
@@ -13289,7 +13289,7 @@ limit 10;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_regionkey is not NULL
 limit 8;
@@ -13307,7 +13307,7 @@ select
   part_1.p_size, 
   sum(
     part_1.p_retailprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_size is not NULL
 group by part_1.p_mfgr, part_1.p_name, part_1.p_partkey, part_1.p_retailprice, part_1.p_size, part_1.p_type
@@ -13316,21 +13316,21 @@ limit 14;
 select  
   supplier_1.s_name, 
   supplier_1.s_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_suppkey is not NULL
 limit 1;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_name >= nation_1.n_name
 limit 35;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   region_1.r_name
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 38;
@@ -13351,7 +13351,7 @@ select
   partsupp_1.ps_partkey, 
   max(
     partsupp_1.ps_availqty)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_supplycost <= partsupp_1.ps_supplycost
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_partkey, partsupp_1.ps_suppkey, partsupp_1.ps_supplycost
@@ -13359,7 +13359,7 @@ limit 1;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_container
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join region as region_1
     on (part_1.p_partkey = region_1.r_regionkey )
@@ -13370,7 +13370,7 @@ select
   nation_1.n_name, 
   nation_1.n_comment, 
   lineitem_1.l_quantity
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join lineitem as lineitem_1
       on (nation_1.n_nationkey = lineitem_1.l_orderkey )
@@ -13388,7 +13388,7 @@ select
   sum(
     customer_1.c_nationkey), 
   part_1.p_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
     inner join part as part_1
     on (customer_1.c_custkey = part_1.p_partkey )
@@ -13410,7 +13410,7 @@ select
   supplier_1.s_address, 
   lineitem_1.l_suppkey, 
   partsupp_3.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
         inner join supplier as supplier_1
           inner join lineitem as lineitem_1
@@ -13432,7 +13432,7 @@ select
   partsupp_1.ps_availqty, 
   partsupp_2.ps_supplycost, 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join customer as customer_1
       inner join partsupp as partsupp_2
@@ -13445,7 +13445,7 @@ select
   nation_1.n_nationkey, 
   orders_1.o_totalprice, 
   customer_1.c_phone
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join part as part_1
         inner join part as part_2
@@ -13462,7 +13462,7 @@ limit 2;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_mktsegment = customer_1.c_phone
 limit 30;
@@ -13474,14 +13474,14 @@ select
   supplier_1.s_comment, 
   supplier_1.s_phone, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_address is not NULL
 limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   part_1.p_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
 where part_1.p_comment is not NULL
 limit 17;
@@ -13489,7 +13489,7 @@ limit 17;
 select  
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_availqty
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_availqty is not NULL
 limit 32;
@@ -13499,7 +13499,7 @@ select
   supplier_1.s_phone, 
   region_1.r_regionkey, 
   region_1.r_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
       inner join region as region_1
       on (nation_1.n_nationkey = region_1.r_regionkey )
@@ -13510,7 +13510,7 @@ limit 4;
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   lineitem_1.l_extendedprice
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join lineitem as lineitem_1
     on (partsupp_1.ps_partkey = lineitem_1.l_orderkey )
@@ -13522,7 +13522,7 @@ select
   nation_1.n_regionkey, 
   nation_1.n_nationkey, 
   nation_1.n_comment
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_nationkey is not NULL
 limit 31;
@@ -13531,7 +13531,7 @@ select
   supplier_1.s_suppkey, 
   supplier_1.s_nationkey, 
   supplier_1.s_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   supplier as supplier_1
 where supplier_1.s_phone is not NULL
 limit 32;
@@ -13541,7 +13541,7 @@ select
   min(
     orders_1.o_orderkey), 
   partsupp_1.ps_supplycost
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
     inner join orders as orders_1
     on (partsupp_1.ps_partkey = orders_1.o_orderkey )
@@ -13554,7 +13554,7 @@ select
   lineitem_1.l_comment, 
   lineitem_1.l_linestatus, 
   lineitem_1.l_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_shipinstruct is not NULL
 limit 35;
@@ -13567,7 +13567,7 @@ select
   partsupp_1.ps_suppkey, 
   count(
     partsupp_1.ps_partkey)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   partsupp as partsupp_1
 where partsupp_1.ps_comment is not NULL
 group by partsupp_1.ps_availqty, partsupp_1.ps_comment, partsupp_1.ps_suppkey
@@ -13581,7 +13581,7 @@ select
   lineitem_1.l_orderkey, 
   lineitem_1.l_returnflag, 
   lineitem_1.l_tax
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linestatus is not NULL
 group by lineitem_1.l_orderkey, lineitem_1.l_partkey, lineitem_1.l_returnflag, lineitem_1.l_shipinstruct, lineitem_1.l_tax
@@ -13590,14 +13590,14 @@ limit 37;
 select  
   lineitem_1.l_linenumber, 
   lineitem_1.l_commitdate
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_extendedprice is not NULL
 limit 5;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   customer_1.c_address
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
 where customer_1.c_acctbal is not NULL
 limit 13;
@@ -13608,7 +13608,7 @@ select
   lineitem_1.l_shipinstruct, 
   lineitem_1.l_shipmode, 
   lineitem_1.l_suppkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_extendedprice is not NULL
 group by lineitem_1.l_shipinstruct, lineitem_1.l_shipmode, lineitem_1.l_suppkey
@@ -13628,7 +13628,7 @@ select
   lineitem_1.l_shipinstruct, 
   lineitem_1.l_returnflag, 
   lineitem_1.l_linenumber
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_linenumber is not NULL
 group by lineitem_1.l_commitdate, lineitem_1.l_discount, lineitem_1.l_extendedprice, lineitem_1.l_linenumber, lineitem_1.l_quantity, lineitem_1.l_returnflag, lineitem_1.l_shipinstruct, lineitem_1.l_suppkey, lineitem_1.l_tax
@@ -13638,7 +13638,7 @@ select
   region_1.r_name, 
   region_1.r_comment, 
   region_1.r_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   region as region_1
 where region_1.r_name is not NULL
 limit 5;
@@ -13649,7 +13649,7 @@ select
   lineitem_1.l_receiptdate, 
   min(
     lineitem_1.l_linenumber)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
 where lineitem_1.l_tax is not NULL
 group by lineitem_1.l_linenumber, lineitem_1.l_receiptdate, lineitem_1.l_returnflag
@@ -13662,7 +13662,7 @@ select
   supplier_1.s_name, 
   lineitem_1.l_linestatus, 
   supplier_1.s_acctbal
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   lineitem as lineitem_1
     inner join region as region_1
       inner join supplier as supplier_1
@@ -13679,7 +13679,7 @@ select
   orders_1.o_custkey, 
   sum(
     orders_1.o_totalprice)
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   orders as orders_1
 where orders_1.o_orderpriority > orders_1.o_clerk
 group by orders_1.o_comment, orders_1.o_custkey, orders_1.o_orderkey, orders_1.o_orderstatus
@@ -13687,7 +13687,7 @@ limit 31;
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
 select  
   partsupp_1.ps_partkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   customer as customer_1
       inner join partsupp as partsupp_1
       on (customer_1.c_custkey = partsupp_1.ps_partkey )
@@ -13705,7 +13705,7 @@ select
   max(
     lineitem_1.l_suppkey), 
   part_1.p_brand
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   part as part_1
     inner join lineitem as lineitem_1
     on (part_1.p_partkey = lineitem_1.l_orderkey )
@@ -13716,7 +13716,7 @@ limit 17;
 select  
   nation_1.n_name, 
   nation_1.n_regionkey
-from 
+, provsql.sr_why(provsql.provenance(), 'provmap') from 
   nation as nation_1
 where nation_1.n_regionkey >= nation_1.n_nationkey
 limit 16;
