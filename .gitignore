@@ -3,5 +3,5 @@ documentation.aux
 documentation.log
 venv
 queries_with_prov/
-sql_to_nl/*.json
+sql_to_nl/
 results_prov/
