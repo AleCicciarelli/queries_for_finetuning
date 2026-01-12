@@ -1071,7 +1071,7 @@ UNION
   where part_2.p_brand is not NULL
   limit 35)
 UNION
-(select distinct 
+(select  
     lineitem_1.l_orderkey, 
     lineitem_1.l_shipinstruct, 
     lineitem_1.l_comment, 
@@ -1532,7 +1532,7 @@ EXCEPT
   where customer_1.c_acctbal <= customer_1.c_acctbal
   limit 7)
 UNION
-(select distinct 
+(select  
     orders_1.o_orderkey, 
     orders_1.o_comment
   from 
@@ -4180,7 +4180,7 @@ EXCEPT
   where supplier_1.s_acctbal is not NULL
   limit 31)
 UNION
-(select distinct 
+(select  
     part_1.p_type, 
     part_1.p_size
   from 
@@ -4765,7 +4765,7 @@ UNION
   where nation_3.n_regionkey is not NULL
   limit 16);
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":true}
-(select distinct 
+(select  
     orders_1.o_orderpriority, 
     orders_1.o_custkey, 
     orders_1.o_totalprice, 
@@ -7047,7 +7047,7 @@ UNION
   where part_1.p_brand = part_1.p_container
   limit 22)
 EXCEPT
-(select distinct 
+(select  
     nation_2.n_name, 
     nation_2.n_regionkey, 
     nation_2.n_comment
@@ -9573,7 +9573,7 @@ UNION
   where supplier_2.s_suppkey is not NULL
   limit 26);
 -- meta {"num_joins":3,"num_aggregates":0,"has_union":true,"has_intersect":false,"has_negation":false}
-(select distinct 
+(select  
     lineitem_1.l_commitdate
   from 
     lineitem as lineitem_1
@@ -10197,7 +10197,7 @@ EXCEPT
   where nation_1.n_nationkey is not NULL
   limit 15)
 UNION
-(select distinct 
+(select  
     orders_1.o_shippriority, 
     lineitem_1.l_partkey, 
     orders_1.o_comment
@@ -10342,7 +10342,7 @@ EXCEPT
   where nation_1.n_name >= nation_1.n_name
   limit 16);
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":true}
-(select distinct 
+(select  
     part_1.p_partkey, 
     part_1.p_size, 
     orders_1.o_clerk, 
@@ -12886,7 +12886,7 @@ UNION
   where orders_2.o_custkey > orders_2.o_orderkey
   limit 39);
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":true,"has_intersect":false,"has_negation":false}
-(select distinct 
+(select  
     partsupp_1.ps_suppkey
   from 
     partsupp as partsupp_1
@@ -14965,7 +14965,7 @@ from
 where partsupp_2.ps_comment is not NULL
 limit 38;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   partsupp_1.ps_suppkey, 
   partsupp_1.ps_supplycost, 
   partsupp_1.ps_availqty
@@ -15740,7 +15740,7 @@ UNION
   where part_1.p_size is not NULL
   limit 25)
 EXCEPT
-(select distinct 
+(select  
     orders_2.o_shippriority, 
     orders_2.o_custkey, 
     orders_2.o_orderstatus, 
@@ -16876,7 +16876,7 @@ UNION
   where customer_1.c_comment is not NULL
   limit 20);
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":true,"has_intersect":false,"has_negation":false}
-(select distinct 
+(select  
     supplier_1.s_suppkey
   from 
     supplier as supplier_1
@@ -17422,7 +17422,7 @@ UNION
   where nation_1.n_comment is not NULL
   limit 23)
 EXCEPT
-(select distinct 
+(select  
     nation_2.n_comment, 
     nation_2.n_nationkey, 
     nation_2.n_regionkey
@@ -17737,7 +17737,7 @@ UNION
   where lineitem_2.l_orderkey is not NULL
   limit 28);
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":true,"has_intersect":false,"has_negation":false}
-(select distinct 
+(select  
     nation_1.n_name, 
     nation_1.n_nationkey
   from 
@@ -19892,7 +19892,7 @@ UNION
   where supplier_1.s_acctbal = supplier_1.s_acctbal
   limit 12);
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":false}
-select distinct 
+select  
   customer_1.c_custkey, 
   partsupp_1.ps_availqty, 
   nation_1.n_nationkey
@@ -20100,7 +20100,7 @@ EXCEPT
   where part_2.p_size is not NULL
   limit 29);
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":true,"has_intersect":false,"has_negation":false}
-(select distinct 
+(select  
     nation_1.n_name, 
     nation_1.n_nationkey, 
     nation_1.n_comment
@@ -21217,7 +21217,7 @@ UNION
   where customer_1.c_acctbal < customer_1.c_acctbal
   limit 21);
 -- meta {"num_joins":1,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":true}
-(select distinct 
+(select  
     lineitem_1.l_comment, 
     lineitem_1.l_shipinstruct
   from 
@@ -21337,7 +21337,7 @@ EXCEPT
   where nation_1.n_comment is not NULL
   limit 6);
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":true}
-(select distinct 
+(select  
     lineitem_1.l_returnflag, 
     region_1.r_comment
   from 
@@ -21944,7 +21944,7 @@ from
 where part_1.p_retailprice <= part_1.p_retailprice
 limit 41;
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":true}
-(select distinct 
+(select  
     orders_1.o_orderstatus, 
     orders_1.o_shippriority, 
     orders_1.o_comment, 
@@ -22828,7 +22828,7 @@ EXCEPT
   where part_1.p_container < part_1.p_mfgr
   limit 18)
 EXCEPT
-(select distinct 
+(select  
     nation_1.n_nationkey, 
     nation_1.n_name
   from 
@@ -22882,7 +22882,7 @@ EXCEPT
   where orders_1.o_shippriority is not NULL
   limit 7);
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":true,"has_intersect":false,"has_negation":false}
-(select distinct 
+(select  
     partsupp_1.ps_suppkey, 
     partsupp_1.ps_partkey, 
     partsupp_1.ps_availqty
@@ -23100,7 +23100,7 @@ UNION
   where partsupp_1.ps_partkey is not NULL
   limit 7);
 -- meta {"num_joins":0,"num_aggregates":0,"has_union":true,"has_intersect":false,"has_negation":false}
-(select distinct 
+(select  
     customer_1.c_acctbal, 
     customer_1.c_nationkey, 
     customer_1.c_name, 
@@ -23339,7 +23339,7 @@ EXCEPT
   where lineitem_1.l_returnflag < lineitem_1.l_linestatus
   limit 33);
 -- meta {"num_joins":4,"num_aggregates":0,"has_union":false,"has_intersect":false,"has_negation":true}
-(select distinct 
+(select  
     nation_2.n_nationkey, 
     nation_1.n_comment, 
     nation_1.n_regionkey
@@ -24464,7 +24464,7 @@ EXCEPT
   where region_1.r_regionkey is not NULL
   limit 8)
 EXCEPT
-(select distinct 
+(select  
     customer_1.c_phone, 
     customer_1.c_custkey, 
     customer_1.c_nationkey
@@ -32922,7 +32922,7 @@ limit 8;
   where orders_1.o_orderpriority <= orders_1.o_orderstatus
   limit 42)
 UNION
-(select distinct 
+(select  
     customer_1.c_phone, 
     customer_1.c_nationkey, 
     customer_1.c_custkey, 
@@ -34753,7 +34753,7 @@ UNION
   where part_1.p_comment is not NULL
   limit 12);
 -- meta {"num_joins":2,"num_aggregates":0,"has_union":true,"has_intersect":false,"has_negation":false}
-(select distinct 
+(select  
     part_1.p_name, 
     part_1.p_brand, 
     orders_1.o_orderpriority, 
@@ -34772,7 +34772,7 @@ UNION
   where customer_1.c_custkey is not NULL
   limit 19)
 UNION
-(select distinct 
+(select  
     part_2.p_name, 
     part_2.p_container, 
     part_2.p_brand, 
@@ -36455,7 +36455,7 @@ UNION
   where orders_1.o_comment is not NULL
   limit 12)
 EXCEPT
-(select distinct 
+(select  
     orders_2.o_comment, 
     orders_2.o_totalprice, 
     orders_2.o_clerk, 
@@ -37039,7 +37039,7 @@ UNION
   where customer_1.c_comment is not NULL
   limit 25)
 UNION
-(select distinct 
+(select  
     customer_2.c_acctbal, 
     customer_2.c_address, 
     customer_2.c_comment, 
@@ -37514,7 +37514,7 @@ limit 27;
   where lineitem_1.l_suppkey = lineitem_1.l_orderkey
   limit 17)
 UNION
-(select distinct 
+(select  
     part_1.p_retailprice
   from 
     part as part_1

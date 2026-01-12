@@ -5,7 +5,7 @@ DB_TARGET="host=127.0.0.1 port=5432 dbname=relf1_tmp user=cicciara password=cicc
 #DB_TARGET="host=127.0.0.1 port=5432 dbname=tpch_tmp user=cicciara"
 
 NUM_QUERIES=2000
-OUTPUT_FILE="../tpch_queries/queries_relf1_mixedwithset.sql"
+OUTPUT_FILE="../tpch_queries/queries_tpch_limit4.sql"
 
 echo "Generating queries with sqlsmith..."
 echo "Target DB: $DB_TARGET"
