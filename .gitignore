@@ -3,11 +3,9 @@ documentation.aux
 documentation.log
 venv
 queries_with_prov/
-<<<<<<< HEAD
 sql_to_nl/
 results_prov/
-=======
-sql_to_nl/*.json
-results_prov/
-queries_with_prov/
->>>>>>> 33b33378ba85f2e12dd2dc98a1f83537795e73ca
+latex_documentation/main.aux
+latex_documentation/main.log
+latex_documentation/main.bbl
+latex_documentation/main.blg

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #execute this in sqlsmith directory 
 # config
-DB_TARGET="host=127.0.0.1 port=5432 dbname=relf1_tmp user=cicciara password=cicciara"
-#DB_TARGET="host=127.0.0.1 port=5432 dbname=tpch_tmp user=cicciara"
+#DB_TARGET="host=127.0.0.1 port=5432 dbname=relf1_tmp user=cicciara password=cicciara"
+DB_TARGET="host=127.0.0.1 port=5432 dbname=tpch_tmp user=cicciara"
 
 NUM_QUERIES=2000
-OUTPUT_FILE="../tpch_queries/queries_tpch_limit4.sql"
+OUTPUT_FILE="../tpch_queries/set_queries/queries_tpch_limit4_noerr.sql"
 
 echo "Generating queries with sqlsmith..."
 echo "Target DB: $DB_TARGET"
@@ -16,6 +16,6 @@ echo "Output file: $OUTPUT_FILE"
   --target="$DB_TARGET" \
   --exclude-catalog \
   --dump-all-queries \
-  --max-queries=$NUM_QUERIES  > "$OUTPUT_FILE"
+  --max-queries=$NUM_QUERIES  > "$OUTPUT_FILE" 
 
 echo "Done! Saved to $OUTPUT_FILE"

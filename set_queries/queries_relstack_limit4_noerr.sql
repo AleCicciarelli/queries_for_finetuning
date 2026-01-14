@@ -1563,8 +1563,6 @@ from
         inner join votes as votes_1
         on (votes_1.userid = users_1.id )
       on (badges_1.userid = users_1.id )
-    inner join votes as votes_2
-    on (votes_2.userid = users_1.id )
 where users_1.location >= users_1.aboutme
 group by badges_1.date, badges_1.id, badges_1.tagbased, users_1.accountid, votes_1.id, votes_2.id, votes_2.postid, votes_2.votetypeid
 limit 3;
