@@ -61,12 +61,13 @@ def translate_sql_to_nl(llm, sql: str, meta: dict | None = None) -> str:
 # ---------------------------------------------------------
 # Pipeline: SQL file → JSON file
 # ---------------------------------------------------------
-def process_sql_file(input_path: str, output_path: str, model_name="llama3.1:70b"):
+def process_sql_file(input_path: str, output_path: str, model_name=str):
     # llm initialization
     llm = ChatOllama(
         model=model_name,
         temperature=0,
-        max_tokens=512
+        max_tokens=512,
+        format=""
     )
 
     # read SQL file
@@ -111,7 +112,7 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3.1:70b
 # ---------------------------------------------------------
 if __name__ == "__main__":
     process_sql_file(
-        input_path="../set_queries/queries_relstack_limit4_noerr.sql",
-        output_path="../queries_with_prov/sql_nl_relstack_limit4def_llama70b.json",
-        model_name="llama3.1:70b"
+        input_path="../set_queries/queries_tpch_curated.sql",
+        output_path="../queries_with_prov/sql_nl_tpch_curated_llamalatest.json",
+        model_name="llama3.3:latest"
     )
