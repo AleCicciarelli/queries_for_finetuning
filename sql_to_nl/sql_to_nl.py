@@ -28,31 +28,32 @@ def parse_sql_with_meta(content: str):
 # ---------------------------------------------------------
 # Prompt for SQL to NL conversion
 # ---------------------------------------------------------
-def build_prompt(sql: str) -> str:
+def build_prompt(sql: str, meta: dict | None = None) -> str:
+    meta_txt = json.dumps(meta, ensure_ascii=False) if meta else "{}"
     return textwrap.dedent(f"""
-    You are a system that converts SQL queries into clear and concise natural language questions.
+    You convert SQL into ONE natural-language question.
 
-    Your task:
-    - Read the SQL query provided.
-    - Produce a fluent natural-language description of what the query is asking **as if it were a question written by a human analyst**.
-    - Do NOT mention joins, SQL keywords, schema, or technical details.
-    - Only describe the meaning of the query.
-    - Prefer starting with “What”, “Which”, “How many”, “List”, “Give me”, etc.
-    - Do NOT add explanations, reasoning, or commentary.
+    Rules (must follow):
+    - Output ONLY the question. No quotes, no bullets, no extra text.
+    - Do NOT mention SQL, joins, tables, columns, schema, keywords.
+    - Be faithful: do not invent ranking, time constraints, or meanings not implied by the query.
+    - If the query has LIMIT but NO ORDER BY: do NOT say "top" or "most recent".
+      Use "up to N" or "give N example records" (no implied ordering).
+    - If the query uses UNION (not UNION ALL): duplicates may be removed.
+      Avoid saying an exact total unless guaranteed; prefer "up to N distinct".
 
-    Output format:
-    Return ONLY the natural-language question.
+    Meta (may help, but do not mention it):
+    {meta_txt}
 
-    SQL Query:
+    SQL:
     {sql}
-    """)
-
+    """).strip()
 
 # ---------------------------------------------------------
 # Call for the LLM through the prompt, using OLLAMA
 # ---------------------------------------------------------
-def translate_sql_to_nl(llm, sql: str) -> str:
-    prompt = build_prompt(sql)
+def translate_sql_to_nl(llm, sql: str, meta: dict | None = None) -> str:
+    prompt = build_prompt(sql, meta)
     response = llm.invoke([HumanMessage(content=prompt)])
     return response.content.strip()
 
@@ -60,7 +61,7 @@ def translate_sql_to_nl(llm, sql: str) -> str:
 # ---------------------------------------------------------
 # Pipeline: SQL file → JSON file
 # ---------------------------------------------------------
-def process_sql_file(input_path: str, output_path: str, model_name="llama3:70b"):
+def process_sql_file(input_path: str, output_path: str, model_name="llama3.1:70b"):
     # llm initialization
     llm = ChatOllama(
         model=model_name,
@@ -87,7 +88,7 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3:70b")
         print(f"    Meta: {meta}")
 
 
-        nl = translate_sql_to_nl(llm, sql)
+        nl = translate_sql_to_nl(llm, sql, meta)
 
         print(f"   👉 NL: {nl}\n")
 
@@ -110,7 +111,7 @@ def process_sql_file(input_path: str, output_path: str, model_name="llama3:70b")
 # ---------------------------------------------------------
 if __name__ == "__main__":
     process_sql_file(
-        input_path="../set_queries/queries_tpch_mixedwithset.sql",
-        output_path="sql_nl_tpch_mixedwithset_llama70b.json",
-        model_name="llama3:70b"
+        input_path="../set_queries/queries_relstack_limit4_noerr.sql",
+        output_path="../queries_with_prov/sql_nl_relstack_limit4def_llama70b.json",
+        model_name="llama3.1:70b"
     )
