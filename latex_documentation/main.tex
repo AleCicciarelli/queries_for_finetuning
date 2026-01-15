@@ -1,12 +1,19 @@
 \documentclass{article}
-\usepackage{graphicx} % Required for inserting images
-\usepackage{verbatim}
+\usepackage{graphicx}
 \usepackage[a4paper,margin=3cm]{geometry}
 \usepackage[ruled,vlined]{algorithm2e}
-\bibliographystyle{plain}
-
 \usepackage{amsmath} 
 \usepackage{natbib} 
+\usepackage{fvextra}
+\fvset{
+  breaklines=true,
+  breakanywhere=true,
+  showspaces=false,
+  showtabs=false,
+  breaksymbolleft={},
+  breaksymbolright={}
+}
+
 \title{LLM explainability}
 \author{Alessandra Cicciarelli}
 \date{December 2025}
@@ -22,47 +29,51 @@ The input consists of a natural language question and its corresponding SQL quer
 Each answer is explicitly paired with a single witness set.
 
 An example of a training instance is reported below:
-\begin{verbatim}
+\begin{Verbatim}
 {
-  "instruction": "Return ONLY valid JSON (no extra text).Output MUST be a JSON array. Each array element MUST be an object with EXACTLY these keys:
+  `instruction`: `Return ONLY valid JSON (no extra text).Output MUST be a JSON array. 
+  Each array element MUST be an object with EXACTLY these keys:
   - result: an object representing one output tuple
-  - provenance: a Why[X] provenance expression for that tuple, where each provenance identifier is a string formatted as "<table_name>_<row_number>" (e.g., "standings_35").
+  - provenance: a Why[X] provenance expression for that tuple, where each provenance identifier 
+  is a string formatted as ``<table_name>_<row_number>'' (e.g., ``standings_35'').
   The provenance field MUST be a list of lists of provenance identifiers.
-  Each inner list contains the provenance identifiers that together produce the result tuple.JSON schema:[  {"result": {...}, "provenance": [["t1","t2"], ["t3"], ...]},  ...]
-  Do NOT output SQL, explanations, markdown, or additional keys.If there are no results, return [].",
-  "input": {
-    "question": "What are the dates and points for each constructor standing, along with their corresponding subsequent standings, for the 28 most recent races?"
+  Each inner list contains the provenance identifiers that together produce the result tuple.JSON schema:
+  [{``result'': \{...\}, ``provenance'': [[``t1'',``t2''], [``t3''], ...]}, ...]
+  Do NOT output SQL, explanations, markdown, or additional keys.If there are no results, return [].`,
+  `input`: {
+    `question`: `What are the dates and points for each constructor standing, along with their corresponding 
+    subsequent standings, for the 28 most recent races?`
   },
-  "output": [
+  `output`: [
     {
-      "result": {
-        "raceid": "21",
-        "points": "3",
-        "constructorresultsid": "38"
+      `result`: {
+        `raceid`: `21`,
+        `points`: `3`,
+        `constructorresultsid`: `38`
       },
-      "provenance": [
-        ["constructor_results_38"]
+      `provenance`: [
+        [`constructor_results_38`]
       ]
     }
   ]
 }
 
-\end{verbatim}
+\end{Verbatim}
 \end{section}
 \begin{section}{Curriculum Learning}
 Curriculum learning (CL) is a training strategy that trains a model from easier data to harder data, imitating learning order in human curricula.
-In the paper \emph{A Survey on Curriculum Learning} ~\cite{curriculumsurvey}, training examples are ordered according to an explicit difficulty measure, such as the number of joins, self-joins, and output tuples.
+In the paper \emph{A Survey on Curriculum Learning}\cite{curriculumsurvey}, training examples are ordered according to an explicit difficulty measure, such as the number of joins, self-joins, and output tuples.
 The model is first trained on simpler instances and progressively exposed to more complex queries, allowing it to learn the rigid output format and the semantics of witness sets before handling harder relational patterns.
 
 
 
 \begin{algorithm}[H]
-\caption{Baby Step Training Scheduler~\cite{curriculumsurvey}}
+\caption{Baby Step Training Scheduler\cite{curriculumsurvey}}
 \label{alg:baby_step}
 \KwIn{$D$: training dataset; $C$: difficulty measurer}
 \KwOut{$M^*$: trained model}
 $D' \leftarrow \text{sort}(D, C)$\;
-$\{D_1, D_2, \ldots, D_k\} \leftarrow D'$ such that
+$\{D_1, D_2, ..., D_k\} \leftarrow D'$ such that
 $C(d_a) < C(d_b)$, $d_a \in D_i$, $d_b \in D_j$, $\forall i < j$\;
 $D_{\text{train}} \leftarrow \emptyset$\;
 \For{$s = 1$ \KwTo $k$}{
@@ -128,63 +139,63 @@ $D_{\text{train}} \leftarrow \emptyset$\;
     \item \textbf{Metadata added for query type classification}
     The metadata for classifying query based on their complexity have been added.
     For example:
-    \begin{verbatim}
-        -- meta {"num_joins":1,"num_aggregates":0,
-        "has_union":true,
-        "has_intersect":false,
-        "has_negation":false}
+    \begin{Verbatim}
+        -- meta {`num_joins`:1,`num_aggregates`:0,
+        `has_union`:true,
+        `has_intersect`:false,
+        `has_negation`:false}
 
-        -- meta {"num_joins":2,
-        "num_aggregates":0,
-        "has_union":true,
-        "has_intersect":false,
-        "has_negation":false}
+        -- meta {`num_joins`:2,
+        `num_aggregates`:0,
+        `has_union`:true,
+        `has_intersect`:false,
+        `has_negation`:false}
 
-    \end{verbatim}
+    \end{Verbatim}
     \item \textbf{Set operations in SQLSmith.}  
     Set operations were enabled in the query generator to increase query diversity. In particular, \texttt{UNION} and \texttt{EXCEPT} are now supported, while \texttt{INTERSECT} remains disabled due to limited support in provsql.
 
     \item \textbf{Dataset statistics.}  
     Dataset statistics are now computed from the final JSONL files, including the number of successful and failed queries, the total number of answer tuples, and detailed provenance size. For example, for the dataset \emph{relf1}:
-    \begin{verbatim}
+    \begin{Verbatim}
        
-  "db": "relf1",
-  "input_sql": "set_queries/queries_relf1_mixedwithset.sql",
-  "output_jsonl": "queries_with_prov/relf1_mixedwithset_prov.jsonl",
-  "generated_at": "2026-01-07T12:34:56",
-  "total_lines_in_jsonl": 2000, 
-  "ok_queries": 1999,
-  "failed_queries": 1,
-  "total_answer_tuples": 47785,
-  "total_why_sets": 54752,
-  "total_why_items": 83820,
-  "avg_answers_per_query": 23.904452226113058,
-  "avg_why_items_per_query": 41.93096548274137,
-  "avg_why_items_per_tuple": 1.754106937323428,
-  "effective_size_proxy": 133604
+  `db`: `relf1`,
+  `input_sql`: `set_queries/queries_relf1_mixedwithset.sql`,
+  `output_jsonl`: `queries_with_prov/relf1_mixedwithset_prov.jsonl`,
+  `generated_at`: `2026-01-07T12:34:56`,
+  `total_lines_in_jsonl`: 2000, 
+  `ok_queries`: 1999,
+  `failed_queries`: 1,
+  `total_answer_tuples`: 47785,
+  `total_why_sets`: 54752,
+  `total_why_items`: 83820,
+  `avg_answers_per_query`: 23.904452226113058,
+  `avg_why_items_per_query`: 41.93096548274137,
+  `avg_why_items_per_tuple`: 1.754106937323428,
+  `effective_size_proxy`: 133604
 
 
-    \end{verbatim}
+    \end{Verbatim}
 
     \item \textbf{Structured provenance representation.}  
     The \textit{why}-provenance is no longer stored as an unstructured string, but is represented as a normalized list of lists in JSON, where each inner list corresponds to a witness set. This format facilitates downstream processing and model supervision.
     \item \textbf{SQL to NL }
     The sql to nl json files have been produced for the three datasets: relf1, relstack and tpch.
     The format of each row is:
-    \begin{verbatim}
+    \begin{Verbatim}
         {
-        "id": 1999,
-        "meta": {
-            "num_joins": 0,
-            "num_aggregates": 0,
-            "has_union": false,
-            "has_intersect": false,
-            "has_negation": false
+        `id`: 1999,
+        `meta`: {
+            `num_joins`: 0,
+            `num_aggregates`: 0,
+            `has_union`: false,
+            `has_intersect`: false,
+            `has_negation`: false
         },
-        "sql": <sql_query>,
-        "nl": <generated_nl_query>
+        `sql`: <sql_query>,
+        `nl`: <generated_nl_query>
     },
-    \end{verbatim}
+    \end{Verbatim}
 \end{itemize}
 
     
@@ -198,6 +209,65 @@ $D_{\text{train}} \leftarrow \emptyset$\;
     \item Negative pairs will be added to the fine-tuning dataset by perturbing positive examples, e.g., by adding or removing tuples or sets, to improve the model's discriminative capabilities.
 \end{itemize}
 \end{section}
+\begin{section}{Observation and limitations}
+During a manual inspection of the generated SQL queries, their automatically generated natural language (NL) questions, 
+and the corresponding outputs with provenance produced by ProvSQL, several limitations emerged that can directly affect the quality of the fine-tuning dataset.
+
+In our setup, the output of the execution of the SQL queries, together with the provenance, is always correct with respect to the SQL semantics (we are using ProvSQL to generate it). 
+However, the NL questions are automatically generated using an LLM and represent the weakest component of the pipeline,
+introducing a significant source of noise. This asymmetry is intrinsic to the generation process and reflects a realistic scenario 
+in which user queries may be ambiguous or imprecise.
+
+A major source of ambiguity arises from the systematic use of \texttt{LIMIT} clauses without \texttt{ORDER BY}. 
+While \texttt{LIMIT} is necessary to keep query results and provenance expressions manageable, it induces non-deterministic semantics, 
+as the returned tuples represent an arbitrary subset rather than ranked or semantically “top” results. 
+This often leads NL translations to hallucinate notions such as “top”, “best”, or “most recent”, which are not justified by the SQL query.
+Introducing \texttt{ORDER BY} is not an easy solution, as the query generator has no access to data distribution or domain semantics, 
+and the language model does not observe the ordered context that would justify such constraints.
+
+Additional issues come from set operations such as \texttt{UNION}, which remove duplicates by definition and therefore make the final cardinality 
+of the result unpredictable, even when subqueries are bounded by \texttt{LIMIT}. 
+Furthermore, the SQLSmith-based query generator frequently produces syntactically valid but semantically weak predicates (e.g., \texttt{IS NOT NULL} 
+on primary-key-like attributes), which are difficult to translate faithfully into NL.
+
+Given these considerations, we adopt a `curation` strategy. 
+\begin{itemize}
+    \item To mitigate the limitations introduced by \texttt{LIMIT}, 
+    we propose a data curation strategy based on provenance-driven database recomposition. 
+    This approach aims to construct a smaller but representative dataset that allows queries to be executed without \texttt{LIMIT}, 
+    while keeping outputs and provenance manageable and semantically consistent.
+\end{itemize}
+\paragraph{Provenance-driven dataset recomposition}
+The following procedure describes the proposed workflow for curating a database using provenance information, enabling the removal of the \texttt{LIMIT} clause
+in a second generation of the dataset.
+
+\begin{algorithm}[H]
+\caption{Provenance-based Dataset Curation}
+\label{alg:prov-curation}
+\DontPrintSemicolon
+\KwIn{Original database $D$, query generator $G$}
+\KwOut{Curated database $D'$, updated query results and provenance}
+\BlankLine
+
+Generate a set of SQL queries $Q = \{q_1, \dots, q_n\}$ from $D$ using $G$, each including a \texttt{LIMIT} clause\;
+
+\ForEach{$q_i \in Q$}{
+    Execute $q_i$ on $D$ using ProvSQL, obtaining result $R_i$ and provenance $P_i$\;
+}
+
+Initialize an empty set of tuples $T_{\text{relevant}} \leftarrow \emptyset$\;
+
+Extract all tuples referenced at least once in any provenance expression $P_i$ and add them to $T_{\text{relevant}}$\;
+
+Construct a reduced database $D'$ containing only tuples in $T_{\text{relevant}}$\;
+
+Re-execute the same set of queries $Q$ on $D'$ after removing all \texttt{LIMIT} clauses, collecting new results and provenance\;
+
+\Return{$D'$, updated results, and provenance}\;
+\end{algorithm}
+
+\end{section}
+
 \bibliographystyle{plain}
 \bibliography{references}
 \end{document}
