@@ -6,15 +6,15 @@ import json
 from datetime import datetime
 
 
-DB = "relf1"
+DB = "relstack_curated"
 USER = "cicciara"
 HOST = "127.0.0.1"
 PORT = "5432"
 
-INPUT_SQL = "set_queries/queries_relf1_limit4_noerr.sql"
-OUTPUT_JSONL = "queries_with_prov/relf1_limit_noerr_prov.jsonl"
+INPUT_SQL = "set_queries/queries_relstack_500.sql"
+OUTPUT_JSONL = "queries_with_prov/curated/relstack_500.jsonl"
 
-QUERY_TIMEOUT_SEC = 30  # <-- cambia qui
+QUERY_TIMEOUT_SEC = 50  
 
 # -------------------------
 # Compute stats from JSONL
@@ -40,7 +40,7 @@ def compute_stats_from_jsonl(jsonl_path: str, db_name: str, input_sql: str):
                 continue
 
             ok_queries += 1
-            tuples = rec.get("result", [])  # <-- FIX: era "output"
+            tuples = rec.get("result", [])  
             total_answer_tuples += len(tuples)
 
             for t in tuples:
@@ -226,7 +226,7 @@ with open(OUTPUT_JSONL, "a") as out:
             continue
 
         query_prov = None
-        result = []  # <-- FIX: sempre inizializzato
+        result = [] 
 
         try:
             print(f"  Query originale:\n{query}")
