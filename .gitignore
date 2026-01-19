@@ -1,8 +1,7 @@
 .venv
 documentation.aux
 documentation.log
-venv
-queries_with_prov/
+venv/
 sql_to_nl/*.json
 results_prov/
 queries_with_prov/
