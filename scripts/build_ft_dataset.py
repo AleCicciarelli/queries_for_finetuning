@@ -342,9 +342,9 @@ def make_negative_output(
 def main() -> None:
     '''how to run: 
     python scripts/build_ft_dataset.py \
-  --prov-jsonl queries_with_prov/relstack_limit_noerr_prov.jsonl \
-  --nl-file nl_queries/sql_nl_relstack_curated_llamalatest.json \
-  --context-jsonl artifacts/relstack_context_data.jsonl \
+  --prov-jsonl queries_with_prov/tpch_limit_noerr_prov.jsonl \
+  --nl-file nl_queries/sql_nl_tpch_curated_llamalatest.json \
+  --context-jsonl artifacts/tpch_context_data.jsonl \
   --target-n 1500 \
   --max-tuples 10 \
   --seed 7'''
@@ -353,10 +353,10 @@ def main() -> None:
     ap.add_argument("--nl-file", type=Path, required=True)
     ap.add_argument("--context-jsonl", type=Path, required=True)
 
-    ap.add_argument("--out-sft", type=Path, default=Path("artifacts/relstack/sft_1500.jsonl"))
-    ap.add_argument("--out-dpo", type=Path, default=Path("artifacts/relstack/dpo_1500.jsonl"))
-    ap.add_argument("--out-ci", type=Path, default=Path("artifacts/relstack/ci_1500.jsonl"))
-    ap.add_argument("--out-stats", type=Path, default=Path("artifacts/relstack/ft_1500_stats_by_type.json"))
+    ap.add_argument("--out-sft", type=Path, default=Path("artifacts/tpch/sft_1500.jsonl"))
+    ap.add_argument("--out-dpo", type=Path, default=Path("artifacts/tpch/dpo_1500.jsonl"))
+    ap.add_argument("--out-ci", type=Path, default=Path("artifacts/tpch/ci_1500.jsonl"))
+    ap.add_argument("--out-stats", type=Path, default=Path("artifacts/tpch/ft_1500_stats_by_type.json"))
 
     ap.add_argument("--target-n", type=int, default=1500)
     ap.add_argument("--seed", type=int, default=7)
