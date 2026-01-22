@@ -31,7 +31,7 @@ def parse_sql_with_meta(content: str):
 def build_prompt(sql: str, meta: dict | None = None) -> str:
     meta_txt = json.dumps(meta, ensure_ascii=False) if meta else "{}"
     return textwrap.dedent(f"""
-    You convert SQL into ONE natural-language question.
+   You convert SQL into ONE natural-language question.
 
     Rules (must follow):
     - Output ONLY the question. No quotes, no bullets, no extra text.
@@ -44,7 +44,6 @@ def build_prompt(sql: str, meta: dict | None = None) -> str:
   explicitly appears in the SQL.
     - If the query uses EXCEPT: describe it as excluding results that also satisfy the second condition.
       Do NOT simplify EXCEPT into "is null" or "not condition" unless that exact condition appears in the SQL.
-
 
     Meta (may help, but do not mention it):
     {meta_txt}
@@ -116,7 +115,7 @@ def process_sql_file(input_path: str, output_path: str, model_name=str):
 # ---------------------------------------------------------
 if __name__ == "__main__":
     process_sql_file(
-        input_path="../set_queries/queries_tpch_curated.sql",
-        output_path="../queries_with_prov/sql_nl_tpch_llamalatest.json",
+        input_path="../set_queries/queries_relstack_curated.sql",
+        output_path="../queries_with_prov/sql_nl_relstack_curated_llamalatest.json",
         model_name="llama3.3:latest"
     )
