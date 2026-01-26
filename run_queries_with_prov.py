@@ -6,13 +6,13 @@ import json
 from datetime import datetime
 
 
-DB = "relstack_curated"
+DB = "tpch_curated"
 USER = "cicciara"
 HOST = "127.0.0.1"
 PORT = "5432"
 
-INPUT_SQL = "set_queries/queries_relstack_500.sql"
-OUTPUT_JSONL = "queries_with_prov/curated/relstack_500.jsonl"
+INPUT_SQL = "set_queries/queries_tpch_2000_noset.sql"
+OUTPUT_JSONL = "queries_with_prov/curated/tpch_2000_noset.jsonl"
 
 QUERY_TIMEOUT_SEC = 50  
 

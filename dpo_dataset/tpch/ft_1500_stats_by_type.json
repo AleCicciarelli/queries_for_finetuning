@@ -1,0 +1,95 @@
+{
+  "overall": {
+    "total_usable": 1536,
+    "total_selected": 1536
+  },
+  "categories": {
+    "1_easy_no_join": {
+      "count": 81,
+      "type_distribution": {
+        "joins=0;aggs=0;union=0;intersect=0;neg=0": 81
+      }
+    },
+    "2_medium_join": {
+      "count": 56,
+      "type_distribution": {
+        "joins=1;aggs=0;union=0;intersect=0;neg=0": 24,
+        "joins=2;aggs=0;union=0;intersect=0;neg=0": 12,
+        "joins=8;aggs=0;union=0;intersect=0;neg=0": 1,
+        "joins=4;aggs=0;union=0;intersect=0;neg=0": 3,
+        "joins=3;aggs=0;union=0;intersect=0;neg=0": 9,
+        "joins=7;aggs=0;union=0;intersect=0;neg=0": 1,
+        "joins=5;aggs=0;union=0;intersect=0;neg=0": 5,
+        "joins=6;aggs=0;union=0;intersect=0;neg=0": 1
+      }
+    },
+    "3_has_aggr": {
+      "count": 164,
+      "type_distribution": {
+        "joins=3;aggs=2;union=0;intersect=0;neg=0": 3,
+        "joins=1;aggs=2;union=0;intersect=0;neg=0": 8,
+        "joins=1;aggs=1;union=0;intersect=0;neg=0": 14,
+        "joins=0;aggs=3;union=0;intersect=0;neg=0": 10,
+        "joins=0;aggs=2;union=0;intersect=0;neg=0": 24,
+        "joins=0;aggs=4;union=0;intersect=0;neg=0": 4,
+        "joins=0;aggs=1;union=0;intersect=0;neg=0": 55,
+        "joins=2;aggs=3;union=0;intersect=0;neg=0": 2,
+        "joins=1;aggs=3;union=0;intersect=0;neg=0": 8,
+        "joins=3;aggs=1;union=0;intersect=0;neg=0": 7,
+        "joins=2;aggs=1;union=0;intersect=0;neg=0": 11,
+        "joins=0;aggs=6;union=0;intersect=0;neg=0": 5,
+        "joins=4;aggs=1;union=0;intersect=0;neg=0": 2,
+        "joins=6;aggs=4;union=0;intersect=0;neg=0": 1,
+        "joins=4;aggs=4;union=0;intersect=0;neg=0": 1,
+        "joins=2;aggs=5;union=0;intersect=0;neg=0": 1,
+        "joins=7;aggs=3;union=0;intersect=0;neg=0": 1,
+        "joins=2;aggs=2;union=0;intersect=0;neg=0": 3,
+        "joins=0;aggs=5;union=0;intersect=0;neg=0": 1,
+        "joins=1;aggs=4;union=0;intersect=0;neg=0": 1,
+        "joins=2;aggs=4;union=0;intersect=0;neg=0": 1,
+        "joins=1;aggs=5;union=0;intersect=0;neg=0": 1
+      }
+    },
+    "4_has_union": {
+      "count": 842,
+      "type_distribution": {
+        "joins=0;aggs=0;union=1;intersect=0;neg=0": 545,
+        "joins=2;aggs=0;union=1;intersect=0;neg=0": 68,
+        "joins=1;aggs=0;union=1;intersect=0;neg=0": 170,
+        "joins=3;aggs=0;union=1;intersect=0;neg=0": 35,
+        "joins=4;aggs=0;union=1;intersect=0;neg=0": 18,
+        "joins=6;aggs=0;union=1;intersect=0;neg=0": 4,
+        "joins=5;aggs=0;union=1;intersect=0;neg=0": 2
+      }
+    },
+    "5_has_all": {
+      "count": 393,
+      "type_distribution": {
+        "joins=1;aggs=0;union=0;intersect=0;neg=1": 84,
+        "joins=0;aggs=0;union=0;intersect=0;neg=1": 241,
+        "joins=3;aggs=0;union=0;intersect=0;neg=1": 20,
+        "joins=4;aggs=0;union=0;intersect=0;neg=1": 8,
+        "joins=2;aggs=0;union=0;intersect=0;neg=1": 37,
+        "joins=6;aggs=0;union=0;intersect=0;neg=1": 1,
+        "joins=5;aggs=0;union=0;intersect=0;neg=1": 2
+      }
+    }
+  },
+  "negative_modes": {
+    "add_set": 619,
+    "replace_token_ws": 338,
+    "add_token_ws": 371,
+    "remove_token_ws": 186,
+    "remove_set": 19,
+    "fallback_noedit": 3
+  },
+  "filtering": {
+    "all_ok": 1972,
+    "pass_ctx": 1536,
+    "drop_nl": 0
+  },
+  "truncation": {
+    "queries": 0,
+    "tuples": 0
+  }
+}
