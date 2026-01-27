@@ -18,11 +18,11 @@ INSTRUCTION = (
     "Each array element MUST be an object with EXACTLY these keys:\n"
     "- result: an object representing one output tuple\n"
     "- provenance: a Why[X] provenance expression for that tuple, where each provenance identifier\n"
-    "  is a string formatted as ''<table_name>_<row_number>'' (e.g., ''standings_35'').\n"
+    "  is a string formatted as \"<table_name>_<row_number>\" (e.g., \"standings_35\").\n"
     "  The provenance field MUST be a list of lists of provenance identifiers.\n"
     "  Each inner list contains the provenance identifiers that together produce the result tuple."
     "JSON schema:\n"
-    "[{''result'': {...}, ''provenance'': [[''t1'',''t2''], [''t3''], ...]}, ...]\n"
+    "[{\"result\": {...}, \"provenance\": [[\"t1\",\"t2\"], [\"t3\"], ...]}, ...]\n"
     "Do NOT output SQL, explanations, markdown, or additional keys."
     "If there are no results, return []."
 )
@@ -85,7 +85,44 @@ def update_type_counters(counters: Dict[str, Counter], phase: str, meta: Optiona
     counters[f"{phase}_has_intersect"][str(m["has_intersect"])] += 1
     counters[f"{phase}_has_negation"][str(m["has_negation"])] += 1
 
+import re
+def clean_context_data(context_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Rimuove la chiave 'provsql' da tutte le righe del contesto."""
+    new_context = deepcopy(context_data)
+    for table_name, rows in new_context.items():
+        if isinstance(rows, dict):
+            for row_id, row_data in rows.items():
+                if isinstance(row_data, dict):
+                    # Rimuoviamo provsql se presente
+                    row_data.pop("provsql", None)
+    return new_context
+def clean_sql_query(raw_sql: str) -> str:
+    if not raw_sql:
+        return ""
+    
+    # 1. Rimuove le righe di commento (meta)
+    lines = raw_sql.splitlines()
+    sql_clean = "\n".join([l for l in lines if not l.strip().startswith("--")]).strip()
 
+    # 2. Regex per rimuovere la funzione sr_why inclusi i parametri e l'alias
+    # Spiegazione:
+    # provsql\.sr_why\s*\(  -> trova l'inizio della funzione
+    # [^)]* -> trova tutto ciò che non è una parentesi chiusa (provsql.provenance() qui rompeva)
+    # \(.*?\)               -> gestisce specificamente la parentesi interna di provenance()
+    # [^)]* -> continua fino alla chiusura della funzione esterna
+    # \)\s*(?:AS\s+\w+)?    -> chiude la funzione e opzionalmente rimuove l'alias (AS sr_why)
+    
+    nested_sr_why_re = r',\s*provsql\.sr_why\s*\([^)]*\(.*?\)[^)]*\)\s*(?:AS\s+\w+)?'
+    
+    sql_clean = re.sub(nested_sr_why_re, '', sql_clean, flags=re.IGNORECASE | re.DOTALL)
+
+    # 3. Pulizia di sicurezza se la funzione era all'inizio senza virgola
+    sql_clean = re.sub(nested_sr_why_re.lstrip(',\s*'), '', sql_clean, flags=re.IGNORECASE | re.DOTALL)
+
+    # 4. Rimuove eventuali virgole rimaste appese prima del FROM
+    sql_clean = re.sub(r',\s+FROM', ' FROM', sql_clean, flags=re.IGNORECASE)
+
+    return sql_clean.strip()
 # -----------------------
 # IO utilities
 # -----------------------
@@ -341,10 +378,10 @@ def make_negative_output(
 # -----------------------
 def main() -> None:
     '''how to run: 
-    python scripts/build_ft_dataset.py \
-  --prov-jsonl queries_with_prov/tpch_limit_noerr_prov.jsonl \
-  --nl-file nl_queries/sql_nl_tpch_curated_llamalatest.json \
-  --context-jsonl artifacts/tpch_context_data.jsonl \
+    python3 scripts/build_ft_dataset.py \
+  --prov-jsonl queries_with_prov/relstack_limit_noerr_prov.jsonl \
+  --nl-file nl_queries/sql_nl_relstack_curated_llamalatest.json \
+  --context-jsonl artifacts/relstack_context_data.jsonl \
   --target-n 1500 \
   --max-tuples 10 \
   --seed 7'''
@@ -353,10 +390,10 @@ def main() -> None:
     ap.add_argument("--nl-file", type=Path, required=True)
     ap.add_argument("--context-jsonl", type=Path, required=True)
 
-    ap.add_argument("--out-sft", type=Path, default=Path("artifacts/tpch/sft_1500.jsonl"))
-    ap.add_argument("--out-dpo", type=Path, default=Path("artifacts/tpch/dpo_1500.jsonl"))
-    ap.add_argument("--out-ci", type=Path, default=Path("artifacts/tpch/ci_1500.jsonl"))
-    ap.add_argument("--out-stats", type=Path, default=Path("artifacts/tpch/ft_1500_stats_by_type.json"))
+    ap.add_argument("--out-sft", type=Path, default=Path("artifacts/relstack/sql/sft_1500.jsonl"))
+    ap.add_argument("--out-dpo", type=Path, default=Path("artifacts/relstack/sql/dpo_1500.jsonl"))
+    ap.add_argument("--out-ci", type=Path, default=Path("artifacts/relstack/sql/ci_1500.jsonl"))
+    ap.add_argument("--out-stats", type=Path, default=Path("artifacts/relstack/sql/ft_1500_stats_by_type.json"))
 
     ap.add_argument("--target-n", type=int, default=1500)
     ap.add_argument("--seed", type=int, default=7)
@@ -420,8 +457,16 @@ def main() -> None:
             drop_missing_context += 1
             continue
         pass_has_context += 1
+        # remove provsql from context data
+        context_data = clean_context_data(context_data)
+        # if we want nl
+        # merged.append((qid, obj, str(nl_obj["nl"]), context_data, meta))
+        #if we want sql
+        raw_sql = obj.get("sql_query_prov", "")
+        clean_sql = clean_sql_query(raw_sql)
+        merged.append((qid, obj, clean_sql, context_data, meta))
 
-        merged.append((qid, obj, str(nl_obj["nl"]), context_data, meta))
+
         update_type_counters(type_counters, "candidates", meta)
 
     if len(merged) < args.target_n:

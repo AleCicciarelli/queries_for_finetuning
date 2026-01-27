@@ -1,0 +1,82 @@
+{
+    "overall": {
+        "total_processed": 1974,
+        "total_selected": 1740
+    },
+    "filtering": {
+        "empty_result": 234
+    },
+    "categories": {
+        "1_easy_no_join": {
+            "count": 90,
+            "type_distribution": {
+                "joins=0;aggs=0;union=0;intersect=0;neg=0": 90
+            }
+        },
+        "2_medium_join": {
+            "count": 55,
+            "type_distribution": {
+                "joins=1;aggs=0;union=0;intersect=0;neg=0": 23,
+                "joins=3;aggs=0;union=0;intersect=0;neg=0": 11,
+                "joins=2;aggs=0;union=0;intersect=0;neg=0": 13,
+                "joins=4;aggs=0;union=0;intersect=0;neg=0": 5,
+                "joins=6;aggs=0;union=0;intersect=0;neg=0": 1,
+                "joins=5;aggs=0;union=0;intersect=0;neg=0": 1,
+                "joins=7;aggs=0;union=0;intersect=0;neg=0": 1
+            }
+        },
+        "3_has_aggr": {
+            "count": 155,
+            "type_distribution": {
+                "joins=0;aggs=1;union=0;intersect=0;neg=0": 56,
+                "joins=1;aggs=1;union=0;intersect=0;neg=0": 16,
+                "joins=0;aggs=4;union=0;intersect=0;neg=0": 2,
+                "joins=2;aggs=1;union=0;intersect=0;neg=0": 11,
+                "joins=1;aggs=2;union=0;intersect=0;neg=0": 7,
+                "joins=2;aggs=3;union=0;intersect=0;neg=0": 3,
+                "joins=3;aggs=1;union=0;intersect=0;neg=0": 8,
+                "joins=5;aggs=1;union=0;intersect=0;neg=0": 3,
+                "joins=0;aggs=3;union=0;intersect=0;neg=0": 10,
+                "joins=0;aggs=9;union=0;intersect=0;neg=0": 1,
+                "joins=2;aggs=2;union=0;intersect=0;neg=0": 7,
+                "joins=1;aggs=3;union=0;intersect=0;neg=0": 3,
+                "joins=4;aggs=4;union=0;intersect=0;neg=0": 1,
+                "joins=0;aggs=2;union=0;intersect=0;neg=0": 17,
+                "joins=6;aggs=1;union=0;intersect=0;neg=0": 1,
+                "joins=6;aggs=2;union=0;intersect=0;neg=0": 1,
+                "joins=4;aggs=1;union=0;intersect=0;neg=0": 1,
+                "joins=1;aggs=5;union=0;intersect=0;neg=0": 1,
+                "joins=3;aggs=2;union=0;intersect=0;neg=0": 2,
+                "joins=4;aggs=5;union=0;intersect=0;neg=0": 1,
+                "joins=7;aggs=9;union=0;intersect=0;neg=0": 1,
+                "joins=4;aggs=3;union=0;intersect=0;neg=0": 1,
+                "joins=2;aggs=5;union=0;intersect=0;neg=0": 1
+            }
+        },
+        "4_has_union": {
+            "count": 809,
+            "type_distribution": {
+                "joins=2;aggs=0;union=1;intersect=0;neg=0": 70,
+                "joins=0;aggs=0;union=1;intersect=0;neg=0": 536,
+                "joins=1;aggs=0;union=1;intersect=0;neg=0": 167,
+                "joins=3;aggs=0;union=1;intersect=0;neg=0": 24,
+                "joins=5;aggs=0;union=1;intersect=0;neg=0": 4,
+                "joins=4;aggs=0;union=1;intersect=0;neg=0": 8
+            }
+        },
+        "5_has_all": {
+            "count": 631,
+            "type_distribution": {
+                "joins=0;aggs=0;union=0;intersect=0;neg=1": 409,
+                "joins=1;aggs=0;union=0;intersect=0;neg=1": 126,
+                "joins=2;aggs=0;union=0;intersect=0;neg=1": 55,
+                "joins=3;aggs=0;union=0;intersect=0;neg=1": 28,
+                "joins=4;aggs=0;union=0;intersect=0;neg=1": 8,
+                "joins=5;aggs=0;union=0;intersect=0;neg=1": 5
+            }
+        }
+    },
+    "negative_modes": {
+        "fallback_noedit": 1740
+    }
+}
