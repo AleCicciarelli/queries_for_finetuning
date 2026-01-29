@@ -115,9 +115,208 @@ def build_prompt(question: str, sql: str, context_data: Dict[str, Any]) -> str:
     )
 
 # Placeholder della funzione di generazione negativi (utilizza la tua esistente)
-def make_negative_output(chosen_output, context_data, rng):
-    # La tua logica 'make_negative_output' va qui
-    return deepcopy(chosen_output), "fallback_noedit" 
+def make_negative_output(
+    chosen_output: List[Dict[str, Any]],
+    context_data: Dict[str, Any],
+    rng: random.Random,
+    mode_weights: Optional[Dict[str, float]] = None,
+) -> tuple[List[Dict[str, Any]], str]:
+    """
+    Produce ONE single edit to create a rejected output (provenance-only).
+    Returns (rejected_output, mode_used).
+    mode_used can be 'fallback_noedit' if no edit was applicable.
+
+    Modes:
+      - add_token_ws: add 1 token inside an existing witness set
+      - remove_token_ws: reduce an existing witness set to 1 token
+      - add_set: add a new singleton witness set
+      - remove_set: remove one witness set if provenance has >= 2 sets
+      - replace_token_ws: replace one token in a witness set with another token from the SAME table
+    """
+    if not chosen_output:
+        return chosen_output, "fallback_empty"
+
+    if mode_weights is None:
+        mode_weights = {
+            "add_token_ws": 0.20,
+            "remove_token_ws": 0.20,
+            "add_set": 0.20,
+            "remove_set": 0.20,
+            "replace_token_ws": 0.20,
+        }
+
+    rejected = deepcopy(chosen_output)
+
+    # context tokens: table -> [token...], e.g., "standings" -> ["standings_1", "standings_2", ...]
+    ctx_tokens: Dict[str, List[str]] = {}
+    for table, by_tok in (context_data or {}).items():
+        if isinstance(by_tok, dict):
+            toks = [k for k in by_tok.keys() if isinstance(k, str)]
+            if toks:
+                ctx_tokens[table] = toks
+
+    def all_ctx_tokens() -> List[str]:
+        return [tok for toks in ctx_tokens.values() for tok in toks]
+
+    modes = list(mode_weights.keys())
+    weights = [mode_weights[m] for m in modes]
+
+    def pick_mode() -> str:
+        return rng.choices(modes, weights=weights, k=1)[0]
+
+    def pick_tuple_with_prov(min_sets: int = 1) -> Optional[int]:
+        """
+        Pick an index of a tuple whose 'provenance' is a list with length >= min_sets.
+        """
+        candidates = []
+        for i, ex in enumerate(rejected):
+            prov = ex.get("provenance")
+            if isinstance(prov, list) and len(prov) >= min_sets:
+                candidates.append(i)
+        return rng.choice(candidates) if candidates else None
+
+    # ----------------
+    # provenance edits
+    # ----------------
+
+    def do_add_token_ws() -> bool:
+        """
+        Add 1 token inside an existing witness set.
+        Example: [["circuits_2","races_19"]] -> [["circuits_2","races_19","drivers_11"]]
+        """
+        ti = pick_tuple_with_prov(min_sets=1)
+        if ti is None:
+            return False
+
+        prov = rejected[ti]["provenance"]
+        wi = rng.randrange(len(prov))
+        ws = prov[wi]
+        if not (isinstance(ws, list) and len(ws) >= 1):
+            return False
+
+        pool = [tok for tok in all_ctx_tokens() if tok not in ws]
+        if not pool:
+            return False
+
+        new_ws = list(ws)
+        new_ws.append(rng.choice(pool))
+        prov = list(prov)
+        prov[wi] = new_ws
+        rejected[ti]["provenance"] = prov
+        return True
+
+    def do_remove_token_ws() -> bool:
+        """
+        Reduce a witness set to exactly 1 token.
+        Example: [["circuits_2","races_19"]] -> [["circuits_2"]]
+        """
+        # need a tuple where at least one ws has >=2 tokens
+        candidates = []
+        for i, ex in enumerate(rejected):
+            prov = ex.get("provenance")
+            if isinstance(prov, list) and any(isinstance(ws, list) and len(ws) >= 2 for ws in prov):
+                candidates.append(i)
+        if not candidates:
+            return False
+
+        ti = rng.choice(candidates)
+        prov = rejected[ti]["provenance"]
+
+        ws_idxs = [j for j, ws in enumerate(prov) if isinstance(ws, list) and len(ws) >= 2]
+        wi = rng.choice(ws_idxs)
+        ws = prov[wi]
+
+        # keep the first token (deterministic style [["circuits_2"]])
+        kept = ws[0]
+        if not isinstance(kept, str):
+            # fallback: choose any element
+            kept = rng.choice(ws)
+
+        prov = list(prov)
+        prov[wi] = [kept]
+        rejected[ti]["provenance"] = prov
+        return True
+
+    def do_add_set() -> bool:
+        """
+        Add a new witness set (singleton token) to provenance.
+        Example: [["circuits_2","races_19"]] -> [["circuits_2","races_19"],["drivers_8"]]
+        """
+        ti = pick_tuple_with_prov(min_sets=1)
+        if ti is None:
+            return False
+
+        token_pool = all_ctx_tokens()
+        if not token_pool:
+            return False
+
+        prov = list(rejected[ti]["provenance"])
+        prov.append([rng.choice(token_pool)])
+        rejected[ti]["provenance"] = prov
+        return True
+
+    def do_remove_set() -> bool:
+        """
+        Remove ONE witness set from provenance, only if provenance has >=2 sets.
+        Example: [["a","b"],["x"]] -> [["x"]] or [["a","b"]]
+        If only 1 set exists, return False so another method can be chosen.
+        """
+        ti = pick_tuple_with_prov(min_sets=2)
+        if ti is None:
+            return False
+
+        prov = list(rejected[ti]["provenance"])
+        prov.pop(rng.randrange(len(prov)))
+        rejected[ti]["provenance"] = prov
+        return True
+
+    def do_replace_token_ws() -> bool:
+        """
+        Replace one token inside one witness set with another token from the SAME table.
+        Example: ["constructor_standings_33","races_21"] -> ["constructor_standings_34","races_21"]
+        """
+        ti = pick_tuple_with_prov(min_sets=1)
+        if ti is None:
+            return False
+
+        prov = rejected[ti]["provenance"]
+        wi = rng.randrange(len(prov))
+        ws = prov[wi]
+        if not (isinstance(ws, list) and len(ws) >= 1):
+            return False
+
+        pos = rng.randrange(len(ws))
+        tok = ws[pos]
+        if not (isinstance(tok, str) and "_" in tok):
+            return False
+
+        table = tok.rsplit("_", 1)[0]  # works with table names containing underscores
+        pool = [t for t in ctx_tokens.get(table, []) if t not in ws]
+        if not pool:
+            return False
+
+        new_ws = list(ws)
+        new_ws[pos] = rng.choice(pool)
+        prov = list(prov)
+        prov[wi] = new_ws
+        rejected[ti]["provenance"] = prov
+        return True
+
+    edit_fns = {
+        "add_token_ws": do_add_token_ws,
+        "remove_token_ws": do_remove_token_ws,
+        "add_set": do_add_set,
+        "remove_set": do_remove_set,
+        "replace_token_ws": do_replace_token_ws,
+    }
+
+    for _ in range(20):
+        mode = pick_mode()
+        if edit_fns[mode]():
+            return rejected, mode
+
+    return rejected, "fallback_noedit"
+
 
 # -----------------------
 # Main Execution
