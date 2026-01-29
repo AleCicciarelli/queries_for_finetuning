@@ -16,50 +16,50 @@
         "2_medium_join": {
             "count": 55,
             "type_distribution": {
-                "joins=3;aggs=0;union=0;intersect=0;neg=0": 8,
                 "joins=2;aggs=0;union=0;intersect=0;neg=0": 15,
                 "joins=1;aggs=0;union=0;intersect=0;neg=0": 25,
                 "joins=4;aggs=0;union=0;intersect=0;neg=0": 5,
-                "joins=7;aggs=0;union=0;intersect=0;neg=0": 1,
-                "joins=5;aggs=0;union=0;intersect=0;neg=0": 1
+                "joins=3;aggs=0;union=0;intersect=0;neg=0": 8,
+                "joins=5;aggs=0;union=0;intersect=0;neg=0": 1,
+                "joins=7;aggs=0;union=0;intersect=0;neg=0": 1
             }
         },
         "3_has_aggr": {
             "count": 175,
             "type_distribution": {
                 "joins=0;aggs=2;union=0;intersect=0;neg=0": 30,
-                "joins=1;aggs=1;union=0;intersect=0;neg=0": 17,
                 "joins=0;aggs=1;union=0;intersect=0;neg=0": 59,
-                "joins=3;aggs=2;union=0;intersect=0;neg=0": 2,
-                "joins=3;aggs=1;union=0;intersect=0;neg=0": 6,
-                "joins=2;aggs=2;union=0;intersect=0;neg=0": 6,
-                "joins=7;aggs=3;union=0;intersect=0;neg=0": 1,
-                "joins=4;aggs=2;union=0;intersect=0;neg=0": 2,
-                "joins=5;aggs=4;union=0;intersect=0;neg=0": 2,
-                "joins=0;aggs=3;union=0;intersect=0;neg=0": 11,
-                "joins=1;aggs=3;union=0;intersect=0;neg=0": 2,
-                "joins=2;aggs=3;union=0;intersect=0;neg=0": 6,
-                "joins=0;aggs=5;union=0;intersect=0;neg=0": 3,
                 "joins=0;aggs=4;union=0;intersect=0;neg=0": 4,
-                "joins=1;aggs=2;union=0;intersect=0;neg=0": 5,
-                "joins=2;aggs=1;union=0;intersect=0;neg=0": 5,
-                "joins=4;aggs=1;union=0;intersect=0;neg=0": 7,
-                "joins=3;aggs=6;union=0;intersect=0;neg=0": 1,
                 "joins=5;aggs=1;union=0;intersect=0;neg=0": 2,
-                "joins=0;aggs=8;union=0;intersect=0;neg=0": 1,
+                "joins=4;aggs=2;union=0;intersect=0;neg=0": 2,
+                "joins=2;aggs=3;union=0;intersect=0;neg=0": 6,
+                "joins=1;aggs=1;union=0;intersect=0;neg=0": 17,
+                "joins=2;aggs=2;union=0;intersect=0;neg=0": 6,
+                "joins=0;aggs=3;union=0;intersect=0;neg=0": 11,
+                "joins=1;aggs=2;union=0;intersect=0;neg=0": 5,
                 "joins=5;aggs=2;union=0;intersect=0;neg=0": 1,
+                "joins=0;aggs=5;union=0;intersect=0;neg=0": 3,
+                "joins=3;aggs=1;union=0;intersect=0;neg=0": 6,
+                "joins=4;aggs=1;union=0;intersect=0;neg=0": 7,
+                "joins=7;aggs=3;union=0;intersect=0;neg=0": 1,
+                "joins=2;aggs=1;union=0;intersect=0;neg=0": 5,
+                "joins=3;aggs=6;union=0;intersect=0;neg=0": 1,
+                "joins=3;aggs=2;union=0;intersect=0;neg=0": 2,
                 "joins=6;aggs=1;union=0;intersect=0;neg=0": 1,
-                "joins=1;aggs=5;union=0;intersect=0;neg=0": 1
+                "joins=1;aggs=3;union=0;intersect=0;neg=0": 2,
+                "joins=5;aggs=4;union=0;intersect=0;neg=0": 2,
+                "joins=1;aggs=5;union=0;intersect=0;neg=0": 1,
+                "joins=0;aggs=8;union=0;intersect=0;neg=0": 1
             }
         },
         "4_has_union": {
             "count": 844,
             "type_distribution": {
-                "joins=1;aggs=0;union=1;intersect=0;neg=0": 160,
                 "joins=0;aggs=0;union=1;intersect=0;neg=0": 558,
+                "joins=3;aggs=0;union=1;intersect=0;neg=0": 34,
+                "joins=1;aggs=0;union=1;intersect=0;neg=0": 160,
                 "joins=2;aggs=0;union=1;intersect=0;neg=0": 77,
                 "joins=4;aggs=0;union=1;intersect=0;neg=0": 9,
-                "joins=3;aggs=0;union=1;intersect=0;neg=0": 34,
                 "joins=5;aggs=0;union=1;intersect=0;neg=0": 5,
                 "joins=6;aggs=0;union=1;intersect=0;neg=0": 1
             }
@@ -68,15 +68,20 @@
             "count": 433,
             "type_distribution": {
                 "joins=0;aggs=0;union=0;intersect=0;neg=1": 290,
-                "joins=3;aggs=0;union=0;intersect=0;neg=1": 19,
                 "joins=1;aggs=0;union=0;intersect=0;neg=1": 88,
                 "joins=2;aggs=0;union=0;intersect=0;neg=1": 29,
-                "joins=5;aggs=0;union=0;intersect=0;neg=1": 1,
-                "joins=4;aggs=0;union=0;intersect=0;neg=1": 6
+                "joins=3;aggs=0;union=0;intersect=0;neg=1": 19,
+                "joins=4;aggs=0;union=0;intersect=0;neg=1": 6,
+                "joins=5;aggs=0;union=0;intersect=0;neg=1": 1
             }
         }
     },
     "negative_modes": {
-        "fallback_noedit": 1581
+        "replace_token_ws": 376,
+        "add_set": 617,
+        "add_token_ws": 382,
+        "remove_token_ws": 151,
+        "fallback_noedit": 8,
+        "remove_set": 47
     }
 }

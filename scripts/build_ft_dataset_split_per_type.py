@@ -326,7 +326,7 @@ def main() -> None:
     ap.add_argument("--prov-jsonl", type=Path, required=True)
     ap.add_argument("--nl-file", type=Path, required=True)
     ap.add_argument("--context-jsonl", type=Path, required=True)
-    ap.add_argument("--out-dir", type=Path, default=Path("artifacts/relf1/sql_split"))
+    ap.add_argument("--out-dir", type=Path, default=Path("artifacts/tpch/sql_split"))
     ap.add_argument("--target-n", type=int, default=1500)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--max-tuples", type=int, default=10)
@@ -414,12 +414,13 @@ def main() -> None:
                                  for r in d['result'][:args.max_tuples]]
                 
                 # SFT record
+                '''
                 f_sft.write(json.dumps({
                     "id": d['id'], "instruction": INSTRUCTION,
                     "input": {"question": d['question'], "sql": d['sql'], "context": d['context']},
                     "output": chosen_output
                 }, ensure_ascii=False) + "\n")
-                
+                '''
                 # DPO record
                 rejected_output, neg_mode = make_negative_output(chosen_output, d['context'], rng)
                 neg_mode_counts[neg_mode] += 1
@@ -448,10 +449,10 @@ def main() -> None:
 if __name__ == "__main__":
     '''how to run
     python3 scripts/build_ft_dataset_split_per_type.py \
-        --prov-jsonl queries_with_prov/relf1_limit_noerr_prov.jsonl \
-        --nl-file nl_queries/sql_nl_relf1_curated_llamalatest.json \
-        --context-jsonl artifacts/relf1_context_data.jsonl \
-        --out-dir artifacts/relf1/sql_split \
+        --prov-jsonl queries_with_prov/tpch_limit_noerr_prov.jsonl \
+        --nl-file nl_queries/sql_nl_tpch_curated_llamalatest.json \
+        --context-jsonl artifacts/tpch_context_data.jsonl \
+        --out-dir dpo_dataset/tpch/sql_split \
         --target-n 1500 \
         --max-tuples 10 \
         --seed 7
