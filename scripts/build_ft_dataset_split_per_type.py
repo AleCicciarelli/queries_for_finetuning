@@ -49,18 +49,21 @@ INSTRUCTION = (
     "- If there are no results, return []."
 )
 
-META_RE = re.compile(r"--\s*meta\s*(\{.*?\})", re.IGNORECASE | re.DOTALL)
+# token id pattern: "<table>_<rownum>" where table may include underscores
+ID_RE = re.compile(r"^(.+)_([0-9]+)$")
 
 # -----------------------
-# Utility di pulizia e Meta
+# Cleaning and Meta Utility Functions
 # -----------------------
+META_RE = re.compile(r"--\s*meta\s*(\{.*?\})", re.IGNORECASE | re.DOTALL)
+
 def clean_sql_query(raw_sql: str) -> str:
     if not raw_sql: return ""
     lines = raw_sql.splitlines()
     sql_clean = "\n".join([l for l in lines if not l.strip().startswith("--")]).strip()
     nested_sr_why_re = r',\s*provsql\.sr_why\s*\([^)]*\(.*?\)[^)]*\)\s*(?:AS\s+\w+)?'
     sql_clean = re.sub(nested_sr_why_re, '', sql_clean, flags=re.IGNORECASE | re.DOTALL)
-    sql_clean = re.sub(nested_sr_why_re.lstrip(',\s*'), '', sql_clean, flags=re.IGNORECASE | re.DOTALL)
+    sql_clean = re.sub(nested_sr_why_re.lstrip(r',\s*'), '', sql_clean, flags=re.IGNORECASE | re.DOTALL)
     sql_clean = re.sub(r',\s+FROM', ' FROM', sql_clean, flags=re.IGNORECASE)
     return sql_clean.strip()
 
@@ -110,44 +113,60 @@ def index_by_id(objs: List[Dict[str, Any]]) -> Dict[int, Dict[str, Any]]:
 def build_prompt(question: str, sql: str, context_data: Dict[str, Any]) -> str:
     return (
         f"{INSTRUCTION}\n\n"
-        f"QUESTION:\n{question}\n\n"
+        f"QUESTION:\n{sql}\n\n"
         f"CONTEXT_DATA (rows):\n{json.dumps(context_data, ensure_ascii=False)}\n"
     )
 
-# Placeholder della funzione di generazione negativi (utilizza la tua esistente)
+# -----------------------
+# Negative output generation 
+# -----------------------
 def make_negative_output(
     chosen_output: List[Dict[str, Any]],
     context_data: Dict[str, Any],
     rng: random.Random,
     mode_weights: Optional[Dict[str, float]] = None,
+    cap_edits: int = 10,
 ) -> tuple[List[Dict[str, Any]], str]:
     """
-    Produce ONE single edit to create a rejected output (provenance-only).
-    Returns (rejected_output, mode_used).
-    mode_used can be 'fallback_noedit' if no edit was applicable.
+    Produce rejected output by applying MULTIPLE edits, typically one per selected tuple.
 
-    Modes:
-      - add_token_ws: add 1 token inside an existing witness set
-      - remove_token_ws: reduce an existing witness set to 1 token
-      - add_set: add a new singleton witness set
-      - remove_set: remove one witness set if provenance has >= 2 sets
-      - replace_token_ws: replace one token in a witness set with another token from the SAME table
+    - Pick n_edits in [2, min(cap_edits, len(output))].
+    - Pick n_edits distinct tuples.
+    - For each tuple, pick one mode (weighted) and apply it to that tuple.
+    - Mostly provenance-only edits; optional rare shape edit (merge_two_tuples) with low weight.
     """
+
     if not chosen_output:
         return chosen_output, "fallback_empty"
 
+    # default weights tuned to include your observed failure modes
     if mode_weights is None:
         mode_weights = {
-            "add_token_ws": 0.20,
-            "remove_token_ws": 0.20,
-            "add_set": 0.20,
-            "remove_set": 0.20,
-            "replace_token_ws": 0.20,
+            # token edits
+            "replace_token_same_table": 0.20,
+            "replace_token_any_table": 0.06,
+
+            # set/structure edits within a tuple
+            "add_token_ws": 0.12,
+            "remove_token_ws": 0.12,
+            "add_set_singleton": 0.14,
+            "add_set_multiple": 0.10,
+            "remove_set": 0.08,
+
+            # your observed id corruption
+            "dup_table_prefix": 0.08,           # nation_1 -> nation_nation_1
+            "dup_row_suffix": 0.08,             # users_1 -> users_1_1
+
+            # your observed flattening error
+            "flatten_singletons_to_one_ws": 0.10,
+
+            # rare shape error (collapsing tuples)
+            "merge_two_tuples": 0.02,
         }
 
     rejected = deepcopy(chosen_output)
 
-    # context tokens: table -> [token...], e.g., "standings" -> ["standings_1", "standings_2", ...]
+    # context tokens: table -> [token...]
     ctx_tokens: Dict[str, List[str]] = {}
     for table, by_tok in (context_data or {}).items():
         if isinstance(by_tok, dict):
@@ -164,158 +183,238 @@ def make_negative_output(
     def pick_mode() -> str:
         return rng.choices(modes, weights=weights, k=1)[0]
 
-    def pick_tuple_with_prov(min_sets: int = 1) -> Optional[int]:
-        """
-        Pick an index of a tuple whose 'provenance' is a list with length >= min_sets.
-        """
-        candidates = []
-        for i, ex in enumerate(rejected):
-            prov = ex.get("provenance")
-            if isinstance(prov, list) and len(prov) >= min_sets:
-                candidates.append(i)
-        return rng.choice(candidates) if candidates else None
+    def ws_mode_length(prov: list) -> int:
+        lens = [len(ws) for ws in prov if isinstance(ws, list) and len(ws) >= 1]
+        if not lens:
+            return 1
+        return max(set(lens), key=lens.count)  # mode
 
-    # ----------------
-    # provenance edits
-    # ----------------
+    def dup_table_prefix(tok: str) -> Optional[str]:
+        m = ID_RE.match(tok)
+        if not m:
+            return None
+        table, row = m.group(1), m.group(2)
+        return f"{table}_{table}_{row}"
 
-    def do_add_token_ws() -> bool:
-        """
-        Add 1 token inside an existing witness set.
-        Example: [["circuits_2","races_19"]] -> [["circuits_2","races_19","drivers_11"]]
-        """
-        ti = pick_tuple_with_prov(min_sets=1)
-        if ti is None:
+    def dup_row_suffix(tok: str) -> Optional[str]:
+        m = ID_RE.match(tok)
+        if not m:
+            return None
+        table, row = m.group(1), m.group(2)
+        return f"{table}_{row}_{row}"
+
+    # ---- core per-tuple apply
+    def try_apply(mode: str, ti: int) -> bool:
+        if ti < 0 or ti >= len(rejected):
             return False
 
-        prov = rejected[ti]["provenance"]
-        wi = rng.randrange(len(prov))
-        ws = prov[wi]
-        if not (isinstance(ws, list) and len(ws) >= 1):
+        ex = rejected[ti]
+        prov = ex.get("provenance")
+        if not isinstance(prov, list) or len(prov) == 0:
             return False
 
-        pool = [tok for tok in all_ctx_tokens() if tok not in ws]
-        if not pool:
-            return False
+        # Some modes don't require picking a ws (e.g., flatten)
+        # Others do; we try a few attempts within the tuple.
+        for _attempt in range(6):
+            wi = rng.randrange(len(prov))
+            ws = prov[wi]
+            if not isinstance(ws, list) or len(ws) == 0:
+                continue
 
-        new_ws = list(ws)
-        new_ws.append(rng.choice(pool))
-        prov = list(prov)
-        prov[wi] = new_ws
-        rejected[ti]["provenance"] = prov
-        return True
+            # --- modes ---
+            if mode == "add_set_singleton":
+                toks = all_ctx_tokens()
+                if not toks:
+                    return False
+                existing = {tuple(ws0) for ws0 in prov if isinstance(ws0, list)}
+                candidates = [[tok] for tok in toks if (tok,) not in existing]
+                if not candidates:
+                    return False
+                prov2 = list(prov)
+                prov2.append(rng.choice(candidates))
+                ex["provenance"] = prov2
+                return True
 
-    def do_remove_token_ws() -> bool:
-        """
-        Reduce a witness set to exactly 1 token.
-        Example: [["circuits_2","races_19"]] -> [["circuits_2"]]
-        """
-        # need a tuple where at least one ws has >=2 tokens
-        candidates = []
-        for i, ex in enumerate(rejected):
-            prov = ex.get("provenance")
-            if isinstance(prov, list) and any(isinstance(ws, list) and len(ws) >= 2 for ws in prov):
-                candidates.append(i)
-        if not candidates:
-            return False
+            if mode == "add_set_multiple":
+                toks = all_ctx_tokens()
+                k = max(2, min(ws_mode_length(prov), 4))
+                if len(toks) < k:
+                    return False
+                existing = {tuple(sorted(ws0)) for ws0 in prov if isinstance(ws0, list)}
+                for _ in range(12):
+                    new_ws = rng.sample(toks, k)
+                    if tuple(sorted(new_ws)) not in existing:
+                        prov2 = list(prov)
+                        prov2.append(new_ws)
+                        ex["provenance"] = prov2
+                        return True
+                return False
 
-        ti = rng.choice(candidates)
-        prov = rejected[ti]["provenance"]
+            if mode == "add_token_ws":
+                pool = [tok for tok in all_ctx_tokens() if tok not in ws]
+                if not pool:
+                    return False
+                ws2 = list(ws)
+                ws2.append(rng.choice(pool))
+                prov2 = list(prov)
+                prov2[wi] = ws2
+                ex["provenance"] = prov2
+                return True
 
-        ws_idxs = [j for j, ws in enumerate(prov) if isinstance(ws, list) and len(ws) >= 2]
-        wi = rng.choice(ws_idxs)
-        ws = prov[wi]
+            if mode == "remove_token_ws":
+                if len(ws) < 2:
+                    continue
+                kept = ws[0] if isinstance(ws[0], str) else rng.choice(ws)
+                prov2 = list(prov)
+                prov2[wi] = [kept]
+                ex["provenance"] = prov2
+                return True
 
-        # keep the first token (deterministic style [["circuits_2"]])
-        kept = ws[0]
-        if not isinstance(kept, str):
-            # fallback: choose any element
-            kept = rng.choice(ws)
+            if mode == "remove_set":
+                if len(prov) < 2:
+                    return False
+                prov2 = list(prov)
+                prov2.pop(rng.randrange(len(prov2)))
+                ex["provenance"] = prov2
+                return True
 
-        prov = list(prov)
-        prov[wi] = [kept]
-        rejected[ti]["provenance"] = prov
-        return True
+            if mode == "replace_token_same_table":
+                pos = rng.randrange(len(ws))
+                tok = ws[pos]
+                if not (isinstance(tok, str) and "_" in tok):
+                    continue  # <-- FIX: era "continue" fuori loop nel tuo snippet
+                table = tok.rsplit("_", 1)[0]
+                pool = [t for t in ctx_tokens.get(table, []) if t not in ws]
+                if not pool:
+                    return False
+                ws2 = list(ws)
+                ws2[pos] = rng.choice(pool)
+                prov2 = list(prov)
+                prov2[wi] = ws2
+                ex["provenance"] = prov2
+                return True
 
-    def do_add_set() -> bool:
-        """
-        Add a new witness set (singleton token) to provenance.
-        Example: [["circuits_2","races_19"]] -> [["circuits_2","races_19"],["drivers_8"]]
-        """
-        ti = pick_tuple_with_prov(min_sets=1)
-        if ti is None:
-            return False
+            if mode == "replace_token_any_table":
+                pos = rng.randrange(len(ws))
+                tok_pool = [t for t in all_ctx_tokens() if t not in ws]
+                if not tok_pool:
+                    return False
+                ws2 = list(ws)
+                ws2[pos] = rng.choice(tok_pool)
+                prov2 = list(prov)
+                prov2[wi] = ws2
+                ex["provenance"] = prov2
+                return True
 
-        token_pool = all_ctx_tokens()
-        if not token_pool:
-            return False
+            if mode == "dup_table_prefix":
+                pos = rng.randrange(len(ws))
+                tok = ws[pos]
+                if not isinstance(tok, str):
+                    continue
+                new_tok = dup_table_prefix(tok)
+                if not new_tok:
+                    continue
+                ws2 = list(ws)
+                ws2[pos] = new_tok
+                prov2 = list(prov)
+                prov2[wi] = ws2
+                ex["provenance"] = prov2
+                return True
 
-        prov = list(rejected[ti]["provenance"])
-        prov.append([rng.choice(token_pool)])
-        rejected[ti]["provenance"] = prov
-        return True
+            if mode == "dup_row_suffix":
+                pos = rng.randrange(len(ws))
+                tok = ws[pos]
+                if not isinstance(tok, str):
+                    continue
+                new_tok = dup_row_suffix(tok)
+                if not new_tok:
+                    continue
+                ws2 = list(ws)
+                ws2[pos] = new_tok
+                prov2 = list(prov)
+                prov2[wi] = ws2
+                ex["provenance"] = prov2
+                return True
 
-    def do_remove_set() -> bool:
-        """
-        Remove ONE witness set from provenance, only if provenance has >=2 sets.
-        Example: [["a","b"],["x"]] -> [["x"]] or [["a","b"]]
-        If only 1 set exists, return False so another method can be chosen.
-        """
-        ti = pick_tuple_with_prov(min_sets=2)
-        if ti is None:
-            return False
+            if mode == "flatten_singletons_to_one_ws":
+                # requires at least 2 singleton ws
+                singletons = [ws0 for ws0 in prov if isinstance(ws0, list) and len(ws0) == 1 and isinstance(ws0[0], str)]
+                if len(singletons) < 2:
+                    return False
+                merged_ws = [ws0[0] for ws0 in singletons]
+                ex["provenance"] = [merged_ws]
+                return True
 
-        prov = list(rejected[ti]["provenance"])
-        prov.pop(rng.randrange(len(prov)))
-        rejected[ti]["provenance"] = prov
-        return True
+            if mode == "merge_two_tuples":
+                # shape edit: collapse 2 tuples into 1
+                if len(rejected) < 2:
+                    return False
+                j = rng.randrange(len(rejected))
+                if j == ti:
+                    j = (j + 1) % len(rejected)
 
-    def do_replace_token_ws() -> bool:
-        """
-        Replace one token inside one witness set with another token from the SAME table.
-        Example: ["constructor_standings_33","races_21"] -> ["constructor_standings_34","races_21"]
-        """
-        ti = pick_tuple_with_prov(min_sets=1)
-        if ti is None:
-            return False
+                prov_i = rejected[ti].get("provenance")
+                prov_j = rejected[j].get("provenance")
+                if not (isinstance(prov_i, list) and isinstance(prov_j, list)):
+                    return False
 
-        prov = rejected[ti]["provenance"]
-        wi = rng.randrange(len(prov))
-        ws = prov[wi]
-        if not (isinstance(ws, list) and len(ws) >= 1):
-            return False
+                rejected[ti]["provenance"] = list(prov_i) + list(prov_j)
+                rejected.pop(j)
+                return True
 
-        pos = rng.randrange(len(ws))
-        tok = ws[pos]
-        if not (isinstance(tok, str) and "_" in tok):
-            return False
+        return False
 
-        table = tok.rsplit("_", 1)[0]  # works with table names containing underscores
-        pool = [t for t in ctx_tokens.get(table, []) if t not in ws]
-        if not pool:
-            return False
+    # choose how many tuples to edit
+    n_out = len(rejected)
+    if n_out <= 1:
+        # cannot do multi-edit; do one edit
+        n_edits = 1
+    else:
+        n_edits = rng.randint(2, min(cap_edits, n_out))
 
-        new_ws = list(ws)
-        new_ws[pos] = rng.choice(pool)
-        prov = list(prov)
-        prov[wi] = new_ws
-        rejected[ti]["provenance"] = prov
-        return True
+    tuple_indices = list(range(n_out))
+    rng.shuffle(tuple_indices)
+    tuple_indices = tuple_indices[:n_edits]
 
-    edit_fns = {
-        "add_token_ws": do_add_token_ws,
-        "remove_token_ws": do_remove_token_ws,
-        "add_set": do_add_set,
-        "remove_set": do_remove_set,
-        "replace_token_ws": do_replace_token_ws,
-    }
+    # fallback modes (very likely applicable)
+    fallback_modes = [
+        "replace_token_any_table",
+        "add_set_singleton",
+        "add_token_ws",
+        "dup_row_suffix",
+    ]
 
-    for _ in range(20):
+    edits_done = 0
+    modes_used: List[str] = []
+
+    for ti in tuple_indices:
+        # note: list length might shrink if merge_two_tuples happens
+        if ti >= len(rejected):
+            continue
+
         mode = pick_mode()
-        if edit_fns[mode]():
-            return rejected, mode
+        if try_apply(mode, ti):
+            edits_done += 1
+            modes_used.append(mode)
+            continue
 
-    return rejected, "fallback_noedit"
+        # fallback chain on same tuple
+        applied = False
+        for fb in fallback_modes:
+            if ti < len(rejected) and try_apply(fb, ti):
+                edits_done += 1
+                modes_used.append(f"fb:{fb}")
+                applied = True
+                break
+        if not applied:
+            modes_used.append("noedit")
+
+    if edits_done == 0:
+        return rejected, "fallback_noedit"
+
+    # keep label readable
+    label = f"multi_{edits_done}:" + ",".join(modes_used[:6])
+    return rejected, label
 
 
 # -----------------------
@@ -326,7 +425,7 @@ def main() -> None:
     ap.add_argument("--prov-jsonl", type=Path, required=True)
     ap.add_argument("--nl-file", type=Path, required=True)
     ap.add_argument("--context-jsonl", type=Path, required=True)
-    ap.add_argument("--out-dir", type=Path, default=Path("artifacts/relstack/sql_split"))
+    ap.add_argument("--out-dir", type=Path, default=Path("artifacts/tpch/sql_split"))
     ap.add_argument("--target-n", type=int, default=1500)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--max-tuples", type=int, default=10)
@@ -336,25 +435,23 @@ def main() -> None:
     nl_by_id = index_by_id(load_json_or_jsonl(args.nl_file))
     ctx_by_id = index_by_id(load_json_or_jsonl(args.context_jsonl))
 
-    # Stats containers
     stats = {
         "overall": {"total_processed": 0, "total_selected": 0},
         "filtering": Counter(),
-        "categories": {}
+        "categories": {},
     }
-    
-    merged = []
-    
-    # STEP 1: Scansione e Pulizia con Stats
+
+    merged: List[Dict[str, Any]] = []
+
+    # STEP 1: scan + merge
     for obj in iter_ok_queries(args.prov_jsonl):
         stats["overall"]["total_processed"] += 1
         raw_sql = obj.get("sql_query_prov", "")
         meta_raw = meta_from_sql_query_prov(raw_sql)
-        
         if not meta_raw:
             stats["filtering"]["missing_meta"] += 1
             continue
-        
+
         qid = int(obj.get("id"))
         if qid not in nl_by_id:
             stats["filtering"]["missing_nl"] += 1
@@ -362,100 +459,113 @@ def main() -> None:
         if qid not in ctx_by_id:
             stats["filtering"]["missing_context"] += 1
             continue
-        
+
         sql_clean = clean_sql_query(raw_sql)
         context_clean = clean_context_data(ctx_by_id[qid].get("context_data", {}))
         res = obj.get("result", [])
-        
         if not res:
             stats["filtering"]["empty_result"] += 1
             continue
 
-        merged.append({
-            "id": qid,
-            "sql": sql_clean,
-            "question": str(nl_by_id[qid]["nl"]),
-            "context": context_clean,
-            "meta": normalize_meta(meta_raw),
-            "result": res
-        })
+        merged.append(
+            {
+                "id": qid,
+                "sql": sql_clean,
+                "question": str(nl_by_id[qid]["nl"]),
+                "context": context_clean,
+                "meta": normalize_meta(meta_raw),
+                "result": res,
+            }
+        )
 
-    # STEP 2: Categorizzazione
-    datasets_map = {"1_easy_no_join": [], "2_medium_join": [], "3_has_aggr": [], "4_has_union": [], "5_has_all": []}
+    # STEP 2: categorize
+    datasets_map = {
+        "1_easy_no_join": [],
+        "2_medium_join": [],
+        "3_has_aggr": [],
+        "4_has_union": [],
+        "5_has_all": [],
+    }
     for d in merged:
-        m = d['meta']
-        has_set = m['has_union'] or m['has_intersect'] or m['has_negation']
-        if m['num_joins'] == 0 and m['num_aggregates'] == 0 and not has_set: target = "1_easy_no_join"
-        elif m['num_joins'] >= 1 and m['num_aggregates'] == 0 and not has_set: target = "2_medium_join"
-        elif m['num_aggregates'] > 0 and not has_set: target = "3_has_aggr"
-        elif m['has_union'] and not (m['has_intersect'] or m['has_negation']): target = "4_has_union"
-        else: target = "5_has_all"
+        m = d["meta"]
+        has_set = m["has_union"] or m["has_intersect"] or m["has_negation"]
+        if m["num_joins"] == 0 and m["num_aggregates"] == 0 and not has_set:
+            target = "1_easy_no_join"
+        elif m["num_joins"] >= 1 and m["num_aggregates"] == 0 and not has_set:
+            target = "2_medium_join"
+        elif m["num_aggregates"] > 0 and not has_set:
+            target = "3_has_aggr"
+        elif m["has_union"] and not (m["has_intersect"] or m["has_negation"]):
+            target = "4_has_union"
+        else:
+            target = "5_has_all"
         datasets_map[target].append(d)
 
-    # STEP 3: Scrittura e Stats Finali
+    # STEP 3: write output
     args.out_dir.mkdir(parents=True, exist_ok=True)
     neg_mode_counts = Counter()
-    
+
     for cat, items in datasets_map.items():
-        if not items: continue
+        if not items:
+            continue
         rng.shuffle(items)
-        selected = items[:args.target_n]
-        
-        #sft_path = args.out_dir / f"sft_{cat}.jsonl"
+        selected = items[: args.target_n]
+
         dpo_path = args.out_dir / f"dpo_{cat}.jsonl"
-        
         cat_type_dist = Counter()
 
-        #with sft_path.open("w") as f_sft, dpo_path.open("w") as f_dpo:
-        with dpo_path.open("w") as f_dpo:
+        with dpo_path.open("w", encoding="utf-8") as f_dpo:
             for d in selected:
-                cat_type_dist[type_key(d['meta'])] += 1
-                
-                chosen_output = [{"result": r.get("result", {}), "provenance": r.get("provenance", [])} 
-                                 for r in d['result'][:args.max_tuples]]
-                
-                # SFT record
-                '''
-                f_sft.write(json.dumps({
-                    "id": d['id'], "instruction": INSTRUCTION,
-                    "input": {"question": d['question'], "sql": d['sql'], "context": d['context']},
-                    "output": chosen_output
-                }, ensure_ascii=False) + "\n")
-                '''
-                # DPO record
-                rejected_output, neg_mode = make_negative_output(chosen_output, d['context'], rng)
+                cat_type_dist[type_key(d["meta"])] += 1
+
+                chosen_output = [
+                    {"result": r.get("result", {}), "provenance": r.get("provenance", [])}
+                    for r in d["result"][: args.max_tuples]
+                ]
+
+                rejected_output, neg_mode = make_negative_output(chosen_output, d["context"], rng)
                 neg_mode_counts[neg_mode] += 1
-                f_dpo.write(json.dumps({
-                    "id": d['id'], "prompt": build_prompt(d['question'], d['sql'], d['context']),
-                    "chosen": json.dumps(chosen_output, ensure_ascii=False),
-                    "rejected": json.dumps(rejected_output, ensure_ascii=False),
-                    "negative_mode": neg_mode
-                }, ensure_ascii=False) + "\n")
+
+                f_dpo.write(
+                    json.dumps(
+                        {
+                            "id": d["id"],
+                            "prompt": build_prompt(d["question"], d["sql"], d["context"]),
+                            "chosen": json.dumps(chosen_output, ensure_ascii=False),
+                            "rejected": json.dumps(rejected_output, ensure_ascii=False),
+                            "negative_mode": neg_mode,
+                        },
+                        ensure_ascii=False,
+                    )
+                    + "\n"
+                )
 
         stats["categories"][cat] = {
             "count": len(selected),
-            "type_distribution": dict(cat_type_dist)
+            "type_distribution": dict(cat_type_dist),
         }
         stats["overall"]["total_selected"] += len(selected)
 
-    # STEP 4: Salvataggio Statistiche
+    # STEP 4: save stats
     stats["negative_modes"] = dict(neg_mode_counts)
     stats_path = args.out_dir / "ft_split_stats.json"
-    with stats_path.open("w") as f:
-        json.dump(stats, f, indent=4)
+    with stats_path.open("w", encoding="utf-8") as f:
+        json.dump(stats, f, indent=4, ensure_ascii=False)
 
     print(f"\n✅ Build completato. File salvati in {args.out_dir}")
     print(f"📊 Statistiche salvate in {stats_path}")
 
+
 if __name__ == "__main__":
-    '''how to run
+    """
+    how to run
     python3 scripts/build_ft_dataset_split_per_type.py \
-        --prov-jsonl queries_with_prov/relstack_limit_noerr_prov.jsonl \
-        --nl-file nl_queries/sql_nl_new_relstack_llamalatest.json \
-        --context-jsonl artifacts/relstack_context_data.jsonl \
-        --out-dir dpo_dataset/relstack/nl_split \
+        --prov-jsonl queries_with_prov/tpch_limit_noerr_prov.jsonl \
+        --nl-file nl_queries/sql_nl_new_tpch_llamalatest.json \
+        --context-jsonl artifacts/tpch_context_data.jsonl \
+        --out-dir dpo_dataset/tpch/sql_split/new_negatives \
         --target-n 1500 \
         --max-tuples 10 \
         --seed 7
-    '''
+    """
     main()
