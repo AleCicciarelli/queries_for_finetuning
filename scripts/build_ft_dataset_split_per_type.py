@@ -152,15 +152,15 @@ def make_negative_output(
             "add_set_singleton": 0.14,
             "add_set_multiple": 0.10,
             "remove_set": 0.08,
-
-            # your observed id corruption
+            
+            # token duplication errors observed in LLMs outputs
             "dup_table_prefix": 0.08,           # nation_1 -> nation_nation_1
             "dup_row_suffix": 0.08,             # users_1 -> users_1_1
 
-            # your observed flattening error
+            # merging errors observed in LLM outputs (collapsing multiple ws into one result)
             "flatten_singletons_to_one_ws": 0.10,
 
-            # rare shape error (collapsing tuples)
+            # rare shape error (collapsing tuples) 
             "merge_two_tuples": 0.02,
         }
 
@@ -203,7 +203,7 @@ def make_negative_output(
         table, row = m.group(1), m.group(2)
         return f"{table}_{row}_{row}"
 
-    # ---- core per-tuple apply
+    # try to apply an edit to the selected tuple; return True if successful
     def try_apply(mode: str, ti: int) -> bool:
         if ti < 0 or ti >= len(rejected):
             return False
@@ -222,6 +222,7 @@ def make_negative_output(
                 continue
 
             # --- modes ---
+            # example: add_set_singleton: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["nation_1", "nation_2"], ["users_3"], ["nation_5"]]
             if mode == "add_set_singleton":
                 toks = all_ctx_tokens()
                 if not toks:
@@ -234,7 +235,7 @@ def make_negative_output(
                 prov2.append(rng.choice(candidates))
                 ex["provenance"] = prov2
                 return True
-
+            # example: add_set_multiple: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["nation_1", "nation_2"], ["users_3"], ["nation_5", "orders_7"]]
             if mode == "add_set_multiple":
                 toks = all_ctx_tokens()
                 k = max(2, min(ws_mode_length(prov), 4))
@@ -249,7 +250,7 @@ def make_negative_output(
                         ex["provenance"] = prov2
                         return True
                 return False
-
+            # example: add_token_ws: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["nation_1", "nation_2", "orders_5"], ["users_3"]]
             if mode == "add_token_ws":
                 pool = [tok for tok in all_ctx_tokens() if tok not in ws]
                 if not pool:
@@ -260,7 +261,7 @@ def make_negative_output(
                 prov2[wi] = ws2
                 ex["provenance"] = prov2
                 return True
-
+            # example: remove_token_ws: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["nation_1"], ["users_3"]]
             if mode == "remove_token_ws":
                 if len(ws) < 2:
                     continue
@@ -269,7 +270,7 @@ def make_negative_output(
                 prov2[wi] = [kept]
                 ex["provenance"] = prov2
                 return True
-
+            # example: remove_set: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["users_3"]]
             if mode == "remove_set":
                 if len(prov) < 2:
                     return False
@@ -278,6 +279,7 @@ def make_negative_output(
                 ex["provenance"] = prov2
                 return True
 
+            # example: replace_token_same_table: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["nation_1", "nation_5"], ["users_3"]]
             if mode == "replace_token_same_table":
                 pos = rng.randrange(len(ws))
                 tok = ws[pos]
@@ -294,6 +296,7 @@ def make_negative_output(
                 ex["provenance"] = prov2
                 return True
 
+            # example: replace_token_any_table: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["nation_1", "orders_5"], ["users_3"]]
             if mode == "replace_token_any_table":
                 pos = rng.randrange(len(ws))
                 tok_pool = [t for t in all_ctx_tokens() if t not in ws]
@@ -305,7 +308,8 @@ def make_negative_output(
                 prov2[wi] = ws2
                 ex["provenance"] = prov2
                 return True
-
+            
+            # example: dup_table_prefix: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["nation_nation_1", "nation_2"], ["users_3"]]
             if mode == "dup_table_prefix":
                 pos = rng.randrange(len(ws))
                 tok = ws[pos]
@@ -321,6 +325,7 @@ def make_negative_output(
                 ex["provenance"] = prov2
                 return True
 
+            # example: dup_row_suffix: provenance [["nation_1", "nation_2"], ["users_3"]] -> [["nation_1_1", "nation_2"], ["users_3"]]
             if mode == "dup_row_suffix":
                 pos = rng.randrange(len(ws))
                 tok = ws[pos]
@@ -336,6 +341,7 @@ def make_negative_output(
                 ex["provenance"] = prov2
                 return True
 
+            # example: flatten_singletons_to_one_ws: provenance [["nation_1"], ["users_3"], ["orders_5"]] -> [["nation_1", "users_3", "orders_5"]]
             if mode == "flatten_singletons_to_one_ws":
                 # requires at least 2 singleton ws
                 singletons = [ws0 for ws0 in prov if isinstance(ws0, list) and len(ws0) == 1 and isinstance(ws0[0], str)]
@@ -345,6 +351,7 @@ def make_negative_output(
                 ex["provenance"] = [merged_ws]
                 return True
 
+            # example: merge_two_tuples: provenance [["nation_1", "nation_2"]], [["users_3"]] -> [["nation_1", "nation_2", "users_3"]]
             if mode == "merge_two_tuples":
                 # shape edit: collapse 2 tuples into 1
                 if len(rejected) < 2:

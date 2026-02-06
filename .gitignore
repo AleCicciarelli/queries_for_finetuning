@@ -12,3 +12,6 @@ latex_documentation/main.blg
 artifacts/
 src/tpch_queries.egg-info/
 src/utils/__pycache__/
+dpo_dataset/
+models/
+

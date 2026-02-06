@@ -1,0 +1,36 @@
+Database Schema (Formula 1 Statistics):
+1. circuits:
+   - Columns: circuitid (PK), circuitref, name, location, country, lat (latitude), lng (longitude), alt (altitude).
+   - Info: Geographic and descriptive data for race tracks.
+
+2. races:
+   - Columns: raceid (PK), year, round, circuitid (FK), name, date (timestamp), time.
+   - Info: Specific Grand Prix events. Linked to 'circuits'.
+
+3. drivers:
+   - Columns: driverid (PK), driverref, code, forename, surname, dob (date of birth), nationality.
+   - Info: Biographical data of all racing drivers.
+
+4. constructors:
+   - Columns: constructorid (PK), constructorref, name (team name), nationality.
+   - Info: Information about racing teams/manufacturers.
+
+5. results:
+   - Columns: resultid (PK), raceid (FK), driverid (FK), constructorid (FK), number (car number), grid (starting position), position (final rank), positionorder, points, laps, milliseconds, fastestlap, rank, statusid, date.
+   - Info: Detailed performance of a driver/constructor in a specific race.
+
+6. standings:
+   - Columns: driverstandingsid (PK), raceid (FK), driverid (FK), points, position, wins, date.
+   - Info: Cumulative driver championship rankings, linked to races and drivers.
+
+7. constructor_results:
+   - Columns: constructorresultsid (PK), raceid (FK), constructorid (FK), points, date.
+   - Info: Points assigned to teams for specific races.
+
+8. constructor_standings:
+   - Columns: constructorstandingsid (PK), raceid (FK), constructorid (FK), points, position, wins, date.
+   - Info: Cumulative team championship rankings, linked to races and constructors.
+
+9. qualifying:
+   - Columns: qualifyid (PK), raceid (FK), driverid (FK), constructorid (FK), number, position, date.
+   - Info: Results of qualifying sessions, linked to races, drivers and constructors.

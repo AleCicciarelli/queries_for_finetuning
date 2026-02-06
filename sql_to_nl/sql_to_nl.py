@@ -28,36 +28,43 @@ def parse_sql_with_meta(content: str):
 # ---------------------------------------------------------
 # Prompt for SQL to NL conversion
 # ---------------------------------------------------------
-def build_prompt(sql: str, meta: dict | None = None) -> str:
+def build_prompt(sql: str, meta: dict | None = None, schema_info: str = "") -> str:
     meta_txt = json.dumps(meta, ensure_ascii=False) if meta else "{}"
+    
+    # Abbiamo trasformato le regole in una struttura più rigida 
+    # per forzare Llama 3.3 a gestire UNION/EXCEPT correttamente.
     return textwrap.dedent(f"""
-    You convert SQL into ONE natural-language question.
-
-    Rules (must follow):
-    - Output ONLY the question. No quotes, no bullets, no extra text.
-    - Do NOT mention SQL, joins, tables, columns, schema, keywords.
-    - Be faithful: do not invent ranking, time constraints, or meanings not implied by the query.
-    - If the query has LIMIT N but NO ORDER BY: do NOT say "top" or "most recent".
-      Use or "give N example records" (no implied ordering).
-    - If the query uses UNION (not UNION ALL): Duplicates may be removed, so it is correct to say "distinct".
-    - Do NOT introduce any numeric quantity (such as "up to N") unless a LIMIT N appears in th SQL
-  explicitly appears in the SQL.
-    - If the query uses EXCEPT: describe it as excluding results that also satisfy the second condition.
-      Do NOT simplify EXCEPT into "is null" or "not condition" unless that exact condition appears in the SQL.
-
-
-    Meta (may help, but do not mention it):
+    ### ROLE
+    You are an expert Data Analyst translating complex SQL into natural English.
+    
+    ### DATABASE SCHEMA
+    {schema_info}
+    ### INSTRUCTIONS
+    - Provide ONLY the final question. No preamble, no quotes, no explanations.
+    - Be faithful to the logic:
+        * JOINs: Describe the relationship (e.g., "orders placed by customers" instead of "orders joined with customers").
+        * UNION: Use "Combine the results of..." or "Find all instances of both X and Y."
+        * EXCEPT: Use "Find X, excluding those that are also Y."
+        * AGGREGATES: Translate COUNT as "how many", SUM as "total", and AVG as "average".
+    - STRICTOR RULES:
+        * If LIMIT N exists without ORDER BY, use "Give N examples of...". 
+        * NEVER say "top" or "best" unless there is an ORDER BY.
+        * Do NOT mention technical SQL terms like 'table', 'column', 'join', or 'query'.
+    
+    ### CONTEXT (Metadata)
     {meta_txt}
 
-    SQL:
+    ### SQL QUERY
     {sql}
+
+    ### FINAL NATURAL LANGUAGE QUESTION
     """).strip()
 
 # ---------------------------------------------------------
 # Call for the LLM through the prompt, using OLLAMA
 # ---------------------------------------------------------
-def translate_sql_to_nl(llm, sql: str, meta: dict | None = None) -> str:
-    prompt = build_prompt(sql, meta)
+def translate_sql_to_nl(llm, sql: str, meta: dict | None = None, schema_info: str = "") -> str:
+    prompt = build_prompt(sql, meta, schema_info)
     response = llm.invoke([HumanMessage(content=prompt)])
     return response.content.strip()
 
@@ -65,7 +72,7 @@ def translate_sql_to_nl(llm, sql: str, meta: dict | None = None) -> str:
 # ---------------------------------------------------------
 # Pipeline: SQL file → JSON file
 # ---------------------------------------------------------
-def process_sql_file(input_path: str, output_path: str, model_name=str):
+def process_sql_file(input_path: str, output_path: str, model_name:str):
     # llm initialization
     llm = ChatOllama(
         model=model_name,
@@ -85,6 +92,12 @@ def process_sql_file(input_path: str, output_path: str, model_name=str):
 
     print(f" Found {len(queries)} queries.\n")
 
+    # read schema info from a txt file
+    with open("./schema_relstack.txt", "r") as f:
+        schema_info = f.read()
+    print(" Using schema info:\n")
+    print(schema_info)
+    print("\n")
     for i, item in enumerate(queries, start=1):
         sql = item["sql"]
         meta = item["meta"]
@@ -93,7 +106,7 @@ def process_sql_file(input_path: str, output_path: str, model_name=str):
         print(f"    Meta: {meta}")
 
 
-        nl = translate_sql_to_nl(llm, sql, meta)
+        nl = translate_sql_to_nl(llm, sql, meta, schema_info)
 
         print(f"   👉 NL: {nl}\n")
 
@@ -116,7 +129,7 @@ def process_sql_file(input_path: str, output_path: str, model_name=str):
 # ---------------------------------------------------------
 if __name__ == "__main__":
     process_sql_file(
-        input_path="../set_queries/queries_tpch_curated.sql",
-        output_path="../queries_with_prov/sql_nl_tpch_llamalatest.json",
+        input_path="../set_queries/queries_relstack_curated.sql",
+        output_path="../queries_with_prov/sql_nl_new_relstack_llamalatest.json",
         model_name="llama3.3:latest"
     )

@@ -1,0 +1,28 @@
+Database Schema (Stack Overflow):
+1. users:
+   - Columns: id (PK), accountid, displayname, location, profileimageurl, websiteurl, aboutme, creationdate (timestamp).
+   - Info: Profile information for community members.
+
+2. posts:
+   - Columns: id (PK), owneruserid (FK), posttypeid, acceptedanswerid (FK), parentid (FK), ownerdisplayname, title, tags, contentlicense, body, creationdate (timestamp).
+   - Info: Contains both Questions and Answers. 'parentid' links an answer to its question. 'acceptedanswerid' links a question to its chosen answer.
+
+3. comments:
+   - Columns: id (PK), postid (FK), userid (FK), contentlicense, userdisplayname, text, creationdate (timestamp).
+   - Info: Short remarks left on posts. Linked to both 'posts' and 'users'.
+
+4. badges:
+   - Columns: id (PK), userid (FK), class, name, tagbased (boolean), date (timestamp).
+   - Info: Awards earned by users (e.g., 'Gold', 'Great Answer').
+
+5. postlinks:
+   - Columns: id (PK), relatedpostid (FK), postid (FK), linktypeid, creationdate (timestamp).
+   - Info: Links between posts (e.g., duplicates or related topics).
+
+6. posthistory:
+   - Columns: id (PK), postid (FK), userid (FK), posthistorytypeid, userdisplayname, contentlicense, revisionguid, text, comment, creationdate (timestamp).
+   - Info: Log of all changes made to a post (edits, closures, etc.).
+
+7. votes:
+   - Columns: id (PK), userid (FK), postid (FK), votetypeid, creationdate (timestamp).
+   - Info: Records of upvotes, downvotes, and favorites.

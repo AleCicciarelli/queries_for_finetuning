@@ -1,0 +1,32 @@
+Database Schema (TPCH):
+1. nation:
+   - Columns: n_nationkey (PK), n_name, n_regionkey (FK), n_comment.
+   - Info: Countries where customers and suppliers are located, linked to regions.
+
+2. region:
+   - Columns: r_regionkey (PK), r_name, r_comment.
+   - Info: Geographical regions (e.g., 'EUROPE', 'ASIA').
+
+3. part:
+   - Columns: p_partkey (PK), p_name, p_mfgr, p_brand, p_type, p_size, p_container, p_retailprice, p_comment.
+   - Info: Catalog of individual items or parts sold.
+
+4. supplier:
+   - Columns: s_supplierkey (PK), s_name, s_address, s_nationkey (FK), s_phone, s_acctbal, s_comment.
+   - Info: Companies that provide parts.
+
+5. partsupp:
+   - Columns: ps_partkey (FK), ps_supplierkey (FK), ps_availqty, ps_supplycost, ps_comment.
+   - Info: Relationship between parts and suppliers, including stock levels and costs.
+
+6. customer:
+   - Columns: c_custkey (PK), c_name, c_address, c_nationkey (FK), c_phone, c_acctbal, c_mktsegment, c_comment.
+   - Info: Information about buyers and their market segments.
+
+7. orders:
+   - Columns: o_orderkey (PK), o_custkey (FK), o_orderstatus, o_totalprice, o_orderdate (timestamp), o_orderpriority, o_clerk, o_shippriority, o_comment.
+   - Info: Sales records linked to customers.
+
+8. lineitem:
+   - Columns: l_orderkey (FK), l_partkey (FK), l_suppkey (FK), l_linenumber, l_quantity, l_extendedprice, l_discount, l_tax, l_returnflag, l_linestatus, l_shipdate, l_commitdate, l_receiptdate, l_shipinstruct, l_shipmode, l_comment.
+   - Info: Individual items within an order. This is the main fact table with prices, discounts, and shipping dates, linked to orders and partsupp.
