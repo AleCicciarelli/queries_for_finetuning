@@ -5,6 +5,12 @@
 \usepackage{natbib} 
 \usepackage{fvextra}
 \usepackage[margin=2.5cm]{geometry}
+\usepackage{xcolor}    
+\usepackage{booktabs}  
+\usepackage{listings}  
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} 
+\usepackage{textcomp}  
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -25,7 +31,7 @@
 \begin{document}
 
 \maketitle
-\begin{section}{Fine tuning dataset}
+\section{Fine tuning dataset}
     
 
 To fine-tune LLaMA~3~8B for answer generation and provenance explanayion, we construct adataset where each training example is represented as a structured <input,output> pair.
@@ -63,8 +69,8 @@ An example of a training instance is reported below:
 }
 
 \end{Verbatim}
-\end{section}
-\begin{section}{Curriculum Learning}
+
+\section{Curriculum Learning}
 Curriculum learning (CL) is a training strategy that trains a model from easier data to harder data, imitating learning order in human curricula.
 In the paper \emph{A Survey on Curriculum Learning}\cite{curriculumsurvey}, training examples are ordered according to an explicit difficulty measure, such as the number of joins, self-joins, and output tuples.
 The model is first trained on simpler instances and progressively exposed to more complex queries, allowing it to learn the rigid output format and the semantics of witness sets before handling harder relational patterns.
@@ -87,9 +93,9 @@ $D_{\text{train}} \leftarrow \emptyset$\;
   }
 }
 \end{algorithm}
-\end{section}
 
-\begin{section}{17/12/2025 meeting}
+
+\section{17/12/2025 meeting}
 \paragraph{Current Status}
 \begin{itemize}
     \item Three datasets have been generated for model fine-tuning, namely \textit{RELF1}, \textit{RELSTACK}, and \textit{TPC-H}, each consisting of 2000 SQL queries produced using \textit{SQLSmith}. 
@@ -203,8 +209,8 @@ $D_{\text{train}} \leftarrow \emptyset$\;
 \end{itemize}
 
     
-\end{section}
-\begin{section}{Meeting 07/01/2026}
+
+\section{Meeting 07/01/2026}
     \paragraph{Meeting Summary (Prompt and Dataset Refinement)}
 \begin{itemize}
     \item The fine-tuning prompt will be revised to exclude SQL from the input and to provide more precise and correct instructions to the model.
@@ -212,8 +218,8 @@ $D_{\text{train}} \leftarrow \emptyset$\;
     \item Instead of multiple datasets, a single dataset will be used for the fine tuning, enriched with explicit annotations capturing query complexity. This because we need one model able to handle differente type of queries.
     \item Negative pairs will be added to the fine-tuning dataset by perturbing positive examples, e.g., by adding or removing tuples or sets, to improve the model's discriminative capabilities.
 \end{itemize}
-\end{section}
-\begin{section}{Observation and limitations}
+
+\section{Observation and limitations}
 During a manual inspection of the generated SQL queries, their automatically generated natural language (NL) questions, 
 and the corresponding outputs with provenance produced by ProvSQL, several limitations emerged that can directly affect the quality of the fine-tuning dataset.
 
@@ -270,7 +276,7 @@ Re-execute the same set of queries $Q$ on $D'$ after removing all \texttt{LIMIT}
 \Return{$D'$, updated results, and provenance}\;
 \end{algorithm}
 
-\end{section}
+
 
 \section{Data Pipeline}
 The construction process merges three primary sources of information:
@@ -501,7 +507,7 @@ The final step converts the raw DPO pairs into the specific chat format required
 
 \subsection{Chat Templating and EOT Tokens}
 
-\begin{lstlisting}[language=json, caption=Example of a Formatted DPO Record]
+\begin{lstlisting}[caption=Example of a Formatted DPO Record]
 {
   "prompt": "<|begin_of_text|><|start_header_id|>user<|end_header_id|>\n\nReturn ONLY valid JSON... <|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
   "chosen": "[{\"result\": {...}, \"provenance\": [...]}]<|eot_id|>",
