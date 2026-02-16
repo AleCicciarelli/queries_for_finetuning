@@ -113,7 +113,7 @@ def index_by_id(objs: List[Dict[str, Any]]) -> Dict[int, Dict[str, Any]]:
 def build_prompt(question: str, sql: str, context_data: Dict[str, Any]) -> str:
     return (
         f"{INSTRUCTION}\n\n"
-        f"QUESTION:\n{sql}\n\n"
+        f"QUESTION:\n{question}\n\n"
         f"CONTEXT_DATA (rows):\n{json.dumps(context_data, ensure_ascii=False)}\n"
     )
 
@@ -432,7 +432,7 @@ def main() -> None:
     ap.add_argument("--prov-jsonl", type=Path, required=True)
     ap.add_argument("--nl-file", type=Path, required=True)
     ap.add_argument("--context-jsonl", type=Path, required=True)
-    ap.add_argument("--out-dir", type=Path, default=Path("artifacts/tpch/sql_split"))
+    ap.add_argument("--out-dir", type=Path, default=Path("artifacts/relstack/sql_split"))
     ap.add_argument("--target-n", type=int, default=1500)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--max-tuples", type=int, default=10)
@@ -567,10 +567,10 @@ if __name__ == "__main__":
     """
     how to run
     python3 scripts/build_ft_dataset_split_per_type.py \
-        --prov-jsonl queries_with_prov/tpch_limit_noerr_prov.jsonl \
-        --nl-file nl_queries/sql_nl_new_tpch_llamalatest.json \
-        --context-jsonl artifacts/tpch_context_data.jsonl \
-        --out-dir dpo_dataset/tpch/sql_split/new_negatives \
+        --prov-jsonl queries_with_prov/relstack_limit_noerr_prov.jsonl \
+        --nl-file nl_queries/sql_nl_new_relstack_llamalatest.json \
+        --context-jsonl artifacts/relstack_context_data.jsonl \
+        --out-dir dpo_dataset/relstack/nl_split/new_negatives \
         --target-n 1500 \
         --max-tuples 10 \
         --seed 7
