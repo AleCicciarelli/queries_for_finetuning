@@ -26,15 +26,15 @@ DATASETS_ORDER = ["tpch", "relstack", "relf1"]
 
 MODEL_LABELS = {
     #"base": "Base (NL)",
-    "base/sql": "Base (SQL)",
+    "base/nl": "Base (NL)",
     #"ft/llama3_8b_dpo_after_sft_lora_chat_template_nl_ep1": "FT NL (DPO)",
-    "ft/def/new_negatives/llama3_8b_sft_lora_chat_template_sql_ep1": "FT SQL (SFT EP1)",
-    "ft/def/new_negatives/llama3_8b_sft_lora_chat_template_sql_ep2": "FT SQL (SFT EP2)",
-    "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep1_withbadformat_bcoloss": "FT SQL (SFT EP1 DPO EP1,bcoloss)",
-    "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep2_withbadformat_bcoloss": "FT SQL (SFT EP1 DPO EP2,bcoloss)",
-    "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep2_sql_ep1_withbadformat_bcoloss": "FT SQL (SFT EP2 DPO EP1,bcoloss)",
-    "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep2_sql_ep2_withbadformat_bcoloss": "FT SQL (SFT EP2 DPO EP2,bcoloss)",
-    #"ft/cat_1_2/llama3_8b_dpo_after_sft_ep1_lora_chat_template_sql_plusbad_ep1" : "FT SQL (joins)",
+    "ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep1": "FT NL (SFT EP1)",
+    "ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep2": "FT NL (SFT EP2)",
+    "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep1_nl_ep1_withbadformat_bcoloss": "FT NL (SFT EP1 DPO EP1,bcoloss)",
+    "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep1_nl_ep2_withbadformat_bcoloss": "FT NL (SFT EP1 DPO EP2,bcoloss)",
+    "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep1_withbadformat_bcoloss": "FT NL (SFT EP2 DPO EP1,bcoloss)",
+    "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep2_withbadformat_bcoloss": "FT NL (SFT EP2 DPO EP2,bcoloss)",
+    #"ft/cat_1_2/llama3_8b_dpo_after_sft_ep1_lora_chat_template_nl_plusbad_ep1" : "FT NL (joins)",
 }
 
 def load_eval_json(eval_path: Path) -> List[Dict[str, Any]]:
@@ -183,7 +183,7 @@ def build_dataframe(models_root: Path, model_dirs: Optional[List[str]] = None) -
         if not eval_path.exists():
             print(f"[SKIP] missing file: {eval_path}")
             continue
-
+        
         try:
             items = load_eval_json(eval_path)
             print(f"[OK] loaded {eval_path} -> {len(items)} category items")
@@ -286,15 +286,15 @@ def main():
     # opzionale: lista esplicita modelli
     model_dirs = [
         #"base",
-        "base/sql",
+        "base/nl",
         #"ft/llama3_8b_dpo_after_sft_lora_chat_template_nl_ep1",
-        "ft/def/new_negatives/llama3_8b_sft_lora_chat_template_sql_ep1",
-        "ft/def/new_negatives/llama3_8b_sft_lora_chat_template_sql_ep2",
-        "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep1_withbadformat_bcoloss",
-        "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep2_withbadformat_bcoloss",
-        "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep2_sql_ep1_withbadformat_bcoloss",
-        "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep2_sql_ep2_withbadformat_bcoloss",
-        #"ft/cat_1_2/llama3_8b_dpo_after_sft_ep1_lora_chat_template_sql_plusbad_ep1"
+        "ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep1",
+        "ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep2",
+        "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep1_nl_ep1_withbadformat_bcoloss",
+        "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep1_nl_ep2_withbadformat_bcoloss",
+        "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep1_withbadformat_bcoloss",
+        "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep2_withbadformat_bcoloss",
+        #"ft/cat_1_2/llama3_8b_dpo_after_sft_ep1_lora_chat_template_nl_plusbad_ep1"
 
     ]
 
@@ -340,7 +340,7 @@ def main():
     print(f"\nSaved outputs in: {out_dir.resolve()}")
 
      # --- By-dataset plots (separati) ---
-    out_dir_ds = out_dir / "by_dataset" / "complete_sql"
+    out_dir_ds = out_dir / "by_dataset" / "complete_nl"
     out_dir_ds.mkdir(exist_ok=True, parents=True)
 
     df_ds = build_dataframe_by_dataset(models_root=models_root, model_dirs=model_dirs)
