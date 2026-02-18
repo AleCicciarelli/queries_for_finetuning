@@ -262,8 +262,8 @@ def main() -> None:
 if __name__ == "__main__":
     ''' how to run:
     python3 scripts/add_badformat.py \
-  --input dpo_dataset/sql/split_dataset_categorized/new_negatives/train_tokfiltered.jsonl \
-  --output dpo_dataset/sql/split_dataset_categorized/new_negatives/train_dpo_plus_bad_format.jsonl \
+  --input dpo_dataset/nl/split_dataset_categorized/new_negatives/train_tokfiltered.jsonl \
+  --output dpo_dataset/nl/split_dataset_categorized/new_negatives/train_dpo_plus_bad_format.jsonl \
   --n 300 \
   --model llama3:8b  \
   --temperature 0.0 \

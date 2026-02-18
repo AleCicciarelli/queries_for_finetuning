@@ -153,8 +153,8 @@ def clean(
 if __name__ == "__main__":
     '''how to run:
     python3 scripts/clean_id_from_dataset.py \
-  --in  dpo_dataset/sql/split_dataset_categorized/new_negatives/train_dpo_plus_bad_format.jsonl \
-  --out dpo_dataset/sql/split_dataset_categorized/new_negatives/train_dpo_final.jsonl \
+  --in  dpo_dataset/nl/split_dataset_categorized/new_negatives/val_dpo_plus_bad_format.jsonl \
+  --out dpo_dataset/nl/split_dataset_categorized/new_negatives/val_dpo_final.jsonl \
   --remove_id'''
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="inp", required=True)

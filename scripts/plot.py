@@ -32,6 +32,8 @@ MODEL_LABELS = {
     "ft/def/new_negatives/llama3_8b_sft_lora_chat_template_sql_ep2": "FT SQL (SFT EP2)",
     "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep1_withbadformat_bcoloss": "FT SQL (SFT EP1 DPO EP1,bcoloss)",
     "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep2_withbadformat_bcoloss": "FT SQL (SFT EP1 DPO EP2,bcoloss)",
+    "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep2_sql_ep1_withbadformat_bcoloss": "FT SQL (SFT EP2 DPO EP1,bcoloss)",
+    "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep2_sql_ep2_withbadformat_bcoloss": "FT SQL (SFT EP2 DPO EP2,bcoloss)",
     #"ft/cat_1_2/llama3_8b_dpo_after_sft_ep1_lora_chat_template_sql_plusbad_ep1" : "FT SQL (joins)",
 }
 
@@ -290,6 +292,8 @@ def main():
         "ft/def/new_negatives/llama3_8b_sft_lora_chat_template_sql_ep2",
         "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep1_withbadformat_bcoloss",
         "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep2_withbadformat_bcoloss",
+        "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep2_sql_ep1_withbadformat_bcoloss",
+        "ft/def/new_negatives/llama3_8b_dpo_after_sft_ep2_sql_ep2_withbadformat_bcoloss",
         #"ft/cat_1_2/llama3_8b_dpo_after_sft_ep1_lora_chat_template_sql_plusbad_ep1"
 
     ]
@@ -336,7 +340,7 @@ def main():
     print(f"\nSaved outputs in: {out_dir.resolve()}")
 
      # --- By-dataset plots (separati) ---
-    out_dir_ds = out_dir / "by_dataset"
+    out_dir_ds = out_dir / "by_dataset" / "complete_sql"
     out_dir_ds.mkdir(exist_ok=True, parents=True)
 
     df_ds = build_dataframe_by_dataset(models_root=models_root, model_dirs=model_dirs)

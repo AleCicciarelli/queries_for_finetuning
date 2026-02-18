@@ -125,9 +125,9 @@ if __name__ == "__main__":
     '''how to run:
     python3 scripts/sft_finetuning.py \
       --model_name_or_path meta-llama/Meta-Llama-3-8B-Instruct \
-      --train_file dpo_dataset/sql/split_dataset_categorized/new_negatives/train_sft.jsonl \
-      --val_file dpo_dataset/sql/split_dataset_categorized/new_negatives/val_sft.jsonl \
-      --output_dir models/ft/def/new_negatives/llama3_8b_sft_lora_chat_template_sql_ep2 \
+      --train_file dpo_dataset/nl/split_dataset_categorized/new_negatives/train_sft.jsonl \
+      --val_file dpo_dataset/nl/split_dataset_categorized/new_negatives/val_sft.jsonl \
+      --output_dir models/ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep2 \
       --num_train_epochs 2 \
       --per_device_train_batch_size 1 \
       --learning_rate 2e-6 \

@@ -125,8 +125,8 @@ def main():
 if __name__ == "__main__":
     '''how to run:
     python3 scripts/shuffle_dataset_and_split.py \
-      --in_dir dpo_dataset/sql/merged_categories/new_negatives \
-      --out_dir dpo_dataset/sql/split_dataset_categorized/new_negatives \
+      --in_dir dpo_dataset/nl/merged_categories/new_negatives \
+      --out_dir dpo_dataset/nl/split_dataset_categorized/new_negatives \
       --train_ratio 0.85 \
       --val_ratio 0.10 \
       --seed 42'''

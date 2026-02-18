@@ -383,7 +383,6 @@ if __name__ == "__main__":
     '''how to run:
     python3 scripts/test_with_metrics.py \
   --test_dir dpo_dataset/sql/split_dataset_categorized/new_negatives/test_by_category/ \
-  --adapter_dir models/ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep2_withbadformat_bcoloss  \
-  --out_json models/ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep2_withbadformat_bcoloss/reports_ds/evaluation_per_type.json \
+  --out_json models/base/sql/reports_ds/evaluation_per_type.json \
   --n 200'''
     main()

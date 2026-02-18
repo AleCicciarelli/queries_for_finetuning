@@ -102,12 +102,12 @@ def main() -> None:
 if __name__ == "__main__":
     '''how to run:
     python3 scripts/merge_categorized_datasets.py \
-    --dir1 dpo_dataset/relf1/sql_split/new_negatives \
+    --dir1 dpo_dataset/relf1/nl_split/new_negatives \
     --tag1 _rf \
-    --dir2 dpo_dataset/tpch/sql_split/new_negatives \
+    --dir2 dpo_dataset/tpch/nl_split/new_negatives \
     --tag2 _t \
-    --dir3 dpo_dataset/relstack/sql_split/new_negatives \
+    --dir3 dpo_dataset/relstack/nl_split/new_negatives \
     --tag3 _rs \
-    --out_dir dpo_dataset/sql/merged_categories/new_negatives/ \
-    --map_out dpo_dataset/sql/new_negatives/merged_mapping.jsonl'''
+    --out_dir dpo_dataset/nl/merged_categories/new_negatives/ \
+    --map_out dpo_dataset/nl/new_negatives/merged_mapping.jsonl'''
     main()

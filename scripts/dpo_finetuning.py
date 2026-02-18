@@ -17,15 +17,15 @@ Stability choices (recommended for H100 96GB):
 
 how to run:
 python3 scripts/dpo_finetuning.py \
-  --model_name_or_path models/ft/def/new_negatives/llama3_8b_sft_lora_chat_template_sql_ep1  \
-  --train_file dpo_dataset/sql/split_dataset_categorized/new_negatives/train_dpo_final.jsonl \
-  --val_file dpo_dataset/sql/split_dataset_categorized/new_negatives/val_tokfiltered.jsonl \
-  --output_dir models/ft/def/new_negatives/llama3_8b_dpo_after_sft_ep1_sql_ep2_withbadformat_bcoloss \
+  --model_name_or_path models/ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep2  \
+  --train_file dpo_dataset/nl/split_dataset_categorized/new_negatives/train_dpo_final.jsonl \
+  --val_file dpo_dataset/nl/split_dataset_categorized/new_negatives/val_dpo_final.jsonl \
+  --output_dir models/ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep1_withbadformat_bcoloss \
   --max_length 4096 \
   --max_prompt_length 2048 \
   --per_device_train_batch_size 1 \
   --gradient_accumulation_steps 16 \
-  --num_train_epochs 2 \
+  --num_train_epochs 1 \
   --learning_rate 2e-6 \
   --beta 0.1 \
   --eval_steps 100 \
