@@ -313,5 +313,5 @@ def main():
 
 if __name__ == "__main__":
     '''how to run:
-    python scripts/clean_dataset.py   --in_file dpo_dataset/nl/split_dataset_categorized/new_negatives/val.jsonl   --out_file dpo_dataset/nl/split_dataset_categorized/new_negatives/val_tokfiltered.jsonl   --stats_out dpo_dataset/nl/split_dataset_categorized/new_negatives/val_cleaning_stats.json   --model_id meta-llama/Meta-Llama-3-8B-Instruct   --max_prompt_tokens_keep 2048   --max_pair_tokens_keep 4096   --report_top_k 30'''
+    python scripts/clean_dataset.py  --in_file dpo_dataset/nl/split_dataset_categorized/new_negatives/test_by_category/test_1_easy_no_join.jsonl   --out_file dpo_dataset/nl/split_dataset_categorized/new_negatives/test_by_category/test_1_easy_no_join.jsonl     --model_id meta-llama/Meta-Llama-3-8B-Instruct   --max_prompt_tokens_keep 2048   --max_pair_tokens_keep 4096   --report_top_k 30'''
     main()

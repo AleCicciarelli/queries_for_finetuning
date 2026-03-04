@@ -25,16 +25,14 @@ DATASET_LABELS = {
 DATASETS_ORDER = ["tpch", "relstack", "relf1"]
 
 MODEL_LABELS = {
-    #"base": "Base (NL)",
-    "base/nl": "Base (NL)",
-    #"ft/llama3_8b_dpo_after_sft_lora_chat_template_nl_ep1": "FT NL (DPO)",
-    "ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep1": "FT NL (SFT EP1)",
-    "ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep2": "FT NL (SFT EP2)",
-    "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep1_nl_ep1_withbadformat_bcoloss": "FT NL (SFT EP1 DPO EP1,bcoloss)",
-    "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep1_nl_ep2_withbadformat_bcoloss": "FT NL (SFT EP1 DPO EP2,bcoloss)",
-    "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep1_withbadformat_bcoloss": "FT NL (SFT EP2 DPO EP1,bcoloss)",
-    "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep2_withbadformat_bcoloss": "FT NL (SFT EP2 DPO EP2,bcoloss)",
-    #"ft/cat_1_2/llama3_8b_dpo_after_sft_ep1_lora_chat_template_nl_plusbad_ep1" : "FT NL (joins)",
+
+    "base/nl" : "Base (NL)",
+    "ft/def/new_negatives/nl/qwen2.5_sft_lora_chat_template_nl_ep1": "SFT (NL) ep1",
+    "ft/def/new_negatives/nl/qwen2.5_sft_lora_chat_template_nl_ep2": "SFT (NL) ep2",
+    "ft/def/new_negatives/nl/qwen2.5_dpo_after_sft_ep1_nl_ep1_withbadformat_bcoloss": "DPO (NL) ep1 SFT ep1",
+    "ft/def/new_negatives/nl/qwen2.5_dpo_after_sft_ep1_nl_ep2_withbadformat_bcoloss": "DPO (NL) ep1 SFT ep2",
+    "ft/def/new_negatives/nl/qwen2.5_dpo_after_sft_ep2_nl_ep1_withbadformat_bcoloss": "DPO (NL) ep2 SFT ep1",
+    "ft/def/new_negatives/nl/qwen2.5_dpo_after_sft_ep2_nl_ep2_withbadformat_bcoloss": "DPO (NL) ep2 SFT ep2",
 }
 
 def load_eval_json(eval_path: Path) -> List[Dict[str, Any]]:
@@ -281,24 +279,23 @@ def plot_grouped_bars(df: pd.DataFrame, metric_col: str, title: str, output_path
 
 def main():
     # Root containing model folders: <model>/reports_ds/eval.json
-    models_root = Path("models")  
+    models_root = Path("models/qwen")  
 
     # opzionale: lista esplicita modelli
     model_dirs = [
-        #"base",
+
         "base/nl",
-        #"ft/llama3_8b_dpo_after_sft_lora_chat_template_nl_ep1",
-        "ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep1",
-        "ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep2",
-        "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep1_nl_ep1_withbadformat_bcoloss",
-        "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep1_nl_ep2_withbadformat_bcoloss",
-        "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep1_withbadformat_bcoloss",
-        "ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep2_withbadformat_bcoloss",
-        #"ft/cat_1_2/llama3_8b_dpo_after_sft_ep1_lora_chat_template_nl_plusbad_ep1"
+        "ft/def/new_negatives/nl/qwen2.5_sft_lora_chat_template_nl_ep1",
+        "ft/def/new_negatives/nl/qwen2.5_sft_lora_chat_template_nl_ep2",
+        "ft/def/new_negatives/nl/qwen2.5_dpo_after_sft_ep1_nl_ep1_withbadformat_bcoloss",
+        "ft/def/new_negatives/nl/qwen2.5_dpo_after_sft_ep1_nl_ep2_withbadformat_bcoloss",
+        "ft/def/new_negatives/nl/qwen2.5_dpo_after_sft_ep2_nl_ep1_withbadformat_bcoloss",
+        "ft/def/new_negatives/nl/qwen2.5_dpo_after_sft_ep2_nl_ep2_withbadformat_bcoloss"
+
 
     ]
 
-    out_dir = Path("models/new_negatives_comparison_outputs")
+    out_dir = Path("plots/qwen/nl/comparison_outputs")
     out_dir.mkdir(exist_ok=True, parents=True)
 
     df = build_dataframe(models_root=models_root, model_dirs=model_dirs)

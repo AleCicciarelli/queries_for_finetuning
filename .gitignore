@@ -14,4 +14,5 @@ src/tpch_queries.egg-info/
 src/utils/__pycache__/
 dpo_dataset/
 models/
-
+scripts/run_dpo_consecutive.sh
+scripts/run_test_consec.sh

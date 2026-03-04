@@ -17,15 +17,16 @@ Stability choices (recommended for H100 96GB):
 
 how to run:
 python3 scripts/dpo_finetuning.py \
-  --model_name_or_path models/ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep2  \
+  --model_name_or_path models/gemma/ft/def/new_negatives/nl/gemma7b_sft_lora_chat_template_nl_ep2  \
   --train_file dpo_dataset/nl/split_dataset_categorized/new_negatives/train_dpo_final.jsonl \
   --val_file dpo_dataset/nl/split_dataset_categorized/new_negatives/val_dpo_final.jsonl \
-  --output_dir models/ft/def/new_negatives/nl/llama3_8b_dpo_after_sft_ep2_nl_ep1_withbadformat_bcoloss \
+  --output_dir models/gemma/ft/def/new_negatives/nl/gemma7b_dpo_after_sft_ep2_nl_ep2_withbadformat_bcoloss \
   --max_length 4096 \
   --max_prompt_length 2048 \
   --per_device_train_batch_size 1 \
+  --per_device_eval_batch_size 1 \
   --gradient_accumulation_steps 16 \
-  --num_train_epochs 1 \
+  --num_train_epochs 2 \
   --learning_rate 2e-6 \
   --beta 0.1 \
   --eval_steps 100 \
@@ -122,7 +123,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--lora_target_modules",
         type=str,
-        default="q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj",
+        default="q_proj,k_proj,v_proj,o_proj",
         help="Comma-separated target module names for LoRA.",
     )
 
@@ -161,6 +162,17 @@ def load_json_dataset(path: str):
     # For JSONL/JSON file: load_dataset("json", data_files=..., split="train") works for both.
     ds = load_dataset("json", data_files=path, split="train")
     return ds
+def apply_chat_template_to_prompt(ds, tokenizer):
+    def process(ex):
+        messages = [{"role": "user", "content": ex["prompt"]}]
+        prompt_chat = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,  
+        )
+        return {"prompt": prompt_chat, "chosen": ex["chosen"], "rejected": ex["rejected"]}
+
+    return ds.map(process, remove_columns=[c for c in ds.column_names if c not in {"prompt","chosen","rejected"}])
 
 
 def main():
@@ -184,10 +196,14 @@ def main():
     # Policy model (trainable via LoRA)
     model = AutoModelForCausalLM.from_pretrained(
         args.model_name_or_path,
-        torch_dtype=dtype,
+        dtype=dtype,
         device_map=device_map,
         attn_implementation=args.attn_implementation,
     )
+
+    model.gradient_checkpointing_enable()
+    model.config.use_cache = False  # needed for gradient checkpointing
+    model.enable_input_require_grads()
     # LoRA config
     target_modules: List[str] = [s.strip() for s in args.lora_target_modules.split(",") if s.strip()]
     peft_config = LoraConfig(
@@ -202,12 +218,14 @@ def main():
     # Data
     train_ds = load_json_dataset(args.train_file)
     train_ds = maybe_field_map(train_ds, args.dataset_field_mapping)
+    train_ds = apply_chat_template_to_prompt(train_ds, tokenizer)
+   
 
     val_ds = None
     if args.val_file:
         val_ds = load_json_dataset(args.val_file)
         val_ds = maybe_field_map(val_ds, args.dataset_field_mapping)
-
+        val_ds = apply_chat_template_to_prompt(val_ds, tokenizer)
     # Length defaults
     max_target_length = args.max_target_length
     if max_target_length is None:
@@ -240,7 +258,8 @@ def main():
         bf16=args.bf16,
         fp16=args.fp16,
         remove_unused_columns=False,
-
+        prediction_loss_only=True,
+        eval_accumulation_steps=1,
         # DPO-specific
         beta=args.beta,
         max_length=args.max_length,

@@ -12,7 +12,7 @@ from transformers import (
 )
 from peft import LoraConfig
 from trl import SFTTrainer, SFTConfig
-
+import torch.nn as nn
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--model_name_or_path", type=str, required=True)
@@ -41,7 +41,11 @@ def load_and_format_sft(path: str, tokenizer: AutoTokenizer):
         
         # 2. Applichiamo il template a tutta la conversazione.
         # tokenize=False perché SFTTrainer gestisce la tokenizzazione internamente.
-        full_text = tokenizer.apply_chat_template(messages, tokenize=False)
+        full_text = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=False, 
+        )
 
         return {"text": full_text}
 
@@ -69,12 +73,21 @@ def main():
         torch_dtype=torch.bfloat16,
         attn_implementation="sdpa"
     )
+
+    model.gradient_checkpointing_enable()
     model.config.use_cache = False
+    # print the target modules for LoRA
+    #for name, module in model.named_modules():
+    #    if isinstance(module, nn.Linear) and "proj" in name:
+    #        print(name)
     # Configurazione LoRA coerente con il DPO
     peft_config = LoraConfig(
         r=16,
         lora_alpha=32,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        #for llama and qwen models
+        #target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        #for gemma models
+        target_modules=["q_proj", "o_proj", "k_proj", "v_proj", "gate_proj", "up_proj", "down_proj"],
         lora_dropout=0.05,
         bias="none",
         task_type="CAUSAL_LM",
@@ -89,6 +102,7 @@ def main():
         output_dir=args.output_dir,
         max_length=args.max_length,
         per_device_train_batch_size=args.per_device_train_batch_size,
+        per_device_eval_batch_size=1,
         gradient_accumulation_steps=16, # Bilancia il batch size piccolo su H100
         learning_rate=args.learning_rate,
         num_train_epochs=args.num_train_epochs,
@@ -101,6 +115,9 @@ def main():
         report_to="none",
         lr_scheduler_type="cosine",
         warmup_ratio=0.03,
+        # evita di accumulare logits in eval
+        prediction_loss_only=True,
+        eval_accumulation_steps=1,
         # Importante: non aggiungere token speciali due volte se il template li ha già
         dataset_kwargs={
             "add_special_tokens": False,
@@ -125,11 +142,44 @@ if __name__ == "__main__":
     '''how to run:
     python3 scripts/sft_finetuning.py \
       --model_name_or_path meta-llama/Meta-Llama-3-8B-Instruct \
-      --train_file dpo_dataset/nl/split_dataset_categorized/new_negatives/train_sft.jsonl \
-      --val_file dpo_dataset/nl/split_dataset_categorized/new_negatives/val_sft.jsonl \
-      --output_dir models/ft/def/new_negatives/nl/llama3_8b_sft_lora_chat_template_nl_ep2 \
+      --train_file dpo_dataset/sql/split_dataset_categorized/new_negatives/train_sft.jsonl \
+      --val_file dpo_dataset/sql/split_dataset_categorized/new_negatives/val_sft.jsonl \
+      --output_dir models/ft/def/new_negatives/sql/llama3_8b_sft_lora_chat_template_sql_ep2 \
       --num_train_epochs 2 \
       --per_device_train_batch_size 1 \
       --learning_rate 2e-6 \
-      --max_length 4096'''
+      --max_length 4096
+      
+      python3 scripts/sft_finetuning.py \
+      --model_name_or_path Qwen/Qwen2.5-7B-Instruct \
+      --train_file dpo_dataset/sql/split_dataset_categorized/new_negatives/train_sft.jsonl \
+      --val_file dpo_dataset/sql/split_dataset_categorized/new_negatives/val_sft.jsonl \
+      --output_dir models/qwen/ft/def/new_negatives/sql/qwen2.5_sft_lora_chat_template_sql_ep2 \
+      --num_train_epochs 2 \
+      --per_device_train_batch_size 1 \
+      --learning_rate 2e-6 \
+      --max_length 4096
+
+
+       python3 scripts/sft_finetuning.py \
+      --model_name_or_path google/gemma-7b-it \
+      --train_file dpo_dataset/nl/split_dataset_categorized/new_negatives/train_sft.jsonl \
+      --val_file dpo_dataset/nl/split_dataset_categorized/new_negatives/val_sft.jsonl \
+      --output_dir models/gemma/ft/def/new_negatives/nl/gemma7b_sft_lora_chat_template_nl_ep1 \
+      --num_train_epochs 1 \
+      --per_device_train_batch_size 1 \
+      --learning_rate 2e-6 \
+      --max_length 4096
+
+    python3 scripts/sft_finetuning.py \
+      --model_name_or_path mistralai/Mistral-7B-Instruct-v0.3 \
+      --train_file dpo_dataset/nl/split_dataset_categorized/new_negatives/train_sft.jsonl \
+      --val_file dpo_dataset/nl/split_dataset_categorized/new_negatives/val_sft.jsonl \
+      --output_dir models/mistral/ft/def/new_negatives/nl/mistral7b_sft_lora_chat_template_nl_ep2 \
+      --num_train_epochs 2 \
+      --per_device_train_batch_size 1 \
+      --learning_rate 2e-6 \
+      --max_length 4096
+      
+      '''
     main()

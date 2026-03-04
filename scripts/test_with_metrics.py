@@ -101,6 +101,84 @@ def canonicalize_provenance(item: Dict) -> frozenset:
         frozenset(str(id_).strip().lower() for id_ in term) 
         for term in prov_raw if isinstance(term, list)
     )
+
+
+CONTEXT_MARK = "CONTEXT_DATA (rows):\n"
+
+
+def drop_keys_in_obj(obj: Any, drop_keys: set[str]) -> Any:
+    if isinstance(obj, dict):
+        return {k: drop_keys_in_obj(v, drop_keys) for k, v in obj.items() if k not in drop_keys}
+    if isinstance(obj, list):
+        return [drop_keys_in_obj(x, drop_keys) for x in obj]
+    return obj
+
+
+def _extract_first_json_object(s: str) -> tuple[str | None, str | None]:
+    """
+    Estrae il primo oggetto JSON { ... } bilanciato da una stringa,
+    ignorando graffe dentro stringhe.
+    Ritorna (json_str, rest) oppure (None, None).
+    """
+    start = s.find("{")
+    if start < 0:
+        return None, None
+
+    in_str = False
+    esc = False
+    depth = 0
+
+    for i in range(start, len(s)):
+        ch = s[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        else:
+            if ch == '"':
+                in_str = True
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    return s[start:i + 1], s[i + 1 :]
+
+    return None, None
+
+
+def clean_prompt_context(prompt: str, drop_keys: set[str]) -> str:
+    """
+    Rimuove ricorsivamente drop_keys (es. 'provsql') dal JSON
+    contenuto in CONTEXT_DATA (rows): ...
+    Se qualcosa va storto, ritorna il prompt originale.
+    """
+    idx = prompt.find(CONTEXT_MARK)
+    if idx == -1:
+        return prompt
+
+    prefix = prompt[: idx + len(CONTEXT_MARK)]
+    tail = prompt[idx + len(CONTEXT_MARK):]
+
+    obj_str, rest = _extract_first_json_object(tail)
+    if obj_str is None:
+        return prompt
+
+    try:
+        ctx = json.loads(obj_str)
+    except Exception:
+        return prompt
+
+    cleaned = drop_keys_in_obj(ctx, drop_keys)
+    if cleaned == ctx:
+        return prompt
+
+    return prefix + json.dumps(cleaned, ensure_ascii=False) + rest
 # -----------------------
 # Dataset Extraction
 # -----------------------
@@ -167,8 +245,24 @@ def generate(model, tok, prompt: str, max_tokens: int) -> str:
         inputs_text = tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
     inputs = tok(inputs_text, return_tensors="pt").to(model.device)
-    terminators = [tok.eos_token_id, tok.convert_tokens_to_ids("<|eot_id|>")]
+    terminators = []
+    if tok.eos_token_id is not None:
+        terminators.append(tok.eos_token_id)
 
+    # token eot only if exists and is valid (non-negative and not unk_token_id)
+    eot_id = tok.convert_tokens_to_ids("<|eot_id|>")
+    if isinstance(eot_id, int) and eot_id >= 0 and eot_id != tok.unk_token_id:
+        terminators.append(eot_id)
+
+    # fallback: use eos_token_id if no valid terminators found
+    if not terminators:
+        cfg_eos = getattr(model.config, "eos_token_id", None)
+        if isinstance(cfg_eos, int):
+            terminators = [cfg_eos]
+        elif isinstance(cfg_eos, list) and all(isinstance(x, int) for x in cfg_eos):
+            terminators = cfg_eos
+        else:
+            raise ValueError("No valid eos_token_id found for generation.")
     with torch.no_grad():
         out = model.generate(
             **inputs, 
@@ -176,7 +270,7 @@ def generate(model, tok, prompt: str, max_tokens: int) -> str:
             do_sample=False, 
             eos_token_id=terminators,
             pad_token_id=tok.eos_token_id,
-            temperature=0.0
+            #temperature = 0.0  #will be ignored since do_sample=False
         )
     return tok.decode(out[0, inputs["input_ids"].shape[1]:], skip_special_tokens=True).strip()
 
@@ -184,6 +278,16 @@ def generate(model, tok, prompt: str, max_tokens: int) -> str:
 # Main Runner
 # -----------------------
 
+def _is_valid_schema(obj: Any) -> bool:
+    # deve essere lista di dict con result+provenance
+    if not isinstance(obj, list):
+        return False
+    for el in obj:
+        if not isinstance(el, dict):
+            return False
+        if "result" not in el or "provenance" not in el:
+            return False
+    return True
 def run_evaluation_on_file(model, tok, file_path: Path, args) -> Dict[str, Any]:
     items = load_items(file_path)
     n = min(args.n, len(items))
@@ -208,11 +312,23 @@ def run_evaluation_on_file(model, tok, file_path: Path, args) -> Dict[str, Any]:
         dataset_stats[ds]["count"] += 1
 
         prompt = item.get("prompt", "")
+        prompt = clean_prompt_context(prompt, drop_keys={"provsql"})
         gold_raw = item.get("chosen", "[]")
         
         pred_raw = generate(model, tok, prompt, args.max_new_tokens)
+        print(f"\nID: {item_id}\nPred:\n{pred_raw}\n---")
         pred_obj, parse_err = strict_json_parse(pred_raw)
         gold_obj, _ = strict_json_parse(gold_raw)
+        # parsing_failed
+        if not _is_valid_schema(pred_obj):
+            dataset_stats[ds]["parsing_failed"] += 1
+            detailed_errors.append({
+                "id": item.get("id"),
+                "status": "parsing_failed",
+                "error": parse_err or "Invalid JSON schema (expected list of {result, provenance})",
+                "raw_output": pred_raw
+            })
+            continue
         
         if pred_obj is not None:
             # Calcoliamo le statistiche 'both' una volta sola per decidere se è un errore
@@ -295,7 +411,8 @@ def run_evaluation_on_file(model, tok, file_path: Path, args) -> Dict[str, Any]:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_id", default="meta-llama/Meta-Llama-3-8B-Instruct")
+    parser.add_argument("--base_id", default="Qwen/Qwen2.5-7B-Instruct")
+    #parser.add_argument("--base_id", default="google/gemma-7b-it")
     parser.add_argument("--test_dir", required=True, help="Path a test json")
     parser.add_argument("--adapter_dir", default=None)
     parser.add_argument("--out_json", required=True)
@@ -383,6 +500,7 @@ if __name__ == "__main__":
     '''how to run:
     python3 scripts/test_with_metrics.py \
   --test_dir dpo_dataset/sql/split_dataset_categorized/new_negatives/test_by_category/ \
+  --adapter_dir models/base/sql/adapter \
   --out_json models/base/sql/reports_ds/evaluation_per_type.json \
   --n 200'''
     main()
