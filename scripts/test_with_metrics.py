@@ -232,7 +232,7 @@ def make_serializable_set(diff_set, mode):
 
 def load_model(base_id: str, adapter_dir: Optional[str]):
     tok = AutoTokenizer.from_pretrained(adapter_dir if adapter_dir else base_id)
-    model = AutoModelForCausalLM.from_pretrained(base_id, torch_dtype=torch.bfloat16, device_map="auto",attn_implementation="sdpa")
+    model = AutoModelForCausalLM.from_pretrained(base_id, torch_dtype=torch.bfloat16, device_map="auto")
     if adapter_dir:
         model = PeftModel.from_pretrained(model, adapter_dir)
     return model.eval(), tok 
@@ -411,7 +411,8 @@ def run_evaluation_on_file(model, tok, file_path: Path, args) -> Dict[str, Any]:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_id", default="Qwen/Qwen2.5-7B-Instruct")
+    parser.add_argument("--base_id", default="models/phi3.5/ft/sql/merged/phi_sft_sql_ep1")
+    #parser.add_argument("--base_id", default="Qwen/Qwen2.5-7B-Instruct")
     #parser.add_argument("--base_id", default="google/gemma-7b-it")
     parser.add_argument("--test_dir", required=True, help="Path a test json")
     parser.add_argument("--adapter_dir", default=None)

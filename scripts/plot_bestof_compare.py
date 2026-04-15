@@ -637,7 +637,53 @@ def plot_cross_backbone_delta_heatmap(delta_df: pd.DataFrame, method: str, title
     plt.savefig(out_path, dpi=200)
     plt.close()
 
+def compute_base_matrix(best_df: pd.DataFrame, metric_col: str) -> pd.DataFrame:
+    """
+    Returns matrix:
+    rows = backbone
+    cols = category
+    values = Base F1
+    """
 
+    base = best_df[best_df["family"] == "Base"]
+
+    pivot = base.pivot_table(
+        index="backbone",
+        columns="category",
+        values=metric_col,
+        aggfunc="first",
+        observed=True,
+    ).reindex(columns=CATEGORIES_ORDER)
+
+    return pivot
+def plot_cross_backbone_base_heatmap(best_df: pd.DataFrame, metric_col: str, title: str, out_path: Path):
+
+    base = compute_base_matrix(best_df, metric_col)
+
+    if base.empty:
+        print("[SKIP] base heatmap empty")
+        return
+
+    plt.figure(figsize=(10, 3.6))
+
+    plt.imshow(base.values, aspect="auto", vmin=0, vmax=1)
+    plt.colorbar(label="F1")
+
+    plt.yticks(range(base.shape[0]), base.index)
+    plt.xticks(range(base.shape[1]), base.columns, rotation=20, ha="right")
+
+    # annotazioni numeriche
+    for i in range(base.shape[0]):
+        for j in range(base.shape[1]):
+            v = base.iloc[i, j]
+            txt = "" if pd.isna(v) else f"{v:.2f}"
+            plt.text(j, i, txt, ha="center", va="center", fontsize=9)
+
+    plt.title(title)
+    plt.tight_layout()
+
+    plt.savefig(out_path, dpi=200)
+    plt.close()
 # -----------------------------
 # 5) MAIN
 # -----------------------------
@@ -760,6 +806,21 @@ def main():
         out_path=OUT_DIR / "cross_backbone_bestSFT_provenance.png",
     )
 
+    # 8) Cross-backbone comparison heatmaps for Base runs (to see if some backbones are just stronger at baseline)
+    plot_cross_backbone_base_heatmap(
+        best_prov,
+        metric_col="f1_provenance",
+        title="Cross-Backbone Base Performance — Provenance F1",
+        out_path=OUT_DIR / "cross_backbone_base_provenance.png",
+    )
+
+    plot_cross_backbone_base_heatmap(
+        best_res,
+        metric_col="f1_result",
+        title="Cross-Backbone Base Performance — Result F1",
+        out_path=OUT_DIR / "cross_backbone_base_result.png",
+    )
+    
     print(f"\nSaved all outputs in: {OUT_DIR.resolve()}")
 
 
